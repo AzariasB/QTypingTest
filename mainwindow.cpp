@@ -28,7 +28,7 @@ QMainWindow(parent){
 }
 
 void MainWindow::showEndMessage() {
-    QMessageBox::StandardButton but = QMessageBox::information(this,"Finished","The exercice is finished");
+    QMessageBox::information(this,"Finished","The exercice is finished");
     qApp->quit();
 }
 

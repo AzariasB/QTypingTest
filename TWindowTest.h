@@ -29,6 +29,7 @@ signals:
 
 private:
     void createLines(QString textModel);
+    int findClosestSpace(const QStringList* search,int indexStart);
 
     QList<TLine*> *lines;
     int currentLine = 0;
