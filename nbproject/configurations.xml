@@ -7,6 +7,7 @@
       <itemPath>KeyboardLetters.h</itemPath>
       <itemPath>TLabel.h</itemPath>
       <itemPath>TLineEdit.h</itemPath>
+      <itemPath>TResult.h</itemPath>
       <itemPath>TWindowTest.h</itemPath>
       <itemPath>Tline.h</itemPath>
       <itemPath>WordFinder.h</itemPath>
@@ -22,6 +23,7 @@
       <itemPath>KeyboardLetters.cpp</itemPath>
       <itemPath>TLabel.cpp</itemPath>
       <itemPath>TLineEdit.cpp</itemPath>
+      <itemPath>TResult.cpp</itemPath>
       <itemPath>TWindowTest.cpp</itemPath>
       <itemPath>Tline.cpp</itemPath>
       <itemPath>WordFinder.cpp</itemPath>
@@ -70,6 +72,10 @@
       <item path="TLineEdit.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TLineEdit.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TResult.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TResult.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="TWindowTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -125,6 +131,10 @@
       <item path="TLineEdit.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TLineEdit.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TResult.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TResult.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="TWindowTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
