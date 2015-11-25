@@ -11,7 +11,10 @@
 #include <QWidget>
 #include <QList>
 #include <QDebug>
+#include <QTime>
+
 #include "Tline.h"
+#include "TResult.h"
 
 class TWindowTest : public QWidget {
     Q_OBJECT
@@ -22,18 +25,21 @@ public:
     virtual ~TWindowTest();
 
 public slots:
-    void nextLine();
+    void nextLine(TResult *previousScore);
+    void beginExercice();
 
 signals:
-    void endOfExercice();
+    void endOfExercice(TResult *exeRes);
 
 private:
     void createLines(QString textModel);
-    int findClosestSpace(const QStringList* search,int indexStart);
+    int findClosestSpace(const QStringList* search, int indexStart);
 
     QList<TLine*> *lines;
+    TResult *totRes = new TResult();
     int currentLine = 0;
     int numberOfLines = 4;
+    QTime timeStart;
 
 };
 

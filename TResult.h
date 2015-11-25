@@ -11,14 +11,15 @@
 class TResult {
 public:
     TResult();
+    TResult(const TResult &base);
     virtual ~TResult();
 
     int getCorrectKeysStrokes() const {
-        return this->correctKeysStrokes;
+        return this->correctKeystrokes;
     };
 
     int getWrongKeysStrokes() const {
-        return this->wrongKeysStrokes;
+        return this->wrongKeystrokes;
     };
 
     int getCorrectWords() const {
@@ -28,35 +29,53 @@ public:
     int getWrongWords() const {
         return this->wrongWords;
     };
-    int getWordsPerMinute() const;
+
+    void setCorrectKeysStrokes(int correctKeysStrokes) {
+        this->correctKeystrokes = correctKeysStrokes;
+    }
+
+    void setWrongKeysStrokes(int wrongKeysStrokes) {
+        this->wrongKeystrokes = wrongKeysStrokes;
+    }
+
+    void incrWrongKeyStrokes() {
+        this->wrongKeystrokes++;
+    }
+
+    void incrCorrectKeystrokes() {
+        this->correctKeystrokes++;
+    }
+
+    int getWPM(float deltaTime = 0.f/*in minutes*/);
     int getTotalWords() const;
     int getTotalKeysStokres() const;
-    
-    void setCorrectKeysStrokes(int correctKeysStrokes) {
-        this->correctKeysStrokes = correctKeysStrokes;
+
+    TResult* operator+(const TResult &otherRes);
+
+    TResult& operator+=(const TResult &otherRes);
+
+private:
+    int correctKeystrokes = 0;
+    int wrongKeystrokes = 0;
+    int correctWords = 0;
+    int wrongWords = 0;
+    int wordsPerMinute = 0;
+
+    void incrCorrectWords() {
+        this->correctWords++;
+    }
+
+    void incrWrongWords() {
+        this->wrongWords++;
     }
 
     void setCorrectWords(int correctWords) {
         this->correctWords = correctWords;
     }
 
-    void setWrongKeysStrokes(int wrongKeysStrokes) {
-        this->wrongKeysStrokes = wrongKeysStrokes;
-    }
-
     void setWrongWords(int wrongWords) {
         this->wrongWords = wrongWords;
     }
-
-    
-    TResult* operator+(const TResult &otherRes);
-
-private:
-    int correctKeysStrokes;
-    int wrongKeysStrokes;
-    int correctWords;
-    int wrongWords;
-
 };
 
 #endif	/* TRESULT_H */

@@ -8,9 +8,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/boutina/Qt/TypingLine/mainwindow.cpp</file>
-            <file>file:/home/boutina/Qt/TypingLine/Tline.h</file>
-            <file>file:/home/boutina/Qt/TypingLine/mainwindow.h</file>
-            <file>file:/home/boutina/Qt/TypingLine/Tline.cpp</file>
+            <file>file:/home/boutina/Qt/TypingLine/TWindowTest.cpp</file>
+            <file>file:/home/boutina/Qt/TypingLine/TWindowTest.h</file>
+            <file>file:/home/boutina/Qt/TypingLine/TResult.h</file>
+            <file>file:/home/boutina/Qt/TypingLine/TResult.cpp</file>
         </group>
     </open-files>
 </project-private>

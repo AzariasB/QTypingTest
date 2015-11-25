@@ -43,11 +43,12 @@ void TWindowTest::createLines(QString textModel) {
 
     for (auto it = models.begin(); it != models.end(); ++it) {
         TLine *sLine = new TLine(*it);
-        connect(sLine, SIGNAL(endedLine(int)), this, SLOT(nextLine()));
+        connect(sLine, SIGNAL(endedLine(TResult*)), this, SLOT(nextLine(TResult*)));
         centralLayout->addWidget(sLine);
         (*lines) << sLine;
     }
 
+    connect(lines->at(0),SIGNAL(startedLine()),this,SLOT(beginExercice()));
     this->setLayout(centralLayout);
 }
 
@@ -74,19 +75,26 @@ int TWindowTest::findClosestSpace(const QStringList* search, int indexStart) {
 
 //Slots
 
-void TWindowTest::nextLine() {
+void TWindowTest::nextLine(TResult* previousScore) {
+    *this->totRes += *previousScore;
     (*lines)[currentLine]->setEnabled(false);
     this->currentLine++;
     if (this->currentLine < lines->size()) {
         this->lines->at(currentLine)->setFocus();
     } else {
-        emit endOfExercice();
+        int elapsedMS = this->timeStart.elapsed();
+        float mnElapsed = (float)elapsedMS/60000.f;//Ms to minutes
+        qDebug() << " - WPM : " << totRes->getWPM(mnElapsed);
+        emit endOfExercice(totRes);
     }
+}
+
+void TWindowTest::beginExercice() {
+    this->timeStart.start();
 }
 
 
 //Destructor
-
 TWindowTest::~TWindowTest() {
 }
 

@@ -7,6 +7,8 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QValidator>
+
+#include "TResult.h"
 #include "TLabel.h"
 #include "TLineEdit.h"
 
@@ -28,9 +30,13 @@ private:
     TLabel *toCopy;
     QString globalAnswer;
     QString lastAnswer;
+    TResult *lineRes;
+    
+    bool started = false;
 
 signals:
-void endedLine(int nbrErrors); //TODO : replace nbrErrors by 'precision' object
+void endedLine(TResult *lineResult); 
+void startedLine();
 
 
 public slots:

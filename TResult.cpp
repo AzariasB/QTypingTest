@@ -7,18 +7,36 @@
 
 #include "TResult.h"
 
-TResult::TResult() {}
+TResult::TResult() {
+}
+
+TResult::TResult(const TResult &base) {
+    *this += base;
+}
 
 int TResult::getTotalKeysStokres() const {
     return getCorrectKeysStrokes() + getWrongKeysStrokes();
 }
 
-int TResult::getWordsPerMinute() const {
-    return getCorrectKeysStrokes() / 5;
+int TResult::getWPM(float deltaTime ) {
+    if (deltaTime > 0) {
+        wordsPerMinute = (getCorrectKeysStrokes() / 5) / deltaTime;
+    }
+    return wordsPerMinute;
 }
 
 int TResult::getTotalWords() const {
     return getCorrectWords() + getWrongWords();
+}
+
+//Operator overloading
+
+TResult& TResult::operator+=(const TResult& otherRes) {
+    this->correctKeystrokes += otherRes.getCorrectKeysStrokes();
+    this->correctWords += otherRes.getCorrectWords();
+    this->wrongKeystrokes += otherRes.getWrongKeysStrokes();
+    this->wrongWords += otherRes.getWrongWords();
+    return *this;
 }
 
 TResult* TResult::operator+(const TResult& otherRes) {
@@ -29,8 +47,6 @@ TResult* TResult::operator+(const TResult& otherRes) {
     res->setWrongWords(this->getWrongWords() + otherRes.getWrongWords());
     return res;
 }
-
-
 
 TResult::~TResult() {
 }

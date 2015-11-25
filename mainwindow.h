@@ -23,7 +23,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void showEndMessage();
+    void showEndMessage(TResult *finalRes);
 
 };
 

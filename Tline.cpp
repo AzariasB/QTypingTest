@@ -5,7 +5,8 @@ TLine::TLine(QString model, QWidget *parent) : QWidget(parent),
 tLineLayout(new QVBoxLayout(this)),
 edition(new QLineEdit(this)),
 toCopy(new TLabel(model, this)),
-globalAnswer(model) {
+globalAnswer(model),
+lineRes(new TResult()) {
     this->setLayout(this->tLineLayout);
     this->connectEvents();
 }
@@ -14,7 +15,8 @@ TLine::TLine(QString model) : QWidget(),
 tLineLayout(new QVBoxLayout(this)),
 edition(new QLineEdit(this)),
 toCopy(new TLabel(model)),
-globalAnswer(model) {
+globalAnswer(model),
+lineRes(new TResult()) {
     edition->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
     // Style just to make it clear that the widget is 
     // being resized to fit the parent, it doesn't "overflow"
@@ -35,12 +37,21 @@ void TLine::connectEvents() {
 }
 
 void TLine::typingAnswer(QString answer) {
-
+    if(!started){
+        started = true;
+        emit startedLine();
+    }
     if (!answer.isEmpty() && answer != "\r") {
-        this->toCopy->correctAnswer(answer);
+       if(this->toCopy->correctAnswer(answer)){
+           this->lineRes->incrCorrectKeystrokes();
+       }else{
+           this->lineRes->incrWrongKeyStrokes();
+       }
 
-        if (answer.size() > lastAnswer.size() && answer.at(answer.length() - 1) == ' ' && !this->toCopy->nextWord()) {
-            emit endedLine(this->toCopy->getNbrErrors());
+        if (answer.size() > lastAnswer.size()
+                && answer.at(answer.length() - 1) == ' '
+                && !this->toCopy->nextWord()) {
+            emit endedLine(this->lineRes);
         }
 
     }
