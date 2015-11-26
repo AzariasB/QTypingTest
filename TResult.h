@@ -38,12 +38,12 @@ public:
         this->wrongKeystrokes = wrongKeysStrokes;
     }
 
-    void incrWrongKeyStrokes() {
-        this->wrongKeystrokes++;
+    void incrWrongKeyStrokes(int incrementation) {
+        this->wrongKeystrokes += incrementation;
     }
 
-    void incrCorrectKeystrokes() {
-        this->correctKeystrokes++;
+    void incrCorrectKeystrokes(int incrementation) {
+        this->correctKeystrokes += incrementation;
     }
 
     int getWPM(float deltaTime = 0.f/*in minutes*/);

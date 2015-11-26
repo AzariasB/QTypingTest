@@ -1,4 +1,6 @@
 
+#include <qt5/QtWidgets/qlineedit.h>
+
 #include "Tline.h"
 
 TLine::TLine(QString model, QWidget *parent) : QWidget(parent),
@@ -23,7 +25,7 @@ lineRes(new TResult()) {
     //    edition->setFrameShape(QFrame::Box);
     //    edition->setFrameShadow(QFrame::Raised);
     //    edition->setAlignment(Qt::AlignHCenter);
-    this->edition->setContentsMargins(7, 0,7, 0);
+    this->edition->setContentsMargins(7, 0, 7, 0);
     this->tLineLayout->setSpacing(0);
     this->tLineLayout->addWidget(this->toCopy);
     this->tLineLayout->addWidget(this->edition);
@@ -37,24 +39,33 @@ void TLine::connectEvents() {
 }
 
 void TLine::typingAnswer(QString answer) {
-    if(!started){
+    if (!started) {
         started = true;
         emit startedLine();
     }
-    if (!answer.isEmpty() && answer != "\r") {
-       if(this->toCopy->correctAnswer(answer)){
-           this->lineRes->incrCorrectKeystrokes();
-       }else{
-           this->lineRes->incrWrongKeyStrokes();
-       }
 
-        if (answer.size() > lastAnswer.size()
-                && answer.at(answer.length() - 1) == ' '
-                && !this->toCopy->nextWord()) {
-            emit endedLine(this->lineRes);
+    if (!answer.isEmpty() && answer != "\r") {
+        bool isTheSame = toCopy->updateLabelColor(answer);
+
+        if (answer.size() > lastAnswer.size() && answer.at(answer.length() - 1) == ' ') {
+            if(answer.length() >= 2 && answer.at(answer.length() - 2) == ' '){
+                edition->setText(answer.left(answer.length() - 1));
+                return;//Avoid 'double space'
+            }
+            
+            QString lastWord = toCopy->getCurrentWord();
+            if(isTheSame){
+                lineRes->incrCorrectKeystrokes(lastWord.size() + 1);
+            }else{
+                lineRes->incrWrongKeyStrokes(lastWord.size() + 1);
+            }
+            if (!this->toCopy->nextWord()) {
+                emit endedLine(this->lineRes);
+            }
         }
 
     }
+    
     if (answer.size() < lastAnswer.size() - 1) {
         answer = lastAnswer;
         edition->setText(lastAnswer);

@@ -24,8 +24,9 @@ public:
     TLabel(QString text, QWidget *parent);
     virtual ~TLabel();
     bool nextWord();
-    bool correctAnswer(QString wordTyped);
+    bool updateLabelColor(QString wordTyped);
     int getNbrErrors();
+    QString getCurrentWord();
     
 private:
     void setLabels(QString labelLine);
@@ -34,7 +35,7 @@ private:
     QVector<QLabel*> labels;
     int currentWord = 0;
     int nbrErrors = 0;
-    bool wordIsCorrect = false;
+    bool exactSame = false;
 
 };
 

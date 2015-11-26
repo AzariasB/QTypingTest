@@ -42,7 +42,7 @@ void TLabel::setLabels(QString labelLine) {
  * @return if there is anther word to copy
  */
 bool TLabel::nextWord() {
-    if (wordIsCorrect) {
+    if (exactSame) {
         //Set color of label to green
         this->labels.at(currentWord)->setStyleSheet("QLabel{color : #0D5F1C}");
     } else {
@@ -51,48 +51,55 @@ bool TLabel::nextWord() {
     }
     if (this->currentWord < this->labels.size() - 1) {
         this->currentWord++;
-        return true;
+        return true;//Some words remains
     }
-    wordIsCorrect = true;
-    return false;
+    exactSame = true;//Reinit the bool to default : true
+    return false;//No more words
 }
 
 /**
  * Check if the answer the user is entering is correct
  * 
  * @param wordTyped the whole word the user typed
- * @return if the answer is the good one
+ * @return if the answer exactly the same as the text to copy
  */
-bool TLabel::correctAnswer(QString wordTyped) {
+bool TLabel::updateLabelColor(QString wordTyped) {
     QString finalBgColor = "#3188FF"; //Selectionné
     QString finalColor = "black";
-    bool isCorrect = true;
 
     auto *currentWord = this->labels.at(this->currentWord);
-    wordTyped = wordTyped.split(" ").last();
+    QStringList splited = wordTyped.split(" ");
+    wordTyped = splited.takeLast();
+    //Find the first non-empty word (must be last or before-last)
+    while(splited.size() > 0 && wordTyped.isEmpty()) wordTyped = splited.takeLast();
+    
+    
 
     //Not the same word => wrong
     if (currentWord->text().indexOf(wordTyped) != 0) {
         finalBgColor = "#AB001E";
         nbrErrors++;
-        isCorrect = false;
     }
 
-    if (!wordTyped.isEmpty()) wordIsCorrect = isCorrect;
+    exactSame = wordTyped.trimmed() == currentWord->text();
 
     currentWord->setStyleSheet("QLabel{border-color : " + finalBgColor + "; background-color : " + finalBgColor + ";color : " + finalColor + "}");
-    return isCorrect;
+    return exactSame;
 }
 
 void TLabel::initStyleSheet() {
     //    this->setStyleSheet("QLabel{padding : 0px; margin : 0px; border-style: solid;border-width: 5px;border-radius : 10px; border-color : rbga(0,0,0,0); }");
 }
 
-//TODO : créer un objet plus complet pour la précision
 
 int TLabel::getNbrErrors() {
     return nbrErrors;
 }
+
+QString TLabel::getCurrentWord() {
+    return labels.at(currentWord)->text();
+}
+
 
 TLabel::~TLabel() {
 }
