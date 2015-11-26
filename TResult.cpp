@@ -18,7 +18,7 @@ int TResult::getTotalKeysStokres() const {
     return getCorrectKeysStrokes() + getWrongKeysStrokes();
 }
 
-int TResult::getWPM(float deltaTime ) {
+int TResult::updateWPM(float deltaTime ) {
     if (deltaTime > 0) {
         wordsPerMinute = (getCorrectKeysStrokes() / 5) / deltaTime;
     }

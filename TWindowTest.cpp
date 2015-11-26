@@ -43,11 +43,13 @@ void TWindowTest::createLines(QString textModel) {
 
     for (auto it = models.begin(); it != models.end(); ++it) {
         TLine *sLine = new TLine(*it);
+        sLine->setEnabled(false);//Disable all to prevent user to switch of lineEdit
         connect(sLine, SIGNAL(endedLine(TResult*)), this, SLOT(nextLine(TResult*)));
         centralLayout->addWidget(sLine);
         (*lines) << sLine;
     }
-
+    lines->at(0)->setEnabled(true);//Enable first line
+    
     connect(lines->at(0),SIGNAL(startedLine()),this,SLOT(beginExercice()));
     this->setLayout(centralLayout);
 }
@@ -80,11 +82,12 @@ void TWindowTest::nextLine(TResult* previousScore) {
     (*lines)[currentLine]->setEnabled(false);
     this->currentLine++;
     if (this->currentLine < lines->size()) {
+        this->lines->at(currentLine)->setEnabled(true);
         this->lines->at(currentLine)->setFocus();
     } else {
         int elapsedMS = this->timeStart.elapsed();
         float mnElapsed = (float)elapsedMS/60000.f;//Ms to minutes
-        qDebug() << " - WPM : " << totRes->getWPM(mnElapsed);
+        totRes->updateWPM(mnElapsed);
         emit endOfExercice(totRes);
     }
 }

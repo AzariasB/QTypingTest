@@ -30,6 +30,10 @@ public:
         return this->wrongWords;
     };
 
+    int getWPM() {
+        return wordsPerMinute;
+    }
+
     void setCorrectKeysStrokes(int correctKeysStrokes) {
         this->correctKeystrokes = correctKeysStrokes;
     }
@@ -46,7 +50,7 @@ public:
         this->correctKeystrokes += incrementation;
     }
 
-    int getWPM(float deltaTime = 0.f/*in minutes*/);
+    int updateWPM(float deltaTime/*in minutes*/);
     int getTotalWords() const;
     int getTotalKeysStokres() const;
 
