@@ -1,4 +1,4 @@
-#include "qtypingtest/mainwindow.h"
+#include "QTypingTest/mainwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

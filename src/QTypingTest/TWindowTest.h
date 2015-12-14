@@ -13,7 +13,7 @@
 #include <QDebug>
 #include <QTime>
 
-#include "tline/Tline.h"
+#include "TLine/Tline.h"
 #include "TResult.h"
 
 class TWindowTest : public QWidget {
