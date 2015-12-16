@@ -16,7 +16,7 @@ QMainWindow(parent) {
     QWidget *centralW = new QWidget();
     TWindowTest *test = new TWindowTest(QString("Ok so now you have a very long text to copy , ") +
             "first I want to wish you good luck then I have to say faster " +
-            "and if the developpers had the time you may know your precision , " +
+            "and if the developers had the time you may know your precision , " +
             "your speed and a score at the end of this rush", centralW);
 
 
