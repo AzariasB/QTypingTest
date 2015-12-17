@@ -7,6 +7,8 @@
 
 
 
+#include <qt5/QtCore/qlogging.h>
+
 #include "THomePage.h"
 
 THomePage::THomePage(QWidget *parent) :
@@ -21,18 +23,23 @@ THomePage::~THomePage() {
 /**
  *  Connect the basics event for the main window,,
  *  namely change current stack index when button click
- * and connect event about the menu options
+ * and connect event about the menu options 
  */
 void THomePage::connectEvents() {
-    QVector<QPushButton*> stackOrder(0);
+    QHash<QPushButton*, QWidget*> pagesButton;
 
-    stackOrder.append(ui.button_home);
-    stackOrder.append(ui.button_learn);
-    stackOrder.append(ui.button_practice);
-    stackOrder.append(ui.button_stats);
-    stackOrder.append(ui.button_games);
+    pagesButton[ui.button_home] = ui.page_home;
+    pagesButton[ui.button_learn] = ui.page_learn;
+    pagesButton[ui.button_games] = ui.page_games;
+    pagesButton[ui.button_stats] = ui.page_stats;
+    pagesButton[ui.button_practice] = ui.page_practice;
 
-    for (int i = 0; i < stackOrder.size(); i++) {
-        connect(stackOrder[i], &QPushButton::clicked, [ = ](){ui.stack_main->setCurrentIndex(i);});
+    QHashIterator<QPushButton*, QWidget*> it(pagesButton);
+    while (it.hasNext()) {
+        it.next();
+        connect(it.key(), &QPushButton::clicked, [ = ](){
+            int i = ui.stack_main->indexOf(it.value());
+            ui.stack_main->setCurrentIndex(i);
+        });
     }
 }

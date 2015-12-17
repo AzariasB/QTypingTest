@@ -16,7 +16,8 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include <QVector>
+#include <QHash>
+#include <QDebug>
 #include "../ui/ui_homepage.h"
 
 class THomePage : public QMainWindow {
