@@ -8,7 +8,7 @@
 #include <QApplication>
 #include <QValidator>
 
-#include "../TResult.h"
+#include "../Data/TResult.h"
 #include "TLabel.h"
 #include "TLineEdit.h"
 

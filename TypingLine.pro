@@ -29,27 +29,32 @@ CONFIG(debug, debug|release) {
 UI_DIR = src/ui
 
 
-
 TEMPLATE = app
 
-SOURCES += src/main.cpp\
+SOURCES += src/main.cpp \
+        src/Data/TPractice.cpp \
         src/QTypingTest/mainwindow.cpp \
         src/QTypingTest/TLine/Tline.cpp \
         src/QTypingTest/TLine/TLabel.cpp \
         src/QTypingTest/TLine/TLineEdit.cpp \
-        src/QTypingTest/TResult.cpp \
         src/QTypingTest/TWindowTest.cpp \
-        src/QTypingTest/THomePage.cpp
+        src/QTypingTest/THomePage.cpp \
+        src/QTypingTest/Learn/LearnPage.cpp \
+        src/Data/TResult.cpp 
 
 HEADERS  += src/QTypingTest/mainwindow.h \
+        src/Data/TPractice.h \
         src/QTypingTest/TLine/Tline.h \
         src/QTypingTest/TLine/TLabel.h \
         src/QTypingTest/TLine/TLineEdit.h \
-        src/QTypingTest/TResult.h \
         src/QTypingTest/TWindowTest.h \
         src/QTypingTest/THomePage.h \
-        homepage.h
+        src/QTypingTest/Learn/LearnPage.h \
+        src/Data/TResult.h 
         
+
+RC_ICONS += etc/icon.ico
+ICON = TypingLine.icns
 
 FORMS += \
     src/ui/homepage.ui

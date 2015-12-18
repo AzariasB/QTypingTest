@@ -14,7 +14,7 @@
 #include <QTime>
 
 #include "TLine/Tline.h"
-#include "TResult.h"
+#include "Data/TResult.h"
 
 class TWindowTest : public QWidget {
     Q_OBJECT

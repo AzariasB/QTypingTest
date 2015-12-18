@@ -7,9 +7,10 @@
 
 
 
-#include <qt5/QtCore/qlogging.h>
+#include <qt5/QtWidgets/qboxlayout.h>
 
 #include "THomePage.h"
+#include "Learn/LearnPage.h"
 
 THomePage::THomePage(QWidget *parent) :
 QMainWindow(parent) {
@@ -20,26 +21,59 @@ QMainWindow(parent) {
 THomePage::~THomePage() {
 }
 
-/**
- *  Connect the basics event for the main window,,
- *  namely change current stack index when button click
- * and connect event about the menu options 
- */
 void THomePage::connectEvents() {
-    QHash<QPushButton*, QWidget*> pagesButton;
 
-    pagesButton[ui.button_home] = ui.page_home;
-    pagesButton[ui.button_learn] = ui.page_learn;
-    pagesButton[ui.button_games] = ui.page_games;
-    pagesButton[ui.button_stats] = ui.page_stats;
-    pagesButton[ui.button_practice] = ui.page_practice;
+    struct button_stack {
+        QPushButton *triggerer;
+        QWidget *parent;
+        QWidget *child;
+    };
 
-    QHashIterator<QPushButton*, QWidget*> it(pagesButton);
-    while (it.hasNext()) {
-        it.next();
-        connect(it.key(), &QPushButton::clicked, [ = ](){
-            int i = ui.stack_main->indexOf(it.value());
+    QVector<button_stack> pagesButton;
+
+
+    button_stack sHome = {
+        ui.button_home,
+        ui.page_home,
+        nullptr //TODO : create homepage
+    };
+    button_stack sLearn = {
+        ui.button_learn,
+        ui.page_learn,
+        new LearnPage() //TODO : create learnpage with user as parameter
+    };
+    button_stack sGames = {
+        ui.button_games,
+        ui.page_games,
+        nullptr //TODO create games page
+    };
+    button_stack sStat = {
+        ui.button_stats,
+        ui.page_stats,
+        nullptr //TODO : create statistics page
+    };
+    button_stack sPractice = {
+        ui.button_practice,
+        ui.page_practice,
+        nullptr // TODO : create practice page
+    };
+
+    //Adding the structures to the array
+    pagesButton << sHome << sLearn << sGames << sPractice << sStat;
+
+    //Iterate over the buttons-page couple
+    for (auto it = pagesButton.begin(); it != pagesButton.end(); ++it) {
+        button_stack s = *it;
+        //If child is not nullptr create a simple layout with parent and add the chil into it
+        if (s.child) {
+            QHBoxLayout *l = new QHBoxLayout(s.parent);
+            l->addWidget(s.child);
+        }
+        connect(s.triggerer, &QPushButton::clicked, [ = ](){
+            int i = ui.stack_main->indexOf(s.parent);
             ui.stack_main->setCurrentIndex(i);
         });
     }
+
 }
+

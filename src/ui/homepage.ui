@@ -77,145 +77,18 @@
        <item row="0" column="0">
         <widget class="QStackedWidget" name="stack_main">
          <widget class="QWidget" name="page_learn">
-          <widget class="QWidget" name="horizontalLayoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>801</width>
-             <height>511</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QScrollArea" name="scrollArea">
-              <property name="widgetResizable">
-               <bool>true</bool>
-              </property>
-              <widget class="QWidget" name="scrollAreaWidgetContents">
-               <property name="geometry">
-                <rect>
-                 <x>0</x>
-                 <y>0</y>
-                 <width>797</width>
-                 <height>507</height>
-                </rect>
-               </property>
-               <widget class="QWidget" name="gridLayoutWidget">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>0</y>
-                  <width>791</width>
-                  <height>511</height>
-                 </rect>
-                </property>
-                <layout class="QGridLayout" name="gridLayout">
-                 <item row="0" column="1">
-                  <widget class="QLabel" name="label_7">
-                   <property name="text">
-                    <string>fj</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_5">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="3">
-                  <widget class="QLabel" name="label_14">
-                   <property name="text">
-                    <string>dk</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_6">
-                   <property name="text">
-                    <string>The basics</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="4">
-                  <widget class="QLabel" name="label_11">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="2">
-                  <widget class="QLabel" name="label_9">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="3">
-                  <widget class="QLabel" name="label_10">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_13">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="label_12">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="2">
-                  <widget class="QLabel" name="label_8">
-                   <property name="text">
-                    <string>dk</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="4">
-                  <widget class="QLabel" name="label_15">
-                   <property name="text">
-                    <string>dk</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="5">
-                  <widget class="QLabel" name="label_16">
-                   <property name="text">
-                    <string>dk</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="6">
-                  <widget class="QLabel" name="label_17">
-                   <property name="text">
-                    <string>dk</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
          </widget>
          <widget class="QWidget" name="page_home"/>
          <widget class="QWidget" name="page_practice">
@@ -347,6 +220,13 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>button_home</tabstop>
+  <tabstop>button_learn</tabstop>
+  <tabstop>button_games</tabstop>
+  <tabstop>button_practice</tabstop>
+  <tabstop>button_stats</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

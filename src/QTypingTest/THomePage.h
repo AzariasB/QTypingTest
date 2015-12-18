@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /* 
  * File:   THomePage.h
@@ -16,16 +11,28 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include <QHash>
+#include <QVector>
+#include <QPushButton>
 #include <QDebug>
+#include <QHBoxLayout>
+
+#include "../Data/TPractice.h"
 #include "../ui/ui_homepage.h"
+
 
 class THomePage : public QMainWindow {
     Q_OBJECT
 public:
     THomePage(QWidget *parent = 0);
     virtual ~THomePage();
+
+
 private:
+    /**
+     *  Connect the basics event for the main window,,
+     *  namely change current stack index when button click
+     * and connect event about the menu options 
+     */
     void connectEvents();
     Ui::MainWindow ui;
 };

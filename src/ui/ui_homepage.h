@@ -21,7 +21,6 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
@@ -53,26 +52,6 @@ public:
     QGridLayout *gridLayout_2;
     QStackedWidget *stack_main;
     QWidget *page_learn;
-    QWidget *horizontalLayoutWidget;
-    QHBoxLayout *horizontalLayout;
-    QScrollArea *scrollArea;
-    QWidget *scrollAreaWidgetContents;
-    QWidget *gridLayoutWidget;
-    QGridLayout *gridLayout;
-    QLabel *label_7;
-    QLabel *label;
-    QLabel *label_5;
-    QLabel *label_14;
-    QLabel *label_6;
-    QLabel *label_11;
-    QLabel *label_9;
-    QLabel *label_10;
-    QLabel *label_13;
-    QLabel *label_12;
-    QLabel *label_8;
-    QLabel *label_15;
-    QLabel *label_16;
-    QLabel *label_17;
     QWidget *page_home;
     QWidget *page_practice;
     QLabel *label_2;
@@ -156,98 +135,12 @@ public:
         stack_main->setObjectName(QStringLiteral("stack_main"));
         page_learn = new QWidget();
         page_learn->setObjectName(QStringLiteral("page_learn"));
-        horizontalLayoutWidget = new QWidget(page_learn);
-        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(0, 0, 801, 511));
-        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        scrollArea = new QScrollArea(horizontalLayoutWidget);
-        scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        scrollArea->setWidgetResizable(true);
-        scrollAreaWidgetContents = new QWidget();
-        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 797, 507));
-        gridLayoutWidget = new QWidget(scrollAreaWidgetContents);
-        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(0, 0, 791, 511));
-        gridLayout = new QGridLayout(gridLayoutWidget);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        label_7 = new QLabel(gridLayoutWidget);
-        label_7->setObjectName(QStringLiteral("label_7"));
-
-        gridLayout->addWidget(label_7, 0, 1, 1, 1);
-
-        label = new QLabel(gridLayoutWidget);
-        label->setObjectName(QStringLiteral("label"));
-
-        gridLayout->addWidget(label, 2, 0, 1, 1);
-
-        label_5 = new QLabel(gridLayoutWidget);
-        label_5->setObjectName(QStringLiteral("label_5"));
-
-        gridLayout->addWidget(label_5, 3, 0, 1, 1);
-
-        label_14 = new QLabel(gridLayoutWidget);
-        label_14->setObjectName(QStringLiteral("label_14"));
-
-        gridLayout->addWidget(label_14, 0, 3, 1, 1);
-
-        label_6 = new QLabel(gridLayoutWidget);
-        label_6->setObjectName(QStringLiteral("label_6"));
-
-        gridLayout->addWidget(label_6, 0, 0, 1, 1);
-
-        label_11 = new QLabel(gridLayoutWidget);
-        label_11->setObjectName(QStringLiteral("label_11"));
-
-        gridLayout->addWidget(label_11, 1, 4, 1, 1);
-
-        label_9 = new QLabel(gridLayoutWidget);
-        label_9->setObjectName(QStringLiteral("label_9"));
-
-        gridLayout->addWidget(label_9, 1, 2, 1, 1);
-
-        label_10 = new QLabel(gridLayoutWidget);
-        label_10->setObjectName(QStringLiteral("label_10"));
-
-        gridLayout->addWidget(label_10, 1, 3, 1, 1);
-
-        label_13 = new QLabel(gridLayoutWidget);
-        label_13->setObjectName(QStringLiteral("label_13"));
-
-        gridLayout->addWidget(label_13, 1, 0, 1, 1);
-
-        label_12 = new QLabel(gridLayoutWidget);
-        label_12->setObjectName(QStringLiteral("label_12"));
-
-        gridLayout->addWidget(label_12, 1, 1, 1, 1);
-
-        label_8 = new QLabel(gridLayoutWidget);
-        label_8->setObjectName(QStringLiteral("label_8"));
-
-        gridLayout->addWidget(label_8, 0, 2, 1, 1);
-
-        label_15 = new QLabel(gridLayoutWidget);
-        label_15->setObjectName(QStringLiteral("label_15"));
-
-        gridLayout->addWidget(label_15, 0, 4, 1, 1);
-
-        label_16 = new QLabel(gridLayoutWidget);
-        label_16->setObjectName(QStringLiteral("label_16"));
-
-        gridLayout->addWidget(label_16, 0, 5, 1, 1);
-
-        label_17 = new QLabel(gridLayoutWidget);
-        label_17->setObjectName(QStringLiteral("label_17"));
-
-        gridLayout->addWidget(label_17, 0, 6, 1, 1);
-
-        scrollArea->setWidget(scrollAreaWidgetContents);
-
-        horizontalLayout->addWidget(scrollArea);
-
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(page_learn->sizePolicy().hasHeightForWidth());
+        page_learn->setSizePolicy(sizePolicy);
+        page_learn->setAutoFillBackground(false);
         stack_main->addWidget(page_learn);
         page_home = new QWidget();
         page_home->setObjectName(QStringLiteral("page_home"));
@@ -290,6 +183,10 @@ public:
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         MainWindow->setStatusBar(statusbar);
+        QWidget::setTabOrder(button_home, button_learn);
+        QWidget::setTabOrder(button_learn, button_games);
+        QWidget::setTabOrder(button_games, button_practice);
+        QWidget::setTabOrder(button_practice, button_stats);
 
         menubar->addAction(menuUser->menuAction());
         menubar->addAction(menuOptions->menuAction());
@@ -319,20 +216,6 @@ public:
         button_practice->setText(QApplication::translate("MainWindow", "Practice", 0));
         button_stats->setText(QApplication::translate("MainWindow", "Statistics", 0));
         button_games->setText(QApplication::translate("MainWindow", "Games", 0));
-        label_7->setText(QApplication::translate("MainWindow", "fj", 0));
-        label->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        label_5->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        label_14->setText(QApplication::translate("MainWindow", "dk", 0));
-        label_6->setText(QApplication::translate("MainWindow", "The basics", 0));
-        label_11->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        label_9->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        label_10->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        label_13->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        label_12->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        label_8->setText(QApplication::translate("MainWindow", "dk", 0));
-        label_15->setText(QApplication::translate("MainWindow", "dk", 0));
-        label_16->setText(QApplication::translate("MainWindow", "dk", 0));
-        label_17->setText(QApplication::translate("MainWindow", "dk", 0));
         label_2->setText(QApplication::translate("MainWindow", "Practice", 0));
         label_3->setText(QApplication::translate("MainWindow", "Statistics", 0));
         label_4->setText(QApplication::translate("MainWindow", "games", 0));
