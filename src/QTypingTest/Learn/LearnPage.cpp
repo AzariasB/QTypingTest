@@ -11,7 +11,6 @@ LearnPage::LearnPage(QWidget* parent) : QWidget(parent) {
     this->createPractice();
 }
 
-
 void LearnPage::createPractice() {
     TPractice t = TPractice::getInstance();
 
@@ -23,6 +22,7 @@ void LearnPage::createPractice() {
     //Create a button for each existing string and add it to the layout
     for (auto it = l.begin(); it != l.end(); ++it) {
         QPushButton *button = new QPushButton(*it);
+        connect(button, SIGNAL(clicked()), this, SLOT(lauchExercice()));
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         lay->addWidget(button, row, col);
 
@@ -34,6 +34,10 @@ void LearnPage::createPractice() {
     }
 }
 
-int LearnPage::lauchExercice() {
-    qDebug() << "Create exercices :";
+void LearnPage::lauchExercice() {
+    if (QPushButton * b = dynamic_cast<QPushButton*> (sender())) {
+        qDebug() << "Create exercices : " << b->text();
+    } else {
+        qDebug() << "Sender is not a button";
+    }
 }

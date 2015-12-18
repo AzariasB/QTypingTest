@@ -54,7 +54,9 @@ SOURCES       = src/main.cpp \
 		src/QTypingTest/TWindowTest.cpp \
 		src/QTypingTest/THomePage.cpp \
 		src/QTypingTest/Learn/LearnPage.cpp \
-		src/Data/TResult.cpp build/debug/.moc/moc_mainwindow.cpp \
+		src/Data/TResult.cpp \
+		src/Data/TExercice.cpp \
+		src/Data/TUser.cpp build/debug/.moc/moc_mainwindow.cpp \
 		build/debug/.moc/moc_Tline.cpp \
 		build/debug/.moc/moc_TLabel.cpp \
 		build/debug/.moc/moc_TLineEdit.cpp \
@@ -71,6 +73,8 @@ OBJECTS       = build/debug/.obj/main.o \
 		build/debug/.obj/THomePage.o \
 		build/debug/.obj/LearnPage.o \
 		build/debug/.obj/TResult.o \
+		build/debug/.obj/TExercice.o \
+		build/debug/.obj/TUser.o \
 		build/debug/.obj/moc_mainwindow.o \
 		build/debug/.obj/moc_Tline.o \
 		build/debug/.obj/moc_TLabel.o \
@@ -316,7 +320,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d build/debug/.obj/TypingLineD1.0.0 || mkdir -p build/debug/.obj/TypingLineD1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) build/debug/.obj/TypingLineD1.0.0/ && $(COPY_FILE) --parents src/QTypingTest/mainwindow.h src/Data/TPractice.h src/QTypingTest/TLine/Tline.h src/QTypingTest/TLine/TLabel.h src/QTypingTest/TLine/TLineEdit.h src/QTypingTest/TWindowTest.h src/QTypingTest/THomePage.h src/QTypingTest/Learn/LearnPage.h src/Data/TResult.h build/debug/.obj/TypingLineD1.0.0/ && $(COPY_FILE) --parents src/main.cpp src/Data/TPractice.cpp src/QTypingTest/mainwindow.cpp src/QTypingTest/TLine/Tline.cpp src/QTypingTest/TLine/TLabel.cpp src/QTypingTest/TLine/TLineEdit.cpp src/QTypingTest/TWindowTest.cpp src/QTypingTest/THomePage.cpp src/QTypingTest/Learn/LearnPage.cpp src/Data/TResult.cpp build/debug/.obj/TypingLineD1.0.0/ && $(COPY_FILE) --parents src/ui/homepage.ui build/debug/.obj/TypingLineD1.0.0/ && (cd `dirname build/debug/.obj/TypingLineD1.0.0` && $(TAR) TypingLineD1.0.0.tar TypingLineD1.0.0 && $(COMPRESS) TypingLineD1.0.0.tar) && $(MOVE) `dirname build/debug/.obj/TypingLineD1.0.0`/TypingLineD1.0.0.tar.gz . && $(DEL_FILE) -r build/debug/.obj/TypingLineD1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) build/debug/.obj/TypingLineD1.0.0/ && $(COPY_FILE) --parents src/QTypingTest/mainwindow.h src/Data/TPractice.h src/QTypingTest/TLine/Tline.h src/QTypingTest/TLine/TLabel.h src/QTypingTest/TLine/TLineEdit.h src/QTypingTest/TWindowTest.h src/QTypingTest/THomePage.h src/QTypingTest/Learn/LearnPage.h src/Data/TResult.h src/Data/TExercice.h src/Data/TUser.h build/debug/.obj/TypingLineD1.0.0/ && $(COPY_FILE) --parents src/main.cpp src/Data/TPractice.cpp src/QTypingTest/mainwindow.cpp src/QTypingTest/TLine/Tline.cpp src/QTypingTest/TLine/TLabel.cpp src/QTypingTest/TLine/TLineEdit.cpp src/QTypingTest/TWindowTest.cpp src/QTypingTest/THomePage.cpp src/QTypingTest/Learn/LearnPage.cpp src/Data/TResult.cpp src/Data/TExercice.cpp src/Data/TUser.cpp build/debug/.obj/TypingLineD1.0.0/ && $(COPY_FILE) --parents src/ui/homepage.ui build/debug/.obj/TypingLineD1.0.0/ && (cd `dirname build/debug/.obj/TypingLineD1.0.0` && $(TAR) TypingLineD1.0.0.tar TypingLineD1.0.0 && $(COMPRESS) TypingLineD1.0.0.tar) && $(MOVE) `dirname build/debug/.obj/TypingLineD1.0.0`/TypingLineD1.0.0.tar.gz . && $(DEL_FILE) -r build/debug/.obj/TypingLineD1.0.0
 
 
 clean:compiler_clean 
@@ -1150,11 +1154,16 @@ build/debug/.moc/moc_THomePage.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/qmainwindow.h \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtGui/qicon.h \
-		/usr/include/qt5/QtCore/QHash \
+		/usr/include/qt5/QtCore/QVector \
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		src/Data/TPractice.h \
 		/usr/include/qt5/QtCore/QStringList \
 		src/ui/ui_homepage.h \
@@ -1172,11 +1181,6 @@ build/debug/.moc/moc_THomePage.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/QButtonGroup \
 		/usr/include/qt5/QtWidgets/qbuttongroup.h \
 		/usr/include/qt5/QtWidgets/QGridLayout \
-		/usr/include/qt5/QtWidgets/qgridlayout.h \
-		/usr/include/qt5/QtWidgets/qlayout.h \
-		/usr/include/qt5/QtWidgets/qlayoutitem.h \
-		/usr/include/qt5/QtWidgets/qboxlayout.h \
-		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/QHeaderView \
 		/usr/include/qt5/QtWidgets/qheaderview.h \
 		/usr/include/qt5/QtWidgets/qabstractitemview.h \
@@ -1320,6 +1324,14 @@ build/debug/.moc/moc_LearnPage.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtWidgets/QGridLayout \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtCore/QDebug \
+		src/Data/TPractice.h \
+		/usr/include/qt5/QtCore/QStringList \
 		src/QTypingTest/Learn/LearnPage.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/QTypingTest/Learn/LearnPage.h -o build/debug/.moc/moc_LearnPage.cpp
 
@@ -1454,11 +1466,16 @@ build/debug/.obj/main.o: src/main.cpp src/QTypingTest/THomePage.h \
 		/usr/include/qt5/QtWidgets/qmainwindow.h \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtGui/qicon.h \
-		/usr/include/qt5/QtCore/QHash \
+		/usr/include/qt5/QtCore/QVector \
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		src/Data/TPractice.h \
 		/usr/include/qt5/QtCore/QStringList \
 		src/ui/ui_homepage.h \
@@ -1476,11 +1493,6 @@ build/debug/.obj/main.o: src/main.cpp src/QTypingTest/THomePage.h \
 		/usr/include/qt5/QtWidgets/QButtonGroup \
 		/usr/include/qt5/QtWidgets/qbuttongroup.h \
 		/usr/include/qt5/QtWidgets/QGridLayout \
-		/usr/include/qt5/QtWidgets/qgridlayout.h \
-		/usr/include/qt5/QtWidgets/qlayout.h \
-		/usr/include/qt5/QtWidgets/qlayoutitem.h \
-		/usr/include/qt5/QtWidgets/qboxlayout.h \
-		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/QHeaderView \
 		/usr/include/qt5/QtWidgets/qheaderview.h \
 		/usr/include/qt5/QtWidgets/qabstractitemview.h \
@@ -2386,11 +2398,16 @@ build/debug/.obj/THomePage.o: src/QTypingTest/THomePage.cpp src/QTypingTest/THom
 		/usr/include/qt5/QtWidgets/qmainwindow.h \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtGui/qicon.h \
-		/usr/include/qt5/QtCore/QHash \
+		/usr/include/qt5/QtCore/QVector \
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		src/Data/TPractice.h \
 		/usr/include/qt5/QtCore/QStringList \
 		src/ui/ui_homepage.h \
@@ -2408,11 +2425,6 @@ build/debug/.obj/THomePage.o: src/QTypingTest/THomePage.cpp src/QTypingTest/THom
 		/usr/include/qt5/QtWidgets/QButtonGroup \
 		/usr/include/qt5/QtWidgets/qbuttongroup.h \
 		/usr/include/qt5/QtWidgets/QGridLayout \
-		/usr/include/qt5/QtWidgets/qgridlayout.h \
-		/usr/include/qt5/QtWidgets/qlayout.h \
-		/usr/include/qt5/QtWidgets/qlayoutitem.h \
-		/usr/include/qt5/QtWidgets/qboxlayout.h \
-		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/QHeaderView \
 		/usr/include/qt5/QtWidgets/qheaderview.h \
 		/usr/include/qt5/QtWidgets/qabstractitemview.h \
@@ -2440,7 +2452,8 @@ build/debug/.obj/THomePage.o: src/QTypingTest/THomePage.cpp src/QTypingTest/THom
 		/usr/include/qt5/QtWidgets/qstackedwidget.h \
 		/usr/include/qt5/QtWidgets/QStatusBar \
 		/usr/include/qt5/QtWidgets/qstatusbar.h \
-		/usr/include/qt5/QtWidgets/QVBoxLayout
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		src/QTypingTest/Learn/LearnPage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/.obj/THomePage.o src/QTypingTest/THomePage.cpp
 
 build/debug/.obj/LearnPage.o: src/QTypingTest/Learn/LearnPage.cpp src/QTypingTest/Learn/LearnPage.h \
@@ -2555,11 +2568,88 @@ build/debug/.obj/LearnPage.o: src/QTypingTest/Learn/LearnPage.cpp src/QTypingTes
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/qabstractbutton.h \
-		/usr/include/qt5/QtGui/qicon.h
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtWidgets/QGridLayout \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtCore/QDebug \
+		src/Data/TPractice.h \
+		/usr/include/qt5/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/.obj/LearnPage.o src/QTypingTest/Learn/LearnPage.cpp
 
 build/debug/.obj/TResult.o: src/Data/TResult.cpp src/Data/TResult.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/.obj/TResult.o src/Data/TResult.cpp
+
+build/debug/.obj/TExercice.o: src/Data/TExercice.cpp src/Data/TExercice.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/.obj/TExercice.o src/Data/TExercice.cpp
+
+build/debug/.obj/TUser.o: src/Data/TUser.cpp src/Data/TUser.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/.obj/TUser.o src/Data/TUser.cpp
 
 build/debug/.obj/moc_mainwindow.o: build/debug/.moc/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/.obj/moc_mainwindow.o build/debug/.moc/moc_mainwindow.cpp

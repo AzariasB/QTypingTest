@@ -40,7 +40,9 @@ SOURCES += src/main.cpp \
         src/QTypingTest/TWindowTest.cpp \
         src/QTypingTest/THomePage.cpp \
         src/QTypingTest/Learn/LearnPage.cpp \
-        src/Data/TResult.cpp 
+        src/Data/TResult.cpp \
+        src/Data/TExercice.cpp \
+        src/Data/TUser.cpp
 
 HEADERS  += src/QTypingTest/mainwindow.h \
         src/Data/TPractice.h \
@@ -50,7 +52,9 @@ HEADERS  += src/QTypingTest/mainwindow.h \
         src/QTypingTest/TWindowTest.h \
         src/QTypingTest/THomePage.h \
         src/QTypingTest/Learn/LearnPage.h \
-        src/Data/TResult.h 
+        src/Data/TResult.h \
+        src/Data/TExercice.h \
+        src/Data/TUser.h
         
 
 RC_ICONS += etc/icon.ico
