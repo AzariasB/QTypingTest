@@ -2,6 +2,10 @@
 /moc_*.h
 /moc_*.cpp
 /docs/*
+!refman.pdf
 /build/
 .obj/
-.mov/
+.moc/
+test*
+/tests/**/Makefile
+Makefile

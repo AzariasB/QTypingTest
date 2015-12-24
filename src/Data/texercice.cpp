@@ -8,25 +8,25 @@
 
 #include <qt5/QtCore/qstringlist.h>
 
-#include "TExercice.h"
+#include "texercice.h"
 
 TExercice::TExercice(EXERCICE_TYPE exType, bool allLetters) :
-exerciceType(exType),
-allLetters(allLetters) {
-    this->availableLetters = this->allLetters ? getAllLetters() : QStringList();
+exerciceType_(exType),
+allLetters_(allLetters) {
+    this->availableLetters_ = this->allLetters_ ? getAllLetters() : QStringList();
 }
 
 TExercice::TExercice(EXERCICE_TYPE exType, QStringList mainLetter, QStringList availableLetters) :
-exerciceType(exType),
-learningLetters(mainLetter),
-availableLetters(availableLetters) {
+exerciceType_(exType),
+learningLetters_(mainLetter),
+availableLetters_(availableLetters) {
 }
 
 TExercice::TExercice(const TExercice& orig) :
-exerciceType(orig.exerciceType),
-learningLetters(orig.learningLetters),
-availableLetters(orig.availableLetters),
-allLetters(orig.allLetters) {
+exerciceType_(orig.exerciceType_),
+learningLetters_(orig.learningLetters_),
+availableLetters_(orig.availableLetters_),
+allLetters_(orig.allLetters_) {
 }
 
 QStringList TExercice::buildExercice() {

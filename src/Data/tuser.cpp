@@ -6,10 +6,10 @@
  */
 
 
-#include "TUser.h"
+#include "tuser.h"
 
 TUser::TUser(QString pseudo) {
-    this->pseudo = pseudo;
+    this->pseudo_ = pseudo;
 }
 
 TUser::~TUser() {

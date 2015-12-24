@@ -32,29 +32,29 @@ UI_DIR = src/ui
 TEMPLATE = app
 
 SOURCES += src/main.cpp \
-        src/Data/TPractice.cpp \
+        src/Data/tpractice.cpp \
         src/QTypingTest/mainwindow.cpp \
-        src/QTypingTest/TLine/Tline.cpp \
-        src/QTypingTest/TLine/TLabel.cpp \
-        src/QTypingTest/TLine/TLineEdit.cpp \
-        src/QTypingTest/TWindowTest.cpp \
-        src/QTypingTest/THomePage.cpp \
-        src/QTypingTest/Learn/LearnPage.cpp \
-        src/Data/TResult.cpp \
-        src/Data/TExercice.cpp \
-        src/Data/TUser.cpp
+        src/QTypingTest/TLine/tline.cpp \
+        src/QTypingTest/TLine/tlabel.cpp \
+        src/QTypingTest/TLine/tlineedit.cpp \
+        src/QTypingTest/twindowtest.cpp \
+        src/QTypingTest/thomepage.cpp \
+        src/QTypingTest/Learn/learnpage.cpp \
+        src/Data/tresult.cpp \
+        src/Data/texercice.cpp \
+        src/Data/tuser.cpp
 
 HEADERS  += src/QTypingTest/mainwindow.h \
-        src/Data/TPractice.h \
-        src/QTypingTest/TLine/Tline.h \
-        src/QTypingTest/TLine/TLabel.h \
-        src/QTypingTest/TLine/TLineEdit.h \
-        src/QTypingTest/TWindowTest.h \
-        src/QTypingTest/THomePage.h \
-        src/QTypingTest/Learn/LearnPage.h \
-        src/Data/TResult.h \
-        src/Data/TExercice.h \
-        src/Data/TUser.h
+        src/Data/tpractice.h \
+        src/QTypingTest/TLine/tline.h \
+        src/QTypingTest/TLine/tlabel.h \
+        src/QTypingTest/TLine/tlineedit.h \
+        src/QTypingTest/twindowtest.h \
+        src/QTypingTest/thomepage.h \
+        src/QTypingTest/Learn/learnpage.h \
+        src/Data/tresult.h \
+        src/Data/texercice.h \
+        src/Data/tuser.h
         
 
 RC_ICONS += etc/icon.ico

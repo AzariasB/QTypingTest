@@ -7,12 +7,12 @@
  */
 
 
-#include "TPractice.h"
+#include "tpractice.h"
 
 void TPractice::initLetters(KEYBOARD_LAYOUT layout) {
     //TODO : change it to accept others layouts
     layout = AZERTY;
-    (*this->letterOrder) << "df"
+    (*this->letterOrder_) << "df"
             << "dk"
             << "sl"
             << "qm"

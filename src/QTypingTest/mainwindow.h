@@ -9,8 +9,8 @@
 #include <QDebug>
 #include <QMessageBox>
 
-#include "TWindowTest.h"
-#include "TLine/Tline.h"
+#include "twindowtest.h"
+#include "TLine/tline.h"
 
 namespace Ui {
     class MainWindow;

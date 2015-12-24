@@ -8,9 +8,9 @@
 #include <QApplication>
 #include <QValidator>
 
-#include "../Data/TResult.h"
-#include "TLabel.h"
-#include "TLineEdit.h"
+#include "../../Data/tresult.h"
+#include "tlabel.h"
+#include "tlineedit.h"
 
 class TLine : public QWidget {
     Q_OBJECT
@@ -25,14 +25,14 @@ private:
     void connectEvents();
 
     //Attributes
-    QVBoxLayout *tLineLayout;
-    QLineEdit *edition;
-    TLabel *toCopy;
-    QString globalAnswer;
-    QString lastAnswer;
-    TResult *lineRes;
+    QVBoxLayout *tLineLayout_;
+    QLineEdit *edition_;
+    TLabel *toCopy_;
+    QString globalAnswer_;
+    QString lastAnswer_;
+    TResult *lineRes_;
     
-    bool started = false;
+    bool started_ = false;
 
 signals:
 void endedLine(TResult *lineResult); 

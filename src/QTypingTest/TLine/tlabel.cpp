@@ -8,7 +8,7 @@
 #include <qt5/QtWidgets/qlineedit.h>
 #include <qt5/QtGui/qguiapplication.h>
 
-#include "TLabel.h"
+#include "tlabel.h"
 #ifdef TLABEL_H
 
 TLabel::TLabel(QString textLine) : QWidget() {
@@ -31,7 +31,7 @@ void TLabel::setLabels(QString labelLine) {
         aWord->setContentsMargins(2, 0, 1, 0);
         lineLayout->addWidget(aWord);
         previousWord = word;
-        this->labels.append(aWord);
+        this->labels_.append(aWord);
     }
     lineLayout->addStretch();//To align all labels to the left
 }
@@ -42,18 +42,18 @@ void TLabel::setLabels(QString labelLine) {
  * @return if there is anther word to copy
  */
 bool TLabel::nextWord() {
-    if (exactSame) {
+    if (exactSame_) {
         //Set color of label to green
-        this->labels.at(currentWord)->setStyleSheet("QLabel{color : #0D5F1C}");
+        this->labels_.at(currentWord_)->setStyleSheet("QLabel{color : #0D5F1C}");
     } else {
         //Wrong => red
-        this->labels.at(currentWord)->setStyleSheet("QLabel{color : #5F0D1B}");
+        this->labels_.at(currentWord_)->setStyleSheet("QLabel{color : #5F0D1B}");
     }
-    if (this->currentWord < this->labels.size() - 1) {
-        this->currentWord++;
+    if (this->currentWord_ < this->labels_.size() - 1) {
+        this->currentWord_++;
         return true;//Some words remains
     }
-    exactSame = true;//Reinit the bool to default : true
+    exactSame_ = true;//Reinit the bool to default : true
     return false;//No more words
 }
 
@@ -67,7 +67,7 @@ bool TLabel::updateLabelColor(QString wordTyped) {
     QString finalBgColor = "#3188FF"; //Selectionné
     QString finalColor = "black";
 
-    auto *currentWord = this->labels.at(this->currentWord);
+    auto *currentWord = this->labels_.at(this->currentWord_);
     QStringList splited = wordTyped.split(" ");
     wordTyped = splited.takeLast();
     //Find the first non-empty word (must be last or before-last)
@@ -78,13 +78,13 @@ bool TLabel::updateLabelColor(QString wordTyped) {
     //Not the same word => wrong
     if (currentWord->text().indexOf(wordTyped) != 0) {
         finalBgColor = "#AB001E";
-        nbrErrors++;
+        nbrErrors_++;
     }
 
-    exactSame = wordTyped.trimmed() == currentWord->text();
+    exactSame_ = wordTyped.trimmed() == currentWord->text();
 
     currentWord->setStyleSheet("QLabel{border-color : " + finalBgColor + "; background-color : " + finalBgColor + ";color : " + finalColor + "}");
-    return exactSame;
+    return exactSame_;
 }
 
 void TLabel::initStyleSheet() {
@@ -93,11 +93,11 @@ void TLabel::initStyleSheet() {
 
 
 int TLabel::getNbrErrors() {
-    return nbrErrors;
+    return nbrErrors_;
 }
 
 QString TLabel::getCurrentWord() {
-    return labels.at(currentWord)->text();
+    return labels_.at(currentWord_)->text();
 }
 
 

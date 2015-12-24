@@ -31,10 +31,10 @@ public:
 
     };
 private:
-    bool allLetters = false;
-    QStringList learningLetters;
-    QStringList availableLetters;
-    EXERCICE_TYPE exerciceType = LEARNING;
+    bool allLetters_ = false;
+    QStringList learningLetters_;
+    QStringList availableLetters_;
+    EXERCICE_TYPE exerciceType_ = LEARNING;
     
     QStringList getAllLetters();
 };

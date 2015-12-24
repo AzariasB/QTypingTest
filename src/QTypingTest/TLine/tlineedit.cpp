@@ -5,7 +5,7 @@
  * Created on 9 novembre 2015, 19:10
  */
 
-#include "TLineEdit.h"
+#include "tlineedit.h"
 
 TLineEdit::TLineEdit(QWidget *parent): QLineEdit(parent) {
     this->setText(" ");

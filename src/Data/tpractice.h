@@ -9,7 +9,6 @@
 #define TPRACTICE_H
 
 #include <QStringList>
-#include <qt5/QtCore/qstringlist.h>
 
 /**
  * This class is here to have a way to create the exercices
@@ -26,14 +25,14 @@ public:
     enum KEYBOARD_LAYOUT{QWERTY,AZERTY,QWERTZ};
     
     QStringList getLetterList(){
-        return *this->letterOrder;
+        return *this->letterOrder_;
     }
     
     virtual ~TPractice(){};
 private:
-    QStringList *letterOrder;
+    QStringList *letterOrder_;
     TPractice(){
-        this->letterOrder = new QStringList();
+        this->letterOrder_ = new QStringList();
         this->initLetters(AZERTY);
     };
     /**

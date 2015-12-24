@@ -19,7 +19,7 @@
 #include <QGridLayout>
 #include <QDebug>
 
-#include "../../Data/TPractice.h"
+#include "../../Data/tpractice.h"
 
 #define MAX_COL 5
 

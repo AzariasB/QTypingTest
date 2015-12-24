@@ -9,8 +9,8 @@
 
 #include <qt5/QtWidgets/qboxlayout.h>
 
-#include "THomePage.h"
-#include "Learn/LearnPage.h"
+#include "thomepage.h"
+#include "Learn/learnpage.h"
 
 THomePage::THomePage(QWidget *parent) :
 QMainWindow(parent) {

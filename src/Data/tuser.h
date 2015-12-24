@@ -17,14 +17,14 @@ public:
     virtual ~TUser();
     
     QString getPseudo() const{
-        return pseudo;
+        return pseudo_;
     };
     
     void setPseudo(QString pseudo){
-        this->pseudo = pseudo;
+        this->pseudo_ = pseudo;
     }
 private:
-    QString pseudo;
+    QString pseudo_;
 };
 
 

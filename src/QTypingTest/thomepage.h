@@ -16,7 +16,7 @@
 #include <QDebug>
 #include <QHBoxLayout>
 
-#include "../Data/TPractice.h"
+#include "../Data/tpractice.h"
 #include "../ui/ui_homepage.h"
 
 

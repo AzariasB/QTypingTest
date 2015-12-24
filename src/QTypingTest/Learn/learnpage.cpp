@@ -5,7 +5,7 @@
  * Created on 17 décembre 2015, 17:58
  */
 
-#include "LearnPage.h"
+#include "learnpage.h"
 
 LearnPage::LearnPage(QWidget* parent) : QWidget(parent) {
     this->createPractice();

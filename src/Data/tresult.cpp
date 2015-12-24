@@ -5,7 +5,7 @@
  * Created on 24 novembre 2015, 11:27
  */
 
-#include "TResult.h"
+#include "tresult.h"
 
 TResult::TResult() {
 }
@@ -20,9 +20,9 @@ int TResult::getTotalKeysStokres() const {
 
 int TResult::updateWPM(float deltaTime ) {
     if (deltaTime > 0) {
-        wordsPerMinute = (getCorrectKeysStrokes() / 5) / deltaTime;
+        wordsPerMinute_ = (getCorrectKeysStrokes() / 5) / deltaTime;
     }
-    return wordsPerMinute;
+    return wordsPerMinute_;
 }
 
 int TResult::getTotalWords() const {
@@ -32,10 +32,10 @@ int TResult::getTotalWords() const {
 //Operator overloading
 
 TResult& TResult::operator+=(const TResult& otherRes) {
-    this->correctKeystrokes += otherRes.getCorrectKeysStrokes();
-    this->correctWords += otherRes.getCorrectWords();
-    this->wrongKeystrokes += otherRes.getWrongKeysStrokes();
-    this->wrongWords += otherRes.getWrongWords();
+    this->correctKeystrokes_ += otherRes.getCorrectKeysStrokes();
+    this->correctWords_ += otherRes.getCorrectWords();
+    this->wrongKeystrokes_ += otherRes.getWrongKeysStrokes();
+    this->wrongWords_ += otherRes.getWrongWords();
     return *this;
 }
 

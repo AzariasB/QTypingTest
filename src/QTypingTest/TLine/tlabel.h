@@ -32,10 +32,10 @@ private:
     void setLabels(QString labelLine);
     void initStyleSheet();
     
-    QVector<QLabel*> labels;
-    int currentWord = 0;
-    int nbrErrors = 0;
-    bool exactSame = false;
+    QVector<QLabel*> labels_;
+    int currentWord_ = 0;
+    int nbrErrors_ = 0;
+    bool exactSame_ = false;
 
 };
 

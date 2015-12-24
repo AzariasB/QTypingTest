@@ -8,6 +8,10 @@
 #ifndef TRESULT_H
 #define	TRESULT_H
 
+/**
+ * This class is here to calculate the results of an exercice
+ * this must be used to calculate the speed, and the accuracy
+ */
 class TResult {
 public:
     TResult();
@@ -15,39 +19,39 @@ public:
     virtual ~TResult();
 
     int getCorrectKeysStrokes() const {
-        return this->correctKeystrokes;
+        return this->correctKeystrokes_;
     };
 
     int getWrongKeysStrokes() const {
-        return this->wrongKeystrokes;
+        return this->wrongKeystrokes_;
     };
 
     int getCorrectWords() const {
-        return this->correctWords;
+        return this->correctWords_;
     };
 
     int getWrongWords() const {
-        return this->wrongWords;
+        return this->wrongWords_;
     };
 
     int getWPM() {
-        return wordsPerMinute;
+        return wordsPerMinute_;
     }
 
     void setCorrectKeysStrokes(int correctKeysStrokes) {
-        this->correctKeystrokes = correctKeysStrokes;
+        this->correctKeystrokes_ = correctKeysStrokes;
     }
 
     void setWrongKeysStrokes(int wrongKeysStrokes) {
-        this->wrongKeystrokes = wrongKeysStrokes;
+        this->wrongKeystrokes_ = wrongKeysStrokes;
     }
 
     void incrWrongKeyStrokes(int incrementation) {
-        this->wrongKeystrokes += incrementation;
+        this->wrongKeystrokes_ += incrementation;
     }
 
     void incrCorrectKeystrokes(int incrementation) {
-        this->correctKeystrokes += incrementation;
+        this->correctKeystrokes_ += incrementation;
     }
 
     int updateWPM(float deltaTime/*in minutes*/);
@@ -59,26 +63,26 @@ public:
     TResult& operator+=(const TResult &otherRes);
 
 private:
-    int correctKeystrokes = 0;
-    int wrongKeystrokes = 0;
-    int correctWords = 0;
-    int wrongWords = 0;
-    int wordsPerMinute = 0;
+    int correctKeystrokes_ = 0;
+    int wrongKeystrokes_ = 0;
+    int correctWords_ = 0;
+    int wrongWords_ = 0;
+    int wordsPerMinute_ = 0;
 
     void incrCorrectWords() {
-        this->correctWords++;
+        this->correctWords_++;
     }
 
     void incrWrongWords() {
-        this->wrongWords++;
+        this->wrongWords_++;
     }
 
     void setCorrectWords(int correctWords) {
-        this->correctWords = correctWords;
+        this->correctWords_ = correctWords;
     }
 
     void setWrongWords(int wrongWords) {
-        this->wrongWords = wrongWords;
+        this->wrongWords_ = wrongWords;
     }
 };
 

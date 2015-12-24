@@ -7,7 +7,7 @@
 
 #include <QtTest/QtTest>
 #include <QFile>
-#include "../../src/Data/TUser.h"
+#include "../../src/Data/tuser.h"
 
 #include <QtTest/QtTest>
 

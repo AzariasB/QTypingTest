@@ -13,8 +13,8 @@
 #include <QDebug>
 #include <QTime>
 
-#include "TLine/Tline.h"
-#include "Data/TResult.h"
+#include "TLine/tline.h"
+#include "../Data/tresult.h"
 
 class TWindowTest : public QWidget {
     Q_OBJECT
@@ -35,11 +35,11 @@ private:
     void createLines(QString textModel);
     int findClosestSpace(const QStringList* search, int indexStart);
 
-    QList<TLine*> *lines;
-    TResult *totRes = new TResult();
-    int currentLine = 0;
-    int numberOfLines = 4;
-    QTime timeStart;
+    QList<TLine*> *lines_;
+    TResult *totRes_ = new TResult();
+    int currentLine_ = 0;
+    int numberOfLines_ = 4;
+    QTime timeStart_;
 
 };
 

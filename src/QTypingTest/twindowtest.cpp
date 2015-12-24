@@ -14,11 +14,11 @@
  *  * From String
  */
 
-#include "TWindowTest.h"
+#include "twindowtest.h"
 
 TWindowTest::TWindowTest(QString model, QWidget *parent) :
 QWidget(parent),
-lines(new QList<TLine*>()) {
+lines_(new QList<TLine*>()) {
     createLines(model);
 }
 
@@ -26,12 +26,12 @@ void TWindowTest::createLines(QString textModel) {
     QVBoxLayout *centralLayout = new QVBoxLayout();
 
     QStringList words = textModel.split("");
-    int charPerLines = words.size() / this->numberOfLines;
+    int charPerLines = words.size() / this->numberOfLines_;
     QList<QString> models;
     words.takeLast();
     words.takeFirst(); //Remove empty strings
     //Split the word list into a single list, for each TLine
-    for (int i = 0; i < numberOfLines; i++) {
+    for (int i = 0; i < numberOfLines_; i++) {
         //Find the closest space to do not cut a word
         int indexlast =   this->findClosestSpace(&words,charPerLines);
         QStringList *line = new QStringList(words.mid(0,indexlast));
@@ -45,11 +45,11 @@ void TWindowTest::createLines(QString textModel) {
         sLine->setEnabled(false);//Disable all to prevent user to switch of lineEdit
         connect(sLine, SIGNAL(endedLine(TResult*)), this, SLOT(nextLine(TResult*)));
         centralLayout->addWidget(sLine);
-        (*lines) << sLine;
+        (*lines_) << sLine;
     }
-    lines->at(0)->setEnabled(true);//Enable first line
+    lines_->at(0)->setEnabled(true);//Enable first line
     
-    connect(lines->at(0),SIGNAL(startedLine()),this,SLOT(beginExercice()));
+    connect(lines_->at(0),SIGNAL(startedLine()),this,SLOT(beginExercice()));
     this->setLayout(centralLayout);
 }
 
@@ -77,22 +77,22 @@ int TWindowTest::findClosestSpace(const QStringList* search, int indexStart) {
 //Slots
 
 void TWindowTest::nextLine(TResult* previousScore) {
-    *this->totRes += *previousScore;
-    (*lines)[currentLine]->setEnabled(false);
-    this->currentLine++;
-    if (this->currentLine < lines->size()) {
-        this->lines->at(currentLine)->setEnabled(true);
-        this->lines->at(currentLine)->setFocus();
+    *this->totRes_ += *previousScore;
+    (*lines_)[currentLine_]->setEnabled(false);
+    this->currentLine_++;
+    if (this->currentLine_ < lines_->size()) {
+        this->lines_->at(currentLine_)->setEnabled(true);
+        this->lines_->at(currentLine_)->setFocus();
     } else {
-        int elapsedMS = this->timeStart.elapsed();
+        int elapsedMS = this->timeStart_.elapsed();
         float mnElapsed = (float)elapsedMS/60000.f;//Ms to minutes
-        totRes->updateWPM(mnElapsed);
-        emit endOfExercice(totRes);
+        totRes_->updateWPM(mnElapsed);
+        emit endOfExercice(totRes_);
     }
 }
 
 void TWindowTest::beginExercice() {
-    this->timeStart.start();
+    this->timeStart_.start();
 }
 
 
