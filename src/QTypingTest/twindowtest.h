@@ -8,19 +8,23 @@
 #ifndef TWINDOWTEST_H
 #define	TWINDOWTEST_H
 
-#include <QWidget>
+#include <QDialog>
 #include <QList>
 #include <QDebug>
 #include <QTime>
+#include <QShortcut>
+#include <QKeySequence>
+
 
 #include "TLine/tline.h"
 #include "../Data/tresult.h"
+#include "../Data/texercice.h"
 
-class TWindowTest : public QWidget {
+class TWindowTest : public QDialog {
     Q_OBJECT
 public:
-    TWindowTest();
     TWindowTest(QString model, QWidget* parent);
+    TWindowTest(TExercice *exercice,QWidget *parent);
 
     virtual ~TWindowTest();
 
@@ -32,10 +36,10 @@ signals:
     void endOfExercice(TResult *exeRes);
 
 private:
-    void createLines(QString textModel);
+    void createLines(QStringList textModel);
     int findClosestSpace(const QStringList* search, int indexStart);
 
-    QList<TLine*> *lines_;
+    QList<tln::TLine*> *lines_;
     TResult *totRes_ = new TResult();
     int currentLine_ = 0;
     int numberOfLines_ = 4;

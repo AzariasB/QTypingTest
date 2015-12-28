@@ -8,9 +8,19 @@
 
 #include "tuser.h"
 
-TUser::TUser(QString pseudo) {
-    this->pseudo_ = pseudo;
+TUser::TUser(QString pseudo):
+pseudo_(pseudo),
+progress_(new TProgression()){
 }
+
+QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
+    date_exercice_ key;
+    key.dateResult = QDateTime::currentDateTime();
+    key.exercice = exTyp;
+    practiceHistory_[&key] = exRes;
+    return key.dateResult;
+}
+
 
 TUser::~TUser() {
 

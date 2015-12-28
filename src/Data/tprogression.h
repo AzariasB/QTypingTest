@@ -9,6 +9,8 @@
 #ifndef TPROGRESSION_H
 #define TPROGRESSION_H
 
+#include <QDataStream>
+
 /**
  * A class to define the progression of a user
  * to know what's the last letters he learned
@@ -21,6 +23,19 @@ public:
     TProgression();
     TProgression(const TProgression& orig);
     virtual ~TProgression();
+    
+    inline int getLastExericeIndex() const{
+        return lastExerciceIndex_;
+    }
+    
+    inline void setLastExerciceIndex(int exIndex){
+        lastExerciceIndex_ = exIndex;
+    }
+    
+    inline void avdvanceToExercice(){
+        lastExerciceIndex_++;
+    }
+    
 private:
     int lastExerciceIndex_;
 };

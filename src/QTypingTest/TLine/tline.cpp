@@ -1,9 +1,9 @@
 
-#include <qt5/QtWidgets/qlineedit.h>
+
 
 #include "tline.h"
 
-TLine::TLine(QString model, QWidget *parent) : QWidget(parent),
+tln::TLine::TLine(QString model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
 edition_(new QLineEdit(this)),
 toCopy_(new TLabel(model, this)),
@@ -13,7 +13,7 @@ lineRes_(new TResult()) {
     this->connectEvents();
 }
 
-TLine::TLine(QString model) : QWidget(),
+tln::TLine::TLine(QString model) : QWidget(),
 tLineLayout_(new QVBoxLayout(this)),
 edition_(new QLineEdit(this)),
 toCopy_(new TLabel(model)),
@@ -33,12 +33,12 @@ lineRes_(new TResult()) {
     this->connectEvents();
 }
 
-void TLine::connectEvents() {
+void tln::TLine::connectEvents() {
     connect(this->edition_, SIGNAL(textEdited(QString)), this, SLOT(typingAnswer(QString)));
     connect(this->edition_, SIGNAL(selectionChanged()), this, SLOT(preventBadSelection()));
 }
 
-void TLine::typingAnswer(QString answer) {
+void tln::TLine::typingAnswer(QString answer) {
     if (!started_) {
         started_ = true;
         emit startedLine();
@@ -48,15 +48,15 @@ void TLine::typingAnswer(QString answer) {
         bool isTheSame = toCopy_->updateLabelColor(answer);
 
         if (answer.size() > lastAnswer_.size() && answer.at(answer.length() - 1) == ' ') {
-            if(answer.length() >= 2 && answer.at(answer.length() - 2) == ' '){
+            if (answer.length() >= 2 && answer.at(answer.length() - 2) == ' ') {
                 edition_->setText(answer.left(answer.length() - 1));
-                return;//Avoid 'double space'
+                return; //Avoid 'double space'
             }
-            
+
             QString lastWord = toCopy_->getCurrentWord();
-            if(isTheSame){
+            if (isTheSame) {
                 lineRes_->incrCorrectKeystrokes(lastWord.size() + 1);
-            }else{
+            } else {
                 lineRes_->incrWrongKeyStrokes(lastWord.size() + 1);
             }
             if (!this->toCopy_->nextWord()) {
@@ -65,7 +65,7 @@ void TLine::typingAnswer(QString answer) {
         }
 
     }
-    
+
     if (answer.size() < lastAnswer_.size() - 1) {
         answer = lastAnswer_;
         edition_->setText(lastAnswer_);
@@ -75,13 +75,13 @@ void TLine::typingAnswer(QString answer) {
 
 }
 
-void TLine::preventBadSelection() {
+void tln::TLine::preventBadSelection() {
     int last = this->edition_->text().size();
     if (edition_->selectionStart() >= 0 && edition_->selectionStart() < last - 1) {
         this->edition_->setSelection(last, 0);
     }
 }
 
-void TLine::setFocus() {
+void tln::TLine::setFocus() {
     this->edition_->setFocus();
 }

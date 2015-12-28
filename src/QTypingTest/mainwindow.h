@@ -10,7 +10,6 @@
 #include <QMessageBox>
 
 #include "twindowtest.h"
-#include "TLine/tline.h"
 
 namespace Ui {
     class MainWindow;

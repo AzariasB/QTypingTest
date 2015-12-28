@@ -18,7 +18,7 @@
 
 #include "../Data/tpractice.h"
 #include "../ui/ui_homepage.h"
-
+#include "../Data/tuser.h"
 
 class THomePage : public QMainWindow {
     Q_OBJECT
@@ -26,7 +26,12 @@ public:
     THomePage(QWidget *parent = 0);
     virtual ~THomePage();
 
+    inline static TUser *getUser(){
+        return THomePage::currentUser_;
+    }
 
+     static TUser *currentUser_;
+    
 private:
     /**
      *  Connect the basics event for the main window,,
@@ -34,7 +39,8 @@ private:
      * and connect event about the menu options 
      */
     void connectEvents();
-    Ui::MainWindow ui;
+    Ui_MainWindow ui;
+    
 };
 
 #endif /* THOMEPAGE_H */

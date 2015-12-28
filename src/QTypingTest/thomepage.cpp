@@ -7,15 +7,23 @@
 
 
 
-#include <qt5/QtWidgets/qboxlayout.h>
-
 #include "thomepage.h"
 #include "Learn/learnpage.h"
 
+/**
+ * Initiate the static vars
+ */
+TUser* THomePage::currentUser_;
+
 THomePage::THomePage(QWidget *parent) :
 QMainWindow(parent) {
+    //For the test : create a new user
+    TUser *timmy = new TUser("timmy");
+    THomePage::currentUser_ = timmy;
+
     ui.setupUi(this);
     connectEvents();
+
 }
 
 THomePage::~THomePage() {

@@ -9,6 +9,7 @@
 #define TPRACTICE_H
 
 #include <QStringList>
+#include <QDebug>
 
 /**
  * This class is here to have a way to create the exercices
@@ -27,6 +28,10 @@ public:
     QStringList getLetterList(){
         return *this->letterOrder_;
     }
+    
+    QStringList getAllLettersTo(int lastIndex = -1);
+    
+    QStringList getLettersAt(int index);
     
     virtual ~TPractice(){};
 private:

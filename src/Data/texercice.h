@@ -10,6 +10,8 @@
 
 #include <QStringList>
 
+#include "tresult.h"
+
 /**
  * A model class to define the type of exercice the user is about to do
  * There are differents types of exercices and depending of these, differents parameters
@@ -30,6 +32,8 @@ public:
     virtual ~TExercice() {
 
     };
+    
+    
 private:
     bool allLetters_ = false;
     QStringList learningLetters_;

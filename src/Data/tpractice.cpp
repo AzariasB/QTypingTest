@@ -29,4 +29,18 @@ void TPractice::initLetters(KEYBOARD_LAYOUT layout) {
             << ":!";
 }
 
+QStringList TPractice::getAllLettersTo(int lastIndex) {
+    if (lastIndex == -1) lastIndex = this->letterOrder_->size();
+    QStringList res;
+    for (int i = 0; i < lastIndex; i++)
+        res << this->letterOrder_->at(i).split("", QString::SkipEmptyParts);
 
+
+
+
+    return res;
+}
+
+QStringList TPractice::getLettersAt(int index) {
+    return this->letterOrder_->at(index).split("", QString::SkipEmptyParts);
+}

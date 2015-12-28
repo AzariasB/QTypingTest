@@ -20,6 +20,12 @@
 #include <QDebug>
 
 #include "../../Data/tpractice.h"
+#include "../../Data/texercice.h"
+#include "../../Data/tresult.h"
+#include "../twindowtest.h"
+
+//Thomepage is for the current user. TODO : change the location of the current user
+#include "../thomepage.h"
 
 #define MAX_COL 5
 
@@ -37,6 +43,10 @@ public:
 
 public slots:
     void lauchExercice();
+    /**
+     * Called when an exercice is finished
+     */
+    void endExercice(TResult *exerciceResult);
 
 private:
     /**
@@ -44,6 +54,13 @@ private:
      * the layout
      */
     void createPractice();
+
+
+    //Save the tpractice instead of instanciate it over and over
+    TPractice practice_ = TPractice::getInstance();
+    
+    //Have a unique window for the exercice that will change depending on the exercices
+    TWindowTest *testWindow_;
 };
 
 #endif /* LEARNPAGE_H */
