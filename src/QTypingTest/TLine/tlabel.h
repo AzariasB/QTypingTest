@@ -16,6 +16,9 @@
 #include <QStringList>
 #include <QSizePolicy>
 #include <QHBoxLayout>
+#include <QRegExp>
+
+#include "../../Util/htmlhelper.h"
 
 class TLabel : public QWidget {
     Q_OBJECT
@@ -30,7 +33,11 @@ public:
     
 private:
     void setLabels(QString labelLine);
-    void initStyleSheet();
+    
+    /**
+     * 
+     * @param word the word that will be surronded by html tags
+     */
     
     QVector<QLabel*> labels_;
     int currentWord_ = 0;

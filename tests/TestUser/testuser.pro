@@ -20,7 +20,7 @@ SOURCES = ../../src/Data/tuser.cpp \
 target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/tutorial1
 INSTALLS += target
 
-
+DESTDIR = build
 TARGET = testUser
 OBJECTS_DIR = .obj
 MOC_DIR = .moc

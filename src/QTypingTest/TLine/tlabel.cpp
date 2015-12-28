@@ -12,12 +12,10 @@
 #ifdef TLABEL_H
 
 TLabel::TLabel(QString textLine) : QWidget() {
-    this->initStyleSheet();
     this->setLabels(textLine);
 }
 
 TLabel::TLabel(QString text, QWidget* parent) : QWidget(parent) {
-    this->initStyleSheet();
     this->setLabels(text);
 }
 
@@ -33,7 +31,7 @@ void TLabel::setLabels(QString labelLine) {
         previousWord = word;
         this->labels_.append(aWord);
     }
-    lineLayout->addStretch();//To align all labels to the left
+    lineLayout->addStretch(); //To align all labels to the left
 }
 
 /**
@@ -51,10 +49,10 @@ bool TLabel::nextWord() {
     }
     if (this->currentWord_ < this->labels_.size() - 1) {
         this->currentWord_++;
-        return true;//Some words remains
+        return true; //Some words remains
     }
-    exactSame_ = true;//Reinit the bool to default : true
-    return false;//No more words
+    exactSame_ = true; //Reinit the bool to default : true
+    return false; //No more words
 }
 
 /**
@@ -68,38 +66,43 @@ bool TLabel::updateLabelColor(QString wordTyped) {
     QString finalColor = "black";
 
     auto *currentWord = this->labels_.at(this->currentWord_);
-    QStringList splited = wordTyped.split(" ");
+    QStringList splited = wordTyped.split(" ", QString::SkipEmptyParts);
     wordTyped = splited.takeLast();
-    //Find the first non-empty word (must be last or before-last)
-    while(splited.size() > 0 && wordTyped.isEmpty()) wordTyped = splited.takeLast();
-    
-    
+
+    QString purified = html::removeTag(currentWord->text());
 
     //Not the same word => wrong
-    if (currentWord->text().indexOf(wordTyped) != 0) {
+    if (purified.indexOf(wordTyped) != 0) {
         finalBgColor = "#AB001E";
         nbrErrors_++;
+    } else if (wordTyped.size() < purified.size()) {
+        //Bold next char
+        purified = html::addTagAt(purified, "b", wordTyped.size());
+
     }
 
-    exactSame_ = wordTyped.trimmed() == currentWord->text();
+    exactSame_ = wordTyped == purified;
 
-    currentWord->setStyleSheet("QLabel{border-color : " + finalBgColor + "; background-color : " + finalBgColor + ";color : " + finalColor + "}");
+    currentWord->setText(purified);
+
+    QString stylesheed = QString("QLabel{border-color : %1; "
+            "background-color : %1; color %2;}")
+            .arg(finalBgColor)
+            .arg(finalColor);
+    currentWord->setStyleSheet(stylesheed);
+
     return exactSame_;
 }
 
-void TLabel::initStyleSheet() {
-    //    this->setStyleSheet("QLabel{padding : 0px; margin : 0px; border-style: solid;border-width: 5px;border-radius : 10px; border-color : rbga(0,0,0,0); }");
-}
-
-
 int TLabel::getNbrErrors() {
+
     return nbrErrors_;
 }
 
 QString TLabel::getCurrentWord() {
+
     return labels_.at(currentWord_)->text();
 }
-
 
 TLabel::~TLabel() {
 }
