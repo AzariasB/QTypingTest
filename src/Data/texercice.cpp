@@ -6,10 +6,8 @@
  */
 
 
-#include <qt5/QtCore/qstringlist.h>
 
 #include "texercice.h"
-#include "../Util/exercicecreator.h"
 
 TExercice::TExercice(EXERCICE_TYPE exType, bool allLetters) :
 allLetters_(allLetters),
@@ -33,9 +31,9 @@ exerciceType_(orig.exerciceType_) {
 
 QStringList TExercice::buildExercice() {
     if (exerciceType_ == LEARNING) {
-        return TestCreator::generateLearning(learningLetters_, availableLetters_);
+        return factory::generateLearning(learningLetters_, availableLetters_);
     }else{
-        return TestCreator::generatePractice();
+        return factory::generatePractice();
     }
 }
 

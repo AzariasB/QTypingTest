@@ -5,8 +5,6 @@
  * Created on 4 novembre 2015, 18:21
  */
 
-#include <qt5/QtWidgets/qlineedit.h>
-#include <qt5/QtGui/qguiapplication.h>
 
 #include "tlabel.h"
 #ifdef TLABEL_H

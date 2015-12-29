@@ -5,11 +5,12 @@
  * Created on 17 décembre 2015, 17:58
  */
 
-#include <qt5/QtWidgets/qmessagebox.h>
 
 #include "learnpage.h"
 
-LearnPage::LearnPage(QWidget* parent) : QWidget(parent) {
+LearnPage::LearnPage(QWidget* parent) :
+QWidget(parent),
+learnButtons_(QVector<QPushButton*>()) {
     this->createPractice();
 }
 
@@ -30,6 +31,7 @@ void LearnPage::createPractice() {
         if (index > THomePage::currentUser_->getProgression()->getLastExericeIndex()) {
             button->setEnabled(false);
         }
+        learnButtons_ << button;
 
         lay->addWidget(button, row, col);
 
@@ -43,25 +45,32 @@ void LearnPage::createPractice() {
 }
 
 void LearnPage::lauchExercice() {
-    int lastLetterIndex = THomePage::currentUser_->getProgression()->getLastExericeIndex();
-    QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
-    QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
 
+    if (QPushButton * trigger = dynamic_cast<QPushButton*> (sender())) {
 
-    TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
-    testWindow_ = new TWindowTest(ex, this);
-    //Connect only once the test dialog
-    connect(testWindow_, SIGNAL(endOfExercice(TResult*)), this, SLOT(endExercice(TResult*)));
-    testWindow_->show();
+        int lastLetterIndex = learnButtons_.indexOf(trigger);
+        if (lastLetterIndex == -1) {//Not found in the list ... that is weird !
+            QMessageBox::critical(this, "Exercice not existing", "The exercice you are trying to do does not exist");
+        } else {
+
+            QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
+            QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
+            TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
+            testWindow_ = new TWindowTest(ex, this);
+            //Connect only once the test dialog
+            connect(testWindow_, SIGNAL(endOfExercice(TResult*)), this, SLOT(endExercice(TResult*)));
+            testWindow_->show();
+        }
+    }//else ..nothing to do !
 }
 
 void LearnPage::endExercice(TResult* exerciceResult) {
-    //TODO : check if the result is correct enought to set the advance in the progression
+    //TODO : check if the result is good enought to set the advance in the progression
     TProgression *curProgr = THomePage::currentUser_->getProgression();
-    curProgr->avdvanceToExercice();
+    curProgr->avdvanceExIndex();
 
     QString text = QString("Congratulations, you finished the exercice !\n"
-            "Results are : WPM : %1\n"
+            "Results are :\n WPM : %1\n"
             "Correct key strokes : %2\n"
             "Wrong key strokes : %3\n"
             "Total key strokes : %4")
@@ -70,7 +79,12 @@ void LearnPage::endExercice(TResult* exerciceResult) {
             .arg(exerciceResult->getWrongKeysStrokes())
             .arg(exerciceResult->getTotalKeysStokres());
 
-    QMessageBox::information(this, "End of exercice", text.toHtmlEscaped());
+    QMessageBox::information(this, "End of exercice", text);
     testWindow_->hide();
-    //Unlock the last button if needed
+    //Unlock the last button if exercice succeeded
+    if (curProgr->getLastExericeIndex() < learnButtons_.size()) {
+        learnButtons_.at(curProgr->getLastExericeIndex())->setEnabled(true);
+    } else {
+        //Finished the game !
+    }
 }

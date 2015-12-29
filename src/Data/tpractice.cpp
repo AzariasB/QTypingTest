@@ -12,7 +12,7 @@
 void TPractice::initLetters(KEYBOARD_LAYOUT layout) {
     //TODO : change it to accept others layouts
     layout = AZERTY;
-    (*this->letterOrder_) << "df"
+    (*this->letterOrder_) << "fj"
             << "dk"
             << "sl"
             << "qm"

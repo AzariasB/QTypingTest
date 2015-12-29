@@ -40,7 +40,8 @@ SOURCES += src/main.cpp \
         src/QTypingTest/twindowtest.cpp \
         src/QTypingTest/thomepage.cpp \
         src/QTypingTest/Learn/learnpage.cpp \
-        src/Util/exercicecreator.cpp \
+        src/Util/factory.cpp \
+        src/Util/filehelper.cpp \
         src/Util/htmlhelper.cpp \
         src/Data/tresult.cpp \
         src/Data/texercice.cpp \
@@ -55,7 +56,8 @@ HEADERS  += src/QTypingTest/mainwindow.h \
         src/QTypingTest/twindowtest.h \
         src/QTypingTest/thomepage.h \
         src/QTypingTest/Learn/learnpage.h \
-        src/Util/exercicecreator.h \
+        src/Util/factory.h \
+        src/Util/filehelper.h \
         src/Util/htmlhelper.h \
         src/Data/tresult.h \
         src/Data/texercice.h \

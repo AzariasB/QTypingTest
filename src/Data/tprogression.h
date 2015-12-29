@@ -32,7 +32,7 @@ public:
         lastExerciceIndex_ = exIndex;
     }
     
-    inline void avdvanceToExercice(){
+    inline void avdvanceExIndex(){
         lastExerciceIndex_++;
     }
     

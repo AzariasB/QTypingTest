@@ -6,9 +6,13 @@ QMAKE_CXXFLAGS  += -std=c++11
 
 
 HEADERs = ../../src/Util/htmlhelp.h \    
+    ../../src/Util/factory.h \
+    ../../src/Util/filehelper.h
 
 
 SOURCES = ../../src/Util/htmlhelper.cpp \
+    ../../src/Util/factory.cpp \
+    ../../src/Util/filehelper.cpp \
     testutils.cpp
 
 # install

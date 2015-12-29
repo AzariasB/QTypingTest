@@ -16,8 +16,10 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QMessageBox>
 #include <QGridLayout>
 #include <QDebug>
+#include <QVector>
 
 #include "../../Data/tpractice.h"
 #include "../../Data/texercice.h"
@@ -55,12 +57,14 @@ private:
      */
     void createPractice();
 
-
     //Save the tpractice instead of instanciate it over and over
     TPractice practice_ = TPractice::getInstance();
     
     //Have a unique window for the exercice that will change depending on the exercices
     TWindowTest *testWindow_;
+    
+    /*A list of button to save the state (activated or not) of each depending on the user progression*/
+    QVector<QPushButton*> learnButtons_;
 };
 
 #endif /* LEARNPAGE_H */

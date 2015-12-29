@@ -8,7 +8,6 @@
 
 
 #include "thomepage.h"
-#include "Learn/learnpage.h"
 
 /**
  * Initiate the static vars

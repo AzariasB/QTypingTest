@@ -11,6 +11,7 @@
 #include <QStringList>
 
 #include "tresult.h"
+#include "../Util/factory.h"
 
 /**
  * A model class to define the type of exercice the user is about to do

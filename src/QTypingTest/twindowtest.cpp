@@ -14,8 +14,6 @@
  *  * From String
  */
 
-#include <qt5/QtWidgets/qdialog.h>
-
 #include "twindowtest.h"
 
 TWindowTest::TWindowTest(QString model, QWidget *parent) :
@@ -55,6 +53,8 @@ void TWindowTest::createLines(QStringList words) {
         words = words.mid(indexlast + 1);
         models += line->join("");
     }
+    
+    qDebug() << models;
 
     for (auto it = models.begin(); it != models.end(); ++it) {
         tln::TLine *sLine = new tln::TLine(*it);
