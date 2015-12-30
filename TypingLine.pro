@@ -37,7 +37,7 @@ SOURCES += src/main.cpp \
         src/QTypingTest/TLine/tline.cpp \
         src/QTypingTest/TLine/tlabel.cpp \
         src/QTypingTest/TLine/tlineedit.cpp \
-        src/QTypingTest/twindowtest.cpp \
+        src/QTypingTest/Learn/twindowtest.cpp \
         src/QTypingTest/thomepage.cpp \
         src/QTypingTest/Learn/learnpage.cpp \
         src/Util/factory.cpp \
@@ -53,7 +53,7 @@ HEADERS  += src/QTypingTest/mainwindow.h \
         src/QTypingTest/TLine/tline.h \
         src/QTypingTest/TLine/tlabel.h \
         src/QTypingTest/TLine/tlineedit.h \
-        src/QTypingTest/twindowtest.h \
+        src/QTypingTest/Learn/twindowtest.h \
         src/QTypingTest/thomepage.h \
         src/QTypingTest/Learn/learnpage.h \
         src/Util/factory.h \

@@ -16,9 +16,9 @@
 #include <QKeySequence>
 
 
-#include "TLine/tline.h"
-#include "../Data/tresult.h"
-#include "../Data/texercice.h"
+#include "../TLine/tline.h"
+#include "../../Data/tresult.h"
+#include "../../Data/texercice.h"
 
 class TWindowTest : public QDialog {
     Q_OBJECT
@@ -34,6 +34,10 @@ public slots:
 
 signals:
     void endOfExercice(TResult *exeRes);
+
+protected:
+    void keyPressEvent(QKeyEvent* ev) override;
+
 
 private:
     void createLines(QStringList textModel);

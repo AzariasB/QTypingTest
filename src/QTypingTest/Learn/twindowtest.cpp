@@ -111,6 +111,10 @@ void TWindowTest::beginExercice() {
     this->timeStart_.start();
 }
 
+void TWindowTest::keyPressEvent(QKeyEvent* ev) {
+    qDebug() << ev->text();
+}
+
 
 //Destructor
 

@@ -24,7 +24,7 @@
 #include "../../Data/tpractice.h"
 #include "../../Data/texercice.h"
 #include "../../Data/tresult.h"
-#include "../twindowtest.h"
+#include "twindowtest.h"
 
 //Thomepage is for the current user. TODO : change the location of the current user
 #include "../thomepage.h"
@@ -50,6 +50,8 @@ public slots:
      */
     void endExercice(TResult *exerciceResult);
 
+
+
 private:
     /**
      * Get the current keyboard layout, and display the exercices depending on 
@@ -59,10 +61,10 @@ private:
 
     //Save the tpractice instead of instanciate it over and over
     TPractice practice_ = TPractice::getInstance();
-    
+
     //Have a unique window for the exercice that will change depending on the exercices
     TWindowTest *testWindow_;
-    
+
     /*A list of button to save the state (activated or not) of each depending on the user progression*/
     QVector<QPushButton*> learnButtons_;
 };

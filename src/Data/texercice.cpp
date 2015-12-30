@@ -33,7 +33,7 @@ QStringList TExercice::buildExercice() {
     if (exerciceType_ == LEARNING) {
         return factory::generateLearning(learningLetters_, availableLetters_);
     }else{
-        return factory::generatePractice();
+        return factory::generateLearning(availableLetters_,availableLetters_);
     }
 }
 
