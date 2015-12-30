@@ -46,7 +46,8 @@ SOURCES += src/main.cpp \
         src/Data/tresult.cpp \
         src/Data/texercice.cpp \
         src/Data/tprogression.cpp \
-        src/Data/tuser.cpp
+        src/Data/tuser.cpp \
+        src/Data/tkeys.cpp
 
 HEADERS  += src/QTypingTest/mainwindow.h \
         src/Data/tpractice.h \
@@ -62,7 +63,8 @@ HEADERS  += src/QTypingTest/mainwindow.h \
         src/Data/tresult.h \
         src/Data/texercice.h \
         src/Data/tprogression.h \
-        src/Data/tuser.h
+        src/Data/tuser.h \
+        src/Data/tkeys.h
         
 
 RC_ICONS += etc/icon.ico

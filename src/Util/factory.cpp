@@ -33,7 +33,7 @@ QStringList readFile(QString fileName) {
         return words;
     } else {//File not found
         if (!model.exists())
-            qDebug() << "File does not exists";
+            qDebug() << "File does not exists : " + fileName + " \n Please, be sure to run the programm from its root folder";
         else
             qDebug() << "Could not open file";
         return QStringList();

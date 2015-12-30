@@ -9,6 +9,7 @@
 #include <QValidator>
 
 #include "../../Data/tresult.h"
+#include "../../Data/tkeys.h"
 #include "tlabel.h"
 #include "tlineedit.h"
 
@@ -23,19 +24,10 @@ namespace tln {
         TLine(QString model);
         void setFocus();
 
-    private:
-        //Functions
-        void connectEvents();
 
-        //Attributes
-        QVBoxLayout *tLineLayout_;
-        QLineEdit *edition_;
-        TLabel *toCopy_;
-        QString globalAnswer_;
-        QString lastAnswer_;
-        TResult *lineRes_;
+    protected:
+        void keyPressEvent(QKeyEvent* ev) override;
 
-        bool started_ = false;
 
     signals:
         void endedLine(TResult *lineResult);
@@ -44,7 +36,30 @@ namespace tln {
 
     public slots:
         void typingAnswer(QString answer);
-        void preventBadSelection();
+        void eraseAnswer();
+
+    private:
+        //Functions
+        void connectEvents();
+        
+        /**
+         * Function to determine if the keypress event is valid (usable)
+         * if it produces whatever letter (and is not a special char such as '\n'
+         * 
+         * @return if the key event can be seen as a 'valid' key event 
+         */
+        bool isValidKey(QKeyEvent *ev);
+
+        //Attributes
+        QVBoxLayout *tLineLayout_;
+        //        QLineEdit *edition_;
+        TLabel *toCopy_;
+        
+        QString globalAnswer_;
+        QString lastAnswer_;
+        TResult *lineRes_;
+
+        bool started_ = false;
     };
 }
 

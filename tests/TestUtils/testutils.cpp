@@ -25,9 +25,20 @@ private:
     //Functions to test HTML
     void testSurroundAll();
     void testSurroundAt();
+    void testAddClass();
     void testRemoveTags();
-
 };
+
+void TestUtils::testAddClass() {
+    QString patrick = "patrick";
+    QString patrick_1 = "<p class='red'>patrick</p>";
+    QString patrick_2 = "<b class='nope'>patrick</b>";
+    
+    qDebug() << "Adding a class and a tag to a QString";
+    QCOMPARE(html::addTagAndClass(patrick,"p","red"),patrick_1);
+    QCOMPARE(html::addTagAndClass(patrick,"b","nope"),patrick_2);
+}
+
 
 void TestUtils::testWordsFinding() {
     QString letters = "fod";
@@ -58,6 +69,7 @@ void TestUtils::testHTML() {
     testSurroundAll();
     testSurroundAt();
     testRemoveTags();
+    testAddClass();
 }
 
 void TestUtils::testFactory() {
@@ -83,15 +95,21 @@ void TestUtils::testSurroundAt() {
     QString sPatrick_1 = "<p>p</p>atrick"; //First one
     QString sPatrick_2 = "patric<p>k</p>"; //Last one
     QString sPatrick_3 = "pa<p>t</p>rick"; //Not last,not first
+    
+    QString sPatrick_4 = "<p><b>p</b></p>atrick";
+    QString sPatrick_5 = "pa<u><b>t</b></u>rick";
+    QString sPatrick_6 = "patric<i><p>k</p></i>";
 
-    qDebug() << "Surrounding the first char";
-    QCOMPARE(html::addTagAt(patrick, "p", 0), sPatrick_1);
-
-    qDebug() << "Surrounding the last char";
-    QCOMPARE(html::addTagAt(patrick, "p", 6), sPatrick_2);
-
-    qDebug() << "Surrounding the 3rd char";
-    QCOMPARE(html::addTagAt(patrick, "p", 2), sPatrick_3);
+    qDebug() << "Adding a single tag";
+    QCOMPARE(html::addTagsAt(patrick, "p", 0), sPatrick_1);
+    QCOMPARE(html::addTagsAt(patrick, "p", 6), sPatrick_2);
+    QCOMPARE(html::addTagsAt(patrick, "p", 2), sPatrick_3);
+    
+    qDebug() << "Adding multiples tags";
+    QCOMPARE(html::addTagsAt(patrick,"p,b",0),sPatrick_4);
+    QCOMPARE(html::addTagsAt(patrick,"u,b",2),sPatrick_5);
+    QCOMPARE(html::addTagsAt(patrick,"i,p",6),sPatrick_6);
+    
 }
 
 void TestUtils::testRemoveTags() {

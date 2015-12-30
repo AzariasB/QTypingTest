@@ -2,8 +2,5 @@
 QLabel{
     font-size : 16px;
     color : black;
-}
-
-QLineEdit{
-    font-size : 16px;
+    padding : 5px;
 }

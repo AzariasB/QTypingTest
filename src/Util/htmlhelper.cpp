@@ -12,6 +12,16 @@
 
 #include "htmlhelper.h"
 
+QString surroundOfTags(QStringList tags){
+    if(tags.size() == 1){
+        return QString("<%1>\\1</%1>").arg(tags[0]);
+    }else{
+        return QString("<%1>%2</%1>")
+                .arg(tags.takeFirst())
+                .arg(surroundOfTags(tags.mid(1)));
+    }
+}
+
 QString html::addTagToChars(QString strtToTag, QString tag) {
     QString replaced = QString("<%1>\\1</%1>").arg(tag);
     strtToTag.replace(QRegExp("(.)"), replaced);
@@ -24,7 +34,11 @@ QString html::removeTag(QString strToClean, QString tag) {
     return strToClean.replace(QRegExp(reg), "");
 }
 
-QString html::addTagAt(QString strToTag, QString tagName, int position) {
+QString html::addTagsAt(QString strToTag, QString tags, int position) {
+    QStringList splited = tags.split(",",QString::SkipEmptyParts);
+
+    QString res = surroundOfTags(splited);
+        
     QString regex;
 
     if (position == 0)
@@ -34,6 +48,9 @@ QString html::addTagAt(QString strToTag, QString tagName, int position) {
     else
         regex = QString("(.)(?=.{%1}$)").arg(strToTag.size() - 1 - position);
 
-    QString replace = QString("<%1>\\1</%1>").arg(tagName);
-    return strToTag.replace(QRegExp(regex), replace);
+    return strToTag.replace(QRegExp(regex), res);
+}
+
+QString html::addTagAndClass(QString toTag, QString tag, QString theClass){
+    return QString("<%1 class='%3'>%2</%1>").arg(tag).arg(toTag).arg(theClass);
 }

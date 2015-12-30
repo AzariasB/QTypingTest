@@ -20,13 +20,11 @@ TLabel::TLabel(QString text, QWidget* parent) : QWidget(parent) {
 void TLabel::setLabels(QString labelLine) {
     QHBoxLayout *lineLayout = new QHBoxLayout(this);
     lineLayout->setSpacing(0);
-    QString previousWord = "";
     for (QString word : labelLine.split(" ").toVector()) {
         QLabel *aWord = new QLabel(word);
-        aWord->move(previousWord.length() * 10, 0);
-        aWord->setContentsMargins(2, 0, 1, 0);
+        aWord->setFont(labelFont_);
+        aWord->setContentsMargins(5, 0, 5, 0);
         lineLayout->addWidget(aWord);
-        previousWord = word;
         this->labels_.append(aWord);
     }
     lineLayout->addStretch(); //To align all labels to the left
@@ -53,35 +51,32 @@ bool TLabel::nextWord() {
     return false; //No more words
 }
 
-/**
- * Check if the answer the user is entering is correct
- * 
- * @param wordTyped the whole word the user typed
- * @return if the answer exactly the same as the text to copy
- */
 bool TLabel::updateLabelColor(QString wordTyped) {
     QString finalBgColor = "#3188FF"; //Selectionné
     QString finalColor = "black";
 
     auto *currentWord = this->labels_.at(this->currentWord_);
     QStringList splited = wordTyped.split(" ", QString::SkipEmptyParts);
-    wordTyped = splited.takeLast();
+    if (!splited.isEmpty()) {
+        wordTyped = splited.takeLast();
 
-    QString purified = html::removeTag(currentWord->text());
+        QString purified = html::removeTag(currentWord->text());
 
-    //Not the same word => wrong
-    if (purified.indexOf(wordTyped) != 0) {
-        finalBgColor = "#AB001E";
-        nbrErrors_++;
-    } else if (wordTyped.size() < purified.size()) {
-        //Bold next char
-        purified = html::addTagAt(purified, "b", wordTyped.size());
+        //Not the same word => wrong
+        if (purified.indexOf(wordTyped) != 0) {
+            finalBgColor = "#FF5E58";
+            nbrErrors_++;
+        } else if (wordTyped.size() < purified.size()) {
+            //Bold next char
+            purified = html::addTagsAt(purified, "b,u", wordTyped.size());
+        }
+        
+        exactSame_ = wordTyped == purified;
 
+        currentWord->setText(purified);
     }
 
-    exactSame_ = wordTyped == purified;
 
-    currentWord->setText(purified);
 
     QString stylesheed = QString("QLabel{border-color : %1; "
             "background-color : %1; color %2;}")

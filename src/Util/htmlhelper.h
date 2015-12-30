@@ -16,6 +16,7 @@
 #include <QStringList>
 #include <QRegExp>
 
+
 namespace html {
     /**
      * Add a tag around ALL the characters of a QString
@@ -36,17 +37,32 @@ namespace html {
      */
     QString removeTag(QString strToClean, QString tag = "([^>]*)");
     
+    
     /**
-     * Surrond the Qchar at position(starting at 0) given in paramter by the tag also
-     * given in parameter 
-     * Precondition : The QString must contain one single line (no \n)
+     * Surround the QChar at position given in parameter by all the tags given
+     * in parameter.
+     * The tags mus be separated by a comma. For example "b,u" will add the tags "b" then "u".
      * 
      * @param strToTag the QString to be tagged
-     * @param tagName the name of the tag to add around the character (e.g. "a")
-     * @param position the position of the character to tag
-     * @return 
+     * @param tags the tags comma-separated to add to the character (e.g. "b,u")
+     * @param position the position of the char to tag
+     * @return the String with the char tagged
      */
-    QString addTagAt(QString strToTag, QString tagName, int position);
+    QString addTagsAt(QString strToTag,QString tags,int position);
+
+    /**
+     * Return an HTML-element like with a tag and a class.
+     * For exemple, if you pass "patrick", with tag= "p" and class="red"
+     * it will return `\< p class="red">patrick\</\p>`
+     * 
+     * TODO: implement a larger choice of attributes, others than class (if needed)
+     * 
+     * @param toTag the String to be tagged
+     * @param tag the tag to surround the string with
+     * @param theClass the class to add to the qstring
+     * @return the tagged and "classed" string
+     */
+    QString addTagAndClass(QString toTag,QString tag, QString theClass);
 }
 
 

@@ -14,7 +14,8 @@
 #include <QTime>
 #include <QShortcut>
 #include <QKeySequence>
-
+#include <QVBoxLayout>
+#include <QKeyEvent>
 
 #include "../TLine/tline.h"
 #include "../../Data/tresult.h"
@@ -35,8 +36,6 @@ public slots:
 signals:
     void endOfExercice(TResult *exeRes);
 
-protected:
-    void keyPressEvent(QKeyEvent* ev) override;
 
 
 private:
