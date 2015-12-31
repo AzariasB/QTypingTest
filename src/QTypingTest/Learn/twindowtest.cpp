@@ -19,19 +19,22 @@
 TWindowTest::TWindowTest(QString model, QWidget *parent) :
 QDialog(parent),
 lines_(new QList<tln::TLine*>()) {
-    this->setModal(true);
     createLines(model.split(" "));
 }
 
 TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent) :
 QDialog(parent),
 lines_(new QList<tln::TLine*>()) {
-    this->setModal(true);
     QStringList exLetters = exercice->buildExercice();
     createLines(exLetters);
 }
 
 void TWindowTest::createLines(QStringList words) {
+    //Setup window
+    this->setModal(true);
+    this->setFocusPolicy(StrongFocus);
+    this->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    
     //Hack for testing => shortucut to end the exercice
     QShortcut *sh = new QShortcut(this);
     sh->setKey(Qt::CTRL + Qt::Key_F);
@@ -69,14 +72,6 @@ void TWindowTest::createLines(QStringList words) {
     this->setLayout(centralLayout);
 }
 
-/**
- * Finding the closest space in sa list of single Qstrings
- * 
- * @param search list of QStrings containing single char each.
- * @param indexStart index where to start the search
- * @return the index of the closes space in the list, strating from indexStart
- * if no space is found, the index of the last char is returned
- */
 int TWindowTest::findClosestSpace(const QStringList* search, int indexStart) {
     if (indexStart >= search->length() || search->at(indexStart) == " ") return indexStart;
     int toDecr = indexStart;
@@ -88,6 +83,17 @@ int TWindowTest::findClosestSpace(const QStringList* search, int indexStart) {
     
     return toIncr; //End of the string
 }
+
+//Protected
+
+void TWindowTest::keyPressEvent(QKeyEvent* ev) {
+    this->lines_->at(currentLine_)->update(ev);
+}
+
+void TWindowTest::moveEvent(QMoveEvent *ev) {
+    ev->ignore();
+}
+
 
 
 //Slots

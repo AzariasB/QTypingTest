@@ -23,10 +23,8 @@ namespace tln {
         TLine(QString model, QWidget *parent);
         TLine(QString model);
         void setFocus();
-
-
-    protected:
-        void keyPressEvent(QKeyEvent* ev) override;
+        
+        void update(QKeyEvent* ev);
 
 
     signals:

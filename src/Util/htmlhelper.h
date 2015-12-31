@@ -15,6 +15,7 @@
 
 #include <QStringList>
 #include <QRegExp>
+#include <QDebug>
 
 
 namespace html {
@@ -26,7 +27,7 @@ namespace html {
      * @return the QString with all the chars surrounded by the tag
      */
     QString addTagToChars(QString strtToTag, QString tag);
-    
+
     /**
      * Remove every tag in the QString.
      * If no tag is specified, all will be removed, else, only the tag passed in parameter.
@@ -36,8 +37,8 @@ namespace html {
      * @return the cleaned QString
      */
     QString removeTag(QString strToClean, QString tag = "([^>]*)");
-    
-    
+
+
     /**
      * Surround the QChar at position given in parameter by all the tags given
      * in parameter.
@@ -48,7 +49,7 @@ namespace html {
      * @param position the position of the char to tag
      * @return the String with the char tagged
      */
-    QString addTagsAt(QString strToTag,QString tags,int position);
+    QString addTagsAt(QString strToTag, QString tags, int position);
 
     /**
      * Return an HTML-element like with a tag and a class.
@@ -62,7 +63,19 @@ namespace html {
      * @param theClass the class to add to the qstring
      * @return the tagged and "classed" string
      */
-    QString addTagAndClass(QString toTag,QString tag, QString theClass);
+    QString addTagAndClass(QString toTag, QString tag, QString theClass);
+
+    /**
+     * Helper to get the exact position of a char, without taking in consideration
+     * the HTML tags that makes the relative position falsy
+     * For example int the string "<p>p</p>atrick"
+     * the position of the first char is 3 (p) and not 0 (\<>)
+     * 
+     * @param string the string with some eventual html tags
+     * @param relativePos the position of the searched char
+     * @return the absolute position of the researched char, return -1 if the pos was not found (relativePos too big)
+     */
+    int getAbsoluteCharPosition(QString string, int relativePos);
 }
 
 

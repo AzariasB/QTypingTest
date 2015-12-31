@@ -27,7 +27,26 @@ private:
     void testSurroundAt();
     void testAddClass();
     void testRemoveTags();
+    void testAbsolutePosition();
 };
+
+void TestUtils::testAbsolutePosition() {
+    QString joel_0 = "joel";
+    QString joel_1 = "<p>j</p>oel";
+    QString joel_2 = "jo<p>e</p>l";
+    QString joel_3 = "joe<p>l</p>";
+    QString joel_4 = "<p>j</p>o<b>e</b><u>l</u>";
+    QString joel_5 = "<b><u>j</b></u>oel";
+    
+    qDebug() <<"Get the absolute position of a char in a String";
+    QCOMPARE(html::getAbsoluteCharPosition(joel_0,0),0);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_1,0),3);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_2,2),5);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_3,3),6);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_4,3),20);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_5,1),15);
+}
+
 
 void TestUtils::testAddClass() {
     QString patrick = "patrick";
@@ -70,6 +89,7 @@ void TestUtils::testHTML() {
     testSurroundAt();
     testRemoveTags();
     testAddClass();
+    testAbsolutePosition();
 }
 
 void TestUtils::testFactory() {
