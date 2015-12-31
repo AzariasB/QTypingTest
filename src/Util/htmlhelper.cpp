@@ -49,16 +49,16 @@ QString html::addTagToChars(QString strtToTag, QString tag) {
     return strtToTag;
 }
 
-QString html::removeTag(QString strToClean, QString tag) {
+QString html::removeTag(QString &strToClean, QString tag) {
     QString reg = QString("<\\/?%1>").arg(tag);
     return strToClean.replace(QRegExp(reg), "");
 }
 
-QString html::addTagsAt(QString strToTag, QString tags, int position) {
+QString html::addTags(QString &strToTag, QString tags) {
     QStringList splited = tags.split(",", QString::SkipEmptyParts);
 
     QString res = surroundOfTags(splited);
-    position = getAbsoluteCharPosition(strToTag,position);
+    int position = getAbsoluteCharPosition(strToTag,0);
     
     QString regex;
 
@@ -69,8 +69,10 @@ QString html::addTagsAt(QString strToTag, QString tags, int position) {
     else
         regex = QString("(.)(?=.{%1}$)").arg(strToTag.size() - 1 - position);
 
-    return strToTag.replace(QRegExp(regex), res);
+    strToTag = strToTag.replace(QRegExp(regex), res);
+    return strToTag;
 }
+
 
 QString html::addTagAndClass(QString toTag, QString tag, QString theClass) {
     return QString("<%1 class='%3'>%2</%1>").arg(tag).arg(toTag).arg(theClass);

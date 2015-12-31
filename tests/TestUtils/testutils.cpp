@@ -121,14 +121,14 @@ void TestUtils::testSurroundAt() {
     QString sPatrick_6 = "patric<i><p>k</p></i>";
 
     qDebug() << "Adding a single tag";
-    QCOMPARE(html::addTagsAt(patrick, "p", 0), sPatrick_1);
-    QCOMPARE(html::addTagsAt(patrick, "p", 6), sPatrick_2);
-    QCOMPARE(html::addTagsAt(patrick, "p", 2), sPatrick_3);
+    QCOMPARE(html::addTags(patrick, "p", 0), sPatrick_1);
+    QCOMPARE(html::addTags(patrick, "p", 6), sPatrick_2);
+    QCOMPARE(html::addTags(patrick, "p", 2), sPatrick_3);
     
     qDebug() << "Adding multiples tags";
-    QCOMPARE(html::addTagsAt(patrick,"p,b",0),sPatrick_4);
-    QCOMPARE(html::addTagsAt(patrick,"u,b",2),sPatrick_5);
-    QCOMPARE(html::addTagsAt(patrick,"i,p",6),sPatrick_6);
+    QCOMPARE(html::addTags(patrick,"p,b",0),sPatrick_4);
+    QCOMPARE(html::addTags(patrick,"u,b",2),sPatrick_5);
+    QCOMPARE(html::addTags(patrick,"i,p",6),sPatrick_6);
     
 }
 

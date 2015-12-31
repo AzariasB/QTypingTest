@@ -32,12 +32,20 @@ public:
     */
     bool nextChar(bool currendIsCorrect);
     
-
+    /**
+     * Rollback the display and set the current label to the previous one
+     * in case of rollback from the user
+     * 
+     * @return if there are some chars before the current one 
+     */
+    bool previousChar();
+    
 private:
     void setLabels();
 
     const QFont labelFont_ = QFont("Helvetica", 16, QFont::SansSerif);
     QString stringToCopy_;
+    QStringList splitedChars_;
     int currentChar_ = 0;
 
 };

@@ -31,6 +31,7 @@ lineRes_(new TResult()) {
 
 void tln::TLine::connectEvents() {
     //No event for now
+    this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
 void tln::TLine::typingAnswer(QString answer) {
@@ -42,7 +43,7 @@ void tln::TLine::typingAnswer(QString answer) {
     lastAnswer_ += answer;
 
     bool nextChar = toCopy_->nextChar(answer[answer.size() - 1] == globalAnswer_[lastAnswer_.size() - 1]);
-    
+
     if (!nextChar) {
         emit endedLine(this->lineRes_);
     }
@@ -50,8 +51,8 @@ void tln::TLine::typingAnswer(QString answer) {
 }
 
 void tln::TLine::eraseAnswer() {
-    lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
-    //    toCopy_->nextChar(lastAnswer_);
+    if (toCopy_->previousChar())
+        lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
 }
 
 bool tln::TLine::isValidKey(QKeyEvent* ev) {

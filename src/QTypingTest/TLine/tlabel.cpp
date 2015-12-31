@@ -23,65 +23,37 @@ stringToCopy_(text) {
 
 void TLabel::setLabels() {
     this->setFont(labelFont_);
-    this->setText(html::addTagsAt(stringToCopy_, "b,u", 0));
+    splitedChars_ = stringToCopy_.split("", QString::SkipEmptyParts);
+    html::addTags(splitedChars_[currentChar_], "b,u");
+    this->setText(splitedChars_.join(""));
 }
 
 bool TLabel::nextChar(bool currendIsCorrect) {
-    //    QString finalBgColor = "#7378E8"; //Selectionné
-    //    QString finalColor = "black";
-    //    finalBgColor = "#FF5E58";
-
-    QString htmlized = this->text();
-    
+    html::removeTag(splitedChars_[currentChar_]);
     if (!currendIsCorrect) {
-        htmlized = html::addTagsAt(htmlized, "i", currentChar_);
-    }else{
-        htmlized = html::addTagsAt(htmlized,"span",currentChar_);
+        html::addTags(splitedChars_[currentChar_], "u style='color : #FF5E58;'");
+    } else {
+        html::addTags(splitedChars_[currentChar_], "span");
     }
-    
+
     currentChar_++;
-    htmlized = html::addTagsAt(htmlized,"b,u",currentChar_);
-    this->setText(htmlized);
-    
-    return currentChar_ < stringToCopy_.size() - 1;
-    //    auto *currentWord = this->labels_.at(this->currentWord_);
-    //    QString purified = html::removeTag(currentWord->text());
-    //
-    //    if (!wordTyped.isEmpty() &&
-    //            (wordTyped.at(wordTyped.size() - 1) == ' ' ||
-    //            wordTyped.split(" ", QString::SkipEmptyParts).takeLast().size() == purified.size())) {
-    //        nextWord(wordTyped == purified);
-    //    }
-    //
-    //
-    //    QStringList splited = wordTyped.split(" ", QString::SkipEmptyParts);
-    //    if (!splited.isEmpty()) {
-    //        wordTyped = splited.takeLast();
-    //
-    //
-    //        //Not the same word => wrong
-    //        if (purified.indexOf(wordTyped) != 0) {
-    //            
-    //            nbrErrors_++;
-    //        }
-    //
-    //        //Add the position indicator
-    //        purified = html::addTagsAt(purified, "b,u", wordTyped.size());
-    //
-    //    } else {
-    //        purified = html::addTagsAt(purified, "b,u", 0);
-    //    }
-    //    currentWord->setText(purified);
+    if (currentChar_ < stringToCopy_.size()) {
+        html::addTags(splitedChars_[currentChar_], "b,u");
+    }
+    this->setText(splitedChars_.join(""));
 
+    return currentChar_ < stringToCopy_.size();
+}
 
+bool TLabel::previousChar() {
+    if (currentChar_ == 0)return false;
 
-    //    QString stylesheed = QString("QLabel{border-color : %1; "
-    //            "background-color : %1; color %2;}")
-    //            .arg(finalBgColor)
-    //            .arg(finalColor);
-    //    currentWord->setStyleSheet(stylesheed);
-
-    //To be changed to return something more usefull
+    html::removeTag(splitedChars_[currentChar_]);
+    currentChar_--;
+    html::removeTag(splitedChars_[currentChar_]);
+    html::addTags(splitedChars_[currentChar_],"b,u");
+    this->setText(splitedChars_.join(""));
+    return true;
 }
 
 TLabel::~TLabel() {

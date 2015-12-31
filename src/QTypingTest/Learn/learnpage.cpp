@@ -60,6 +60,7 @@ void LearnPage::lauchExercice() {
             //Connect only once the test dialog
             connect(testWindow_, SIGNAL(endOfExercice(TResult*)), this, SLOT(endExercice(TResult*)));
             testWindow_->show();
+            testWindow_->focusWidget();
         }
     }//else ..nothing to do !
 }

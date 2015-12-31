@@ -36,20 +36,20 @@ namespace html {
      * @param tag the tag to remove. If empty, all tags found will be removed
      * @return the cleaned QString
      */
-    QString removeTag(QString strToClean, QString tag = "([^>]*)");
+    QString removeTag(QString &strToClean, QString tag = "([^>]*)");
 
 
     /**
      * Surround the QChar at position given in parameter by all the tags given
      * in parameter.
      * The tags mus be separated by a comma. For example "b,u" will add the tags "b" then "u".
+     * The function will also change the string passed in parameter
      * 
      * @param strToTag the QString to be tagged
      * @param tags the tags comma-separated to add to the character (e.g. "b,u")
-     * @param position the position of the char to tag
      * @return the String with the char tagged
      */
-    QString addTagsAt(QString strToTag, QString tags, int position);
+    QString addTags(QString &strToTag, QString tags);
 
     /**
      * Return an HTML-element like with a tag and a class.
@@ -76,6 +76,7 @@ namespace html {
      * @return the absolute position of the researched char, return -1 if the pos was not found (relativePos too big)
      */
     int getAbsoluteCharPosition(QString string, int relativePos);
+
 }
 
 

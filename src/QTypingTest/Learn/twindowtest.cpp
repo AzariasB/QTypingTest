@@ -34,6 +34,7 @@ void TWindowTest::createLines(QStringList words) {
     this->setModal(true);
     this->setFocusPolicy(StrongFocus);
     this->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    this->move(0,0);
     
     //Hack for testing => shortucut to end the exercice
     QShortcut *sh = new QShortcut(this);
@@ -91,7 +92,9 @@ void TWindowTest::keyPressEvent(QKeyEvent* ev) {
 }
 
 void TWindowTest::moveEvent(QMoveEvent *ev) {
+    qDebug() << "moving !";
     ev->ignore();
+    ev->setAccepted(false); 
 }
 
 
