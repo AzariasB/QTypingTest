@@ -25,12 +25,14 @@ void LearnPage::createPractice() {
     //Create a button for each existing string and add it to the layout
     for (auto it = l.begin(); it != l.end(); ++it, index++) {
         QPushButton *button = new QPushButton(*it);
+
         connect(button, SIGNAL(clicked()), this, SLOT(lauchExercice()));
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
         if (index > THomePage::currentUser_->getProgression()->getLastExericeIndex()) {
             button->setEnabled(false);
-        }
+        } 
+        
         learnButtons_ << button;
 
         lay->addWidget(button, row, col);
@@ -52,10 +54,10 @@ void LearnPage::lauchExercice() {
         if (lastLetterIndex == -1) {//Not found in the list ... that is weird !
             QMessageBox::critical(this, "Exercice not existing", "The exercice you are trying to do does not exist");
         } else {
-
             QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
             QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
+            qDebug() << ex->buildExercice();
             testWindow_ = new TWindowTest(ex, this);
             //Connect only once the test dialog
             connect(testWindow_, SIGNAL(endOfExercice(TResult*)), this, SLOT(endExercice(TResult*)));

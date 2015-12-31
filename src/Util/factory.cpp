@@ -57,13 +57,12 @@ QStringList factory::generateLearning(QStringList mainLetter, QStringList allLet
 
     if (!allLetters.isEmpty()) {
         res += generateFromLetters(allLetters);
-        res += generateWords(allLetters.join(""),"en");
+        res += generateWords(allLetters.join(""), "en");
     } else
         qDebug() << "Warning : empty all letters";
 
     return res.split("");
 }
-
 
 QString factory::generateFromLetters(QStringList letterList, int length) {
     int nextSpace = randomNextSpace();
@@ -90,12 +89,14 @@ QStringList factory::findExistingWords(QString authorizedLetters, QString fileNa
     return res;
 }
 
-QString factory::generateWords(QString authorizedLetters,QString language, int numberOfWords){
-    QString res;
-    QStringList words = factory::findExistingWords(authorizedLetters,file::getWordsPath(language));
-    for(int i = 0; i < numberOfWords;i++){
-        res += selectRandomElement(words);
-        if(i != numberOfWords -1) res += " ";
+QString factory::generateWords(QString authorizedLetters, QString language, int numberOfWords) {
+    QString res = "";
+    QStringList words = factory::findExistingWords(authorizedLetters, file::getWordsPath(language));
+    if (!words.isEmpty()) {
+        for (int i = 0; i < numberOfWords; i++) {
+            res += selectRandomElement(words);
+            if (i != numberOfWords - 1) res += " ";
+        }
     }
     return res;
 }

@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QDir>
 #include <time.h>
+#include <QFile>
+#include "Util/factory.h"
 
 #include "QTypingTest/thomepage.h"
 
@@ -12,7 +14,24 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     qDebug() << "Running from " << QDir::currentPath();
 
+    //Set style
     THomePage hp;
+
+
+    QFile file(file::getStylesheet("style"));
+    if (file.exists()) {
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            qDebug() << "Could not open file, please check the permissions";
+        } else {
+            QTextStream stream(&file);
+            QString stylesheet = stream.readAll();
+            hp.setStyleSheet(stylesheet);
+        }
+        file.close();
+    } else {
+        qDebug() << "Could not load stylesheet";
+    }
+
     hp.show();
 
     return a.exec();

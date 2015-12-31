@@ -20,10 +20,13 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QVector>
+#include <QPixmap>  
+#include <QIcon>
 
 #include "../../Data/tpractice.h"
 #include "../../Data/texercice.h"
 #include "../../Data/tresult.h"
+#include "../../Util/filehelper.h"
 #include "twindowtest.h"
 
 //Thomepage is for the current user. TODO : change the location of the current user

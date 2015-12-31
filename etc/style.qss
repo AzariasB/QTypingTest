@@ -1,18 +1,10 @@
 
-QLabel{
+QStackedWidget QPushButton{
+    color : green;
     font-size : 16px;
-    color : black;
-    padding : 5px;
+    font-family : 'Helvet';
 }
 
-.wrong{
-    color : #FF5B58;
-}
-
-.right{
-    color : #62FF92;
-}
-
-code{
-    color : #FF5B58;
+QStackedWidget QPushButton:disabled{
+    color : red;
 }

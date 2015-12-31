@@ -29,6 +29,23 @@ namespace file{
      * @return the RELATIVE path to the file containing the most common words of the given langage
      */
     QString getWordsPath(QString lang);
+    
+    
+    /**
+     * Helper to get the icons of the padlocks
+     * 
+     * @param open if the padlock is open or not !
+     * @return the relative path to the image of the corresponding padlock
+     */
+    QString getPadlockIcon(bool open);
+    
+    /**
+     * Return the path of the style file
+     * 
+     * @param stylesheetname the name of the file with the styl
+     * @return the relative path to the .qss file containing the style
+     */
+    QString getStylesheet(QString stylesheetname);
 }
 
 #endif /* FILEHELPER_H */
