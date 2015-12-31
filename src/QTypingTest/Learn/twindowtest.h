@@ -30,7 +30,17 @@ public:
     virtual ~TWindowTest();
 
 public slots:
+    /**
+     * To call whenever a line is finished and the next one must begin !
+     * 
+     * @param previousScore the score of the line that was finished
+     */
     void nextLine(TResult *previousScore);
+    
+    /**
+     * Called whenever a user erase at a line to come back on the previous line
+     */
+    void previousLine();
     void beginExercice();
 
 signals:
@@ -61,11 +71,11 @@ private:
      * 
      * @param textModel the string that the user will have to copy
      */
-    void createLines(QStringList textModel);
+    void setupWidget(QStringList textModel);
 
     /**
      * Finding the closest space in sa list of single Qstrings
-     * TODO : put this function in namespaces instead of object
+     * TODO : put this function int 'UTIL' 
      * 
      * @param search list of QStrings containing single char each.
      * @param indexStart index where to start the search
@@ -73,8 +83,29 @@ private:
      * if no space is found, the index of the last char is returned
      */
     int findClosestSpace(const QStringList* search, int indexStart);
+    
+    /**
+     * Will split the text into differents parts to be able to display the 
+     * given original string into differents line with aproximately the same length
+     * 
+     * 
+     * @param text the text to split
+     * @return the text splitted
+     */
+    QStringList splitText(QStringList text);
+    
+    /**
+     * Create the TLines and will :
+     *  - Add them to the window via a layout
+     *  - Connect all the events
+     *  - Add the corresponding text into the Tline
+     * 
+     * @param model the model from where to create the lines
+     * @return the lines created and event-connected
+     */
+    QList<tln::TLine*> createLines(QStringList model);
 
-    QList<tln::TLine*> *lines_;
+    QList<tln::TLine*> lines_;
     TResult *totRes_ = new TResult();
     int currentLine_ = 0;
     int numberOfLines_ = 4;

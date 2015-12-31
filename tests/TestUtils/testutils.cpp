@@ -25,7 +25,6 @@ private:
     //Functions to test HTML
     void testSurroundAll();
     void testSurroundAt();
-    void testAddClass();
     void testRemoveTags();
     void testAbsolutePosition();
 };
@@ -37,31 +36,19 @@ void TestUtils::testAbsolutePosition() {
     QString joel_3 = "joe<p>l</p>";
     QString joel_4 = "<p>j</p>o<b>e</b><u>l</u>";
     QString joel_5 = "<b><u>j</b></u>oel";
-    
-    qDebug() <<"Get the absolute position of a char in a String";
-    QCOMPARE(html::getAbsoluteCharPosition(joel_0,0),0);
-    QCOMPARE(html::getAbsoluteCharPosition(joel_1,0),3);
-    QCOMPARE(html::getAbsoluteCharPosition(joel_2,2),5);
-    QCOMPARE(html::getAbsoluteCharPosition(joel_3,3),6);
-    QCOMPARE(html::getAbsoluteCharPosition(joel_4,3),20);
-    QCOMPARE(html::getAbsoluteCharPosition(joel_5,1),15);
+
+    qDebug() << "Get the absolute position of a char in a String";
+    QCOMPARE(html::getAbsoluteCharPosition(joel_0, 0), 0);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_1, 0), 3);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_2, 2), 5);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_3, 3), 6);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_4, 3), 20);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_5, 1), 15);
 }
-
-
-void TestUtils::testAddClass() {
-    QString patrick = "patrick";
-    QString patrick_1 = "<p class='red'>patrick</p>";
-    QString patrick_2 = "<b class='nope'>patrick</b>";
-    
-    qDebug() << "Adding a class and a tag to a QString";
-    QCOMPARE(html::addTagAndClass(patrick,"p","red"),patrick_1);
-    QCOMPARE(html::addTagAndClass(patrick,"b","nope"),patrick_2);
-}
-
 
 void TestUtils::testWordsFinding() {
     QString letters = "fod";
-    QStringList found = factory::findExistingWords(letters,file::getWordsPath("en"));
+    QStringList found = factory::findExistingWords(letters, file::getWordsPath("en"));
     qDebug() << found;
     QVERIFY(found.contains("food"));
     QVERIFY(found.contains("off"));
@@ -70,7 +57,7 @@ void TestUtils::testWordsFinding() {
     found = factory::findExistingWords(letters, file::getWordsPath("en"));
     qDebug() << found;
     QVERIFY(found.contains("be"));
-    
+
     letters = "betwn";
     found = factory::findExistingWords(letters, file::getWordsPath("en"));
     qDebug() << found;
@@ -88,7 +75,6 @@ void TestUtils::testHTML() {
     testSurroundAll();
     testSurroundAt();
     testRemoveTags();
-    testAddClass();
     testAbsolutePosition();
 }
 
@@ -111,25 +97,36 @@ void TestUtils::testSurroundAll() {
 }
 
 void TestUtils::testSurroundAt() {
-    QString patrick = "patrick";
-    QString sPatrick_1 = "<p>p</p>atrick"; //First one
-    QString sPatrick_2 = "patric<p>k</p>"; //Last one
-    QString sPatrick_3 = "pa<p>t</p>rick"; //Not last,not first
-    
-    QString sPatrick_4 = "<p><b>p</b></p>atrick";
-    QString sPatrick_5 = "pa<u><b>t</b></u>rick";
-    QString sPatrick_6 = "patric<i><p>k</p></i>";
+    QString sPatrick_1 = "<p>p</p>"; //Simple one
 
     qDebug() << "Adding a single tag";
-    QCOMPARE(html::addTags(patrick, "p", 0), sPatrick_1);
-    QCOMPARE(html::addTags(patrick, "p", 6), sPatrick_2);
-    QCOMPARE(html::addTags(patrick, "p", 2), sPatrick_3);
+    QString pString = "p";
+    QCOMPARE(html::addTags(pString, "p"), sPatrick_1);
+
     
+    QString sPatrick_2 = "<b><u>a</u></b>";
+    QString sPatrick_3 = "<t><p>b</p></t>";
+    
+
     qDebug() << "Adding multiples tags";
-    QCOMPARE(html::addTags(patrick,"p,b",0),sPatrick_4);
-    QCOMPARE(html::addTags(patrick,"u,b",2),sPatrick_5);
-    QCOMPARE(html::addTags(patrick,"i,p",6),sPatrick_6);
+    QString aString = "a";
+    QString bString = "b";
+    QCOMPARE(html::addTags(aString, "b,u"), sPatrick_2);
+    QCOMPARE(html::addTags(bString,"t,p"),sPatrick_3);
+
     
+    QString sPatrick_4 = "<p style='color : red;'>p</p>";//First one
+    QString sPatrick_5 = "<u class='red'>k</u>";//Last one
+    QString sPatrick_6 = "<span style='color : black;'>t</span>";
+    
+    qDebug() << "Adding attributes";
+    QString pString2 = "p";
+    QString kString = "k";
+    QString tString = "t";
+    QCOMPARE(html::addTags(pString2,"p","style='color : red;'"),sPatrick_4);
+    QCOMPARE(html::addTags(kString,"u","class='red'"),sPatrick_5);
+    QCOMPARE(html::addTags(tString,"span","style='color : black;'"),sPatrick_6);
+
 }
 
 void TestUtils::testRemoveTags() {

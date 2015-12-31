@@ -45,6 +45,7 @@ void tln::TLine::typingAnswer(QString answer) {
     bool nextChar = toCopy_->nextChar(answer[answer.size() - 1] == globalAnswer_[lastAnswer_.size() - 1]);
 
     if (!nextChar) {
+        this->updateResult();
         emit endedLine(this->lineRes_);
     }
 
@@ -53,6 +54,8 @@ void tln::TLine::typingAnswer(QString answer) {
 void tln::TLine::eraseAnswer() {
     if (toCopy_->previousChar())
         lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
+    else
+        emit eraseOverflow();
 }
 
 bool tln::TLine::isValidKey(QKeyEvent* ev) {
@@ -61,14 +64,23 @@ bool tln::TLine::isValidKey(QKeyEvent* ev) {
             TKeys::isValidLetter(ev->key());
 }
 
-void tln::TLine::setFocus() {
-
-}
-
 void tln::TLine::update(QKeyEvent* ev) {
     if (isValidKey(ev)) {
         typingAnswer(ev->text());
     } else if (ev->key() == Key_Backspace) {
         eraseAnswer();
     }
+}
+
+void tln::TLine::updateResult() {
+    int correctKeyStrokes = 0;
+    int wrongKeyStrokes = 0;
+    for (int i = 0; i < lastAnswer_.size() && i < globalAnswer_.size(); i++) {
+        if (lastAnswer_[i] != globalAnswer_[i])
+            wrongKeyStrokes++;
+        else
+            correctKeyStrokes++;
+    }
+    lineRes_->setCorrectKeysStrokes(correctKeyStrokes);
+    lineRes_->setWrongKeysStrokes(wrongKeyStrokes);
 }

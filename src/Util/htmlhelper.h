@@ -43,27 +43,16 @@ namespace html {
      * Surround the QChar at position given in parameter by all the tags given
      * in parameter.
      * The tags mus be separated by a comma. For example "b,u" will add the tags "b" then "u".
+     * It is possible to add some attributes into the FIRST surrounding tag
      * The function will also change the string passed in parameter
      * 
      * @param strToTag the QString to be tagged
      * @param tags the tags comma-separated to add to the character (e.g. "b,u")
+     * @param attributes some optional attributes to add to arround the string
      * @return the String with the char tagged
      */
-    QString addTags(QString &strToTag, QString tags);
+    QString addTags(QString &strToTag, QString tags,QString attributes = "");
 
-    /**
-     * Return an HTML-element like with a tag and a class.
-     * For exemple, if you pass "patrick", with tag= "p" and class="red"
-     * it will return `\< p class="red">patrick\</\p>`
-     * 
-     * TODO: implement a larger choice of attributes, others than class (if needed)
-     * 
-     * @param toTag the String to be tagged
-     * @param tag the tag to surround the string with
-     * @param theClass the class to add to the qstring
-     * @return the tagged and "classed" string
-     */
-    QString addTagAndClass(QString toTag, QString tag, QString theClass);
 
     /**
      * Helper to get the exact position of a char, without taking in consideration
