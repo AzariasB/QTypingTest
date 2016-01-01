@@ -9,31 +9,26 @@
 #include "tlabel.h"
 #ifdef TLABEL_H
 
-TLabel::TLabel(QString textLine) :
-QLabel(),
-stringToCopy_(textLine) {
-    this->setLabels();
-}
-
-TLabel::TLabel(QString text, QWidget* parent) :
+TLabel::TLabel(QString text, QWidget* parent):
 QLabel(parent),
-stringToCopy_(text) {
+stringToCopy_(text){
     this->setLabels();
 }
 
 void TLabel::setLabels() {
     this->setFont(labelFont_);
     splitedChars_ = stringToCopy_.split("", QString::SkipEmptyParts);
-    html::addTags(splitedChars_[currentChar_], "b,u");
+
+    
     this->setText(splitedChars_.join(""));
 }
 
 bool TLabel::nextChar(bool currendIsCorrect) {
     html::removeTag(splitedChars_[currentChar_]);
     if (!currendIsCorrect) {
-        html::addTags(splitedChars_[currentChar_], "u","style='color : #FF5E58;'");
+        html::addTags(splitedChars_[currentChar_], "u", "style='color : #FF5E58;'");
     } else {
-        html::addTags(splitedChars_[currentChar_], "span","style='color : #8E8EFF';");
+        html::addTags(splitedChars_[currentChar_], "span", "style='color : #8E8EFF';");
     }
 
     currentChar_++;
@@ -48,12 +43,12 @@ bool TLabel::nextChar(bool currendIsCorrect) {
 bool TLabel::previousChar() {
     if (currentChar_ == 0)return false;
 
-    if(currentChar_ < splitedChars_.size()) 
+    if (currentChar_ < splitedChars_.size())
         html::removeTag(splitedChars_[currentChar_]);
-    
+
     currentChar_--;
     html::removeTag(splitedChars_[currentChar_]);
-    html::addTags(splitedChars_[currentChar_],"b,u");
+    html::addTags(splitedChars_[currentChar_], "b,u");
     this->setText(splitedChars_.join(""));
     return true;
 }

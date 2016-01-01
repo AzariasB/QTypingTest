@@ -18,20 +18,19 @@
 class TLabel : public QLabel {
     Q_OBJECT
 public:
-    TLabel(QString text);
-    TLabel(QString text, QWidget *parent);
+    TLabel(QString text, QWidget *parent = 0);
     virtual ~TLabel();
-    
 
-   /**
-    * Update the current char color depending on the answer given by the user
-    * the boolean is here to say wether the answer was right or not
-    * 
-    * @param currendIsCorrect answer given by the user for the current char is correct
-    * @return if there is another char after the current one
-    */
+
+    /**
+     * Update the current char color depending on the answer given by the user
+     * the boolean is here to say wether the answer was right or not
+     * 
+     * @param currendIsCorrect answer given by the user for the current char is correct
+     * @return if there is another char after the current one
+     */
     bool nextChar(bool currendIsCorrect);
-    
+
     /**
      * Rollback the display and set the current label to the previous one
      * in case of rollback from the user
@@ -40,10 +39,19 @@ public:
      */
     bool previousChar();
     
+    /**
+     * Function to update the display and show that the line is ready
+     * for use
+     */
+    inline void setFirst(){
+         html::addTags(splitedChars_[0], "b,u");
+         this->setText(splitedChars_.join(""));
+    }
+
 private:
     void setLabels();
 
-    const QFont labelFont_ = QFont("Helvetica", 16, QFont::SansSerif);
+    const QFont labelFont_ = QFont("Times", 20, QFont::Serif);
     QString stringToCopy_;
     QStringList splitedChars_;
     int currentChar_ = 0;

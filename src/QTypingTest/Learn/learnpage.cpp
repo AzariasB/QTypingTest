@@ -6,6 +6,8 @@
  */
 
 
+#include <qt5/QtWidgets/qscrollarea.h>
+
 #include "learnpage.h"
 
 LearnPage::LearnPage(QWidget* parent) :
@@ -15,24 +17,39 @@ learnButtons_(QVector<QPushButton*>()) {
 }
 
 void LearnPage::createPractice() {
+    QGridLayout *main = new QGridLayout(this);
+
+    QWidget *scrollWidget = new QWidget();
+    QGridLayout *lay = new QGridLayout(scrollWidget);
+
+
+    scrollWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QScrollArea *scroll = new QScrollArea();
+    scrollWidget->setMinimumSize(scroll->size());
+
+
+    qDebug() << scrollWidget->sizeHint();
 
     QStringList l = practice_.getLetterList();
 
     int col = 0,
             row = 0,
             index = 0;
-    QGridLayout *lay = new QGridLayout(this);
+
+
     //Create a button for each existing string and add it to the layout
     for (auto it = l.begin(); it != l.end(); ++it, index++) {
         QPushButton *button = new QPushButton(*it);
 
         connect(button, SIGNAL(clicked()), this, SLOT(lauchExercice()));
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        button->setMinimumHeight(100);
+        button->setContentsMargins(1, 1, 1, 1);
 
         if (index > THomePage::currentUser_->getProgression()->getLastExericeIndex()) {
             button->setEnabled(false);
-        } 
-        
+        }
+
         learnButtons_ << button;
 
         lay->addWidget(button, row, col);
@@ -44,6 +61,9 @@ void LearnPage::createPractice() {
         }
 
     }
+
+    scroll->setWidget(scrollWidget);
+    main->addWidget(scroll);
 }
 
 void LearnPage::lauchExercice() {

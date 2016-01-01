@@ -18,13 +18,15 @@
 
 TWindowTest::TWindowTest(QString model, QWidget *parent) :
 QDialog(parent),
-lines_(QList<tln::TLine*>()) {
+lines_(QList<tln::TLine*>()),
+results_(QList<TResult*>()) {
     setupWidget(model.split(" "));
 }
 
 TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent) :
 QDialog(parent),
-lines_(QList<tln::TLine*>()) {
+lines_(QList<tln::TLine*>()),
+results_(QList<TResult*>()) {
     QStringList exLetters = exercice->buildExercice();
     setupWidget(exLetters);
 }
@@ -41,7 +43,7 @@ void TWindowTest::setupWidget(QStringList words) {
     sh->setKey(CTRL + Key_F);
 
     connect(sh, &QShortcut::activated, [ = ](){
-        emit endOfExercice(totRes_);
+        emit endOfExercice(resultsSum());
     });
     //end of hack
 
@@ -66,6 +68,8 @@ QList<tln::TLine*> TWindowTest::createLines(QStringList model) {
         centralLayout->addWidget(sLine);
         if (i > 0) {
             connect(sLine, SIGNAL(eraseOverflow()), this, SLOT(previousLine()));
+        } else if (i == 0) {
+            sLine->updateAsFirst();
         }
         lines << sLine;
 
@@ -77,17 +81,18 @@ QList<tln::TLine*> TWindowTest::createLines(QStringList model) {
 
 void TWindowTest::previousLine() {
     //Pop the last result
-    
+    if (!results_.isEmpty())
+        results_.pop_back();
+
     //Disable the current tline
     lines_[currentLine_]->setEnabled(false);
-    
+
     currentLine_--;
-    
+
     //Enable the current tline and erase the last char
     lines_[currentLine_]->setEnabled(true);
     lines_[currentLine_]->eraseAnswer();
 }
-
 
 QStringList TWindowTest::splitText(QStringList text) {
     int charPerLines = text.size() / this->numberOfLines_;
@@ -134,22 +139,32 @@ void TWindowTest::moveEvent(QMoveEvent *ev) {
 //Slots
 
 void TWindowTest::nextLine(TResult* previousScore) {
-    *this->totRes_ += *previousScore;
+    this->results_ << previousScore;
     lines_[currentLine_]->setEnabled(false);
     this->currentLine_++;
     if (this->currentLine_ < lines_.size()) {
         this->lines_[currentLine_]->setEnabled(true);
         this->lines_[currentLine_]->setFocus();
+        this->lines_[currentLine_]->updateAsFirst();
     } else {
         int elapsedMS = this->timeStart_.elapsed();
         float mnElapsed = (float) elapsedMS / 60000.f; //Ms to minutes
-        totRes_->updateWPM(mnElapsed);
-        emit endOfExercice(totRes_);
+        TResult *tot = resultsSum();
+        tot->updateWPM(mnElapsed);
+        emit endOfExercice(tot);
     }
 }
 
 void TWindowTest::beginExercice() {
     this->timeStart_.start();
+}
+
+TResult* TWindowTest::resultsSum() {
+    TResult *res = new TResult();
+    for (auto it = results_.begin(); it != results_.end(); ++it) {
+        *res += **it;
+    }
+    return res;
 }
 
 

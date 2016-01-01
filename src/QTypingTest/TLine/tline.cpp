@@ -3,6 +3,8 @@
 
 #include "tline.h"
 
+#ifdef TLINE_H
+
 tln::TLine::TLine(QString model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
 toCopy_(new TLabel(model, this)),
@@ -19,11 +21,6 @@ toCopy_(new TLabel(model)),
 globalAnswer_(model),
 lastAnswer_(QString()),
 lineRes_(new TResult()) {
-    // Style just to make it clear that the widget is 
-    // being resized to fit the parent, it doesn't "overflow"
-    //    edition->setFrameShape(QFrame::Box);
-    //    edition->setFrameShadow(QFrame::Raised);
-    //    edition->setAlignment(Qt::AlignHCenter);
     this->tLineLayout_->addWidget(this->toCopy_);
     this->setLayout(this->tLineLayout_);
     this->connectEvents();
@@ -33,6 +30,8 @@ void tln::TLine::connectEvents() {
     //No event for now
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
+
+
 
 void tln::TLine::typingAnswer(QString answer) {
     if (!started_) {
@@ -84,3 +83,5 @@ void tln::TLine::updateResult() {
     lineRes_->setCorrectKeysStrokes(correctKeyStrokes);
     lineRes_->setWrongKeysStrokes(wrongKeyStrokes);
 }
+
+#endif

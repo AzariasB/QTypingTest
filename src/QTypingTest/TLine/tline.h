@@ -11,7 +11,6 @@
 #include "../../Data/tresult.h"
 #include "../../Data/tkeys.h"
 #include "tlabel.h"
-#include "tlineedit.h"
 
 
 namespace tln {
@@ -31,6 +30,9 @@ namespace tln {
          */
         void update(QKeyEvent* ev);
 
+        inline void updateAsFirst(){
+            this->toCopy_->setFirst();
+        }
 
     signals:
 
@@ -45,13 +47,12 @@ namespace tln {
          * A Signal trigerred when the user typed the first character of the line
          */
         void startedLine();
-        
+
         /**
          * A signale trigerred when the user tries to erase whenever he's at the
          * start of the line
          */
         void eraseOverflow();
-
 
     public slots:
         void typingAnswer(QString answer);
@@ -70,7 +71,7 @@ namespace tln {
          * @return if the key event can be seen as a 'valid' key event 
          */
         bool isValidKey(QKeyEvent *ev);
-            
+
         /**
          * Function to calculate the total score realised by the user at the end of his line
          * It is calculated from the differences between the solution and 

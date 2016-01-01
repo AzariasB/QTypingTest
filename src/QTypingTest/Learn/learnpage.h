@@ -20,8 +20,7 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QVector>
-#include <QPixmap>  
-#include <QIcon>
+#include <QScrollArea>
 
 #include "../../Data/tpractice.h"
 #include "../../Data/texercice.h"
@@ -32,7 +31,7 @@
 //Thomepage is for the current user. TODO : change the location of the current user
 #include "../thomepage.h"
 
-#define MAX_COL 5
+#define MAX_COL 6
 
 class LearnPage : public QWidget {
     Q_OBJECT

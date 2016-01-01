@@ -104,9 +104,19 @@ private:
      * @return the lines created and event-connected
      */
     QList<tln::TLine*> createLines(QStringList model);
+    
+    /**
+     * Because each resulst is stored in a list, at the end of the rush
+     * the function needs to return a single result. 
+     * This function sum up all the results
+     * and return the total sum.
+     * 
+     * @return the sum of all the resulst of each lines
+     */
+    TResult *resultsSum();
 
     QList<tln::TLine*> lines_;
-    TResult *totRes_ = new TResult();
+    QList<TResult*> results_;
     int currentLine_ = 0;
     int numberOfLines_ = 4;
     QTime timeStart_;

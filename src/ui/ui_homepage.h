@@ -140,6 +140,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(page_learn->sizePolicy().hasHeightForWidth());
         page_learn->setSizePolicy(sizePolicy);
+        page_learn->setLayoutDirection(Qt::LeftToRight);
         page_learn->setAutoFillBackground(false);
         stack_main->addWidget(page_learn);
         page_home = new QWidget();
