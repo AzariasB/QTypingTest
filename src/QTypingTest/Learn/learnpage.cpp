@@ -90,8 +90,6 @@ void LearnPage::endExercice(TResult* exerciceResult) {
     QString text = QString("Congratulations, you finished the exercice !<br/>"
             "Results are :<br/>") + exerciceResult->getResume();
 
-    qDebug() << text;
-
     QMessageBox::information(this, "End of exercice", text);
     testWindow_->hide();
     //Unlock the last button if exercice succeeded
