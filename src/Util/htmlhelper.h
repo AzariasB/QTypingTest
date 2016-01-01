@@ -26,7 +26,7 @@ namespace html {
      * @param tag the tag to surround with
      * @return the QString with all the chars surrounded by the tag
      */
-    QString addTagToChars(QString strtToTag, QString tag);
+    QString addTagToChars(QString strtToTag, QString tag,QString attributes="");
 
     /**
      * Remove every tag in the QString.

@@ -33,7 +33,6 @@ TEMPLATE = app
 
 SOURCES += src/main.cpp \
         src/Data/tpractice.cpp \
-        src/QTypingTest/mainwindow.cpp \
         src/QTypingTest/TLine/tline.cpp \
         src/QTypingTest/TLine/tlabel.cpp \
         src/QTypingTest/Learn/twindowtest.cpp \
@@ -49,8 +48,7 @@ SOURCES += src/main.cpp \
         src/Data/tstats.cpp \
         src/Data/tkeys.cpp
 
-HEADERS  += src/QTypingTest/mainwindow.h \
-        src/Data/tpractice.h \
+HEADERS  += src/Data/tpractice.h \
         src/QTypingTest/TLine/tline.h \
         src/QTypingTest/TLine/tlabel.h \
         src/QTypingTest/Learn/twindowtest.h \

@@ -26,6 +26,7 @@
 #include "../../Data/texercice.h"
 #include "../../Data/tresult.h"
 #include "../../Util/filehelper.h"
+#include "../../Util/htmlhelper.h"
 #include "twindowtest.h"
 
 //Thomepage is for the current user. TODO : change the location of the current user

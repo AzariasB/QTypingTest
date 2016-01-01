@@ -7,7 +7,8 @@
 
 #include "tprogression.h"
 
-TProgression::TProgression(): lastExerciceIndex_(10) {
+// CHANGE HERE TO SET THE PROGRESSION TO SOMEHTING ELSE
+TProgression::TProgression(): lastExerciceIndex_(20) {
     
 }
 

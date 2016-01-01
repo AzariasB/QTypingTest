@@ -6,7 +6,6 @@
  */
 
 
-#include <qt5/QtWidgets/qscrollarea.h>
 
 #include "learnpage.h"
 
@@ -87,19 +86,12 @@ void LearnPage::endExercice(TResult* exerciceResult) {
     //TODO : check if the result is good enought to set the advance in the progression
     TProgression *curProgr = THomePage::currentUser_->getProgression();
     curProgr->avdvanceExIndex();
-
-    QString text = QString("Congratulations, you finished the exercice !\n"
-            "Results are :\n WPM : %1\n"
-            "Correct key strokes : %2\n"
-            "Wrong key strokes : %3\n"
-            "Total key strokes : %4")
-            .arg(exerciceResult->getWPM())
-            .arg(exerciceResult->getCorrectKeysStrokes())
-            .arg(exerciceResult->getWrongKeysStrokes())
-            .arg(exerciceResult->getTotalKeysStokres());
-
-    qDebug() << THomePage::currentUser_->getStatistics();
     
+    QString text = QString("Congratulations, you finished the exercice !<br/>"
+            "Results are :<br/>") + exerciceResult->getResume();
+
+    qDebug() << text;
+
     QMessageBox::information(this, "End of exercice", text);
     testWindow_->hide();
     //Unlock the last button if exercice succeeded

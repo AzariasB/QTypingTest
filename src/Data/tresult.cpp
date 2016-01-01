@@ -7,6 +7,7 @@
 
 #include "tresult.h"
 
+
 TResult::TResult() {
 }
 
@@ -47,6 +48,21 @@ TResult* TResult::operator+(const TResult& otherRes) {
     res->setWrongWords(this->getWrongWords() + otherRes.getWrongWords());
     return res;
 }
+
+QString TResult::getResume() {
+    QString wpm = QString::number(this->getWPM());
+    QString corrects = QString::number(correctKeystrokes_);
+    QString wrongs = QString::number(wrongKeystrokes_);
+    QString tot = QString::number(getTotalKeysStokres());
+    
+    return QString("WPM : %1<br/>Correct keyStrokes : %2<br/>"
+            "Wrong keystrokes : %3<br/>Total keystrokes : %4")
+            .arg(html::addTagToChars(wpm,"b"))
+            .arg(html::addTagToChars(corrects,"span","stlye='color : green;'"))
+            .arg(html::addTagToChars(wrongs,"span","style='color :red;'"))
+            .arg(tot);
+}
+
 
 TResult::~TResult() {
 }

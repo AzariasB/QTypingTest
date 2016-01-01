@@ -23,9 +23,7 @@ int main(int argc, char *argv[]) {
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             qDebug() << "Could not open file, please check the permissions";
         } else {
-            QTextStream stream(&file);
-            QString stylesheet = stream.readAll();
-            hp.setStyleSheet(stylesheet);
+            hp.setStyleSheet(QLatin1String(file.readAll()));
         }
         file.close();
     } else {

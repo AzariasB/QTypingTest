@@ -46,8 +46,14 @@ int html::getAbsoluteCharPosition(QString string, int relativePos) {
     return -1;
 }
 
-QString html::addTagToChars(QString strtToTag, QString tag) {
-    QString replaced = QString("<%1>\\1</%1>").arg(tag);
+QString html::addTagToChars(QString strtToTag, QString tag, QString attributes) {
+    QString replaced;
+    if (attributes.isEmpty()) {
+        replaced = QString("<%1>\\1</%1>").arg(tag);
+    } else {
+        replaced = QString("<%1 %2>\\1</%1>").arg(tag).arg(attributes);
+    }
+
     strtToTag.replace(QRegExp("(.)"), replaced);
 
     return strtToTag;

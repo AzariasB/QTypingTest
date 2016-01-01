@@ -29,7 +29,11 @@ QList<int> TKeys::validLetters() {
                 << Key_P << Key_Q << Key_R << Key_S << Key_T
                 << Key_U << Key_U << Key_V << Key_W << Key_X
                 << Key_Y << Key_Z << Key_Comma << Key_Semicolon
-                << Key_Question << Key_Space;
+                << Key_Question << Key_Space << Key_Exclam << Key_Colon
+                << Key_ParenLeft << Key_ParenRight << Key_Underscore
+                << Key_Equal << Key_Minus << Key_QuoteDbl 
+                << Key_Ccedilla << Key_Egrave << Key_Eacute
+                << Key_Ugrave << Key_Ampersand;
     }
     return TKeys::letters_;
 }

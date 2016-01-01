@@ -8,6 +8,10 @@
 #ifndef TRESULT_H
 #define	TRESULT_H
 
+#include <QString>
+
+#include "../Util/htmlhelper.h"
+
 /**
  * This class is here to calculate the results of an exercice
  * this must be used to calculate the speed, and the accuracy
@@ -54,6 +58,15 @@ public:
         this->correctKeystrokes_ += incrementation;
     }
 
+    /**
+     * Return a QString with all the values of the object
+     * Helper to show results at the end of an exercice
+     * or when watching the history of exercices
+     * 
+     * @return the resume of all the data
+     */
+    QString getResume();
+    
     int updateWPM(float deltaTime/*in minutes*/);
     int getTotalWords() const;
     int getTotalKeysStokres() const;
