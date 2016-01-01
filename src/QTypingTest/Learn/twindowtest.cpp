@@ -128,8 +128,12 @@ void TWindowTest::keyPressEvent(QKeyEvent* ev) {
     this->lines_[currentLine_]->update(ev);
 }
 
+/**
+ * Please dialog, stop moving
+ * when the text is changing !
+ */
 void TWindowTest::moveEvent(QMoveEvent *ev) {
-    qDebug() << "moving !";
+//    qDebug() << "moving !";
     ev->ignore();
     ev->setAccepted(false);
 }

@@ -17,6 +17,7 @@
 #include "texercice.h"
 #include "tpractice.h"
 #include "tresult.h"
+#include "tstats.h"
 
 struct date_exercice_ {
     QDateTime dateResult;
@@ -44,6 +45,12 @@ public:
     inline TProgression* getProgression() const{
         return progress_;
     }
+    
+    inline const TStats &getStatistics() const{
+        return statistics_;
+    }
+    
+    void oneMoreMistake(const QChar &mistaken);
 
     /**
      * Add result to the history of user practice.
@@ -59,6 +66,7 @@ public:
 private:
     QString pseudo_;
     TProgression *progress_;
+    TStats statistics_;
 
     QHash<date_exercice_*, TResult*> practiceHistory_;
 

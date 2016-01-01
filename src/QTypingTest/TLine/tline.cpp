@@ -2,6 +2,7 @@
 
 
 #include "tline.h"
+#include "src/QTypingTest/thomepage.h"
 
 #ifdef TLINE_H
 
@@ -31,8 +32,6 @@ void tln::TLine::connectEvents() {
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
-
-
 void tln::TLine::typingAnswer(QString answer) {
     if (!started_) {
         started_ = true;
@@ -41,13 +40,30 @@ void tln::TLine::typingAnswer(QString answer) {
 
     lastAnswer_ += answer;
 
-    bool nextChar = toCopy_->nextChar(answer[answer.size() - 1] == globalAnswer_[lastAnswer_.size() - 1]);
+    bool sameChar = answer[answer.size() - 1] == globalAnswer_[lastAnswer_.size() - 1];
+
+    if (!sameChar) {
+        handleMistype(answer[answer.size() - 1]);
+    }
+
+    bool nextChar = toCopy_->nextChar(sameChar);
 
     if (!nextChar) {
         this->updateResult();
         emit endedLine(this->lineRes_);
     }
 
+}
+
+void tln::TLine::handleMistype(QChar userAns) {
+    bool previousWasRight = true;
+    if (lastAnswer_.size() > 1) {
+        previousWasRight = globalAnswer_[lastAnswer_.size() - 2] == lastAnswer_[lastAnswer_.size() - 2];
+    }
+
+    if (previousWasRight) {
+        THomePage::currentUser_->oneMoreMistake(userAns);
+    }
 }
 
 void tln::TLine::eraseAnswer() {

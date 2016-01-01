@@ -10,7 +10,8 @@
 
 TUser::TUser(QString pseudo):
 pseudo_(pseudo),
-progress_(new TProgression()){
+progress_(new TProgression()),
+statistics_(TStats()){
 }
 
 QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
@@ -19,6 +20,10 @@ QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
     key.exercice = exTyp;
     practiceHistory_[&key] = exRes;
     return key.dateResult;
+}
+
+void TUser::oneMoreMistake(const QChar& mistaken) {
+    this->statistics_[mistaken]++;
 }
 
 

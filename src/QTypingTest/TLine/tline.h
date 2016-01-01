@@ -80,6 +80,17 @@ namespace tln {
          * Both the answer and the solution must have the same length
          */
         void updateResult();
+        
+        /**
+         * Function to update the necessary models (staistics)
+         * so that the user knows what's his worst key
+         * 
+         * If the previous key was wrong, the current key will not counted as mistype
+         * since it can be because of the speed
+         * 
+         * @param userAnswer the character typed by the user wich is the wrong answer
+         */
+        void handleMistype(QChar userAnswer);
 
 
         //Attributes

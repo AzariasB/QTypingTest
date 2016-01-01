@@ -27,9 +27,6 @@ void LearnPage::createPractice() {
     QScrollArea *scroll = new QScrollArea();
     scrollWidget->setMinimumSize(scroll->size());
 
-
-    qDebug() << scrollWidget->sizeHint();
-
     QStringList l = practice_.getLetterList();
 
     int col = 0,
@@ -77,7 +74,6 @@ void LearnPage::lauchExercice() {
             QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
             QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
-            qDebug() << ex->buildExercice();
             testWindow_ = new TWindowTest(ex, this);
             //Connect only once the test dialog
             connect(testWindow_, SIGNAL(endOfExercice(TResult*)), this, SLOT(endExercice(TResult*)));
@@ -102,6 +98,8 @@ void LearnPage::endExercice(TResult* exerciceResult) {
             .arg(exerciceResult->getWrongKeysStrokes())
             .arg(exerciceResult->getTotalKeysStokres());
 
+    qDebug() << THomePage::currentUser_->getStatistics();
+    
     QMessageBox::information(this, "End of exercice", text);
     testWindow_->hide();
     //Unlock the last button if exercice succeeded

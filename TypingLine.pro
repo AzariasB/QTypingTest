@@ -46,6 +46,7 @@ SOURCES += src/main.cpp \
         src/Data/texercice.cpp \
         src/Data/tprogression.cpp \
         src/Data/tuser.cpp \
+        src/Data/tstats.cpp \
         src/Data/tkeys.cpp
 
 HEADERS  += src/QTypingTest/mainwindow.h \
@@ -62,6 +63,7 @@ HEADERS  += src/QTypingTest/mainwindow.h \
         src/Data/texercice.h \
         src/Data/tprogression.h \
         src/Data/tuser.h \
+        src/Data/tstats.h \
         src/Data/tkeys.h
         
 
