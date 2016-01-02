@@ -36,7 +36,7 @@ public slots:
      * @param previousScore the score of the line that was finished
      */
     void nextLine(TResult *previousScore);
-    
+
     /**
      * Called whenever a user erase at a line to come back on the previous line
      */
@@ -45,6 +45,8 @@ public slots:
 
 signals:
     void endOfExercice(TResult *exeRes);
+
+    void closed();
 
 protected:
     /**
@@ -58,9 +60,17 @@ protected:
     /**
      * Dialog keeps moving while changin the text of the label ...
      * 
-     * @param 
+     * @param the move event
      */
     void moveEvent(QMoveEvent *ev) override;
+
+    /**
+     * Create a signal when the dialog close
+     * to warn the parent and reset the exercice
+     * 
+     * @param the close event
+     */
+    void closeEvent(QCloseEvent* ev) override;
 
 
 private:
@@ -83,7 +93,7 @@ private:
      * if no space is found, the index of the last char is returned
      */
     int findClosestSpace(const QStringList* search, int indexStart);
-    
+
     /**
      * Will split the text into differents parts to be able to display the 
      * given original string into differents line with aproximately the same length
@@ -93,7 +103,7 @@ private:
      * @return the text splitted
      */
     QStringList splitText(QStringList text);
-    
+
     /**
      * Create the TLines and will :
      *  - Add them to the window via a layout
@@ -104,7 +114,7 @@ private:
      * @return the lines created and event-connected
      */
     QList<tln::TLine*> createLines(QStringList model);
-    
+
     /**
      * Because each resulst is stored in a list, at the end of the rush
      * the function needs to return a single result. 

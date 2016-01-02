@@ -54,6 +54,11 @@ public slots:
     void endExercice(TResult *exerciceResult);
 
 
+    /**
+     * Called when an exercice is finished or when the exerice
+     * dialog is closed to reset all the necessary values
+     */
+    void resetExercice();
 
 private:
     /**
@@ -61,6 +66,7 @@ private:
      * the layout
      */
     void createPractice();
+    
 
     //Save the tpractice instead of instanciate it over and over
     TPractice practice_ = TPractice::getInstance();
@@ -70,6 +76,11 @@ private:
 
     /*A list of button to save the state (activated or not) of each depending on the user progression*/
     QVector<QPushButton*> learnButtons_;
+    
+    /**
+     * When a user start a new exercice, this int is set to the index of the letter he's doing
+     */
+    int currentProgression_ = -1;
 };
 
 #endif /* LEARNPAGE_H */

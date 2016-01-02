@@ -138,6 +138,9 @@ void TWindowTest::moveEvent(QMoveEvent *ev) {
     ev->setAccepted(false);
 }
 
+void TWindowTest::closeEvent(QCloseEvent* ev) {
+    emit closed();
+}
 
 
 //Slots

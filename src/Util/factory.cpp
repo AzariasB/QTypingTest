@@ -13,6 +13,8 @@
 
 #include "factory.h"
 
+const int numberOfWords = 40;
+
 /**
  * A little helper to generate random position of space in text
  * 
@@ -22,15 +24,41 @@ int randomNextSpace() {
     return rand() % 9 + 2;
 }
 
+/**
+ * Little helper to check if at least each chars of the contains QString
+ * is contained in one of the words.
+ * For example, with the words ("fly","my") and the string "ty", the function
+ * will return false since "t" is contained in none of the words "fly" and "my"
+ * If we had ("fly","my","try") the function would return true since t is in "try"
+ * and "y" is in at least of of the three words
+ * 
+ * @param words the found words
+ * @param contains the chars that must be in the words
+ * @return if ALL the chars in the string contains are in the words
+ */
+bool wordsContains(QStringList words, QString contains) {
+    QStringList letters = contains.split("", QString::SkipEmptyParts);
+    for (auto it = words.begin(); it != words.end(); ++it) {
+        QStringList copy = letters;
+        for (auto letter = letters.begin(); letter != letters.end(); ++letter) {
+            if ((*it).contains(*letter)) {
+                copy.removeAll(*letter);
+            }
+        }
+        if (copy.isEmpty()) {
+            return true;
+        }
+        letters = copy;
+    }
+
+    return false;
+}
+
 QStringList readFile(QString fileName) {
     QFile model(fileName);
-    QStringList words = QStringList();
     if (model.exists() && model.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&model);
-        while (!in.atEnd()) {
-            words << in.readLine();
-        }
-        return words;
+        QString res = QLatin1String(model.readAll());
+        return res.split("\n");
     } else {//File not found
         if (!model.exists())
             qDebug() << "File does not exists : " + fileName + " \n Please, be sure to run the programm from its root folder";
@@ -57,9 +85,26 @@ QStringList factory::generateLearning(QStringList mainLetter, QStringList allLet
 
     if (!allLetters.isEmpty()) {
         res += generateFromLetters(allLetters);
-        res += generateWords(allLetters.join(""), "en");
+        QString wordsWMain = generateWords(allLetters.join(""), "en", mainLetter.join(""));
+
+        //If no words can be generated
+        if (wordsWMain.isEmpty()) {
+            //Try without main letter
+            QString randWords = generateWords(allLetters.join(""), "en");
+            //
+            if (randWords.isEmpty()) {//Generate random letters
+                res += generateFromLetters(allLetters);
+            } else {//Random generate words AND main letters and shuffle
+                QString randLetter = generateFromLetters(mainLetter);
+                QStringList available = randLetter.split(" ") + randWords.split(" ");
+                std::random_shuffle(available.begin(), available.end());
+                res += available.join(" ");
+            }
+        } else {
+            res += wordsWMain;
+        }
     } else
-        qDebug() << "Warning : empty all letters";
+        qDebug() << "Warning : no letters available";
 
     return res.split("");
 }
@@ -77,21 +122,28 @@ QString factory::generateFromLetters(QStringList letterList, int length) {
     return res;
 }
 
-QStringList factory::findExistingWords(QString authorizedLetters, QString fileName) {
+QStringList factory::findExistingWords(QString authorizedLetters, QString fileName, QString mustContain) {
     QStringList words = readFile(fileName);
     QStringList res;
 
     foreach(QString word, words) {
-        if (isValidWord(word, authorizedLetters)) {
+        if (isValidWord(word, authorizedLetters))
             res << word;
-        }
     }
+
+
+    if (!mustContain.isEmpty() && 
+            !res.isEmpty() && 
+            !wordsContains(res, mustContain)) {
+        return QStringList(); //Empty list
+    }
+
     return res;
 }
 
-QString factory::generateWords(QString authorizedLetters, QString language, int numberOfWords) {
+QString factory::generateWords(QString authorizedLetters, QString language, QString mainLetters) {
     QString res = "";
-    QStringList words = factory::findExistingWords(authorizedLetters, file::getWordsPath(language));
+    QStringList words = factory::findExistingWords(authorizedLetters, file::getWordsPath(language), mainLetters);
     if (!words.isEmpty()) {
         for (int i = 0; i < numberOfWords; i++) {
             res += selectRandomElement(words);
