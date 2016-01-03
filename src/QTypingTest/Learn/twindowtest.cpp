@@ -32,7 +32,6 @@ stackWidget_(new QStackedWidget()) {
 }
 
 void TWindowTest::setupWidget(QString words) {
-    qDebug() << words << endl;
     //Setup window
     this->setModal(true);
     this->setFocusPolicy(StrongFocus);
@@ -44,7 +43,11 @@ void TWindowTest::setupWidget(QString words) {
     sh->setKey(CTRL + Key_F);
 
     connect(sh, &QShortcut::activated, [ = ](){
-        emit endOfExercice(resultsSum());
+        if(results_.isEmpty()){
+            tln::TPage *curPage = static_cast<tln::TPage*>(stackWidget_->currentWidget());
+            this->results_.push_back(curPage->getResult());
+        }
+        emit endOfExercice(exerciceResult());
     });
     //end of hack
 
@@ -68,7 +71,7 @@ QList<tln::TPage*> TWindowTest::createPages(QStringList model) {
         if (i > 0) {
             sLine->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
         } else if (i == 0) {
-            connect(sLine,SIGNAL(startedPage()),this,SLOT(beginExercice()));
+            connect(sLine, SIGNAL(startedPage()), this, SLOT(beginExercice()));
             sLine->updateAsFirst();
         }
         lines << sLine;
@@ -120,10 +123,7 @@ void TWindowTest::nextPage(TResult* previousScore) {
         nwPage->setFocus();
         nwPage->updateAsFirst();
     } else {//No more pages
-        int elapsedMS = this->timeStart_.elapsed();
-        float mnElapsed = (float) elapsedMS / 60000.f; //Ms to minutes
-        TResult *tot = resultsSum();
-        tot->updateWPM(mnElapsed);
+        TResult *tot = exerciceResult();
         emit endOfExercice(tot);
     }
 }
@@ -132,11 +132,17 @@ void TWindowTest::beginExercice() {
     this->timeStart_.start();
 }
 
-TResult* TWindowTest::resultsSum() {
+TResult* TWindowTest::exerciceResult() {
+    //Sum the results
     TResult *res = new TResult();
     for (auto it = results_.begin(); it != results_.end(); ++it) {
         *res += **it;
     }
+    int elapsedMS = this->timeStart_.elapsed();
+    float mnElapsed = (float) elapsedMS / 60000.f; //Ms to minutes
+
+    res->updateWPM(mnElapsed);
+
     return res;
 }
 

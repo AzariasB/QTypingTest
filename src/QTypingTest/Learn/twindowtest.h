@@ -100,7 +100,7 @@ private:
      * 
      * @return the sum of all the resulst of each lines
      */
-    TResult *resultsSum();
+    TResult *exerciceResult();
 
     QList<TResult*> results_;
     int currentPage_ = 0;

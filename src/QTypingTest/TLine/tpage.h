@@ -35,6 +35,15 @@ namespace tln {
         inline void updateAsFirst() {
             this->toCopy_[currentTLabel_]->setFirst();
         }
+        
+        inline TResult *getResult(){
+            updateResult();
+            return lineRes_;
+        }
+        
+//##############################
+//  Signals
+//##############################
     signals:
         /**
          * A Signal trigerred when the user typed the first character of the line

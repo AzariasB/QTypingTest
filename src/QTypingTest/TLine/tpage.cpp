@@ -90,14 +90,17 @@ void tln::TPage::handleMistype(QChar userAns) {
 }
 
 void tln::TPage::eraseAnswer() {
+    //TODO : find a better way to write that down ... 
     if (toCopy_[currentTLabel_]->previousChar())
         lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
-    else {
-        if (currentTLabel_ > 0) {
-            currentTLabel_--;
-            //Update view
-        }
+    else if (currentTLabel_ > 0) {
+        lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
+        toCopy_[currentTLabel_]->setEnabled(false);
+        currentTLabel_--;
+        toCopy_[currentTLabel_]->setEnabled(true);
+        toCopy_[currentTLabel_]->previousChar();
     }
+    //Else : could emit 'eraseOverflow'
 }
 
 bool tln::TPage::isValidKey(QKeyEvent* ev) {
