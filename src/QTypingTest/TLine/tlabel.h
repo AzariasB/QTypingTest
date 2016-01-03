@@ -38,20 +38,27 @@ public:
      * @return if there are some chars before the current one 
      */
     bool previousChar();
-    
+
     /**
      * Function to update the display and show that the line is ready
      * for use
      */
-    inline void setFirst(){
-         html::addTags(splitedChars_[0], "b,u");
-         this->setText(splitedChars_.join(""));
+    inline void setFirst() {
+        html::addTags(splitedChars_[0], "b,u");
+        this->setText(splitedChars_.join(""));
     }
+
+signals:
+    /**
+     * A signale trigerred when the user tries to erase whenever he's at the
+     * start of the line
+     */
+    void eraseOverflow();
 
 private:
     void setLabels();
 
-    const QFont labelFont_ = QFont("Times", 20, QFont::Serif);
+    const QFont labelFont_ = QFont("Monospace", 20, QFont::Monospace);
     QString stringToCopy_;
     QStringList splitedChars_;
     int currentChar_ = 0;

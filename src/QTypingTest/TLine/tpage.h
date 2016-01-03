@@ -7,20 +7,22 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QValidator>
+#include <QList>
 
 #include "../../Data/tresult.h"
 #include "../../Data/tkeys.h"
+#include "../../Util/factory.h"
 #include "tlabel.h"
 
 
 namespace tln {
 
-    class TLine : public QWidget {
+    class TPage : public QWidget {
         Q_OBJECT
     public:
-        explicit TLine(QWidget *parent = 0);
-        TLine(QString model, QWidget *parent);
-        TLine(QString model);
+        explicit TPage(QWidget *parent = 0);
+        TPage(QString model, QWidget *parent);
+        TPage(QString model);
 
         /**
          * Called by the parent dialog/Window whenever a key is pressed to
@@ -30,29 +32,19 @@ namespace tln {
          */
         void update(QKeyEvent* ev);
 
-        inline void updateAsFirst(){
-            this->toCopy_->setFirst();
+        inline void updateAsFirst() {
+            //            this->toCopy_->setFirst();
         }
-
     signals:
-
-        /**
-         * A signal trigerred when the user typed the last letter of the line
-         * 
-         * @param lineResult restul realised by the user at the end of the line
-         */
-        void endedLine(TResult *lineResult);
-
         /**
          * A Signal trigerred when the user typed the first character of the line
          */
-        void startedLine();
-
-        /**
-         * A signale trigerred when the user tries to erase whenever he's at the
-         * start of the line
-         */
-        void eraseOverflow();
+        void startedPage();
+    
+    /**
+     *  Signale trigerred when there is no more text to copy on the page
+     */
+    void endedPage(TResult*);
 
     public slots:
         void typingAnswer(QString answer);
@@ -60,9 +52,9 @@ namespace tln {
 
     private:
         /**
-         * Connect all the needed events of the line
+         * Put the elements on the widget
          */
-        void connectEvents();
+        void setupPage();
 
         /**
          * Function to determine if the keypress event is valid (usable)
@@ -80,7 +72,7 @@ namespace tln {
          * Both the answer and the solution must have the same length
          */
         void updateResult();
-        
+
         /**
          * Function to update the necessary models (staistics)
          * so that the user knows what's his worst key
@@ -96,13 +88,19 @@ namespace tln {
         //Attributes
         QVBoxLayout *tLineLayout_;
         //        QLineEdit *edition_;
-        TLabel *toCopy_;
+
+        QList<TLabel*> toCopy_;
 
         QString globalAnswer_;
         QString lastAnswer_;
         TResult *lineRes_;
 
         bool started_ = false;
+
+        //The number of lines/label
+        const int numberOfLines_ = 4;
+
+        int currentTLabel_ = 0;
     };
 }
 

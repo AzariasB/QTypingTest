@@ -132,8 +132,8 @@ QStringList factory::findExistingWords(QString authorizedLetters, QString fileNa
     }
 
 
-    if (!mustContain.isEmpty() && 
-            !res.isEmpty() && 
+    if (!mustContain.isEmpty() &&
+            !res.isEmpty() &&
             !wordsContains(res, mustContain)) {
         return QStringList(); //Empty list
     }
@@ -157,3 +157,30 @@ QString factory::selectRandomElement(QStringList lettersList) {
     return lettersList[rand() % lettersList.size()];
 }
 
+int factory::findClosestSpace(const QString& search, int indexStart) {
+    if (indexStart >= search.length() || search[indexStart] == ' ') return indexStart;
+    int toDecr = indexStart;
+    int toIncr = indexStart;
+    for (; toDecr >= 0 && toIncr < search.size(); --toDecr, ++toIncr) {
+        if (search[toDecr] == ' ') return toDecr;
+        if (search[toIncr] == ' ') return toIncr;
+    }
+
+    return toIncr; //End of the string
+}
+
+QStringList factory::splitText(QString toSplit, int numberOfSplit) {
+    int charPerPages = toSplit.size() / numberOfSplit;
+
+    QStringList models;
+
+    for (int i = 0; i < numberOfSplit; i++) {
+        //Find the closest space to do not cut a word
+        int indexlast = factory::findClosestSpace(toSplit, charPerPages);
+        QString line =   toSplit.mid(0, indexlast);
+        //Reduce the size of the original array
+        toSplit = toSplit.mid(indexlast + 1);
+        models << line;
+    }
+    return models;
+}

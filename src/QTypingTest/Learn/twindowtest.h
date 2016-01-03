@@ -16,10 +16,12 @@
 #include <QKeySequence>
 #include <QVBoxLayout>
 #include <QKeyEvent>
+#include <QStackedWidget>
 
-#include "../TLine/tline.h"
+#include "../TLine/tpage.h"
 #include "../../Data/tresult.h"
 #include "../../Data/texercice.h"
+#include "../../Util/factory.h"
 
 class TWindowTest : public QDialog {
     Q_OBJECT
@@ -35,12 +37,8 @@ public slots:
      * 
      * @param previousScore the score of the line that was finished
      */
-    void nextLine(TResult *previousScore);
+    void nextPage(TResult *previousScore);
 
-    /**
-     * Called whenever a user erase at a line to come back on the previous line
-     */
-    void previousLine();
     void beginExercice();
 
 signals:
@@ -81,28 +79,7 @@ private:
      * 
      * @param textModel the string that the user will have to copy
      */
-    void setupWidget(QStringList textModel);
-
-    /**
-     * Finding the closest space in sa list of single Qstrings
-     * TODO : put this function int 'UTIL' 
-     * 
-     * @param search list of QStrings containing single char each.
-     * @param indexStart index where to start the search
-     * @return the index of the closes space in the list, strating from indexStart
-     * if no space is found, the index of the last char is returned
-     */
-    int findClosestSpace(const QStringList* search, int indexStart);
-
-    /**
-     * Will split the text into differents parts to be able to display the 
-     * given original string into differents line with aproximately the same length
-     * 
-     * 
-     * @param text the text to split
-     * @return the text splitted
-     */
-    QStringList splitText(QStringList text);
+    void setupWidget(QString textModel);
 
     /**
      * Create the TLines and will :
@@ -113,7 +90,7 @@ private:
      * @param model the model from where to create the lines
      * @return the lines created and event-connected
      */
-    QList<tln::TLine*> createLines(QStringList model);
+    QList<tln::TPage*> createPages(QStringList model);
 
     /**
      * Because each resulst is stored in a list, at the end of the rush
@@ -125,11 +102,11 @@ private:
      */
     TResult *resultsSum();
 
-    QList<tln::TLine*> lines_;
     QList<TResult*> results_;
-    int currentLine_ = 0;
-    int numberOfLines_ = 4;
+    int currentPage_ = 0;
+    const int numberOfPages_ = 2;
     QTime timeStart_;
+    QStackedWidget *stackWidget_;
 
 };
 

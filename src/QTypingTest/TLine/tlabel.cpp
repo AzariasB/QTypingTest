@@ -18,7 +18,6 @@ stringToCopy_(text){
 void TLabel::setLabels() {
     this->setFont(labelFont_);
     splitedChars_ = stringToCopy_.split("", QString::SkipEmptyParts);
-
     
     this->setText(splitedChars_.join(""));
 }

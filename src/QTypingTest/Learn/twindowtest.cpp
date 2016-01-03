@@ -18,20 +18,21 @@
 
 TWindowTest::TWindowTest(QString model, QWidget *parent) :
 QDialog(parent),
-lines_(QList<tln::TLine*>()),
-results_(QList<TResult*>()) {
-    setupWidget(model.split(" "));
+results_(QList<TResult*>()),
+stackWidget_( new QStackedWidget() ) {
+    setupWidget(model);
 }
 
 TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent) :
 QDialog(parent),
-lines_(QList<tln::TLine*>()),
-results_(QList<TResult*>()) {
+results_(QList<TResult*>()),
+stackWidget_( new QStackedWidget() ) {
     QStringList exLetters = exercice->buildExercice();
-    setupWidget(exLetters);
+    setupWidget(exLetters.join(""));
 }
 
-void TWindowTest::setupWidget(QStringList words) {
+void TWindowTest::setupWidget(QString words) {
+    qDebug() << words << endl;
     //Setup window
     this->setModal(true);
     this->setFocusPolicy(StrongFocus);
@@ -48,84 +49,43 @@ void TWindowTest::setupWidget(QStringList words) {
     //end of hack
 
 
-    QStringList models = splitText(words);
+    QStringList models = factory::splitText(words, this->numberOfPages_);
 
-    lines_ = createLines(models);
+    createPages(models);
 
-    lines_[0]->setEnabled(true); //Enable first line
-
-    connect(lines_[0], SIGNAL(startedLine()), this, SLOT(beginExercice()));
+    //    connect(pages_[0], SIGNAL(startedLine()), this, SLOT(beginExercice()));
 }
 
-QList<tln::TLine*> TWindowTest::createLines(QStringList model) {
+QList<tln::TPage*> TWindowTest::createPages(QStringList model) {
     QVBoxLayout *centralLayout = new QVBoxLayout();
-    QList<tln::TLine*> lines;
+
+    QList<tln::TPage*> lines;
 
     for (int i = 0; i < model.size(); i++) {
-        tln::TLine *sLine = new tln::TLine(model[i]);
-        sLine->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
-        connect(sLine, SIGNAL(endedLine(TResult*)), this, SLOT(nextLine(TResult*)));
-        centralLayout->addWidget(sLine);
+        tln::TPage *sLine = new tln::TPage(model[i]);
+        connect(sLine, SIGNAL(endedPage(TResult*)), this, SLOT(nextPage(TResult*)));
+        stackWidget_->addWidget(sLine);
         if (i > 0) {
-            connect(sLine, SIGNAL(eraseOverflow()), this, SLOT(previousLine()));
+            sLine->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
         } else if (i == 0) {
             sLine->updateAsFirst();
         }
         lines << sLine;
-
     }
-
+    
+    centralLayout->addWidget(stackWidget_);
     this->setLayout(centralLayout);
     return lines;
 }
 
-void TWindowTest::previousLine() {
-    //Pop the last result
-    if (!results_.isEmpty())
-        results_.pop_back();
 
-    //Disable the current tline
-    lines_[currentLine_]->setEnabled(false);
 
-    currentLine_--;
-
-    //Enable the current tline and erase the last char
-    lines_[currentLine_]->setEnabled(true);
-    lines_[currentLine_]->eraseAnswer();
-}
-
-QStringList TWindowTest::splitText(QStringList text) {
-    int charPerLines = text.size() / this->numberOfLines_;
-
-    QStringList models;
-
-    for (int i = 0; i < numberOfLines_; i++) {
-        //Find the closest space to do not cut a word
-        int indexlast = this->findClosestSpace(&text, charPerLines);
-        QStringList *line = new QStringList(text.mid(0, indexlast));
-        //Reduce the size of the original array
-        text = text.mid(indexlast + 1);
-        models << line->join("") + " ";
-    }
-    return models;
-}
-
-int TWindowTest::findClosestSpace(const QStringList* search, int indexStart) {
-    if (indexStart >= search->length() || search->at(indexStart) == " ") return indexStart;
-    int toDecr = indexStart;
-    int toIncr = indexStart;
-    for (; toDecr >= 0 && toIncr < search->size(); --toDecr, ++toIncr) {
-        if (search->at(toDecr) == " ") return toDecr;
-        if (search->at(toIncr) == " ") return toIncr;
-    }
-
-    return toIncr; //End of the string
-}
 
 //Protected
 
 void TWindowTest::keyPressEvent(QKeyEvent* ev) {
-    this->lines_[currentLine_]->update(ev);
+    tln::TPage *page = static_cast<tln::TPage*>(stackWidget_->currentWidget());
+    page->update(ev);
 }
 
 /**
@@ -133,7 +93,7 @@ void TWindowTest::keyPressEvent(QKeyEvent* ev) {
  * when the text is changing !
  */
 void TWindowTest::moveEvent(QMoveEvent *ev) {
-//    qDebug() << "moving !";
+    //    qDebug() << "moving !";
     ev->ignore();
     ev->setAccepted(false);
 }
@@ -145,15 +105,19 @@ void TWindowTest::closeEvent(QCloseEvent* ev) {
 
 //Slots
 
-void TWindowTest::nextLine(TResult* previousScore) {
+void TWindowTest::nextPage(TResult* previousScore) {
     this->results_ << previousScore;
-    lines_[currentLine_]->setEnabled(false);
-    this->currentLine_++;
-    if (this->currentLine_ < lines_.size()) {
-        this->lines_[currentLine_]->setEnabled(true);
-        this->lines_[currentLine_]->setFocus();
-        this->lines_[currentLine_]->updateAsFirst();
-    } else {
+
+    stackWidget_->currentWidget()->setEnabled(false);
+    this->currentPage_++;
+    if (this->currentPage_ < stackWidget_->count()) {
+        stackWidget_->setCurrentIndex(currentPage_);
+        tln::TPage *curPage = static_cast<tln::TPage*>(stackWidget_->currentWidget());
+
+        curPage->setEnabled(true);
+        curPage->setFocus();
+        curPage->updateAsFirst();
+    } else {//No more pages
         int elapsedMS = this->timeStart_.elapsed();
         float mnElapsed = (float) elapsedMS / 60000.f; //Ms to minutes
         TResult *tot = resultsSum();

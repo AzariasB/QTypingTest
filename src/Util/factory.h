@@ -81,6 +81,29 @@ namespace factory {
      * @return a random-selected element in the list
      */
     QString selectRandomElement(QStringList listString);
+    
+    /**
+     * Helper to find the closest space in a list of string to
+     * the be able to break the list at a space, instead
+     * of breaking in the midlle of a string
+     * 
+     * @param search the list of string containing spaces
+     * @param indexStart the index where to start the reserach
+     * @return the index of the closest space in the list from indexStart
+     */
+    int findClosestSpace(const QString &search, int indexStart);
+    
+    /**
+     * Will split the text into differents parts to be able to display the 
+     * given original string into differents line with aproximately the same length
+     * The split is made at the closes space found, to avoid beaking a word and split
+     * at a space instead
+     * 
+     * @param text the text to split
+     * @param the number of string to put in the list
+     * @return the text splitted
+     */
+    QStringList splitText(QString toSplit,int numberOfSplit);
 
 }
 
