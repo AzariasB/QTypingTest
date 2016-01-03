@@ -19,14 +19,14 @@
 TWindowTest::TWindowTest(QString model, QWidget *parent) :
 QDialog(parent),
 results_(QList<TResult*>()),
-stackWidget_( new QStackedWidget() ) {
+stackWidget_(new QStackedWidget()) {
     setupWidget(model);
 }
 
 TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent) :
 QDialog(parent),
 results_(QList<TResult*>()),
-stackWidget_( new QStackedWidget() ) {
+stackWidget_(new QStackedWidget()) {
     QStringList exLetters = exercice->buildExercice();
     setupWidget(exLetters.join(""));
 }
@@ -68,11 +68,12 @@ QList<tln::TPage*> TWindowTest::createPages(QStringList model) {
         if (i > 0) {
             sLine->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
         } else if (i == 0) {
+            connect(sLine,SIGNAL(startedPage()),this,SLOT(beginExercice()));
             sLine->updateAsFirst();
         }
         lines << sLine;
     }
-    
+
     centralLayout->addWidget(stackWidget_);
     this->setLayout(centralLayout);
     return lines;
@@ -84,7 +85,7 @@ QList<tln::TPage*> TWindowTest::createPages(QStringList model) {
 //Protected
 
 void TWindowTest::keyPressEvent(QKeyEvent* ev) {
-    tln::TPage *page = static_cast<tln::TPage*>(stackWidget_->currentWidget());
+    tln::TPage *page = static_cast<tln::TPage*> (stackWidget_->currentWidget());
     page->update(ev);
 }
 
@@ -99,7 +100,8 @@ void TWindowTest::moveEvent(QMoveEvent *ev) {
 }
 
 void TWindowTest::closeEvent(QCloseEvent* ev) {
-    emit closed();
+    if (ev->isAccepted())
+        emit closed();
 }
 
 
@@ -112,11 +114,11 @@ void TWindowTest::nextPage(TResult* previousScore) {
     this->currentPage_++;
     if (this->currentPage_ < stackWidget_->count()) {
         stackWidget_->setCurrentIndex(currentPage_);
-        tln::TPage *curPage = static_cast<tln::TPage*>(stackWidget_->currentWidget());
+        tln::TPage *nwPage = static_cast<tln::TPage*> (stackWidget_->currentWidget());
 
-        curPage->setEnabled(true);
-        curPage->setFocus();
-        curPage->updateAsFirst();
+        nwPage->setEnabled(true);
+        nwPage->setFocus();
+        nwPage->updateAsFirst();
     } else {//No more pages
         int elapsedMS = this->timeStart_.elapsed();
         float mnElapsed = (float) elapsedMS / 60000.f; //Ms to minutes

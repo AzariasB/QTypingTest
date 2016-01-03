@@ -33,18 +33,18 @@ namespace tln {
         void update(QKeyEvent* ev);
 
         inline void updateAsFirst() {
-            //            this->toCopy_->setFirst();
+            this->toCopy_[currentTLabel_]->setFirst();
         }
     signals:
         /**
          * A Signal trigerred when the user typed the first character of the line
          */
         void startedPage();
-    
-    /**
-     *  Signale trigerred when there is no more text to copy on the page
-     */
-    void endedPage(TResult*);
+
+        /**
+         *  Signale trigerred when there is no more text to copy on the page
+         */
+        void endedPage(TResult*);
 
     public slots:
         void typingAnswer(QString answer);

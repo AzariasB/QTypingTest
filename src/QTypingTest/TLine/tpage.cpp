@@ -40,7 +40,7 @@ void tln::TPage::setupPage() {
             label->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
         } else if (i == 0) {
             //Connect start
-            //            label->updateAsFirst();
+            label->setFirst();
         }
         toCopy_ << label;
     }
@@ -72,6 +72,7 @@ void tln::TPage::typingAnswer(QString answer) {
             curLabel->setEnabled(false);
             currentTLabel_++;
             toCopy_[currentTLabel_]->setEnabled(true);
+            toCopy_[currentTLabel_]->setFirst();
         }
     }
 
