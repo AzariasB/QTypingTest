@@ -41,6 +41,7 @@ void LearnPage::createPractice() {
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         button->setMinimumHeight(100);
         button->setContentsMargins(1, 1, 1, 1);
+        button->setFocusPolicy(FocusPolicy::NoFocus);
 
         if (index > THomePage::currentUser_->getProgression()->getLastExericeIndex()) {
             button->setEnabled(false);

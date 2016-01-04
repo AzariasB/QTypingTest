@@ -12,11 +12,16 @@
 #include <QList>
 #include <QDebug>
 #include <QTime>
+#include <QTimer>
 #include <QShortcut>
 #include <QKeySequence>
 #include <QVBoxLayout>
 #include <QKeyEvent>
 #include <QStackedWidget>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QLCDNumber>
+#include <QSpacerItem>
 
 #include "../TLine/tpage.h"
 #include "../../Data/tresult.h"
@@ -40,6 +45,19 @@ public slots:
     void nextPage(TResult *previousScore);
 
     void beginExercice();
+
+    /**
+     * Update the LCD timer
+     */
+    void updateTimer();
+
+    /**
+     * Called whenever wa have the exerice is finished
+     * 
+     * @param a boolean to know if the user really ended the exercice
+     * or if he exited
+     */
+    void exerciceFinished(bool forced = false);
 
 signals:
     void endOfExercice(TResult *exeRes);
@@ -93,6 +111,26 @@ private:
     QList<tln::TPage*> createPages(QStringList model);
 
     /**
+     * Create the top toolbar of the dialog
+     * The toolbar contains :
+     *  - A label to indicate his progression to the user
+     *  - A pause/continue button 
+     *  - A timer
+     */
+    void createToolBar();
+
+
+    /**
+     * Return the progression as a fraction
+     * For example, if the user is at the first page and
+     * the exercice is composed of two pages, it will return 
+     * "1/2"
+     * 
+     * @return the page proression
+     */
+    QString getPageProgression();
+
+    /**
      * Because each resulst is stored in a list, at the end of the rush
      * the function needs to return a single result. 
      * This function sum up all the results
@@ -102,11 +140,20 @@ private:
      */
     TResult *exerciceResult();
 
+
     QList<TResult*> results_;
+    QTimer *timer_;
+
     int currentPage_ = 0;
     const int numberOfPages_ = 2;
     QTime timeStart_;
     QStackedWidget *stackWidget_;
+
+    QVBoxLayout *centralLayout_;
+
+    QPushButton *pauseButton_;
+    QLCDNumber *LCDtimer_;
+    QLabel *pageProgression_;
 
 };
 

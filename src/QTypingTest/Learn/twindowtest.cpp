@@ -19,19 +19,24 @@
 TWindowTest::TWindowTest(QString model, QWidget *parent) :
 QDialog(parent),
 results_(QList<TResult*>()),
-stackWidget_(new QStackedWidget()) {
+timer_(new QTimer()),
+stackWidget_(new QStackedWidget()),
+centralLayout_(new QVBoxLayout()) {
     setupWidget(model);
 }
 
 TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent) :
 QDialog(parent),
 results_(QList<TResult*>()),
-stackWidget_(new QStackedWidget()) {
+timer_(new QTimer()),
+stackWidget_(new QStackedWidget()),
+centralLayout_(new QVBoxLayout()) {
     QStringList exLetters = exercice->buildExercice();
     setupWidget(exLetters.join(""));
 }
 
 void TWindowTest::setupWidget(QString words) {
+    timer_->setSingleShot(false);
     //Setup window
     this->setModal(true);
     this->setFocusPolicy(StrongFocus);
@@ -43,9 +48,9 @@ void TWindowTest::setupWidget(QString words) {
     sh->setKey(CTRL + Key_F);
 
     connect(sh, &QShortcut::activated, [ = ](){
-        if(results_.isEmpty()){
-            tln::TPage *curPage = static_cast<tln::TPage*>(stackWidget_->currentWidget());
-            this->results_.push_back(curPage->getResult());
+        if (results_.isEmpty()) {
+            tln::TPage *curPage = static_cast<tln::TPage*> (stackWidget_->currentWidget());
+                    this->results_.push_back(curPage->getResult());
         }
         emit endOfExercice(exerciceResult());
     });
@@ -54,13 +59,43 @@ void TWindowTest::setupWidget(QString words) {
 
     QStringList models = factory::splitText(words, this->numberOfPages_);
 
+
+    createToolBar();
     createPages(models);
 
-    //    connect(pages_[0], SIGNAL(startedLine()), this, SLOT(beginExercice()));
+    //    connect(pages_[0], SIGNAL(startedLine()), this, SLOT(beginExercice()));    
+    this->setLayout(centralLayout_);
+
+}
+
+void TWindowTest::createToolBar() {
+    QHBoxLayout *toolbarLayout = new QHBoxLayout();
+
+
+    pageProgression_ = new QLabel(getPageProgression());
+    pauseButton_ = new QPushButton(); //Change with an icon
+    pauseButton_->setIcon(QIcon("etc/pause.png"));
+    pauseButton_->setAutoDefault(false);
+    pauseButton_->setFocusPolicy(FocusPolicy::NoFocus);
+    LCDtimer_ = new QLCDNumber();
+
+    QSpacerItem *space = new QSpacerItem(300, 0);
+
+
+    toolbarLayout->addWidget(pageProgression_);
+    toolbarLayout->addWidget(pauseButton_);
+    toolbarLayout->addWidget(LCDtimer_);
+    toolbarLayout->addItem(space);
+
+
+    QWidget *w = new QWidget();
+
+
+    w->setLayout(toolbarLayout);
+    centralLayout_->addWidget(w);
 }
 
 QList<tln::TPage*> TWindowTest::createPages(QStringList model) {
-    QVBoxLayout *centralLayout = new QVBoxLayout();
 
     QList<tln::TPage*> lines;
 
@@ -77,8 +112,8 @@ QList<tln::TPage*> TWindowTest::createPages(QStringList model) {
         lines << sLine;
     }
 
-    centralLayout->addWidget(stackWidget_);
-    this->setLayout(centralLayout);
+
+    centralLayout_->addWidget(stackWidget_);
     return lines;
 }
 
@@ -104,7 +139,7 @@ void TWindowTest::moveEvent(QMoveEvent *ev) {
 
 void TWindowTest::closeEvent(QCloseEvent* ev) {
     if (ev->isAccepted())
-        emit closed();
+        exerciceFinished(true);
 }
 
 
@@ -122,14 +157,20 @@ void TWindowTest::nextPage(TResult* previousScore) {
         nwPage->setEnabled(true);
         nwPage->setFocus();
         nwPage->updateAsFirst();
+        pageProgression_->setText(getPageProgression());
     } else {//No more pages
-        TResult *tot = exerciceResult();
-        emit endOfExercice(tot);
+        exerciceFinished();
     }
 }
 
 void TWindowTest::beginExercice() {
     this->timeStart_.start();
+    timer_->start(1000);
+    connect(timer_, SIGNAL(timeout()), this, SLOT(updateTimer()));
+}
+
+void TWindowTest::updateTimer() {
+    LCDtimer_->display(LCDtimer_->value() + 1);
 }
 
 TResult* TWindowTest::exerciceResult() {
@@ -144,6 +185,23 @@ TResult* TWindowTest::exerciceResult() {
     res->updateWPM(mnElapsed);
 
     return res;
+}
+
+
+//Private
+
+QString TWindowTest::getPageProgression() {
+    return QString("%1/%2").arg(currentPage_ + 1).arg(numberOfPages_);
+}
+
+void TWindowTest::exerciceFinished(bool forced) {
+    timer_->stop();
+    if (!forced) {
+        TResult *tot = exerciceResult();
+        emit endOfExercice(tot);
+    } else {
+        emit closed();
+    }
 }
 
 
