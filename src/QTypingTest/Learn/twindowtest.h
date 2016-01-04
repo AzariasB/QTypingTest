@@ -58,6 +58,14 @@ public slots:
      * or if he exited
      */
     void exerciceFinished(bool forced = false);
+    
+    /**
+     * Called whenever the user click on the pause/continue button
+     * depending on the state, the button will react differently
+     * if the exercice is paused, it will resume it
+     * if the exercice is not paused, it will pause it
+     */
+    void pauseContinueExercice();
 
 signals:
     void endOfExercice(TResult *exeRes);
@@ -155,6 +163,8 @@ private:
     QLCDNumber *LCDtimer_;
     QLabel *pageProgression_;
 
+    bool isInPause = false;
+    int elapsedMS_ = 0;
 };
 
 #endif /* TWINDOWTEST_H */

@@ -20,6 +20,7 @@ TWindowTest::TWindowTest(QString model, QWidget *parent) :
 QDialog(parent),
 results_(QList<TResult*>()),
 timer_(new QTimer()),
+timeStart_(QTime(0, 0)),
 stackWidget_(new QStackedWidget()),
 centralLayout_(new QVBoxLayout()) {
     setupWidget(model);
@@ -29,6 +30,7 @@ TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent) :
 QDialog(parent),
 results_(QList<TResult*>()),
 timer_(new QTimer()),
+timeStart_(QTime(0, 0)),
 stackWidget_(new QStackedWidget()),
 centralLayout_(new QVBoxLayout()) {
     QStringList exLetters = exercice->buildExercice();
@@ -73,10 +75,14 @@ void TWindowTest::createToolBar() {
 
 
     pageProgression_ = new QLabel(getPageProgression());
+
     pauseButton_ = new QPushButton(); //Change with an icon
     pauseButton_->setIcon(QIcon("etc/pause.png"));
     pauseButton_->setAutoDefault(false);
     pauseButton_->setFocusPolicy(FocusPolicy::NoFocus);
+    //    pauseButton_->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
+    connect(pauseButton_, SIGNAL(clicked()), this, SLOT(pauseContinueExercice()));
+
     LCDtimer_ = new QLCDNumber();
 
     QSpacerItem *space = new QSpacerItem(300, 0);
@@ -123,8 +129,10 @@ QList<tln::TPage*> TWindowTest::createPages(QStringList model) {
 //Protected
 
 void TWindowTest::keyPressEvent(QKeyEvent* ev) {
-    tln::TPage *page = static_cast<tln::TPage*> (stackWidget_->currentWidget());
-    page->update(ev);
+    if (!isInPause) {
+        tln::TPage *page = static_cast<tln::TPage*> (stackWidget_->currentWidget());
+        page->update(ev);
+    }
 }
 
 /**
@@ -179,12 +187,25 @@ TResult* TWindowTest::exerciceResult() {
     for (auto it = results_.begin(); it != results_.end(); ++it) {
         *res += **it;
     }
-    int elapsedMS = this->timeStart_.elapsed();
+    int elapsedMS = this->timeStart_.elapsed() + elapsedMS_;
     float mnElapsed = (float) elapsedMS / 60000.f; //Ms to minutes
 
     res->updateWPM(mnElapsed);
 
     return res;
+}
+
+void TWindowTest::pauseContinueExercice() {
+    if (isInPause) {
+        timeStart_.restart();
+        timer_->start();
+        pauseButton_->setIcon(QIcon("etc/pause.png"));
+    } else {
+        pauseButton_->setIcon(QIcon("etc/play.png"));
+        timer_->stop();
+        elapsedMS_ += timeStart_.elapsed();
+    }
+    isInPause = !isInPause;
 }
 
 
@@ -193,6 +214,7 @@ TResult* TWindowTest::exerciceResult() {
 QString TWindowTest::getPageProgression() {
     return QString("%1/%2").arg(currentPage_ + 1).arg(numberOfPages_);
 }
+
 
 void TWindowTest::exerciceFinished(bool forced) {
     timer_->stop();
