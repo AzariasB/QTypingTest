@@ -26,3 +26,6 @@ build/
 #Don't need them since there are the .pro files
 #to generate the makefiles
 Makefile
+
+#Ignore the save files
+*.dat

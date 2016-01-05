@@ -44,5 +44,7 @@ QDataStream &operator<<(QDataStream &out,const TProgression &prog);
 
 QDataStream &operator>>(QDataStream &in,TProgression &prog);
 
+bool operator==(const TProgression &prog1,const TProgression &prog2);
+
 #endif /* TPROGRESSION_H */
 
