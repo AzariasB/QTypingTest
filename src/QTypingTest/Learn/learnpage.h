@@ -27,7 +27,7 @@
 #include "../../Data/tresult.h"
 #include "../../Util/filehelper.h"
 #include "../../Util/htmlhelper.h"
-#include "twindowtest.h"
+#include "../Dialogs/twindowtest.h"
 
 //Thomepage is for the current user. TODO : change the location of the current user
 #include "../thomepage.h"
@@ -51,7 +51,7 @@ public slots:
     /**
      * Called when an exercice is finished
      */
-    void endExercice(TResult *exerciceResult);
+    void endExercice(TResult *exerciceResult,QTime timeEx);
 
 
     /**

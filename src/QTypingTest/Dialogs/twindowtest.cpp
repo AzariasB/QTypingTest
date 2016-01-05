@@ -16,7 +16,7 @@
 
 #include "twindowtest.h"
 
-TWindowTest::TWindowTest(QString model, QWidget *parent) :
+TWindowTest::TWindowTest(QString model, QWidget *parent, int timeLimit) :
 QDialog(parent),
 results_(QList<TResult*>()),
 timer_(new QTimer()),
@@ -24,9 +24,10 @@ timeStart_(QTime(0, 0)),
 stackWidget_(new QStackedWidget()),
 centralLayout_(new QVBoxLayout()) {
     setupWidget(model);
+    setTimers(timeLimit);
 }
 
-TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent) :
+TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent, int timeLimit) :
 QDialog(parent),
 results_(QList<TResult*>()),
 timer_(new QTimer()),
@@ -35,6 +36,7 @@ stackWidget_(new QStackedWidget()),
 centralLayout_(new QVBoxLayout()) {
     QStringList exLetters = exercice->buildExercice();
     setupWidget(exLetters.join(""));
+    setTimers(timeLimit);
 }
 
 void TWindowTest::setupWidget(QString words) {
@@ -45,27 +47,13 @@ void TWindowTest::setupWidget(QString words) {
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     this->move(0, 0);
 
-    //Hack for testing => shortucut to end the exercice
-    QShortcut *sh = new QShortcut(this);
-    sh->setKey(CTRL + Key_F);
-
-    connect(sh, &QShortcut::activated, [ = ](){
-        if (results_.isEmpty()) {
-            tln::TPage *curPage = static_cast<tln::TPage*> (stackWidget_->currentWidget());
-                    this->results_.push_back(curPage->getResult());
-        }
-        emit endOfExercice(exerciceResult());
-    });
-    //end of hack
-
-
     QStringList models = factory::splitText(words, this->numberOfPages_);
 
 
     createToolBar();
     createPages(models);
+    setupShortcuts();
 
-    //    connect(pages_[0], SIGNAL(startedLine()), this, SLOT(beginExercice()));    
     this->setLayout(centralLayout_);
 
 }
@@ -84,6 +72,7 @@ void TWindowTest::createToolBar() {
     connect(pauseButton_, SIGNAL(clicked()), this, SLOT(pauseContinueExercice()));
 
     LCDtimer_ = new QLCDNumber();
+    LCDtimer_->setSegmentStyle(QLCDNumber::Filled);
 
     QSpacerItem *space = new QSpacerItem(300, 0);
 
@@ -178,17 +167,24 @@ void TWindowTest::beginExercice() {
 }
 
 void TWindowTest::updateTimer() {
-    LCDtimer_->display(LCDtimer_->value() + 1);
+    int incrVal = decrementTime_ ? -1 : 1;
+    LCDtimer_->display(LCDtimer_->value() + incrVal);
+    if(LCDtimer_->value() < 0.f){
+        LCDtimer_->setPalette(red);
+    }
 }
 
 TResult* TWindowTest::exerciceResult() {
+    elapsedMS_ += this->timeStart_.elapsed();
+    timeStart_ = QTime(0, 0).addMSecs(elapsedMS_);
+
     //Sum the results
     TResult *res = new TResult();
     for (auto it = results_.begin(); it != results_.end(); ++it) {
         *res += **it;
     }
-    int elapsedMS = this->timeStart_.elapsed() + elapsedMS_;
-    float mnElapsed = (float) elapsedMS / 60000.f; //Ms to minutes
+
+    float mnElapsed = (float) timeStart_.msecsSinceStartOfDay() / (60.f * 1000.f);
 
     res->updateWPM(mnElapsed);
 
@@ -211,18 +207,43 @@ void TWindowTest::pauseContinueExercice() {
 
 //Private
 
-QString TWindowTest::getPageProgression() {
-    return QString("%1/%2").arg(currentPage_ + 1).arg(numberOfPages_);
-}
-
-
 void TWindowTest::exerciceFinished(bool forced) {
     timer_->stop();
+
     if (!forced) {
         TResult *tot = exerciceResult();
-        emit endOfExercice(tot);
+        emit endOfExercice(tot, timeStart_);
     } else {
         emit closed();
+    }
+}
+
+void TWindowTest::setupShortcuts() {
+    //Hacks
+
+    //Hack for testing => shortucut to end the exercice
+    QShortcut *endShortcut = new QShortcut(this);
+    endShortcut->setKey(CTRL + Key_F);
+
+    connect(endShortcut, &QShortcut::activated, [ = ](){
+        if (results_.isEmpty()) {
+            tln::TPage *curPage = static_cast<tln::TPage*> (stackWidget_->currentWidget());
+                    this->results_.push_back(curPage->getResult());
+        }
+        exerciceFinished();
+    });
+    //end of hacks
+
+    QShortcut *pauseSh = new QShortcut(this);
+    pauseSh->setKey(CTRL + Key_P);
+    connect(pauseSh, SIGNAL(activated()), this, SLOT(pauseContinueExercice()));
+}
+
+void TWindowTest::setTimers(int timeLimit) {
+    if (timeLimit != -1) {
+        decrementTime_ = true;
+        timeLimit_ = timeLimit;
+        LCDtimer_->display(timeLimit);
     }
 }
 

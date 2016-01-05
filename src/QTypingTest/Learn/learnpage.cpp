@@ -78,9 +78,9 @@ void LearnPage::lauchExercice() {
             QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
             QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
-            testWindow_ = new TWindowTest(ex, this);
+            testWindow_ = new TWindowTest(ex, this, 120); //TODO : change '5' by necessary value
             //Connect only once the test dialog
-            connect(testWindow_, SIGNAL(endOfExercice(TResult*)), this, SLOT(endExercice(TResult*)));
+            connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
             connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
             testWindow_->show();
             testWindow_->focusWidget();
@@ -88,25 +88,28 @@ void LearnPage::lauchExercice() {
     }//else ..nothing to do !
 }
 
-void LearnPage::endExercice(TResult* exerciceResult) {
+void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
     //TODO : check if the result is good enought to set the advance in the progression (Azarias)
-
-    TProgression *curProgr = THomePage::currentUser_->getProgression();
-    if (currentProgression_ == curProgr->getLastExericeIndex())
-        curProgr->avdvanceExIndex();
-
-    resetExercice();
-
-    QString text = QString("Congratulations, you finished the exercice !<br/>"
-            "Results are :<br/>") + exerciceResult->getResume();
-
-    QMessageBox::information(this, "End of exercice", text);
     testWindow_->hide();
-    //Unlock the last button if exercice succeeded
-    if (curProgr->getLastExericeIndex() < learnButtons_.size()) {
-        learnButtons_.at(curProgr->getLastExericeIndex())->setEnabled(true);
+    resetExercice();
+    
+    if ((timeEx.msecsSinceStartOfDay() / 1000.f) > 120) {
+        QMessageBox::information(this, "Too long", "You didn't made in time.");
     } else {
-        //Finished the game !
+        TProgression *curProgr = THomePage::currentUser_->getProgression();
+        if (currentProgression_ == curProgr->getLastExericeIndex())
+            curProgr->avdvanceExIndex();
+
+        QString text = QString("Congratulations, you finished the exercice !<br/>"
+                "Results are :<br/>") + exerciceResult->getResume();
+
+        QMessageBox::information(this, "End of exercice", text);
+        //Unlock the last button if exercice succeeded
+        if (curProgr->getLastExericeIndex() < learnButtons_.size()) {
+            learnButtons_.at(curProgr->getLastExericeIndex())->setEnabled(true);
+        } else {
+            //Finished the game !
+        }
     }
 }
 

@@ -31,8 +31,8 @@
 class TWindowTest : public QDialog {
     Q_OBJECT
 public:
-    TWindowTest(QString model, QWidget* parent);
-    TWindowTest(TExercice *exercice, QWidget *parent);
+    TWindowTest(QString model, QWidget* parent, int timeLimit = -1);
+    TWindowTest(TExercice *exercice, QWidget *parent, int timeLimit = -1);
 
     virtual ~TWindowTest();
 
@@ -58,7 +58,7 @@ public slots:
      * or if he exited
      */
     void exerciceFinished(bool forced = false);
-    
+
     /**
      * Called whenever the user click on the pause/continue button
      * depending on the state, the button will react differently
@@ -68,7 +68,7 @@ public slots:
     void pauseContinueExercice();
 
 signals:
-    void endOfExercice(TResult *exeRes);
+    void endOfExercice(TResult *exeRes, QTime timeRealised);
 
     void closed();
 
@@ -127,7 +127,6 @@ private:
      */
     void createToolBar();
 
-
     /**
      * Return the progression as a fraction
      * For example, if the user is at the first page and
@@ -136,7 +135,9 @@ private:
      * 
      * @return the page proression
      */
-    QString getPageProgression();
+    QString getPageProgression() {
+        return QString("%1/%2").arg(currentPage_ + 1).arg(numberOfPages_);
+    }
 
     /**
      * Because each resulst is stored in a list, at the end of the rush
@@ -147,6 +148,21 @@ private:
      * @return the sum of all the resulst of each lines
      */
     TResult *exerciceResult();
+
+    /**
+     * Initiate all the shorcuts of the dialogs
+     * There are two type of shortucts
+     *  - The 'hack' ones, that must be remove for the production
+     *  - The normal ones, to help the user being more efficient
+     */
+    void setupShortcuts();
+
+    /**
+     * Set the timers of the exercice
+     * and the values to update/calculate the time
+     * realised by the user
+     */
+    void setTimers(int timeLimit);
 
 
     QList<TResult*> results_;
@@ -163,8 +179,18 @@ private:
     QLCDNumber *LCDtimer_;
     QLabel *pageProgression_;
 
+    /* Save the state of the dialog : in pause or in 'normal' mode*/
     bool isInPause = false;
+
+    /* Save the ms elapsed if the user pause the exercice*/
     int elapsedMS_ = 0;
+
+    /* Indicate how the time indicator must be updated */
+    bool decrementTime_ = false;
+
+    /* The time to do dot overpass
+     * if the value is not negative, else it's 'unlimited' timer */
+    int timeLimit_ = -1;
 };
 
 #endif /* TWINDOWTEST_H */
