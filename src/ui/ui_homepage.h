@@ -54,7 +54,6 @@ public:
     QWidget *page_learn;
     QWidget *page_home;
     QWidget *page_practice;
-    QLabel *label_2;
     QWidget *page_stats;
     QLabel *label_3;
     QWidget *page_games;
@@ -148,9 +147,6 @@ public:
         stack_main->addWidget(page_home);
         page_practice = new QWidget();
         page_practice->setObjectName(QStringLiteral("page_practice"));
-        label_2 = new QLabel(page_practice);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(220, 180, 211, 151));
         stack_main->addWidget(page_practice);
         page_stats = new QWidget();
         page_stats->setObjectName(QStringLiteral("page_stats"));
@@ -217,7 +213,6 @@ public:
         button_practice->setText(QApplication::translate("MainWindow", "Practice", 0));
         button_stats->setText(QApplication::translate("MainWindow", "Statistics", 0));
         button_games->setText(QApplication::translate("MainWindow", "Games", 0));
-        label_2->setText(QApplication::translate("MainWindow", "Practice", 0));
         label_3->setText(QApplication::translate("MainWindow", "Statistics", 0));
         label_4->setText(QApplication::translate("MainWindow", "games", 0));
         menuUser->setTitle(QApplication::translate("MainWindow", "User", 0));

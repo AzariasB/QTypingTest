@@ -1,10 +1,13 @@
 
-QStackedWidget QPushButton{
-    color : green;
+QStackedWidget  QPushButton{
     font-size : 16px;
     font-family : 'Helvet';
 }
 
-QStackedWidget QPushButton:disabled{
+QStackedWidget QScrollArea QPushButton{
+    color : green;
+}
+
+QStackedWidget QScrollArea QPushButton:disabled{
     color : red;
 }

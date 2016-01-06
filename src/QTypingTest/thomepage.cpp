@@ -47,7 +47,7 @@ void THomePage::connectEvents() {
     button_stack sLearn = {
         ui.button_learn,
         ui.page_learn,
-        new LearnPage() //TODO : create learnpage with user as parameter
+        new LearnPage() 
     };
     button_stack sGames = {
         ui.button_games,
@@ -62,7 +62,7 @@ void THomePage::connectEvents() {
     button_stack sPractice = {
         ui.button_practice,
         ui.page_practice,
-        nullptr // TODO : create practice page
+        new PracticePage()
     };
 
     //Adding the structures to the array

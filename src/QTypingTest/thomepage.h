@@ -17,6 +17,8 @@
 #include <QHBoxLayout>
 
 #include "Learn/learnpage.h"
+#include "Practice/practicepage.h"
+
 #include "../Data/tpractice.h"
 #include "../ui/ui_homepage.h"
 #include "../Data/tuser.h"

@@ -31,8 +31,8 @@
 class TWindowTest : public QDialog {
     Q_OBJECT
 public:
-    TWindowTest(QString model, QWidget* parent, int timeLimit = -1);
-    TWindowTest(TExercice *exercice, QWidget *parent, int timeLimit = -1);
+    TWindowTest(QString model, QWidget* parent);
+    TWindowTest(TExercice *exercice, QWidget *parent);
 
     virtual ~TWindowTest();
 

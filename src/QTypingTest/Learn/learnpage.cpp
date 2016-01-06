@@ -78,7 +78,7 @@ void LearnPage::lauchExercice() {
             QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
             QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
-            testWindow_ = new TWindowTest(ex, this, 120); //TODO : change '5' by necessary value
+            testWindow_ = new TWindowTest(ex, this);
             //Connect only once the test dialog
             connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
             connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
@@ -91,8 +91,7 @@ void LearnPage::lauchExercice() {
 void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
     //TODO : check if the result is good enought to set the advance in the progression (Azarias)
     testWindow_->hide();
-    resetExercice();
-    
+
     if ((timeEx.msecsSinceStartOfDay() / 1000.f) > 120) {
         QMessageBox::information(this, "Too long", "You didn't made in time.");
     } else {
@@ -105,12 +104,16 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
 
         QMessageBox::information(this, "End of exercice", text);
         //Unlock the last button if exercice succeeded
+
+
         if (curProgr->getLastExericeIndex() < learnButtons_.size()) {
             learnButtons_.at(curProgr->getLastExericeIndex())->setEnabled(true);
         } else {
             //Finished the game !
         }
     }
+
+    resetExercice();
 }
 
 void LearnPage::resetExercice() {

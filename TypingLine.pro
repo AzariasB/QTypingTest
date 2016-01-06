@@ -38,6 +38,7 @@ SOURCES += src/main.cpp \
         src/QTypingTest/Dialogs/twindowtest.cpp \
         src/QTypingTest/thomepage.cpp \
         src/QTypingTest/Learn/learnpage.cpp \
+        src/QTypingTest/Practice/practicepage.cpp \
         src/Util/factory.cpp \
         src/Util/filehelper.cpp \
         src/Util/htmlhelper.cpp \
@@ -54,6 +55,7 @@ HEADERS  += src/Data/tpractice.h \
         src/QTypingTest/Dialogs/twindowtest.h \
         src/QTypingTest/thomepage.h \
         src/QTypingTest/Learn/learnpage.h \
+        src/QTypingTest/Practice/practicepage.h \
         src/Util/factory.h \
         src/Util/filehelper.h \
         src/Util/htmlhelper.h \

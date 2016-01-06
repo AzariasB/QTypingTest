@@ -16,7 +16,7 @@
 
 #include "twindowtest.h"
 
-TWindowTest::TWindowTest(QString model, QWidget *parent, int timeLimit) :
+TWindowTest::TWindowTest(QString model, QWidget *parent ) :
 QDialog(parent),
 results_(QList<TResult*>()),
 timer_(new QTimer()),
@@ -24,10 +24,9 @@ timeStart_(QTime(0, 0)),
 stackWidget_(new QStackedWidget()),
 centralLayout_(new QVBoxLayout()) {
     setupWidget(model);
-    setTimers(timeLimit);
 }
 
-TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent, int timeLimit) :
+TWindowTest::TWindowTest(TExercice *exercice, QWidget *parent) :
 QDialog(parent),
 results_(QList<TResult*>()),
 timer_(new QTimer()),
@@ -36,7 +35,6 @@ stackWidget_(new QStackedWidget()),
 centralLayout_(new QVBoxLayout()) {
     QStringList exLetters = exercice->buildExercice();
     setupWidget(exLetters.join(""));
-    setTimers(timeLimit);
 }
 
 void TWindowTest::setupWidget(QString words) {
