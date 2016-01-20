@@ -23,16 +23,23 @@
 #include <QLCDNumber>
 #include <QSpacerItem>
 
-#include "../TLine/tpage.h"
-#include "../../Data/tresult.h"
-#include "../../Data/texercice.h"
-#include "../../Util/factory.h"
+#include "Data/tresult.h"
+#include "Data/texercice.h"
+#include "Util/factory.h"
+
+#include "QTypingTest/Dialogs/Exercices/TLine/tpage.h"
 
 class TWindowTest : public QDialog {
+
     Q_OBJECT
 public:
-    TWindowTest(QString model, QWidget* parent);
-    TWindowTest(TExercice *exercice, QWidget *parent);
+    explicit TWindowTest(QWidget* parent) : QDialog(parent),
+    results_(QList<TResult*>()),
+    timer_(new QTimer()),
+    timeStart_(QTime(0, 0)),
+    stackWidget_(new QStackedWidget()),
+    centralLayout_(new QVBoxLayout()) {
+    };
 
     virtual ~TWindowTest();
 
@@ -46,10 +53,6 @@ public slots:
 
     void beginExercice();
 
-    /**
-     * Update the LCD timer
-     */
-    void updateTimer();
 
     /**
      * Called whenever wa have the exerice is finished
@@ -97,7 +100,6 @@ protected:
     void closeEvent(QCloseEvent* ev) override;
 
 
-private:
     /**
      * Init function called as soon as the dialog is created
      * setup the options of the dialog and create the lines
@@ -116,16 +118,16 @@ private:
      * @param model the model from where to create the lines
      * @return the lines created and event-connected
      */
-    QList<tln::TPage*> createPages(QStringList model);
+   virtual QList<tln::TPage*> createPages(QStringList model);
 
     /**
      * Create the top toolbar of the dialog
-     * The toolbar contains :
+     * The toolbar can contains :
      *  - A label to indicate his progression to the user
      *  - A pause/continue button 
      *  - A timer
      */
-    void createToolBar();
+   void createToolBar();
 
     /**
      * Return the progression as a fraction
@@ -164,6 +166,7 @@ private:
      */
     void setTimers(int timeLimit);
 
+private:
 
     QList<TResult*> results_;
     QTimer *timer_;
@@ -184,13 +187,6 @@ private:
 
     /* Save the ms elapsed if the user pause the exercice*/
     int elapsedMS_ = 0;
-
-    /* Indicate how the time indicator must be updated */
-    bool decrementTime_ = false;
-
-    /* The time to do dot overpass
-     * if the value is not negative, else it's 'unlimited' timer */
-    int timeLimit_ = -1;
 };
 
 #endif /* TWINDOWTEST_H */

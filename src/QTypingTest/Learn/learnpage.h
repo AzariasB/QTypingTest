@@ -14,6 +14,9 @@
 #ifndef LEARNPAGE_H
 #define LEARNPAGE_H
 
+#define MAX_COL 6
+
+
 #include <QWidget>
 #include <QPushButton>
 #include <QMessageBox>
@@ -22,17 +25,17 @@
 #include <QVector>
 #include <QScrollArea>
 
-#include "../../Data/tpractice.h"
-#include "../../Data/texercice.h"
-#include "../../Data/tresult.h"
-#include "../../Util/filehelper.h"
-#include "../../Util/htmlhelper.h"
-#include "../Dialogs/twindowtest.h"
+
+#include "Data/tpractice.h"
+#include "Data/texercice.h"
+#include "Data/tresult.h"
+#include "Util/filehelper.h"
+#include "Util/htmlhelper.h"
+#include "QTypingTest/Dialogs/twindowtest.h"
+
 
 //Thomepage is for the current user. TODO : change the location of the current user
-#include "../thomepage.h"
-
-#define MAX_COL 6
+#include "QTypingTest/thomepage.h"
 
 class LearnPage : public QWidget {
     Q_OBJECT

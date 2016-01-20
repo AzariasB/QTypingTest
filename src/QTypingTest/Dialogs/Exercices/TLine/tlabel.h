@@ -13,7 +13,7 @@
 #include <QDebug>
 #include <QFont>
 
-#include "../../Util/htmlhelper.h"
+#include "Util/htmlhelper.h"
 
 class TLabel : public QLabel {
     Q_OBJECT

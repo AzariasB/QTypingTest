@@ -16,6 +16,7 @@ TUser* THomePage::currentUser_;
 
 THomePage::THomePage(QWidget *parent) :
 QMainWindow(parent) {
+    
     //For the test : create a new user
     TUser *timmy = new TUser("timmy");
     THomePage::currentUser_ = timmy;

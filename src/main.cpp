@@ -9,7 +9,9 @@
 
 #include "QTypingTest/thomepage.h"
 
-int main(int argc, char *argv[]) {
+
+int main(int argc, char *argv[]) {    
+    
     srand(time(NULL)); //Random number generation
     QApplication a(argc, argv);
     qDebug() << "Running from " << QDir::currentPath();
