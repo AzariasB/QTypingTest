@@ -9,20 +9,15 @@
 #define TWINDOWTEST_H
 
 #include <QDialog>
-#include <QList>
-#include <QDebug>
+#include <QWidget>
 #include <QTime>
-#include <QTimer>
 #include <QShortcut>
 #include <QKeySequence>
 #include <QVBoxLayout>
 #include <QKeyEvent>
-#include <QStackedWidget>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QLCDNumber>
-#include <QSpacerItem>
 
+#include "Exercices/stackpages.h"
+#include "Exercices/toolbar.h"
 #include "Data/tresult.h"
 #include "Data/texercice.h"
 #include "Util/factory.h"
@@ -35,9 +30,8 @@ class TWindowTest : public QDialog {
 public:
     explicit TWindowTest(QWidget* parent) : QDialog(parent),
     results_(QList<TResult*>()),
-    timer_(new QTimer()),
     timeStart_(QTime(0, 0)),
-    stackWidget_(new QStackedWidget()),
+    pages_(StackPages(this)),
     centralLayout_(new QVBoxLayout()) {
     };
 
@@ -68,7 +62,7 @@ public slots:
      * if the exercice is paused, it will resume it
      * if the exercice is not paused, it will pause it
      */
-    void pauseContinueExercice();
+    void pauseContinueExercice(bool pause);
 
 signals:
     void endOfExercice(TResult *exeRes, QTime timeRealised);
@@ -82,14 +76,14 @@ protected:
      * 
      * @param ev the keyevent event
      */
-    void keyPressEvent(QKeyEvent* ev) override;
+    void keyPressEvent(QKeyEvent* ev);
 
     /**
-     * Dialog keeps moving while changin the text of the label ...
+     * Dialog keeps moving when changin the text of the label ...
      * 
      * @param the move event
      */
-    void moveEvent(QMoveEvent *ev) override;
+    void moveEvent(QMoveEvent *ev);
 
     /**
      * Create a signal when the dialog close
@@ -97,7 +91,7 @@ protected:
      * 
      * @param the close event
      */
-    void closeEvent(QCloseEvent* ev) override;
+    void closeEvent(QCloseEvent* ev);
 
 
     /**
@@ -109,25 +103,6 @@ protected:
      */
     void setupWidget(QString textModel);
 
-    /**
-     * Create the TLines and will :
-     *  - Add them to the window via a layout
-     *  - Connect all the events
-     *  - Add the corresponding text into the Tline
-     * 
-     * @param model the model from where to create the lines
-     * @return the lines created and event-connected
-     */
-   virtual QList<tln::TPage*> createPages(QStringList model);
-
-    /**
-     * Create the top toolbar of the dialog
-     * The toolbar can contains :
-     *  - A label to indicate his progression to the user
-     *  - A pause/continue button 
-     *  - A timer
-     */
-   void createToolBar();
 
     /**
      * Return the progression as a fraction
@@ -138,7 +113,7 @@ protected:
      * @return the page proression
      */
     QString getPageProgression() {
-        return QString("%1/%2").arg(currentPage_ + 1).arg(numberOfPages_);
+        return QString("%1/%2").arg(pages_.currentIndex() + 1).arg(pages_.numberOfPages());
     }
 
     /**
@@ -167,23 +142,17 @@ protected:
     void setTimers(int timeLimit);
 
 private:
+    Toolbar topToolbar_;
+    StackPages pages_;
 
     QList<TResult*> results_;
-    QTimer *timer_;
+    
 
-    int currentPage_ = 0;
-    const int numberOfPages_ = 2;
     QTime timeStart_;
-    QStackedWidget *stackWidget_;
 
     QVBoxLayout *centralLayout_;
 
-    QPushButton *pauseButton_;
-    QLCDNumber *LCDtimer_;
-    QLabel *pageProgression_;
 
-    /* Save the state of the dialog : in pause or in 'normal' mode*/
-    bool isInPause = false;
 
     /* Save the ms elapsed if the user pause the exercice*/
     int elapsedMS_ = 0;

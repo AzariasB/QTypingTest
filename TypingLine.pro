@@ -49,8 +49,10 @@ SOURCES += src/main.cpp \
         #------------
         src/QTypingTest/Dialogs/Exercices/TLine/tpage.cpp \
         src/QTypingTest/Dialogs/Exercices/TLine/tlabel.cpp \
-        src/QTypingTest/Dialogs/twindowtest.cpp \
+        src/QTypingTest/Dialogs/Exercices/stackpages.cpp \
+        src/QTypingTest/Dialogs/Exercices/toolbar.cpp \
         src/QTypingTest/Dialogs/Exercices/twindowlearn.cpp \
+        src/QTypingTest/Dialogs/twindowtest.cpp \
         src/QTypingTest/thomepage.cpp \
         src/QTypingTest/Learn/learnpage.cpp \
         src/QTypingTest/Practice/practicepage.cpp \
@@ -77,8 +79,10 @@ SOURCES += src/main.cpp \
 #------------
 HEADERS += src/QTypingTest/Dialogs/Exercices/TLine/tpage.h \
             src/QTypingTest/Dialogs/Exercices/TLine/tlabel.h \
-            src/QTypingTest/Dialogs/twindowtest.h \
             src/QTypingTest/Dialogs/Exercices/twindowlearn.h \
+            src/QTypingTest/Dialogs/Exercices/stackpages.h \
+            src/QTypingTest/Dialogs/Exercices/toolbar.h \
+            src/QTypingTest/Dialogs/twindowtest.h \
             src/QTypingTest/thomepage.h \
             src/QTypingTest/Learn/learnpage.h \
             src/QTypingTest/Practice/practicepage.h \

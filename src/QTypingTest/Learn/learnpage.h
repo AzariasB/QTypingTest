@@ -31,7 +31,7 @@
 #include "Data/tresult.h"
 #include "Util/filehelper.h"
 #include "Util/htmlhelper.h"
-#include "QTypingTest/Dialogs/twindowtest.h"
+#include "QTypingTest/Dialogs/Exercices/twindowlearn.h"
 
 
 //Thomepage is for the current user. TODO : change the location of the current user
@@ -75,7 +75,7 @@ private:
     TPractice practice_ = TPractice::getInstance();
 
     //Have a unique window for the exercice that will change depending on the exercices
-    TWindowTest *testWindow_;
+    TWindowLearn *testWindow_;
 
     /*A list of button to save the state (activated or not) of each depending on the user progression*/
     QVector<QPushButton*> learnButtons_;

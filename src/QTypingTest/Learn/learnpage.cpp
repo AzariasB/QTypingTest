@@ -78,17 +78,17 @@ void LearnPage::lauchExercice() {
             QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
             QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
-            
-            
-            
+
+
+
             //Replace with TWindowLearn HERE !!
-            
-//            testWindow_ = new TWindowTest(this);
+
+            //testWindow_ = new TWindowTest(this);
             //Connect only once the test dialog
-            connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
-            connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
-            testWindow_->show();
-            testWindow_->focusWidget();
+            //connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
+            //connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
+            //testWindow_->show();
+            //testWindow_->focusWidget();
         }
     }//else ..nothing to do !
 }

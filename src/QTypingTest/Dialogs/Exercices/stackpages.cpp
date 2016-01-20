@@ -10,7 +10,7 @@
  */
 
 
-#include "StackPages.h"
+#include "stackpages.h"
 
 StackPages::StackPages(QWidget *parent) :
 QStackedWidget(parent),
@@ -20,11 +20,11 @@ toCopy_(QStringList()) {
 StackPages::StackPages(const StackPages& orig) :
 QStackedWidget(orig.parentWidget()),
 toCopy_(QStringList()),
-numberOfPages_(orig.getNumberOfPages()) {
+numberOfPages_(orig.numberOfPages()) {
     setupPages(orig.getText());
 }
 
-StackPages::StackPages(const QString &text, int numberOfPages = 1, QWidget *parent) :
+StackPages::StackPages(const QString &text, int numberOfPages, QWidget *parent) :
 QStackedWidget(parent),
 toCopy_(QStringList()),
 numberOfPages_(numberOfPages) {
@@ -48,6 +48,23 @@ void StackPages::setupPages(QString wholeText) {
     }
 }
 
-StackPages::~StackPages() {
+void StackPages::nextPage(TResult* previousScore) {
+    emit pageEnded(previousScore);
+
+    this->currentWidget()->setEnabled(false);
+    this->currentPage_++;
+    if (this->currentPage_ < this->count()) {
+        this->setCurrentIndex(currentPage_);
+        tln::TPage *nwPage = currentPage();
+
+        nwPage->setEnabled(true);
+        nwPage->setFocus();
+        nwPage->updateAsFirst();
+    } else {//No more pages
+        emit textFinished();
+    }
 }
 
+void StackPages::beginExercice() {
+    emit exerciceStarted();
+}

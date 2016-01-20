@@ -25,8 +25,6 @@ public:
     };
     virtual ~TWindowLearn();
 private:
-    void createToolBar();
-    QList<tln::TPage*> createPages(QStringList model) override;
 
 };
 

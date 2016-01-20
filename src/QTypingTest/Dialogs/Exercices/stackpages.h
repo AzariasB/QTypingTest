@@ -15,6 +15,10 @@
 #include <QWidget>
 #include <QStackedWidget>
 #include <QStringList>
+#include <QList>
+
+
+#include "Data/tresult.h"
 #include "TLine/tpage.h"
 
 class StackPages : public QStackedWidget {
@@ -25,19 +29,42 @@ public:
     StackPages(const QString &text, int numberOfPages = 1, QWidget *parent = 0);
 
     QString getText() const {
-        return toCopy_;
+        return toCopy_.join(" ");
     };
 
-    int getCurrentPage() const {
+    int currentPageIndex() const {
         return currentPage_;
     }
 
-    int getNumberOfPages() const {
+    int numberOfPages() const {
         return numberOfPages_;
+    }
+    
+    tln::TPage *currentPage() const{
+        return static_cast<tln::TPage*> (this->currentWidget());
     }
 
     virtual ~StackPages() {
     };
+
+signals:
+    /**
+     * Called whenever the current page is terminated
+     */
+    void pageEnded(TResult *pageResult);
+
+
+    /**
+     * Triggerred whever all the given text at the beginning was copied
+     */
+    void textFinished();
+    
+    
+    /**
+     * Called when the user typed the first letter of the exercice
+     * wether the letter is right
+     */
+    void exerciceStarted();
 
 public slots:
     /**
@@ -46,7 +73,7 @@ public slots:
      * @param previousScore the score of the line that was finished
      */
     void nextPage(TResult *previousScore);
-    
+
     /**
      * Called whenever the user typed the first char on his keyboard
      * This permits to launch a timer.
