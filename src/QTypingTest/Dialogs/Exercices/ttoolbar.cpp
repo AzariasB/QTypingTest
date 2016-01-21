@@ -12,34 +12,28 @@
  */
 
 #include <qt5/QtCore/qnamespace.h>
+#include <qt5/QtCore/qlogging.h>
 
 #include "ttoolbar.h"
 
 TToolbar::TToolbar(QWidget *parent) :
-QWidget(parent),
-timer_(new QTimer()) {
+QWidget(parent){
     setupToolbar();
 }
 
 TToolbar::TToolbar(const TToolbar& orig) :
-QWidget(orig.parentWidget()),
-timer_(new QTimer()) {
+QWidget(orig.parentWidget()) {
     setupToolbar();
 }
 
 void TToolbar::setupToolbar() {
-    timer_->setSingleShot(false);
-
-    //TODO : start only when the exercice start
-    timer_->start(1000);
-
     QHBoxLayout *toolbarLayout = new QHBoxLayout();
 
     pageProgression_ = new QLabel("");
 
-    pauseButton_ = new QPushButton(); //Change with an icon
+    pauseButton_ = new QCheckBox(); //Change with an icon
+    pauseButton_->setCheckable(true);
     pauseButton_->setIcon(QIcon("etc/pause.png"));
-    pauseButton_->setAutoDefault(false);
     pauseButton_->setFocusPolicy(Qt::NoFocus);
 
 
@@ -57,23 +51,20 @@ void TToolbar::setupToolbar() {
 
     this->setLayout(toolbarLayout);
 
-    connect(timer_, SIGNAL(timeout()), this, SLOT(updateTimer()));
 }
 
-void TToolbar::pauseTimer() {
-    isInPause = !isInPause;
-    if (isInPause) {
-        timer_->start();
+void TToolbar::pauseTimer() {    
+    bool pause = pauseButton_->isChecked();
+    qDebug() << pause;
+    if (!pause) {
         pauseButton_->setIcon(QIcon("etc/pause.png"));
     } else {
         pauseButton_->setIcon(QIcon("etc/play.png"));
-        timer_->stop();
     }
-    emit pauseContinue(isInPause);
+    emit pauseClicked();
 }
 
-void TToolbar::updateTimer() {
-    if (!isInPause) {
-        emit timeout();
-    }
+void TToolbar::incrementTimer(int increment) {
+    double val =  LCDtimer_->value() + increment;
+    LCDtimer_->display(QString("%1").arg(val));
 }

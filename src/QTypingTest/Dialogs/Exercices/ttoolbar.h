@@ -15,13 +15,15 @@
 #define TTOOLBAR_H
 
 #include <QWidget>
-#include <QPushButton>
+#include <QCheckBox>
 #include <QLCDNumber>
 #include <QLabel>
 #include <QTimer>
 #include <QSpacerItem>
 #include <QHBoxLayout>
 #include <qnamespace.h>
+
+#include <QDebug>
 
 class TToolbar : public QWidget {
     Q_OBJECT
@@ -44,9 +46,13 @@ public slots:
     void pauseTimer();
 
     /**
-     * Called every second to warn update the timer
+     * Add the value increment to the current value of the ldc display
+     * 
+     * @param increment the value of incrementation of the LDC display
      */
-    void updateTimer();
+    void incrementTimer(int increment);
+
+
 
 signals:
     /**
@@ -54,13 +60,8 @@ signals:
      * 
      * @param inPause true if the state change to pause, false otherwise
      */
-    void pauseContinue(bool inPause);
+    void pauseClicked();
 
-    /**
-     * Called every second by the timer
-     * usefull to update GUI elements such as the timer
-     */
-    void timeout();
 
 private:
     /**
@@ -69,12 +70,8 @@ private:
      */
     void setupToolbar();
 
-
-    /* To peridically update the LCDNumber */
-    QTimer *timer_;
-
     /* Allow the player to pause the game */
-    QPushButton *pauseButton_;
+    QCheckBox *pauseButton_;
 
     /* Display the time */
     QLCDNumber *LCDtimer_;
@@ -82,9 +79,6 @@ private:
     /* Display the progression of the user */
     QLabel *pageProgression_;
 
-
-    /* Save the state of the dialog : in pause or in 'normal' mode*/
-    bool isInPause = false;
 
 };
 

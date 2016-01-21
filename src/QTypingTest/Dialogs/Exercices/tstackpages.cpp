@@ -68,3 +68,8 @@ void TStackPages::nextPage(TResult* previousScore) {
 void TStackPages::beginExercice() {
     emit exerciceStarted();
 }
+
+void TStackPages::keyPressed(QKeyEvent *ev) {
+    TPage *p = currentPage();
+    p->update(ev);
+}

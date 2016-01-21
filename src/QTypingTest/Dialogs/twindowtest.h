@@ -22,16 +22,14 @@
 #include "Data/texercice.h"
 #include "Util/factory.h"
 
-#include "QTypingTest/Dialogs/Exercices/tpage.h"
-
 class TWindowTest : public QDialog {
-
     Q_OBJECT
 public:
     TWindowTest(QWidget* parent = 0) :
     QDialog(parent),
     results_(QList<TResult*>()),
     timeStart_(QTime(0, 0)),
+    updateTimer_(new QTimer()),
     topToolbar_(TToolbar()),
     pages_(TStackPages(this)) {
         setupWidget();
@@ -41,6 +39,7 @@ public:
     QDialog(parent),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
+    updateTimer_(new QTimer()),
     topToolbar_(TToolbar()),
     pages_(TStackPages(text, 2, this)) {
         setupWidget();
@@ -50,6 +49,7 @@ public:
     QDialog(parent),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
+    updateTimer_(new QTimer()),
     topToolbar_(TToolbar()),
     pages_(TStackPages(text, numberOfPages, this)) {
         setupWidget();
@@ -63,7 +63,7 @@ public slots:
      * 
      * @param previousScore the score of the line that was finished
      */
-    void nextPage(TResult *previousScore);
+    void saveResult(TResult *previousScore);
 
     void beginExercice();
 
@@ -82,7 +82,13 @@ public slots:
      * if the exercice is paused, it will resume it
      * if the exercice is not paused, it will pause it
      */
-    void pauseContinueExercice(bool pause);
+    void pauseContinueExercice();
+    
+    
+    /**
+     * Called to update the clock of the toolbar
+     */
+    void updateClock();
 
 signals:
     void endOfExercice(TResult *exeRes, QTime timeRealised);
@@ -121,6 +127,13 @@ protected:
      * 
      */
     void setupWidget();
+    
+    /**
+     * Setup the timer to update the
+     * chronometer
+     */
+    void setupTimer();
+    
 
     /**
      * Return the progression as a fraction
@@ -164,6 +177,7 @@ private:
 
     QTime timeStart_;
 
+    QTimer *updateTimer_;
 
     /* The upper toolbar with play/pause button and indicators */
     TToolbar topToolbar_;
@@ -173,6 +187,16 @@ private:
 
     /* Save the ms elapsed if the user pause the exercice*/
     int elapsedMS_ = 0;
+
+
+    /* The current state of the game */
+    bool paused_ = false;
+
+    /**
+     * Connect all the events 
+     * of the dialog
+     */
+    void connectEvents();
 };
 
 #endif /* TWINDOWTEST_H */

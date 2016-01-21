@@ -14,11 +14,15 @@
  *  * From String
  */
 
+#include <qt5/QtCore/qobjectdefs.h>
+
 #include "twindowtest.h"
 
 void TWindowTest::setupWidget() {
     QVBoxLayout *centralLayout = new QVBoxLayout();
 
+    topToolbar_.setProgression(getPageProgression());
+    
     centralLayout->addWidget(&topToolbar_);
     centralLayout->addWidget(&pages_);
     setLayout(centralLayout);
@@ -29,14 +33,16 @@ void TWindowTest::setupWidget() {
     this->move(0, 0);
 
     setupShortcuts();
-
+    connectEvents();
+    setupTimer();
 }
 
 //Protected
 
 void TWindowTest::keyPressEvent(QKeyEvent* ev) {
-    TPage *page = pages_.currentPage();
-    page->update(ev);
+    if (!paused_) {
+        pages_.keyPressed(ev);
+    }
 
 }
 
@@ -55,16 +61,23 @@ void TWindowTest::closeEvent(QCloseEvent* ev) {
         exerciceFinished(true);
 }
 
+void TWindowTest::setupTimer() {
+    updateTimer_->setSingleShot(false);
+    updateTimer_->setInterval(1000);
+    connect(updateTimer_, SIGNAL(timeout()), this, SLOT(updateClock()));
+}
+
 
 //Slots
 
-void TWindowTest::nextPage(TResult* previousScore) {
+void TWindowTest::saveResult(TResult* previousScore) {
     this->results_ << previousScore;
 
 }
 
 void TWindowTest::beginExercice() {
-    this->timeStart_.start();
+    timeStart_.start();
+    updateTimer_->start();
 }
 
 TResult* TWindowTest::exerciceResult() {
@@ -84,12 +97,19 @@ TResult* TWindowTest::exerciceResult() {
     return res;
 }
 
-void TWindowTest::pauseContinueExercice(bool pause) {
-    if (pause) {
+void TWindowTest::pauseContinueExercice() {
+    paused_ = !paused_;
+    if (paused_) {
+        updateTimer_->stop();
         timeStart_.restart();
     } else {
+        updateTimer_->start();
         elapsedMS_ += timeStart_.elapsed();
     }
+}
+
+void TWindowTest::updateClock() {
+    topToolbar_.incrementTimer(1);
 }
 
 
@@ -123,6 +143,13 @@ void TWindowTest::setupShortcuts() {
     QShortcut *pauseSh = new QShortcut(this);
     pauseSh->setKey(CTRL + Key_P);
     connect(pauseSh, SIGNAL(activated()), this, SLOT(pauseContinueExercice()));
+}
+
+void TWindowTest::connectEvents() {
+    connect(&pages_, SIGNAL(textFinished()), this, SLOT(close()));
+    connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(saveResult(TResult*)));
+    connect(&pages_,SIGNAL(exerciceStarted()),this,SLOT(beginExercice()));
+    connect(&topToolbar_,SIGNAL(pauseClicked()),this,SLOT(pauseContinueExercice()));
 }
 
 

@@ -16,7 +16,7 @@
 #include <QStackedWidget>
 #include <QStringList>
 #include <QList>
-
+#include <QKeyEvent>
 
 #include "Data/tresult.h"
 #include "QTypingTest/Dialogs/Exercices/tpage.h"
@@ -81,6 +81,14 @@ public slots:
      * 
      */
     void beginExercice();
+    
+    /**
+     * Called whenever the user type on the keybaord and 
+     * the game is not paused
+     * 
+     * @param ev the key event triggered by the user
+     */
+    void keyPressed(QKeyEvent *ev);
 
 private:
 
