@@ -10,32 +10,32 @@
  */
 
 
-#include "stackpages.h"
+#include "tstackpages.h"
 
-StackPages::StackPages(QWidget *parent) :
+TStackPages::TStackPages(QWidget *parent) :
 QStackedWidget(parent),
 toCopy_(QStringList()) {
 }
 
-StackPages::StackPages(const StackPages& orig) :
+TStackPages::TStackPages(const TStackPages& orig) :
 QStackedWidget(orig.parentWidget()),
 toCopy_(QStringList()),
 numberOfPages_(orig.numberOfPages()) {
     setupPages(orig.getText());
 }
 
-StackPages::StackPages(const QString &text, int numberOfPages, QWidget *parent) :
+TStackPages::TStackPages(const QString &text, int numberOfPages, QWidget *parent) :
 QStackedWidget(parent),
 toCopy_(QStringList()),
 numberOfPages_(numberOfPages) {
     setupPages(text);
 }
 
-void StackPages::setupPages(QString wholeText) {
+void TStackPages::setupPages(QString wholeText) {
     QStringList model = factory::splitText(wholeText, numberOfPages_);
 
     for (int i = 0; i < model.size(); i++) {
-        tln::TPage *mPage = new tln::TPage(model[i]);
+        TPage *mPage = new TPage(model[i]);
         connect(mPage, SIGNAL(endedPage(TResult*)), this, SLOT(nextPage(TResult*)));
 
         if (i > 0) {
@@ -48,14 +48,14 @@ void StackPages::setupPages(QString wholeText) {
     }
 }
 
-void StackPages::nextPage(TResult* previousScore) {
+void TStackPages::nextPage(TResult* previousScore) {
     emit pageEnded(previousScore);
 
     this->currentWidget()->setEnabled(false);
     this->currentPage_++;
     if (this->currentPage_ < this->count()) {
         this->setCurrentIndex(currentPage_);
-        tln::TPage *nwPage = currentPage();
+        TPage *nwPage = currentPage();
 
         nwPage->setEnabled(true);
         nwPage->setFocus();
@@ -65,6 +65,6 @@ void StackPages::nextPage(TResult* previousScore) {
     }
 }
 
-void StackPages::beginExercice() {
+void TStackPages::beginExercice() {
     emit exerciceStarted();
 }

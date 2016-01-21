@@ -21,8 +21,6 @@
 
 #include "filehelper.h"
 
-
-
 namespace factory {
     /**
      * This function generate the practice exercice from the given letters.

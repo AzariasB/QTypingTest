@@ -2,11 +2,9 @@
 
 
 #include "tpage.h"
-#include "src/QTypingTest/thomepage.h"
 
-#ifdef TLINE_H
 
-tln::TPage::TPage(QString model, QWidget *parent) : QWidget(parent),
+TPage::TPage(QString model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
 toCopy_(QList<TLabel*>()),
 globalAnswer_(model),
@@ -15,7 +13,7 @@ lineRes_(new TResult()) {
     this->setupPage();
 }
 
-tln::TPage::TPage(QString model) : QWidget(),
+TPage::TPage(QString model) : QWidget(),
 tLineLayout_(new QVBoxLayout(this)),
 toCopy_(QList<TLabel*>()),
 globalAnswer_(model),
@@ -25,7 +23,7 @@ lineRes_(new TResult()) {
     this->setupPage();
 }
 
-void tln::TPage::setupPage() {
+void TPage::setupPage() {
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     //Devide the model into equals parts and create n Tlabels
@@ -47,7 +45,7 @@ void tln::TPage::setupPage() {
 
 }
 
-void tln::TPage::typingAnswer(QString answer) {
+void TPage::typingAnswer(QString answer) {
     if (!started_) {
         started_ = true;
         emit startedPage();
@@ -78,18 +76,19 @@ void tln::TPage::typingAnswer(QString answer) {
 
 }
 
-void tln::TPage::handleMistype(QChar userAns) {
+void TPage::handleMistype(QChar userAns) {
     bool previousWasRight = true;
     if (lastAnswer_.size() > 1) {
         previousWasRight = globalAnswer_[lastAnswer_.size() - 2] == lastAnswer_[lastAnswer_.size() - 2];
     }
 
     if (previousWasRight) {
-        THomePage::currentUser_->oneMoreMistake(userAns);
+       // THomePage::currentUser_->oneMoreMistake(userAns);
+        //here, update user informations
     }
 }
 
-void tln::TPage::eraseAnswer() {
+void TPage::eraseAnswer() {
     //TODO : find a better way to write that down ... 
     if (toCopy_[currentTLabel_]->previousChar())
         lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
@@ -103,13 +102,13 @@ void tln::TPage::eraseAnswer() {
     //Else : could emit 'eraseOverflow'
 }
 
-bool tln::TPage::isValidKey(QKeyEvent* ev) {
+bool TPage::isValidKey(QKeyEvent* ev) {
 
     return !ev->text().isEmpty() && !ev->text().isNull() &&
             TKeys::isValidLetter(ev->key());
 }
 
-void tln::TPage::update(QKeyEvent* ev) {
+void TPage::update(QKeyEvent* ev) {
     if (isValidKey(ev)) {
         typingAnswer(ev->text());
     } else if (ev->key() == Key_Backspace) {
@@ -117,7 +116,7 @@ void tln::TPage::update(QKeyEvent* ev) {
     }
 }
 
-void tln::TPage::updateResult() {
+void TPage::updateResult() {
     int correctKeyStrokes = 0;
     int wrongKeyStrokes = 0;
     for (int i = 0; i < lastAnswer_.size() && i < globalAnswer_.size(); i++) {
@@ -129,5 +128,3 @@ void tln::TPage::updateResult() {
     lineRes_->setCorrectKeysStrokes(correctKeyStrokes);
     lineRes_->setWrongKeysStrokes(wrongKeyStrokes);
 }
-
-#endif

@@ -12,7 +12,6 @@
 
 #include "twindowlearn.h"
 
-TWindowLearn::~TWindowLearn() {
+TWindowLearn::TWindowLearn(QString model, QWidget* parent) {
+    
 }
-
-

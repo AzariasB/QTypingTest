@@ -11,8 +11,8 @@
  * Created on 20 janvier 2016, 09:58
  */
 
-#ifndef TOOLBAR_H
-#define TOOLBAR_H
+#ifndef TTOOLBAR_H
+#define TTOOLBAR_H
 
 #include <QWidget>
 #include <QPushButton>
@@ -23,13 +23,13 @@
 #include <QHBoxLayout>
 #include <qnamespace.h>
 
-class Toolbar : public QWidget {
+class TToolbar : public QWidget {
     Q_OBJECT
 public:
-    Toolbar(QWidget *parent = 0);
-    Toolbar(const Toolbar& orig);
+    TToolbar(QWidget *parent = 0);
+    TToolbar(const TToolbar& orig);
 
-    virtual ~Toolbar() {
+    virtual ~TToolbar() {
         ;
     };
 

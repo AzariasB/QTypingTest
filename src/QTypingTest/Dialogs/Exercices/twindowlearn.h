@@ -13,17 +13,16 @@
 #ifndef TWINDOWLEARN_H
 #define TWINDOWLEARN_H
 
-
+#include <QWidget>
 #include "QTypingTest/Dialogs/twindowtest.h"
 
 class TWindowLearn : public TWindowTest {
     Q_OBJECT
 public:
-    TWindowLearn(QString model,QWidget *parent = 0):TWindowTest(parent)
-    {
-        
+    TWindowLearn(QString model, QWidget *parent = 0);
+
+    virtual ~TWindowLearn() {
     };
-    virtual ~TWindowLearn();
 private:
 
 };

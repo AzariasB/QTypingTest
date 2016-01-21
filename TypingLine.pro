@@ -10,7 +10,7 @@ QMAKE_CXXFLAGS  += -std=c++11
 
 PRO_PATH=$$PWD
 
-INCLUDEPATH = /home/boutina/Documents/Scolaire/Programmation/C++/Qt/QTypingTest/src
+INCLUDEPATH = $$PRO_PATH/src
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -47,10 +47,10 @@ SOURCES += src/main.cpp \
         #------------
         #Core classes= src/main.cpp \
         #------------
-        src/QTypingTest/Dialogs/Exercices/TLine/tpage.cpp \
-        src/QTypingTest/Dialogs/Exercices/TLine/tlabel.cpp \
-        src/QTypingTest/Dialogs/Exercices/stackpages.cpp \
-        src/QTypingTest/Dialogs/Exercices/toolbar.cpp \
+        src/QTypingTest/Dialogs/Exercices/tpage.cpp \
+        src/QTypingTest/Dialogs/Exercices/tlabel.cpp \
+        src/QTypingTest/Dialogs/Exercices/tstackpages.cpp \
+        src/QTypingTest/Dialogs/Exercices/ttoolbar.cpp \
         src/QTypingTest/Dialogs/Exercices/twindowlearn.cpp \
         src/QTypingTest/Dialogs/twindowtest.cpp \
         src/QTypingTest/thomepage.cpp \
@@ -77,11 +77,12 @@ SOURCES += src/main.cpp \
 #------------
 #Core classes
 #------------
-HEADERS += src/QTypingTest/Dialogs/Exercices/TLine/tpage.h \
-            src/QTypingTest/Dialogs/Exercices/TLine/tlabel.h \
+HEADERS +=  \
+            src/QTypingTest/Dialogs/Exercices/tpage.h \
+            src/QTypingTest/Dialogs/Exercices/tlabel.h \
             src/QTypingTest/Dialogs/Exercices/twindowlearn.h \
-            src/QTypingTest/Dialogs/Exercices/stackpages.h \
-            src/QTypingTest/Dialogs/Exercices/toolbar.h \
+            src/QTypingTest/Dialogs/Exercices/tstackpages.h \
+            src/QTypingTest/Dialogs/Exercices/ttoolbar.h \
             src/QTypingTest/Dialogs/twindowtest.h \
             src/QTypingTest/thomepage.h \
             src/QTypingTest/Learn/learnpage.h \

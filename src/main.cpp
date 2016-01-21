@@ -5,7 +5,6 @@
 #include <QDir>
 #include <time.h>
 #include <QFile>
-#include "Util/factory.h"
 
 #include "QTypingTest/thomepage.h"
 

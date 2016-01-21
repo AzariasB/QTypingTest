@@ -9,8 +9,8 @@
  * Created on 20 janvier 2016, 09:58
  */
 
-#ifndef STACKPAGES_H
-#define STACKPAGES_H
+#ifndef TSTACKPAGES_H
+#define TSTACKPAGES_H
 
 #include <QWidget>
 #include <QStackedWidget>
@@ -19,14 +19,15 @@
 
 
 #include "Data/tresult.h"
-#include "TLine/tpage.h"
+#include "QTypingTest/Dialogs/Exercices/tpage.h"
 
-class StackPages : public QStackedWidget {
+
+class TStackPages : public QStackedWidget {
     Q_OBJECT
 public:
-    StackPages(QWidget *parent = 0);
-    StackPages(const StackPages& orig);
-    StackPages(const QString &text, int numberOfPages = 1, QWidget *parent = 0);
+    TStackPages(QWidget *parent = 0);
+    TStackPages(const TStackPages& orig);
+    TStackPages(const QString &text, int numberOfPages = 1, QWidget *parent = 0);
 
     QString getText() const {
         return toCopy_.join(" ");
@@ -40,11 +41,11 @@ public:
         return numberOfPages_;
     }
     
-    tln::TPage *currentPage() const{
-        return static_cast<tln::TPage*> (this->currentWidget());
+    TPage *currentPage() const{
+        return static_cast<TPage*> (this->currentWidget());
     }
 
-    virtual ~StackPages() {
+    virtual ~TStackPages() {
     };
 
 signals:

@@ -16,24 +16,33 @@
 #include <QVBoxLayout>
 #include <QKeyEvent>
 
-#include "Exercices/stackpages.h"
-#include "Exercices/toolbar.h"
+#include "Exercices/tstackpages.h"
+#include "Exercices/ttoolbar.h"
 #include "Data/tresult.h"
 #include "Data/texercice.h"
 #include "Util/factory.h"
 
-#include "QTypingTest/Dialogs/Exercices/TLine/tpage.h"
+#include "QTypingTest/Dialogs/Exercices/tpage.h"
 
 class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-    explicit TWindowTest(QWidget* parent) : QDialog(parent),
+    TWindowTest(QWidget* parent = 0) : QDialog(parent),
     results_(QList<TResult*>()),
     timeStart_(QTime(0, 0)),
-    pages_(StackPages(this)),
+    pages_(TStackPages(this)),
     centralLayout_(new QVBoxLayout()) {
-    };
+    }
+
+    TWindowTest(QString text, QWidget *parent = 0) :
+    QDialog(parent),
+    results_(QList<TResult*>()),
+    timeStart_(QTime()),
+    pages_(TStackPages(text, 2,this)),
+    centralLayout_(new QVBoxLayout()) {
+
+    }
 
     virtual ~TWindowTest();
 
@@ -103,7 +112,6 @@ protected:
      */
     void setupWidget(QString textModel);
 
-
     /**
      * Return the progression as a fraction
      * For example, if the user is at the first page and
@@ -142,16 +150,15 @@ protected:
     void setTimers(int timeLimit);
 
 private:
-    Toolbar topToolbar_;
-    StackPages pages_;
+    TToolbar topToolbar_;
+    TStackPages pages_;
 
     QList<TResult*> results_;
-    
+
 
     QTime timeStart_;
 
     QVBoxLayout *centralLayout_;
-
 
 
     /* Save the ms elapsed if the user pause the exercice*/

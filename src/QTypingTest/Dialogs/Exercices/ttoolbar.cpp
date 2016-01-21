@@ -13,21 +13,21 @@
 
 #include <qt5/QtCore/qnamespace.h>
 
-#include "toolbar.h"
+#include "ttoolbar.h"
 
-Toolbar::Toolbar(QWidget *parent) :
+TToolbar::TToolbar(QWidget *parent) :
 QWidget(parent),
 timer_(new QTimer()) {
     setupToolbar();
 }
 
-Toolbar::Toolbar(const Toolbar& orig) :
+TToolbar::TToolbar(const TToolbar& orig) :
 QWidget(orig.parentWidget()),
 timer_(new QTimer()) {
     setupToolbar();
 }
 
-void Toolbar::setupToolbar() {
+void TToolbar::setupToolbar() {
     timer_->setSingleShot(false);
 
     //TODO : start only when the exercice start
@@ -60,7 +60,7 @@ void Toolbar::setupToolbar() {
     connect(timer_, SIGNAL(timeout()), this, SLOT(updateTimer()));
 }
 
-void Toolbar::pauseTimer() {
+void TToolbar::pauseTimer() {
     isInPause = !isInPause;
     if (isInPause) {
         timer_->start();
@@ -72,7 +72,7 @@ void Toolbar::pauseTimer() {
     emit pauseContinue(isInPause);
 }
 
-void Toolbar::updateTimer() {
+void TToolbar::updateTimer() {
     if (!isInPause) {
         emit timeout();
     }

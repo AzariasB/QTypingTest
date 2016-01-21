@@ -16,15 +16,6 @@
 
 #include "twindowtest.h"
 
-//TWindowTest::TWindowTest(QString model, QWidget *parent ) :
-//QDialog(parent),
-//results_(QList<TResult*>()),
-//timer_(new QTimer()),
-//timeStart_(QTime(0, 0)),
-//stackWidget_(new QStackedWidget()),
-//centralLayout_(new QVBoxLayout()) {
-//    setupWidget(model);
-//}
 
 void TWindowTest::setupWidget(QString words) {
     //Setup window
@@ -42,7 +33,7 @@ void TWindowTest::setupWidget(QString words) {
 //Protected
 
 void TWindowTest::keyPressEvent(QKeyEvent* ev) {
-    tln::TPage *page = pages_.currentPage();
+    TPage *page = pages_.currentPage();
     page->update(ev);
 
 }
@@ -74,13 +65,6 @@ void TWindowTest::beginExercice() {
     this->timeStart_.start();
 }
 
-//void TWindowTest::updateTimer() {
-//    int incrVal = decrementTime_ ? -1 : 1;
-//    LCDtimer_->display(LCDtimer_->value() + incrVal);
-//    if(LCDtimer_->value() < 0.f){
-//        LCDtimer_->setPalette(red);
-//    }
-//}
 
 TResult* TWindowTest::exerciceResult() {
     elapsedMS_ += this->timeStart_.elapsed();
@@ -128,7 +112,7 @@ void TWindowTest::setupShortcuts() {
 
     connect(endShortcut, &QShortcut::activated, [ = ](){
         if (results_.isEmpty()) {
-            tln::TPage *curPage = static_cast<tln::TPage*> (pages_.currentWidget());
+            TPage *curPage = static_cast<TPage*> (pages_.currentWidget());
                     this->results_.push_back(pages_.currentPage()->getResult());
         }
         exerciceFinished();
@@ -139,14 +123,6 @@ void TWindowTest::setupShortcuts() {
     pauseSh->setKey(CTRL + Key_P);
     connect(pauseSh, SIGNAL(activated()), this, SLOT(pauseContinueExercice()));
 }
-
-//void TWindowTest::setTimers(int timeLimit) {
-//    if (timeLimit != -1) {
-//        decrementTime_ = true;
-//        timeLimit_ = timeLimit;
-//        LCDtimer_->display(timeLimit);
-//    }
-//}
 
 
 //Destructor
