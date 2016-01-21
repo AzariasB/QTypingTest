@@ -76,7 +76,7 @@ bool isValidWord(QString word, QString availableLetters) {
     return word.isEmpty();
 }
 
-QStringList factory::generateLearning(QStringList mainLetter, QStringList allLetters) {
+QString factory::generateLearning(QStringList mainLetter, QStringList allLetters) {
 
     QString res;
 
@@ -106,7 +106,7 @@ QStringList factory::generateLearning(QStringList mainLetter, QStringList allLet
     } else
         qDebug() << "Warning : no letters available";
 
-    return res.split("");
+    return res;
 }
 
 QString factory::generateFromLetters(QStringList letterList, int length) {

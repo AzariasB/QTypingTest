@@ -1,3 +1,7 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 /* 
  * File:   TWindowTest.h
  * Author: boutina
@@ -91,8 +95,19 @@ public slots:
     void updateClock();
 
 signals:
+    /**
+     * Triggerred when the exercice is 'officialy' finished
+     * Either thanks to a debug shortcut or the text to copy is finished
+     * 
+     * @param exeRes the result of the exercice
+     * @param timeRealised the time realised to complete the exercice
+     */
     void endOfExercice(TResult *exeRes, QTime timeRealised);
 
+    /**
+     * Called whenever the exercice
+     * is forced to finish and no result/score is expected from the user 
+     */
     void closed();
 
 protected:

@@ -1,3 +1,7 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 /* 
  * File:   TExercice.cpp
  * Author: boutina
@@ -29,7 +33,7 @@ availableLetters_(orig.availableLetters_),
 exerciceType_(orig.exerciceType_) {
 }
 
-QStringList TExercice::buildExercice() {
+QString TExercice::buildExercice() {
     if (exerciceType_ == LEARNING) {
         return factory::generateLearning(learningLetters_, availableLetters_);
     }else{

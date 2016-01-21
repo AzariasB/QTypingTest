@@ -1,3 +1,7 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 /* 
  * File:   TExercice.h
  * Author: boutina
@@ -28,7 +32,7 @@ public:
     TExercice(EXERCICE_TYPE exType, bool allLetters);
     TExercice(const TExercice& orig);
 
-    QStringList buildExercice();
+    QString buildExercice();
 
     virtual ~TExercice() {
 

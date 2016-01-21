@@ -36,7 +36,7 @@ namespace factory {
      * @param allLetters all the available letters for the exercice
      * @return a random-generated list of words
      */
-    QStringList generateLearning(QStringList mainLetter, QStringList allLetters);
+    QString generateLearning(QStringList mainLetter, QStringList allLetters);
 
 
 

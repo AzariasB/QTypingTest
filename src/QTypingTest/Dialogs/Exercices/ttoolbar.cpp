@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
  */
 
 /* 
@@ -40,7 +39,9 @@ void TToolbar::setupToolbar() {
     connect(pauseButton_, SIGNAL(clicked()), this, SLOT(pauseTimer()));
 
     LCDtimer_ = new QLCDNumber();
-    LCDtimer_->setSegmentStyle(QLCDNumber::Filled);
+    LCDtimer_->setSegmentStyle(QLCDNumber::Outline);
+    LCDtimer_->setFrameStyle(QFrame::NoFrame);
+    LCDtimer_->setPalette(Qt::black);
 
     QSpacerItem *space = new QSpacerItem(300, 0);
 
@@ -65,6 +66,7 @@ void TToolbar::pauseTimer() {
 }
 
 void TToolbar::incrementTimer(int increment) {
+    //TODO : pretify the display by displaying MM:SS instead of only seconds
     double val =  LCDtimer_->value() + increment;
     LCDtimer_->display(QString("%1").arg(val));
 }

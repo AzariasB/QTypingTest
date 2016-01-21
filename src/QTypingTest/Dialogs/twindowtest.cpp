@@ -1,3 +1,7 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 /* 
  * File:   TWindowTest.cpp
  * Author: boutina
@@ -22,7 +26,7 @@ void TWindowTest::setupWidget() {
     QVBoxLayout *centralLayout = new QVBoxLayout();
 
     topToolbar_.setProgression(getPageProgression());
-    
+
     centralLayout->addWidget(&topToolbar_);
     centralLayout->addWidget(&pages_);
     setLayout(centralLayout);
@@ -146,10 +150,13 @@ void TWindowTest::setupShortcuts() {
 }
 
 void TWindowTest::connectEvents() {
-    connect(&pages_, SIGNAL(textFinished()), this, SLOT(close()));
+    auto thePages = pages_.objectName();
+    connect(&pages_, &TStackPages::textFinished ,this, [thePages,this]{
+        this->exerciceFinished(false);
+    });
     connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(saveResult(TResult*)));
-    connect(&pages_,SIGNAL(exerciceStarted()),this,SLOT(beginExercice()));
-    connect(&topToolbar_,SIGNAL(pauseClicked()),this,SLOT(pauseContinueExercice()));
+    connect(&pages_, SIGNAL(exerciceStarted()), this, SLOT(beginExercice()));
+    connect(&topToolbar_, SIGNAL(pauseClicked()), this, SLOT(pauseContinueExercice()));
 }
 
 
