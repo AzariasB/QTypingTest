@@ -10,24 +10,22 @@
 
 
 #include <QtTest/QtTest>
+#include <QApplication>
 
 class TestLearnDialog : public QObject {
     Q_OBJECT
 private slots:
     void testOpen();
-    void testExit();
 };
 
-void TestLearnDialog::testOpen(){
-    TWindowLearn learn("");
+void TestLearnDialog::testOpen() {
+    //Test if the dialogs shows up with text
+    QWidget *w = new QWidget();
+    TWindowLearn learn("Now you have to type this little text which is a test",1,w);
     learn.show();
+    QApplication::exec();
 }
 
-void TestLearnDialog::testExit() {
-    TWindowLearn learn("Copie moi");
-    learn.show();
-    //Do exercice;
-}
 
 
 QTEST_MAIN(TestLearnDialog)

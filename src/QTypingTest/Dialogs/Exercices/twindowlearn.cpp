@@ -12,6 +12,11 @@
 
 #include "twindowlearn.h"
 
-TWindowLearn::TWindowLearn(QString model, QWidget* parent) {
+TWindowLearn::TWindowLearn(QString model, QWidget* parent) :
+TWindowTest(model,parent){
     
+}
+
+TWindowLearn::TWindowLearn(QString model, int numberOfPages, QWidget* parent):
+TWindowTest(model,numberOfPages,parent){
 }

@@ -16,8 +16,12 @@
 
 #include "twindowtest.h"
 
+void TWindowTest::setupWidget() {
+    QVBoxLayout *centralLayout = new QVBoxLayout();
 
-void TWindowTest::setupWidget(QString words) {
+    centralLayout->addWidget(&topToolbar_);
+    centralLayout->addWidget(&pages_);
+    setLayout(centralLayout);
     //Setup window
     this->setModal(true);
     this->setFocusPolicy(StrongFocus);
@@ -25,8 +29,6 @@ void TWindowTest::setupWidget(QString words) {
     this->move(0, 0);
 
     setupShortcuts();
-
-    this->setLayout(centralLayout_);
 
 }
 
@@ -64,7 +66,6 @@ void TWindowTest::nextPage(TResult* previousScore) {
 void TWindowTest::beginExercice() {
     this->timeStart_.start();
 }
-
 
 TResult* TWindowTest::exerciceResult() {
     elapsedMS_ += this->timeStart_.elapsed();
@@ -112,8 +113,8 @@ void TWindowTest::setupShortcuts() {
 
     connect(endShortcut, &QShortcut::activated, [ = ](){
         if (results_.isEmpty()) {
-            TPage *curPage = static_cast<TPage*> (pages_.currentWidget());
-                    this->results_.push_back(pages_.currentPage()->getResult());
+            //TPage *curPage = static_cast<TPage*> (pages_.currentWidget());
+            this->results_.push_back(pages_.currentPage()->getResult());
         }
         exerciceFinished();
     });

@@ -28,20 +28,31 @@ class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-    TWindowTest(QWidget* parent = 0) : QDialog(parent),
+    TWindowTest(QWidget* parent = 0) :
+    QDialog(parent),
     results_(QList<TResult*>()),
     timeStart_(QTime(0, 0)),
-    pages_(TStackPages(this)),
-    centralLayout_(new QVBoxLayout()) {
+    topToolbar_(TToolbar()),
+    pages_(TStackPages(this)) {
+        setupWidget();
     }
 
     TWindowTest(QString text, QWidget *parent = 0) :
     QDialog(parent),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
-    pages_(TStackPages(text, 2,this)),
-    centralLayout_(new QVBoxLayout()) {
+    topToolbar_(TToolbar()),
+    pages_(TStackPages(text, 2, this)) {
+        setupWidget();
+    }
 
+    TWindowTest(QString text, int numberOfPages, QWidget *parent = 0) :
+    QDialog(parent),
+    results_(QList<TResult*>()),
+    timeStart_(QTime()),
+    topToolbar_(TToolbar()),
+    pages_(TStackPages(text, numberOfPages, this)) {
+        setupWidget();
     }
 
     virtual ~TWindowTest();
@@ -108,9 +119,8 @@ protected:
      * setup the options of the dialog and create the lines
      * depending on the given model
      * 
-     * @param textModel the string that the user will have to copy
      */
-    void setupWidget(QString textModel);
+    void setupWidget();
 
     /**
      * Return the progression as a fraction
@@ -150,16 +160,16 @@ protected:
     void setTimers(int timeLimit);
 
 private:
-    TToolbar topToolbar_;
-    TStackPages pages_;
-
     QList<TResult*> results_;
-
 
     QTime timeStart_;
 
-    QVBoxLayout *centralLayout_;
 
+    /* The upper toolbar with play/pause button and indicators */
+    TToolbar topToolbar_;
+
+    /* The pages */
+    TStackPages pages_;
 
     /* Save the ms elapsed if the user pause the exercice*/
     int elapsedMS_ = 0;
