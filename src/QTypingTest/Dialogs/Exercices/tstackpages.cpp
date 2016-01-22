@@ -35,16 +35,7 @@ void TStackPages::setupPages(QString wholeText) {
     QStringList model = factory::splitText(wholeText, numberOfPages_);
 
     for (int i = 0; i < model.size(); i++) {
-        TPage *mPage = new TPage(model[i]);
-        connect(mPage, SIGNAL(endedPage(TResult*)), this, SLOT(nextPage(TResult*)));
-
-        if (i > 0) {
-            mPage->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
-        } else if (i == 0) {
-            connect(mPage, SIGNAL(startedPage()), this, SLOT(beginExercice()));
-            mPage->updateAsFirst();
-        }
-        this->addWidget(mPage);
+        addPage(model[i],i == 0);
     }
 }
 
@@ -72,4 +63,17 @@ void TStackPages::beginExercice() {
 void TStackPages::keyPressed(QKeyEvent *ev) {
     TPage *p = currentPage();
     p->update(ev);
+}
+
+void TStackPages::addPage(QString pageText, bool isFirst) {
+    TPage *mPage = new TPage(pageText);
+    connect(mPage, SIGNAL(endedPage(TResult*)), this, SLOT(nextPage(TResult*)));
+
+    if (!isFirst) {
+        mPage->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
+    } else {
+        connect(mPage, SIGNAL(startedPage()), this, SLOT(beginExercice()));
+        mPage->updateAsFirst();
+    }
+    this->addWidget(mPage);
 }

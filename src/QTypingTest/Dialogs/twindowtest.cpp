@@ -18,7 +18,6 @@
  *  * From String
  */
 
-#include <qt5/QtCore/qobjectdefs.h>
 
 #include "twindowtest.h"
 

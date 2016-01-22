@@ -9,6 +9,8 @@
 #include <QDebug>
 #include <QStringList>
 #include <QDir>
+
+
 #include "../../src/Util/htmlhelper.h"
 #include "../../src/Util/factory.h"
 #include "../../src/Util/filehelper.h"
@@ -21,6 +23,7 @@ private slots:
 private:
     //Functions to test Factory
     void testWordsFinding();
+    void testPracticeGeneration();
 
     //Functions to test HTML
     void testSurroundAll();
@@ -28,6 +31,22 @@ private:
     void testRemoveTags();
     void testAbsolutePosition();
 };
+
+void TestUtils::testPracticeGeneration() {
+    QStringList allLetters = QString("abcdefghijklmnopqrstuvwxyz").split("",QString::SkipEmptyParts);
+    QString words = factory::generatePractice(allLetters);
+    QString randW = factory::generatePractice(allLetters,false);
+    QString empt  = factory::generatePractice(QStringList());
+    
+    QVERIFY(words.size() > 0);
+    qDebug() << "Must contain only real words";
+    qDebug() <<  words;
+    QVERIFY(randW.size() > 0);
+    qDebug() << "Must contain existing and random words";
+    qDebug() << randW;
+    QVERIFY(empt.size() == 0);
+}
+
 
 void TestUtils::testAbsolutePosition() {
     QString joel_0 = "joel";
@@ -82,6 +101,9 @@ void TestUtils::testFactory() {
     qDebug() << "Testing factory (non-random functions)";
     //Not any "non random-functions' at the moment
     testWordsFinding();
+    
+    qDebug() << "Testing practice generation";
+    testPracticeGeneration();
 }
 
 void TestUtils::testSurroundAll() {

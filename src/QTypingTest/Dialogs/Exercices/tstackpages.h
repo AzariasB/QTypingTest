@@ -44,6 +44,8 @@ public:
     TPage *currentPage() const{
         return static_cast<TPage*> (this->currentWidget());
     }
+    
+    void addPage(QString pageText,bool isFirst = false);
 
     virtual ~TStackPages() {
     };

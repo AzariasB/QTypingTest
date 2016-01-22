@@ -39,7 +39,24 @@ namespace factory {
     QString generateLearning(QStringList mainLetter, QStringList allLetters);
 
 
-
+    /**
+     * Generates random words from the given list of letters
+     * The string generated is a single big text of words
+     * If onlyrealwords is true, the text will contains only `real` words so 
+     * the user can train on existing words
+     * otherwise, it will also contains some random-generated words
+     * The size of the produced string is made to be contained in only ONE page
+     * of an exercice.
+     * 
+     * TODO : add a parameter to choose the size of the text ? (Azarias)
+     * 
+     * @param letters the available letters
+     * @param onlyRealWords if it must generates only words existing in a language, or if it can generate random words
+     * @return the generated text
+     */
+    QString generatePractice(QStringList letters,bool onlyRealWords = true);
+    
+    
     /**
      * Generate some random words with the available letters given in the list
      * 

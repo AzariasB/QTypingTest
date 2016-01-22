@@ -27,6 +27,7 @@
 #include "Util/factory.h"
 
 class TWindowTest : public QDialog {
+
     Q_OBJECT
 public:
     TWindowTest(QWidget* parent = 0) :
@@ -59,6 +60,14 @@ public:
         setupWidget();
     }
 
+    TToolbar toolBar() const{
+        return topToolbar_;
+    }
+    
+    TStackPages stackPages() const{
+        return pages_;
+    }
+
     virtual ~TWindowTest();
 
 public slots:
@@ -87,8 +96,8 @@ public slots:
      * if the exercice is not paused, it will pause it
      */
     void pauseContinueExercice();
-    
-    
+
+
     /**
      * Called to update the clock of the toolbar
      */
@@ -142,13 +151,12 @@ protected:
      * 
      */
     void setupWidget();
-    
+
     /**
      * Setup the timer to update the
      * chronometer
      */
     void setupTimer();
-    
 
     /**
      * Return the progression as a fraction
@@ -187,18 +195,19 @@ protected:
      */
     void setTimers(int timeLimit);
 
-private:
-    QList<TResult*> results_;
-
-    QTime timeStart_;
-
-    QTimer *updateTimer_;
-
     /* The upper toolbar with play/pause button and indicators */
     TToolbar topToolbar_;
 
     /* The pages */
     TStackPages pages_;
+
+    /* The results of each pages */
+    QList<TResult*> results_;
+private:
+
+    QTime timeStart_;
+
+    QTimer *updateTimer_;
 
     /* Save the ms elapsed if the user pause the exercice*/
     int elapsedMS_ = 0;

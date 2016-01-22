@@ -10,9 +10,11 @@
  */
 
 #include <qt5/QtCore/qstringlist.h>
+#include <qt5/QtCore/qlogging.h>
 
 #include "factory.h"
 
+//The number of word that a single page can contain
 const int numberOfWords = 40;
 
 /**
@@ -83,6 +85,7 @@ QString factory::generateLearning(QStringList mainLetter, QStringList allLetters
     if (!mainLetter.isEmpty())
         res += generateFromLetters(mainLetter);
 
+    //TODO : change here the language of the words to depend on the user configuration (Azarias)
     if (!allLetters.isEmpty()) {
         res += generateFromLetters(allLetters);
         QString wordsWMain = generateWords(allLetters.join(""), "en", mainLetter.join(""));
@@ -104,8 +107,25 @@ QString factory::generateLearning(QStringList mainLetter, QStringList allLetters
             res += wordsWMain;
         }
     } else
-        qDebug() << "Warning : no letters available";
+        qWarning() << "Warning : no letters available to generate the exercice";
 
+    return res;
+}
+
+QString factory::generatePractice(QStringList letters, bool onlyRealWords){
+    QString res;
+    if(!onlyRealWords)
+        res += generateFromLetters(letters);
+    
+    if(!letters.isEmpty()){
+        res += generateWords(letters.join(""),"en");
+        QStringList words = res.split(" ",QString::SkipEmptyParts);
+        std::random_shuffle(words.begin(),words.end());
+        res = words.join(" ");
+    }else{
+        qWarning() << "Warning : no letters available to generate the practice";
+    }
+    
     return res;
 }
 

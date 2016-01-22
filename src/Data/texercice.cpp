@@ -15,15 +15,14 @@
 
 TExercice::TExercice(EXERCICE_TYPE exType, bool allLetters) :
 allLetters_(allLetters),
-exerciceType_(exType)
-{
+exerciceType_(exType) {
     this->availableLetters_ = this->allLetters_ ? getAllLetters() : QStringList();
 }
 
 TExercice::TExercice(EXERCICE_TYPE exType, QStringList mainLetter, QStringList availableLetters) :
 learningLetters_(mainLetter),
 availableLetters_(availableLetters),
-exerciceType_(exType){
+exerciceType_(exType) {
 }
 
 TExercice::TExercice(const TExercice& orig) :
@@ -36,8 +35,10 @@ exerciceType_(orig.exerciceType_) {
 QString TExercice::buildExercice() {
     if (exerciceType_ == LEARNING) {
         return factory::generateLearning(learningLetters_, availableLetters_);
-    }else{
-        return factory::generateLearning(availableLetters_,availableLetters_);
+    } else if (exerciceType_ == PRACTICING) {
+        return factory::generatePractice(getAllLetters());
+    } else {
+        return factory::generateLearning(availableLetters_, availableLetters_);
     }
 }
 
