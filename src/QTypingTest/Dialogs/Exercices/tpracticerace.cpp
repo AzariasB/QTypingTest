@@ -14,33 +14,50 @@
 
 TPracticeRace::TPracticeRace(QWidget *parent) :
 TWindowTest(parent),
-generator_(TExercice(TExercice::PRACTICING,true)){
-    handleEvents();
+generator_(TExercice(TExercice::PRACTICING, true)) {
+    setupPage();
 }
 
 TPracticeRace::TPracticeRace(TExercice* exercice, QWidget* parent) :
 TWindowTest(parent),
 generator_(*exercice) {
-    handleEvents();
+
+    setupPage();
 }
 
 TPracticeRace::TPracticeRace(const TPracticeRace& orig) :
 TWindowTest(orig.parentWidget()),
 generator_(orig.exerciceGenerator()) {
-    handleEvents();
-}
-
-void TPracticeRace::updateClock() {
-    topToolbar_.incrementTimer(-1);
-}
-
-void TPracticeRace::handleEvents() {
-    connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage(TResult*)));
+    setupPage();
 }
 
 void TPracticeRace::createPage(TResult* prevPageRes) {
-    results_ << prevPageRes;
-    pages_.addPage(generator_.buildExercice());
-    //Trigger changin page
+//    generator_.buildExercice();
+    QString ex = generator_.buildExercice();
+//    qDebug() << ex;
+    qDebug() << (ex == pages_.currentPage()->text());
+    pages_.addPage(ex);
+    pages_.setFollowingPage();
+    updateToolbarProgression();
 }
 
+void TPracticeRace::setupPage() {
+
+    //HACK for testing => shortucut to end the exercice
+    QShortcut *endShortcut = new QShortcut(this);
+    endShortcut->setKey(CTRL + Key_E);
+
+    connect(endShortcut, &QShortcut::activated, [ = ](){
+        emit pages_.pageEnded(new TResult());
+    });
+    //end of hacks
+
+
+    //TODO : change 60 to a varialbe int
+    topToolbar_.setLCDDisplayValue(60.f);
+    connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage()));
+    QString ex = generator_.buildExercice();
+//    qDebug() << ex;
+    pages_.addPage(ex, true);
+    updateToolbarProgression();
+}

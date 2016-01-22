@@ -13,6 +13,7 @@
 #define TEXERCICE_H
 
 #include <QStringList>
+#include <QDebug>
 
 #include "tresult.h"
 #include "Util/factory.h"
@@ -32,7 +33,7 @@ public:
     TExercice(EXERCICE_TYPE exType, bool allLetters);
     TExercice(const TExercice& orig);
 
-    QString buildExercice();
+    QString buildExercice() const;
 
     virtual ~TExercice() {
 
@@ -45,7 +46,7 @@ private:
     QStringList availableLetters_;
     EXERCICE_TYPE exerciceType_ = LEARNING;
     
-    QStringList getAllLetters();
+    QStringList getAllLetters() const;
 };
 
 #endif /* TEXERCICE_H */

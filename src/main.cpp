@@ -8,17 +8,15 @@
 
 #include "QTypingTest/thomepage.h"
 
-
-int main(int argc, char *argv[]) {    
-    
-    srand(time(NULL)); //Random number generation
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     qDebug() << "Running from " << QDir::currentPath();
 
-    //Set style
+    srand(time(NULL)); //Random number generation
+
     THomePage hp;
 
-
+    //Set style
     QFile file(file::getStylesheet("style"));
     if (file.exists()) {
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {

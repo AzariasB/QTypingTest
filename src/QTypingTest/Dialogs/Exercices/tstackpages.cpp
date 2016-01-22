@@ -10,6 +10,9 @@
  */
 
 
+#include <qt5/QtCore/qlogging.h>
+#include <qt5/QtCore/qstringlist.h>
+
 #include "tstackpages.h"
 
 TStackPages::TStackPages(QWidget *parent) :
@@ -33,26 +36,35 @@ numberOfPages_(numberOfPages) {
 
 void TStackPages::setupPages(QString wholeText) {
     QStringList model = factory::splitText(wholeText, numberOfPages_);
+    qDebug() << model.isEmpty();
 
     for (int i = 0; i < model.size(); i++) {
-        addPage(model[i],i == 0);
+        addPage(model[i], i == 0);
     }
+    //Set index to first
+    if (!model.isEmpty())
+        setCurrentIndex(0);
 }
 
 void TStackPages::nextPage(TResult* previousScore) {
     emit pageEnded(previousScore);
+    if (!setFollowingPage()) {
+        emit textFinished();
+    }
+}
 
-    this->currentWidget()->setEnabled(false);
-    this->currentPage_++;
-    if (this->currentPage_ < this->count()) {
-        this->setCurrentIndex(currentPage_);
+bool TStackPages::setFollowingPage() {
+    if (currentIndex() < this->count()) {
+        this->currentWidget()->setEnabled(false);
+        setCurrentIndex(currentIndex() + 1);
         TPage *nwPage = currentPage();
 
         nwPage->setEnabled(true);
         nwPage->setFocus();
         nwPage->updateAsFirst();
-    } else {//No more pages
-        emit textFinished();
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -61,8 +73,7 @@ void TStackPages::beginExercice() {
 }
 
 void TStackPages::keyPressed(QKeyEvent *ev) {
-    TPage *p = currentPage();
-    p->update(ev);
+    currentPage()->update(ev);
 }
 
 void TStackPages::addPage(QString pageText, bool isFirst) {
@@ -70,7 +81,7 @@ void TStackPages::addPage(QString pageText, bool isFirst) {
     connect(mPage, SIGNAL(endedPage(TResult*)), this, SLOT(nextPage(TResult*)));
 
     if (!isFirst) {
-        mPage->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
+        mPage->setEnabled(false); //Disable all to prevent user to switch of lineEdit
     } else {
         connect(mPage, SIGNAL(startedPage()), this, SLOT(beginExercice()));
         mPage->updateAsFirst();

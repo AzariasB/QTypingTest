@@ -33,13 +33,17 @@ public:
      */
     void update(QKeyEvent* ev);
 
-    inline void updateAsFirst() {
+    void updateAsFirst() {
         this->toCopy_[currentTLabel_]->setFirst();
     }
 
-    inline TResult *getResult() {
+    TResult *getResult() {
         updateResult();
         return lineRes_;
+    }
+    
+    QString text(){
+        return globalAnswer_;
     }
 
     //##############################

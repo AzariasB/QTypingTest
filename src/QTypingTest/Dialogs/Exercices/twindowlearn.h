@@ -20,10 +20,18 @@ class TWindowLearn : public TWindowTest {
     Q_OBJECT
 public:
     TWindowLearn(QString model, QWidget *parent = 0);
-    TWindowLearn(QString model, int numberOfPages,QWidget *parent = 0);
+    TWindowLearn(QString model, int numberOfPages, QWidget *parent = 0);
 
     virtual ~TWindowLearn() {
     };
+
+protected:
+    
+    void updateClock(){
+        topToolbar_.incrementTimer(1);
+    };
+    
+
 private:
 
 };

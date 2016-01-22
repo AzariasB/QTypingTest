@@ -37,6 +37,10 @@ public:
     void setProgression(QString text) {
         pageProgression_->setText(text);
     }
+    
+    void setLCDDisplayValue(double value){
+        LCDtimer_->display(value);
+    }
 
 public slots:
     /**

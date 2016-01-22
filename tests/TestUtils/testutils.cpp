@@ -9,11 +9,16 @@
 #include <QDebug>
 #include <QStringList>
 #include <QDir>
+#include <time.h>
+
 
 
 #include "../../src/Util/htmlhelper.h"
 #include "../../src/Util/factory.h"
 #include "../../src/Util/filehelper.h"
+
+
+const QStringList allLetters = QStringList("abcdefghijklmnopqrstuvwxyz");
 
 class TestUtils : public QObject {
     Q_OBJECT
@@ -24,6 +29,7 @@ private:
     //Functions to test Factory
     void testWordsFinding();
     void testPracticeGeneration();
+    void testNotSame();
 
     //Functions to test HTML
     void testSurroundAll();
@@ -32,21 +38,32 @@ private:
     void testAbsolutePosition();
 };
 
-void TestUtils::testPracticeGeneration() {
-    QStringList allLetters = QString("abcdefghijklmnopqrstuvwxyz").split("",QString::SkipEmptyParts);
-    QString words = factory::generatePractice(allLetters);
-    QString randW = factory::generatePractice(allLetters,false);
-    QString empt  = factory::generatePractice(QStringList());
-    
-    QVERIFY(words.size() > 0);
-    qDebug() << "Must contain only real words";
-    qDebug() <<  words;
-    QVERIFY(randW.size() > 0);
-    qDebug() << "Must contain existing and random words";
-    qDebug() << randW;
-    QVERIFY(empt.size() == 0);
+//Two generated practice must be different
+
+void TestUtils::testNotSame() {
+    for (int i = 0; i < 100; i++) {
+        QString exo1 = factory::generatePractice(allLetters);
+        QString exo2 = factory::generatePractice(allLetters);
+        QVERIFY(exo1 != exo2);
+
+        QString rand1 = factory::generatePractice(allLetters, false);
+        QString rand2 = factory::generatePractice(allLetters, false);
+
+        QVERIFY(rand1 != rand2);
+    }
 }
 
+void TestUtils::testPracticeGeneration() {
+    QString words = factory::generatePractice(allLetters);
+    QString randW = factory::generatePractice(allLetters, false);
+    QString empt = factory::generatePractice(QStringList());
+
+    QVERIFY(words.size() > 0);
+    qDebug() << "Must contain only real words";
+    QVERIFY(randW.size() > 0);
+    qDebug() << "Must contain existing and random words";
+    QVERIFY(empt.size() == 0);
+}
 
 void TestUtils::testAbsolutePosition() {
     QString joel_0 = "joel";
@@ -89,23 +106,6 @@ void TestUtils::testWordsFinding() {
     QVERIFY(found.contains("we"));
 }
 
-void TestUtils::testHTML() {
-    qDebug() << "Testing HTML";
-    testSurroundAll();
-    testSurroundAt();
-    testRemoveTags();
-    testAbsolutePosition();
-}
-
-void TestUtils::testFactory() {
-    qDebug() << "Testing factory (non-random functions)";
-    //Not any "non random-functions' at the moment
-    testWordsFinding();
-    
-    qDebug() << "Testing practice generation";
-    testPracticeGeneration();
-}
-
 void TestUtils::testSurroundAll() {
     QString patrick = "patrick";
     QString suroundedPatrick = "<p>p</p>"
@@ -125,29 +125,29 @@ void TestUtils::testSurroundAt() {
     QString pString = "p";
     QCOMPARE(html::addTags(pString, "p"), sPatrick_1);
 
-    
+
     QString sPatrick_2 = "<b><u>a</u></b>";
     QString sPatrick_3 = "<t><p>b</p></t>";
-    
+
 
     qDebug() << "Adding multiples tags";
     QString aString = "a";
     QString bString = "b";
     QCOMPARE(html::addTags(aString, "b,u"), sPatrick_2);
-    QCOMPARE(html::addTags(bString,"t,p"),sPatrick_3);
+    QCOMPARE(html::addTags(bString, "t,p"), sPatrick_3);
 
-    
-    QString sPatrick_4 = "<p style='color : red;'>p</p>";//First one
-    QString sPatrick_5 = "<u class='red'>k</u>";//Last one
+
+    QString sPatrick_4 = "<p style='color : red;'>p</p>"; //First one
+    QString sPatrick_5 = "<u class='red'>k</u>"; //Last one
     QString sPatrick_6 = "<span style='color : black;'>t</span>";
-    
+
     qDebug() << "Adding attributes";
     QString pString2 = "p";
     QString kString = "k";
     QString tString = "t";
-    QCOMPARE(html::addTags(pString2,"p","style='color : red;'"),sPatrick_4);
-    QCOMPARE(html::addTags(kString,"u","class='red'"),sPatrick_5);
-    QCOMPARE(html::addTags(tString,"span","style='color : black;'"),sPatrick_6);
+    QCOMPARE(html::addTags(pString2, "p", "style='color : red;'"), sPatrick_4);
+    QCOMPARE(html::addTags(kString, "u", "class='red'"), sPatrick_5);
+    QCOMPARE(html::addTags(tString, "span", "style='color : black;'"), sPatrick_6);
 
 }
 
@@ -169,6 +169,33 @@ void TestUtils::testRemoveTags() {
 
     qDebug() << "Remove all the tags (no second arguments)";
     QCOMPARE(html::removeTag(patrick), QString("pa"));
+}
+
+/*
+ * The two "main" functions
+ */
+
+void TestUtils::testHTML() {
+    qDebug() << "Testing HTML";
+    testSurroundAll();
+    testSurroundAt();
+    testRemoveTags();
+    testAbsolutePosition();
+}
+
+void TestUtils::testFactory() {
+    
+    srand(time(NULL)); //Random number generation
+    
+    qDebug() << "Testing factory (non-random functions)";
+    //Not any "non random-functions' at the moment
+    testWordsFinding();
+
+    qDebug() << "Testing practice generation";
+    testPracticeGeneration();
+
+    qDebug() << "Testing that the generation is completely random";
+    testNotSame();
 }
 
 QTEST_MAIN(TestUtils)

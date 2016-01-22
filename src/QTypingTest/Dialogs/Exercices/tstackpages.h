@@ -17,6 +17,7 @@
 #include <QStringList>
 #include <QList>
 #include <QKeyEvent>
+#include <QDebug>
 
 #include "Data/tresult.h"
 #include "QTypingTest/Dialogs/Exercices/tpage.h"
@@ -33,12 +34,8 @@ public:
         return toCopy_.join(" ");
     };
 
-    int currentPageIndex() const {
-        return currentPage_;
-    }
-
     int numberOfPages() const {
-        return numberOfPages_;
+        return count();
     }
     
     TPage *currentPage() const{
@@ -47,6 +44,9 @@ public:
     
     void addPage(QString pageText,bool isFirst = false);
 
+    //TODO : change the name of the function... (Azarias)
+    bool setFollowingPage();
+    
     virtual ~TStackPages() {
     };
 
@@ -96,7 +96,6 @@ private:
 
     void setupPages(QString wholeText);
 
-    int currentPage_ = 0;
     int numberOfPages_ = 1;
 
     QStringList toCopy_;

@@ -19,6 +19,8 @@
  */
 
 
+#include <qt5/QtCore/qlogging.h>
+
 #include "twindowtest.h"
 
 void TWindowTest::setupWidget() {
@@ -111,10 +113,6 @@ void TWindowTest::pauseContinueExercice() {
     }
 }
 
-void TWindowTest::updateClock() {
-    topToolbar_.incrementTimer(1);
-}
-
 
 //Private
 
@@ -153,7 +151,7 @@ void TWindowTest::connectEvents() {
     connect(&pages_, &TStackPages::textFinished ,this, [thePages,this]{
         this->exerciceFinished(false);
     });
-    connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(saveResult(TResult*)));
+    connect(&pages_, &TStackPages::pageEnded, this, &TWindowTest::saveResult);
     connect(&pages_, SIGNAL(exerciceStarted()), this, SLOT(beginExercice()));
     connect(&topToolbar_, SIGNAL(pauseClicked()), this, SLOT(pauseContinueExercice()));
 }

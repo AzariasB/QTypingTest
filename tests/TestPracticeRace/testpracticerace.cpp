@@ -11,19 +11,21 @@
 
 #include <QtTest/QtTest>
 #include <QApplication>
+#include <time.h>
 
 class TestPracticeRace : public QObject {
     Q_OBJECT
 private slots:
-    void testOpen();
+    void testWithoutExercice();
 };
 
-void TestPracticeRace::testOpen() {
+void TestPracticeRace::testWithoutExercice() {
     //Test if the dialogs shows up with text
-//    QWidget *w = new QWidget();
-//    TWindowLearn learn("Now you have to type this little text which is a test",1,w);
-//    learn.show();
-//    QApplication::exec();
+    srand(time(NULL)); //Random number generation
+
+    TPracticeRace race;
+    race.show();
+    QApplication::exec();
 }
 
 

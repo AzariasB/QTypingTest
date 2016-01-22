@@ -32,7 +32,7 @@ availableLetters_(orig.availableLetters_),
 exerciceType_(orig.exerciceType_) {
 }
 
-QString TExercice::buildExercice() {
+QString TExercice::buildExercice() const {
     if (exerciceType_ == LEARNING) {
         return factory::generateLearning(learningLetters_, availableLetters_);
     } else if (exerciceType_ == PRACTICING) {
@@ -42,6 +42,6 @@ QString TExercice::buildExercice() {
     }
 }
 
-QStringList TExercice::getAllLetters() {
+QStringList TExercice::getAllLetters() const {
     return QStringList("abcdefghijklmnopqrstuvwxyz");
 }

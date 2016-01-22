@@ -36,7 +36,7 @@ public:
     timeStart_(QTime(0, 0)),
     updateTimer_(new QTimer()),
     topToolbar_(TToolbar()),
-    pages_(TStackPages(this)) {
+    pages_(TStackPages()) {
         setupWidget();
     }
 
@@ -46,7 +46,7 @@ public:
     timeStart_(QTime()),
     updateTimer_(new QTimer()),
     topToolbar_(TToolbar()),
-    pages_(TStackPages(text, 2, this)) {
+    pages_(TStackPages(text, 2)) {
         setupWidget();
     }
 
@@ -56,7 +56,7 @@ public:
     timeStart_(QTime()),
     updateTimer_(new QTimer()),
     topToolbar_(TToolbar()),
-    pages_(TStackPages(text, numberOfPages, this)) {
+    pages_(TStackPages(text, numberOfPages)) {
         setupWidget();
     }
 
@@ -101,7 +101,7 @@ public slots:
     /**
      * Called to update the clock of the toolbar
      */
-    void updateClock();
+    virtual void updateClock() = 0;
 
 signals:
     /**
@@ -169,6 +169,10 @@ protected:
     QString getPageProgression() {
         return QString("%1/%2").arg(pages_.currentIndex() + 1).arg(pages_.numberOfPages());
     }
+    
+    void updateToolbarProgression(){
+        topToolbar_.setProgression(getPageProgression());
+    }
 
     /**
      * Because each resulst is stored in a list, at the end of the rush
@@ -195,6 +199,7 @@ protected:
      */
     void setTimers(int timeLimit);
 
+    
     /* The upper toolbar with play/pause button and indicators */
     TToolbar topToolbar_;
 

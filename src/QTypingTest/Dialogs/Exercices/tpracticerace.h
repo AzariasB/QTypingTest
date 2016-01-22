@@ -14,6 +14,8 @@
 #define TPRACTICERACE_H
 
 #include <QWidget>
+#include <QDebug>
+
 
 #include "QTypingTest/Dialogs/twindowtest.h"
 #include "Data/texercice.h"
@@ -28,17 +30,21 @@ public:
 
     virtual ~TPracticeRace() {
     };
-    
-    
-    TExercice exerciceGenerator() const{
+
+    TExercice exerciceGenerator() const {
         return generator_;
     }
 
 public slots:
+
     /**
-     * Called to update the clock of the toolbar
+     * @Override
+     * 
+     * decrement the time on the counter
      */
-    void updateClock();
+    void updateClock(){
+        topToolbar_.incrementTimer(-1);
+    }
 
 
     /**
@@ -46,16 +52,21 @@ public slots:
      * 
      * @param prevPageRes the result of the page that was just finished
      */
-    void createPage(TResult* prevPageRes);
-    
+    void createPage(TResult *prev = 0);
+
 private:
     /**
      * The exercice that will generate the pages
      */
     TExercice generator_;
-    
-    void handleEvents();
 
+
+    /**
+     * Because this type of exercice is way different from the others
+     * (genrate a page when one is finished), a lot of configuration
+     * must be applied to the stackpage object
+     */
+    void setupPage();
 };
 
 #endif /* TPRACTICERACE_H */
