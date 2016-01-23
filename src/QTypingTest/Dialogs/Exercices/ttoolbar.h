@@ -53,7 +53,7 @@ public slots:
      * 
      * @param increment the value of incrementation of the LDC display
      */
-    void incrementTimer(int increment);
+    double incrementTimer(int increment);
 
 
 

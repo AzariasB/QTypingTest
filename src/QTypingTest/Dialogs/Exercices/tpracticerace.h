@@ -42,9 +42,7 @@ public slots:
      * 
      * decrement the time on the counter
      */
-    void updateClock(){
-        topToolbar_.incrementTimer(-1);
-    }
+    void updateClock();
 
 
     /**

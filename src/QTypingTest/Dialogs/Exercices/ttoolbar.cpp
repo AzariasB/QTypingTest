@@ -65,8 +65,9 @@ void TToolbar::pauseTimer() {
     emit pauseClicked();
 }
 
-void TToolbar::incrementTimer(int increment) {
+double TToolbar::incrementTimer(int increment) {
     //TODO : pretify the display by displaying MM:SS instead of only seconds
     double val =  LCDtimer_->value() + increment;
     LCDtimer_->display(QString("%1").arg(val));
+    return val;
 }

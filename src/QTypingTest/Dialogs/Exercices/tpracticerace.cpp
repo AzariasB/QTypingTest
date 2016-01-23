@@ -32,10 +32,7 @@ generator_(orig.exerciceGenerator()) {
 }
 
 void TPracticeRace::createPage(TResult* prevPageRes) {
-//    generator_.buildExercice();
     QString ex = generator_.buildExercice();
-//    qDebug() << ex;
-    qDebug() << (ex == pages_.currentPage()->text());
     pages_.addPage(ex);
     pages_.setFollowingPage();
     updateToolbarProgression();
@@ -57,7 +54,13 @@ void TPracticeRace::setupPage() {
     topToolbar_.setLCDDisplayValue(60.f);
     connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage()));
     QString ex = generator_.buildExercice();
-//    qDebug() << ex;
     pages_.addPage(ex, true);
     updateToolbarProgression();
+}
+
+void TPracticeRace::updateClock() {
+    double res = topToolbar_.incrementTimer(-1);
+    if(res <= 0.f){
+        emit pages_.textFinished();
+    }
 }

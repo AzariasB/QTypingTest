@@ -19,6 +19,8 @@
 #include <QKeySequence>
 #include <QVBoxLayout>
 #include <QKeyEvent>
+#include <QDebug>
+
 
 #include "Exercices/tstackpages.h"
 #include "Exercices/ttoolbar.h"

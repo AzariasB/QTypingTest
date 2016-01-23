@@ -16,27 +16,47 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QGridLayout>
+#include <QMessageBox>
+
+#include "QTypingTest/Dialogs/Exercices/tpracticerace.h"
 
 class PracticePage : public QWidget {
     Q_OBJECT
 public:
     PracticePage(QWidget *parent = 0);
     PracticePage(const PracticePage& orig);
-    virtual ~PracticePage(){};
-private:
-    void setupLayout();
+
+    virtual ~PracticePage() {
+    };
+
+public slots:
+    /* Start a practice against time */
+    void startAgainstTime();
     
+    /* Save the result and the time at the end of each exercice */
+    void saveExerciceResult(TResult *res,QTime time);
+
+private:
+    /* Setup the widget on the page */
+    void setupLayout();
+
+    /* Connect the events of each button */
+    void connectEvents();
+
     /*Button to acces an exercice against the time*/
     QPushButton practiceAgainstTime_;
-    
+
     /* To access the 'default' exercice */
     QPushButton practiceDefault_;
-    
+
     /* Improve the keys where the user makes the most mistakes */
     QPushButton practiceImprove_;
-    
+
     /* Practice on a text */
     QPushButton practiceText_;
+    
+    /* Dialog of the exercice */
+    QDialog *currentDialog_ = nullptr;
 };
 
 #endif /* PRACTICEPAGE_H */
