@@ -36,7 +36,6 @@ numberOfPages_(numberOfPages) {
 
 void TStackPages::setupPages(QString wholeText) {
     QStringList model = factory::splitText(wholeText, numberOfPages_);
-    qDebug() << model.isEmpty();
 
     for (int i = 0; i < model.size(); i++) {
         addPage(model[i], i == 0);
@@ -50,11 +49,15 @@ void TStackPages::nextPage(TResult* previousScore) {
     emit pageEnded(previousScore);
     if (!setFollowingPage()) {
         emit textFinished();
+    }else{
+        
     }
 }
 
 bool TStackPages::setFollowingPage() {
-    if (currentIndex() < this->count()) {
+    if (currentIndex() + 1 >= count()) {
+        return false;
+    } else {
         this->currentWidget()->setEnabled(false);
         setCurrentIndex(currentIndex() + 1);
         TPage *nwPage = currentPage();
@@ -63,8 +66,6 @@ bool TStackPages::setFollowingPage() {
         nwPage->setFocus();
         nwPage->updateAsFirst();
         return true;
-    } else {
-        return false;
     }
 }
 

@@ -68,6 +68,7 @@ signals:
      * wether the letter is right
      */
     void exerciceStarted();
+    
 
 public slots:
     /**

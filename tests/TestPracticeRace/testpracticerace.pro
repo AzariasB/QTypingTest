@@ -51,7 +51,7 @@ INSTALLS += target
 target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/testPracticeRace 
 
 DESTDIR = build
-TARGET = testlearnDialog
+TARGET = testPracticeRace
 OBJECTS_DIR = .obj
 MOC_DIR = .moc
 RCC_DIR = .rcc

@@ -62,11 +62,11 @@ public:
         setupWidget();
     }
 
-    TToolbar toolBar() const{
+    TToolbar toolBar() const {
         return topToolbar_;
     }
-    
-    TStackPages stackPages() const{
+
+    TStackPages stackPages() const {
         return pages_;
     }
 
@@ -104,6 +104,10 @@ public slots:
      * Called to update the clock of the toolbar
      */
     virtual void updateClock() = 0;
+
+    void updateToolbarProgression() {
+        topToolbar_.setProgression(getPageProgression());
+    }
 
 signals:
     /**
@@ -171,10 +175,6 @@ protected:
     QString getPageProgression() {
         return QString("%1/%2").arg(pages_.currentIndex() + 1).arg(pages_.numberOfPages());
     }
-    
-    void updateToolbarProgression(){
-        topToolbar_.setProgression(getPageProgression());
-    }
 
     /**
      * Because each resulst is stored in a list, at the end of the rush
@@ -201,7 +201,7 @@ protected:
      */
     void setTimers(int timeLimit);
 
-    
+
     /* The upper toolbar with play/pause button and indicators */
     TToolbar topToolbar_;
 

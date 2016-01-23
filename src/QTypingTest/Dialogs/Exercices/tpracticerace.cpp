@@ -34,8 +34,6 @@ generator_(orig.exerciceGenerator()) {
 void TPracticeRace::createPage(TResult* prevPageRes) {
     QString ex = generator_.buildExercice();
     pages_.addPage(ex);
-    pages_.setFollowingPage();
-    updateToolbarProgression();
 }
 
 void TPracticeRace::setupPage() {
@@ -55,7 +53,6 @@ void TPracticeRace::setupPage() {
     connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage()));
     QString ex = generator_.buildExercice();
     pages_.addPage(ex, true);
-    updateToolbarProgression();
 }
 
 void TPracticeRace::updateClock() {

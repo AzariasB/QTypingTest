@@ -123,5 +123,7 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
 }
 
 void LearnPage::resetExercice() {
+    testWindow_->disconnect();
+    testWindow_ = nullptr;
     currentProgression_ = -1;
 }

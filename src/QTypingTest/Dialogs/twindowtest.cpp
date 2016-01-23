@@ -148,10 +148,11 @@ void TWindowTest::setupShortcuts() {
 
 void TWindowTest::connectEvents() {
     auto thePages = pages_.objectName();
-    connect(&pages_, &TStackPages::textFinished ,this, [thePages,this]{
+    connect(&pages_, &TStackPages::textFinished, this, [thePages, this] {
         this->exerciceFinished(false);
     });
     connect(&pages_, &TStackPages::pageEnded, this, &TWindowTest::saveResult);
+    connect(&pages_,&TStackPages::currentChanged,this,&TWindowTest::updateToolbarProgression);
     connect(&pages_, SIGNAL(exerciceStarted()), this, SLOT(beginExercice()));
     connect(&topToolbar_, SIGNAL(pauseClicked()), this, SLOT(pauseContinueExercice()));
 }
