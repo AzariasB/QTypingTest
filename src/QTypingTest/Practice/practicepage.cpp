@@ -52,7 +52,7 @@ void PracticePage::setupLayout() {
 
 void PracticePage::connectEvents() {
     connect(&practiceAgainstTime_, &QPushButton::clicked, this, [=](){
-        this->startExercice(new TPracticeRace(this));
+        this->startExercice(new TPracticeRace(60,this));
     });
     connect(&practiceDefault_,&QPushButton::clicked,this,[=](){
         this->startExercice(new TPracticeBase(this));

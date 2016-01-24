@@ -1,3 +1,10 @@
+
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
+
 /* 
  * File:   TLabel.cpp
  * Author: boutina

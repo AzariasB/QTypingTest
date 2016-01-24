@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 /* 
  * File:   TestTUser.cpp
  * Author: boutina
@@ -28,7 +33,7 @@ private slots:
 void TestPracticeRace::testWithoutExercice() {
     //Test if the dialogs shows up with text
 
-    TPracticeRace race;
+    TPracticeRace race(120);
     connect(&race,&TPracticeRace::endOfExercice,this,[&race,this](TResult* res,QTime time){
         QMessageBox::information(&race,"Exercice finished",res->getResume());
         race.close();
