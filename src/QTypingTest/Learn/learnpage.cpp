@@ -47,7 +47,7 @@ void LearnPage::createPractice() {
         button->setContentsMargins(1, 1, 1, 1);
         button->setFocusPolicy(FocusPolicy::NoFocus);
 
-        if (index > THomePage::currentUser_->getProgression()->getLastExericeIndex()) {
+        if (index > TUser::currentUser()->getProgression()->getLastExericeIndex()) {
             button->setEnabled(false);
         }
 
@@ -101,7 +101,7 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
     if ((timeEx.msecsSinceStartOfDay() / 1000.f) > 120) {
         QMessageBox::information(this, "Too long", "You didn't made in time.");
     } else {
-        TProgression *curProgr = THomePage::currentUser_->getProgression();
+        TProgression *curProgr = TUser::currentUser()->getProgression();
         if (currentProgression_ == curProgr->getLastExericeIndex())
             curProgr->avdvanceExIndex();
 

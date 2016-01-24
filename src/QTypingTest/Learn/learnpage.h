@@ -28,6 +28,7 @@
 #include "Data/tpractice.h"
 #include "Data/texercice.h"
 #include "Data/tresult.h"
+#include "Data/tuser.h"
 #include "Util/filehelper.h"
 #include "Util/htmlhelper.h"
 #include "QTypingTest/Dialogs/Exercices/twindowlearn.h"

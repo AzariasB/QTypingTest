@@ -15,6 +15,7 @@
 #include "Data/tresult.h"
 #include "Data/tkeys.h"
 #include "Util/factory.h"
+#include "Data/tuser.h"
 
 #include "tlabel.h"
 

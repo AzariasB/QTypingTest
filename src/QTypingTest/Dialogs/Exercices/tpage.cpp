@@ -83,8 +83,7 @@ void TPage::handleMistype(QChar userAns) {
     }
 
     if (previousWasRight) {
-       // THomePage::currentUser_->oneMoreMistake(userAns);
-        //here, update user informations
+        TUser::currentUser()->oneMoreMistake(userAns);
     }
 }
 
