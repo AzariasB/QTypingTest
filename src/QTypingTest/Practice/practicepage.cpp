@@ -11,6 +11,9 @@
  */
 
 
+#include <qt5/QtCore/qlogging.h>
+#include <qt5/QtWidgets/qwidget.h>
+
 #include "practicepage.h"
 
 PracticePage::PracticePage(QWidget *parent) : QWidget(parent),
@@ -51,6 +54,7 @@ void PracticePage::setupLayout() {
 
 void PracticePage::connectEvents() {
     connect(&practiceAgainstTime_, SIGNAL(clicked()), this, SLOT(startAgainstTime()));
+    connect(&practiceDefault_,SIGNAL(clicked()),this,SLOT(startDefault()));
 }
 
 void PracticePage::startAgainstTime() {
@@ -64,6 +68,18 @@ void PracticePage::startAgainstTime() {
         connect(ex, &TPracticeRace::endOfExercice, this, &PracticePage::saveExerciceResult);
     }
 }
+
+void PracticePage::startDefault() {
+    if(currentDialog_ != nullptr){
+        qDebug() << "Already runing";
+    }else{
+        TPracticeBase *ex = new TPracticeBase(this);
+        currentDialog_ = ex;
+        currentDialog_->show();
+        connect(ex,&TPracticeBase::endOfExercice,this,&PracticePage::saveExerciceResult);
+    }
+}
+
 
 void PracticePage::saveExerciceResult(TResult* res, QTime time) {
     //Save result and time somewhere

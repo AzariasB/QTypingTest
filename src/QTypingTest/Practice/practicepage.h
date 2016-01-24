@@ -19,6 +19,7 @@
 #include <QMessageBox>
 
 #include "QTypingTest/Dialogs/Exercices/tpracticerace.h"
+#include "QTypingTest/Dialogs/Exercices/tpracticebase.h"
 
 class PracticePage : public QWidget {
     Q_OBJECT
@@ -32,6 +33,9 @@ public:
 public slots:
     /* Start a practice against time */
     void startAgainstTime();
+    
+    /* Start the default practice*/
+    void startDefault();
     
     /* Save the result and the time at the end of each exercice */
     void saveExerciceResult(TResult *res,QTime time);
