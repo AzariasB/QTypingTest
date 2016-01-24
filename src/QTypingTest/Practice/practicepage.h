@@ -19,6 +19,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
+#include "QTypingTest/Dialogs/twindowtest.h"
 #include "QTypingTest/Dialogs/Exercices/tpracticerace.h"
 #include "QTypingTest/Dialogs/Exercices/tpracticebase.h"
 
@@ -33,10 +34,7 @@ public:
 
 public slots:
     /* Start a practice against time */
-    void startAgainstTime();
-    
-    /* Start the default practice*/
-    void startDefault();
+    void startExercice(TWindowTest *exercice);
     
     /* Save the result and the time at the end of each exercice */
     void saveExerciceResult(TResult *res,QTime time);
