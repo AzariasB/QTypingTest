@@ -17,6 +17,7 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include <QMessageBox>
+#include <QDebug>
 
 #include "QTypingTest/Dialogs/Exercices/tpracticerace.h"
 #include "QTypingTest/Dialogs/Exercices/tpracticebase.h"

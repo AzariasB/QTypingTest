@@ -11,8 +11,6 @@
  */
 
 
-#include <qt5/QtCore/qlogging.h>
-#include <qt5/QtWidgets/qwidget.h>
 
 #include "practicepage.h"
 

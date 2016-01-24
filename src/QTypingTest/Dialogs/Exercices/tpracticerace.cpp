@@ -49,7 +49,7 @@ void TPracticeRace::setupPage() {
 
 
     //TODO : change 60 to a varialbe int
-    topToolbar_.setLCDDisplayValue(60.f);
+    topToolbar_.setLCDDisplayValue(60);
     connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage()));
     QString ex = generator_.buildExercice();
     pages_.addPage(ex, true);
