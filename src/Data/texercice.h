@@ -26,7 +26,7 @@ class TExercice {
 public:
 
     enum EXERCICE_TYPE {
-        LEARNING, PRACTICING, TEXT_PRACTICING
+        LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT
     };
 
     TExercice(EXERCICE_TYPE exType, QStringList mainLetter, QStringList availableLetters);

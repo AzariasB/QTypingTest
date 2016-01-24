@@ -22,7 +22,6 @@
 #include "Data/tresult.h"
 #include "QTypingTest/Dialogs/Exercices/tpage.h"
 
-
 class TStackPages : public QStackedWidget {
     Q_OBJECT
 public:
@@ -37,18 +36,36 @@ public:
     int numberOfPages() const {
         return count();
     }
-    
-    TPage *currentPage() const{
+
+    TPage *currentPage() const {
         return static_cast<TPage*> (this->currentWidget());
     }
-    
-    void addPage(QString pageText,bool isFirst = false);
 
-    //TODO : change the name of the function... (Azarias)
+    void addPage(QString pageText, bool isFirst = false);
+
+    //TODO : change the name of the function... to somthing more explicit (Azarias)
     bool setFollowingPage();
-    
+
     virtual ~TStackPages() {
     };
+
+    /**
+     * allocate the givent text
+     * on the different pages
+     * 
+     * @param wholeText the text to allocate to the pages
+     */
+    void setupPages(QString wholeText);
+    
+    /**
+     * Setter
+     * 
+     * @param numberOfP change the current number of pages
+     */
+    void setNumberOfPages(int numberOfP){
+        numberOfPages_ = numberOfP;
+    }
+    
 
 signals:
     /**
@@ -61,14 +78,14 @@ signals:
      * Triggerred whever all the given text at the beginning was copied
      */
     void textFinished();
-    
-    
+
+
     /**
      * Called when the user typed the first letter of the exercice
      * wether the letter is right
      */
     void exerciceStarted();
-    
+
 
 public slots:
     /**
@@ -84,7 +101,7 @@ public slots:
      * 
      */
     void beginExercice();
-    
+
     /**
      * Called whenever the user type on the keybaord and 
      * the game is not paused
@@ -94,9 +111,6 @@ public slots:
     void keyPressed(QKeyEvent *ev);
 
 private:
-
-    void setupPages(QString wholeText);
-
     int numberOfPages_ = 1;
 
     QStringList toCopy_;
