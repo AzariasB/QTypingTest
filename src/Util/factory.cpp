@@ -9,8 +9,8 @@
  * Created on 14 décembre 2015, 20:41
  */
 
-#include <qt5/QtCore/qstringlist.h>
-#include <qt5/QtCore/qlogging.h>
+//#include <qt5/QtCore/qstringlist.h>
+//#include <qt5/QtCore/qlogging.h>
 
 #include "factory.h"
 

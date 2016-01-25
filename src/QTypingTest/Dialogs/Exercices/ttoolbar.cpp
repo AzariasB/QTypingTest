@@ -10,8 +10,7 @@
  * Created on 20 janvier 2016, 09:58
  */
 
-#include <qt5/QtCore/qnamespace.h>
-#include <qt5/QtCore/qlogging.h>
+//#include <qt5/QtCore/qnamespace.h>
 
 #include "ttoolbar.h"
 
