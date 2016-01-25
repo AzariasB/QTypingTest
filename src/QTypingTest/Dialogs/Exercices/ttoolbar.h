@@ -18,6 +18,7 @@
 #include <QLCDNumber>
 #include <QLabel>
 #include <QTimer>
+#include <QTime>
 #include <QSpacerItem>
 #include <QHBoxLayout>
 #include <qnamespace.h>
@@ -38,8 +39,9 @@ public:
         pageProgression_->setText(text);
     }
     
-    void setLCDDisplayValue(double value){
-        LCDtimer_->display(value);
+    void setLCDDisplayValue(int value){
+        secondsValue_ = value;
+        incrementTimer(0);
     }
 
 public slots:
@@ -50,6 +52,7 @@ public slots:
 
     /**
      * Add the value increment to the current value of the ldc display
+     * and update the display
      * 
      * @param increment the value of incrementation of the LDC display
      */
@@ -81,8 +84,8 @@ private:
 
     /* Display the progression of the user */
     QLabel *pageProgression_;
-
-
+    
+    int secondsValue_ = 0;
 };
 
 #endif /* TOOLBAR_H */

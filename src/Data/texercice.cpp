@@ -33,12 +33,15 @@ exerciceType_(orig.exerciceType_) {
 }
 
 QString TExercice::buildExercice() const {
-    if (exerciceType_ == LEARNING) {
-        return factory::generateLearning(learningLetters_, availableLetters_);
-    } else if (exerciceType_ == PRACTICING) {
-        return factory::generatePractice(getAllLetters());
-    } else {
-        return factory::generateLearning(availableLetters_, availableLetters_);
+    switch (exerciceType_) {
+        case LEARNING:
+            return factory::generateLearning(learningLetters_, availableLetters_);
+        case PRACTICING:
+            return factory::generatePractice(getAllLetters());
+        case PRACTICING_RACE://TODO : change the number of words to generate
+            return factory::generatePractice(getAllLetters());
+        default:
+            return factory::generateLearning(availableLetters_, availableLetters_);
     }
 }
 

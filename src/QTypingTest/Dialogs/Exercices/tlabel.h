@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 /* 
  * File:   TLabel.h
  * Author: boutina
@@ -43,7 +48,7 @@ public:
      * Function to update the display and show that the line is ready
      * for use
      */
-    inline void setFirst() {
+    void setFirst() {
         html::addTags(splitedChars_[0], "b,u");
         this->setText(splitedChars_.join(""));
     }

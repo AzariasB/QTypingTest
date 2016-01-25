@@ -29,11 +29,6 @@ public:
     THomePage(QWidget *parent = 0);
     virtual ~THomePage();
 
-    inline static TUser *getUser(){
-        return THomePage::currentUser_;
-    }
-
-     static TUser *currentUser_;
     
 private:
     /**

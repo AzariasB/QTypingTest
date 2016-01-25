@@ -13,6 +13,8 @@
 #ifndef TPRACTICERACE_H
 #define TPRACTICERACE_H
 
+#define RACE_TIME 60
+
 #include <QWidget>
 #include <QDebug>
 
@@ -24,8 +26,8 @@
 class TPracticeRace : public TWindowTest {
     Q_OBJECT
 public:
-    TPracticeRace(QWidget *parent = 0);
-    TPracticeRace(TExercice *generator, QWidget *parent = 0);
+    TPracticeRace(int timeStart = RACE_TIME, QWidget *parent = 0);
+    TPracticeRace(TExercice *generator, int timeStart = RACE_TIME,QWidget *parent = 0);
     TPracticeRace(const TPracticeRace& orig);
 
     virtual ~TPracticeRace() {
@@ -64,7 +66,7 @@ private:
      * (genrate a page when one is finished), a lot of configuration
      * must be applied to the stackpage object
      */
-    void setupPage();
+    void setupPage(int timeStart = RACE_TIME);
 };
 
 #endif /* TPRACTICERACE_H */

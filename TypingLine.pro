@@ -53,6 +53,7 @@ SOURCES += src/main.cpp \
         src/QTypingTest/Dialogs/Exercices/ttoolbar.cpp \
         src/QTypingTest/Dialogs/Exercices/twindowlearn.cpp \
         src/QTypingTest/Dialogs/Exercices/tpracticerace.cpp \
+        src/QTypingTest/Dialogs/Exercices/tpracticebase.cpp \
         src/QTypingTest/Dialogs/twindowtest.cpp \
         src/QTypingTest/thomepage.cpp \
         src/QTypingTest/Learn/learnpage.cpp \
@@ -85,6 +86,7 @@ HEADERS +=  \
             src/QTypingTest/Dialogs/Exercices/ttoolbar.h \
             src/QTypingTest/Dialogs/Exercices/twindowlearn.h \
             src/QTypingTest/Dialogs/Exercices/tpracticerace.h \
+            src/QTypingTest/Dialogs/Exercices/tpracticebase.h \
             src/QTypingTest/Dialogs/twindowtest.h \
             src/QTypingTest/thomepage.h \
             src/QTypingTest/Learn/learnpage.h \

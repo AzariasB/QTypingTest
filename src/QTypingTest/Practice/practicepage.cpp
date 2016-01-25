@@ -11,6 +11,7 @@
  */
 
 
+
 #include "practicepage.h"
 
 PracticePage::PracticePage(QWidget *parent) : QWidget(parent),
@@ -50,18 +51,22 @@ void PracticePage::setupLayout() {
 }
 
 void PracticePage::connectEvents() {
-    connect(&practiceAgainstTime_, SIGNAL(clicked()), this, SLOT(startAgainstTime()));
+    connect(&practiceAgainstTime_, &QPushButton::clicked, this, [=](){
+        this->startExercice(new TPracticeRace(60,this));
+    });
+    connect(&practiceDefault_,&QPushButton::clicked,this,[=](){
+        this->startExercice(new TPracticeBase(this));
+    });
 }
 
-void PracticePage::startAgainstTime() {
+void PracticePage::startExercice(TWindowTest *exercice) {
     if (currentDialog_ != nullptr) {
         qDebug() << "Already running another exercice";
         //Already running
     } else {
-        TPracticeRace *ex = new TPracticeRace(this);
-        currentDialog_ = ex;
+        currentDialog_ = exercice;
         currentDialog_->show();
-        connect(ex, &TPracticeRace::endOfExercice, this, &PracticePage::saveExerciceResult);
+        connect(exercice, &TWindowTest::endOfExercice, this, &PracticePage::saveExerciceResult);
     }
 }
 

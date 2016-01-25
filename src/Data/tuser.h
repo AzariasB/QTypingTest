@@ -24,7 +24,6 @@ struct date_exercice_ {
     TExercice *exercice;
 };
 
-
 class TUser {
 public:
     TUser(QString pseudo = "");
@@ -63,6 +62,14 @@ public:
      */
     QDateTime addResult(TExercice *exTyp, TResult *exRes);
     
+    static TUser *currentUser(){
+        return currentUser_;
+    };
+    
+    static void setCurrentUser(TUser *nwUser){
+        currentUser_ = nwUser;
+    }
+    
 private:
     QString pseudo_;
     TProgression *progress_;
@@ -70,7 +77,7 @@ private:
 
     QHash<date_exercice_*, TResult*> practiceHistory_;
 
-
+    static TUser *currentUser_;
 };
 
 
@@ -79,8 +86,8 @@ QDataStream &operator<<(QDataStream& out, const TUser& user);
 QDataStream &operator>>(QDataStream& in, TUser &user);
 
 inline bool operator==(const TUser& user1,const TUser& user2) {
-    //TODO : add more equality test
-    return user1.getPseudo().toStdString() == user2.getPseudo().toStdString();
+    // This means pseuo are UNIQUES !
+    return user1.getPseudo() == user2.getPseudo();
 }
 
 

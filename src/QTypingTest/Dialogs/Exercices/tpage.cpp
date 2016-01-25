@@ -1,5 +1,15 @@
 
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 
+/* 
+ * File:   TestTUser.cpp
+ * Author: boutina
+ * 
+ * Created on 18 décembre 2015, 20:00
+ */
 
 #include "tpage.h"
 
@@ -82,24 +92,23 @@ void TPage::handleMistype(QChar userAns) {
         previousWasRight = globalAnswer_[lastAnswer_.size() - 2] == lastAnswer_[lastAnswer_.size() - 2];
     }
 
-    if (previousWasRight) {
-       // THomePage::currentUser_->oneMoreMistake(userAns);
-        //here, update user informations
+    if (previousWasRight && TUser::currentUser()) {
+        TUser::currentUser()->oneMoreMistake(userAns);
     }
 }
 
 void TPage::eraseAnswer() {
-    //TODO : find a better way to write that down ... 
-    if (toCopy_[currentTLabel_]->previousChar())
+    if (label()->previousChar())
         lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
     else if (currentTLabel_ > 0) {
         lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
-        toCopy_[currentTLabel_]->setEnabled(false);
+        label()->setEnabled(false);
         currentTLabel_--;
-        toCopy_[currentTLabel_]->setEnabled(true);
-        toCopy_[currentTLabel_]->previousChar();
+        label()->setEnabled(true);
+        label()->previousChar();
+    }else{
+        emit eraseOverflow();
     }
-    //Else : could emit 'eraseOverflow'
 }
 
 bool TPage::isValidKey(QKeyEvent* ev) {

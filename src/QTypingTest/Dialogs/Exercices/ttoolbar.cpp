@@ -41,6 +41,8 @@ void TToolbar::setupToolbar() {
     LCDtimer_->setSegmentStyle(QLCDNumber::Outline);
     LCDtimer_->setFrameStyle(QFrame::NoFrame);
     LCDtimer_->setPalette(Qt::black);
+    QTime t(0,0,0);
+    incrementTimer(0);
 
     QSpacerItem *space = new QSpacerItem(300, 0);
 
@@ -65,8 +67,9 @@ void TToolbar::pauseTimer() {
 }
 
 double TToolbar::incrementTimer(int increment) {
-    //TODO : pretify the display by displaying MM:SS instead of only seconds
-    double val =  LCDtimer_->value() + increment;
-    LCDtimer_->display(QString("%1").arg(val));
-    return val;
+    secondsValue_ =  secondsValue_ + increment;
+    QTime t(0,0,0);
+    t = t.addSecs(secondsValue_);
+    LCDtimer_->display(t.toString("mm:ss"));
+    return secondsValue_;
 }

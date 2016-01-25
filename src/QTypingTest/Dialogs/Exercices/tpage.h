@@ -1,4 +1,14 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 
+/* 
+ * File:   TestTUser.cpp
+ * Author: boutina
+ * 
+ * Created on 18 décembre 2015, 20:00
+ */
 
 
 #ifndef TPAGE_H
@@ -15,6 +25,7 @@
 #include "Data/tresult.h"
 #include "Data/tkeys.h"
 #include "Util/factory.h"
+#include "Data/tuser.h"
 
 #include "tlabel.h"
 
@@ -59,9 +70,19 @@ signals:
      *  Signale trigerred when there is no more text to copy on the page
      */
     void endedPage(TResult*);
+    
+    
+    /**
+     * Called whenever the user tries to erase
+     * an answer but is at the start of the page
+     */
+    void eraseOverflow();
 
 public slots:
+    
     void typingAnswer(QString answer);
+    
+    
     void eraseAnswer();
 
 private:
@@ -98,6 +119,13 @@ private:
      */
     void handleMistype(QChar userAnswer);
 
+    /**
+     * 
+     * @return the current label
+     */
+    TLabel *label() const{
+        return toCopy_[currentTLabel_];
+    }
 
     //Attributes
     QVBoxLayout *tLineLayout_;

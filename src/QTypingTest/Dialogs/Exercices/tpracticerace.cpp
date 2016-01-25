@@ -12,17 +12,16 @@
 
 #include "tpracticerace.h"
 
-TPracticeRace::TPracticeRace(QWidget *parent) :
+TPracticeRace::TPracticeRace(int timeStart,QWidget *parent) :
 TWindowTest(parent),
-generator_(TExercice(TExercice::PRACTICING, true)) {
-    setupPage();
+generator_(TExercice(TExercice::PRACTICING_RACE, true)) {
+    setupPage(timeStart);
 }
 
-TPracticeRace::TPracticeRace(TExercice* exercice, QWidget* parent) :
+TPracticeRace::TPracticeRace(TExercice* exercice,int timeStart, QWidget* parent) :
 TWindowTest(parent),
 generator_(*exercice) {
-
-    setupPage();
+    setupPage(timeStart);
 }
 
 TPracticeRace::TPracticeRace(const TPracticeRace& orig) :
@@ -36,7 +35,7 @@ void TPracticeRace::createPage(TResult* prevPageRes) {
     pages_.addPage(ex);
 }
 
-void TPracticeRace::setupPage() {
+void TPracticeRace::setupPage(int timeStart) {
 
     //HACK for testing => shortucut to end the exercice
     QShortcut *endShortcut = new QShortcut(this);
@@ -48,8 +47,7 @@ void TPracticeRace::setupPage() {
     //end of hacks
 
 
-    //TODO : change 60 to a varialbe int
-    topToolbar_.setLCDDisplayValue(60.f);
+    topToolbar_.setLCDDisplayValue(timeStart);
     connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage()));
     QString ex = generator_.buildExercice();
     pages_.addPage(ex, true);
