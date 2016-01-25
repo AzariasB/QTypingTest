@@ -10,8 +10,8 @@
  */
 
 
-#include <qt5/QtCore/qlogging.h>
-#include <qt5/QtCore/qstringlist.h>
+//#include <qt5/QtCore/qlogging.h>
+//#include <qt5/QtCore/qstringlist.h>
 
 #include "tstackpages.h"
 
