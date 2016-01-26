@@ -27,6 +27,16 @@ int randomNextSpace() {
 }
 
 /**
+ * 
+ * @param 
+ * @param 
+ * @return 
+ */
+int randInt(int min,int max){
+    return (rand() % (max + 1 - min)) + min;
+}
+
+/**
  * Little helper to check if at least each chars of the contains QString
  * is contained in one of the words.
  * For example, with the words ("fly","my") and the string "ty", the function
@@ -59,7 +69,7 @@ bool wordsContains(QStringList words, QString contains) {
 QStringList readFile(QString fileName) {
     QFile model(fileName);
     if (model.exists() && model.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QString res = QLatin1String(model.readAll());
+        QString res(model.readAll());
         return res.split("\n");
     } else {//File not found
         if (!model.exists())
@@ -76,6 +86,20 @@ bool isValidWord(QString word, QString availableLetters) {
             ++it)
         word.replace(*it, "");
     return word.isEmpty();
+}
+
+
+QString factory::generateText(int numbersOfWords, QString lang){
+    //TODO : change to have a list of available langs
+    if(lang != "en"){
+        return ""; //Nothing for now
+    }else{
+        QString fPath = file::getTextPath(lang);
+        QStringList content = readFile(fPath);
+        QStringList text = selectRandomElement(content).split(" ",QString::SkipEmptyParts);
+        int start = randInt(0,text.size() - numbersOfWords);
+        return QStringList(text.mid(start,numbersOfWords)).join(" ");
+    }
 }
 
 QString factory::generateLearning(QStringList mainLetter, QStringList allLetters) {

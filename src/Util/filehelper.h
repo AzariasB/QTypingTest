@@ -19,6 +19,8 @@
 extern const QString ETC_PATH;
 extern const QString WORDS_PATH;
 extern const QString WORDS_EXT;
+extern const QString TEXT_PATH;
+extern const QString STYLE_EXT;
 
 namespace file{
     
@@ -30,6 +32,14 @@ namespace file{
      */
     QString getWordsPath(QString lang);
     
+    /**
+     * Helper to find the file containing all the text
+     * of a given language
+     * 
+     * @param lang The language of the file to find
+     * @return the path of the file containg the texts
+     */
+    QString getTextPath(QString lang);
     
     /**
      * Helper to get the icons of the padlocks

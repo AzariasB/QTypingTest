@@ -22,6 +22,24 @@
 #include "filehelper.h"
 
 namespace factory {
+    
+    
+    /**
+     * 
+     * TODO : instead of passing lang in argument, get the 
+     * language from the user's computer (Azarias)
+     * 
+     * This function will read the texts files of the project
+     * corresponding to the language.
+     * And will keep a random part of the text by keeping 
+     * only the asked number of words
+     * 
+     * @param numbersOfWords the number of words for the text
+     * @param lang the language of the text to generate
+     * @return a part of a text containing n words, choosen from the file corresponding
+     * to the given language. If the file does not exists, english is chosen by default
+     */
+    QString generateText(int numbersOfWords,QString lang = "en");
     /**
      * This function generate the practice exercice from the given letters.
      * The result is devided into three parts :
