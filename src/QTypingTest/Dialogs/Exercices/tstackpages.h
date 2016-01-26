@@ -27,6 +27,7 @@ class TStackPages : public QStackedWidget {
 public:
     TStackPages(QWidget *parent = 0);
     TStackPages(const TStackPages& orig);
+    TStackPages(int numberOfPages, QWidget *parent = 0);
     TStackPages(const QString &text, int numberOfPages = 1, QWidget *parent = 0);
 
     QString getText() const {

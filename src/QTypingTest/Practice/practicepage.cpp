@@ -40,7 +40,6 @@ void PracticePage::setupLayout() {
     practiceText_.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     practiceImprove_.setEnabled(false);
-    practiceText_.setEnabled(false);
 
     centerLayout->addWidget(&practiceAgainstTime_, 0, 0);
     centerLayout->addWidget(&practiceDefault_, 0, 1);
@@ -56,6 +55,10 @@ void PracticePage::connectEvents() {
     });
     connect(&practiceDefault_,&QPushButton::clicked,this,[=](){
         this->startExercice(new TPracticeBase(this));
+    });
+    
+    connect(&practiceText_,&QPushButton::clicked,this,[=](){
+        this->startExercice(new TPracticeText(this));
     });
 }
 

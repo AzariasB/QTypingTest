@@ -34,6 +34,13 @@ numberOfPages_(numberOfPages) {
     setupPages(text);
 }
 
+TStackPages::TStackPages(int numberOfPages, QWidget* parent):
+QStackedWidget(parent),
+toCopy_(QStringList()),
+numberOfPages_(numberOfPages){
+}
+
+
 void TStackPages::setupPages(QString wholeText) {
     QStringList model = factory::splitText(wholeText, numberOfPages_);
 

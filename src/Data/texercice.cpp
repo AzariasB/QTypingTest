@@ -41,7 +41,7 @@ QString TExercice::buildExercice() const {
         case PRACTICING_RACE://TODO : change the number of words to generate
             return factory::generatePractice(getAllLetters());
         case PRACTICING_TEXT:
-            return factory::generatePractice();
+            return factory::generateText(40);//Generate a text of 40 words
         default:
             return factory::generateLearning(availableLetters_, availableLetters_);
     }

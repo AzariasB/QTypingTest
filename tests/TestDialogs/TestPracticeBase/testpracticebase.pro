@@ -4,12 +4,10 @@ QT += widgets testlib core
 CONFIG          += -std=c++11
 QMAKE_CXXFLAGS  += -std=c++11
 
-PRO_PATH=$$PWD
+SRC = $$PWD/../../../src/
 
-INCLUDEPATH += $$PRO_PATH/../../src
+INCLUDEPATH += $$SRC
 message($$INCLUDEPATH)
-
-SRC = $$PWD/../../src/
 
 HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
             $$SRC/QTypingTest/Dialogs/Exercices/tpracticebase.h \

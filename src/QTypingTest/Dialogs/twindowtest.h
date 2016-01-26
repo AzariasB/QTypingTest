@@ -38,7 +38,7 @@ public:
     timeStart_(QTime(0, 0)),
     updateTimer_(new QTimer()),
     topToolbar_(TToolbar()),
-    pages_(TStackPages()) {
+    pages_(TStackPages(2)) {
         setupWidget();
     }
 
