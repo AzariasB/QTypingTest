@@ -33,7 +33,7 @@ private slots:
 void TestPracticeRace::testWithoutExercice() {
     //Test if the dialogs shows up with text
 
-    TPracticeRace race(120);
+    TPracticeRace race(10);
     connect(&race,&TPracticeRace::endOfExercice,this,[&race,this](TResult* res,QTime time){
         QMessageBox::information(&race,"Exercice finished",res->getResume());
         race.close();

@@ -56,6 +56,7 @@ void TPracticeRace::setupPage(int timeStart) {
 void TPracticeRace::updateClock() {
     double res = topToolbar_.incrementTimer(-1);
     if(res <= 0.f){
+        addResult(pages_.currentPage()->getResult());
         emit pages_.textFinished();
     }
 }

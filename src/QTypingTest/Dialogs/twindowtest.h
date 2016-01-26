@@ -70,6 +70,14 @@ public:
         return pages_;
     }
 
+    /**
+     * 
+     * @return a pointer to the list of restuls
+     */
+    void addResult(TResult* nwResult){
+        results_.append(nwResult);
+    }
+    
     virtual ~TWindowTest();
 
 public slots:
@@ -208,10 +216,10 @@ protected:
     /* The pages */
     TStackPages pages_;
 
+private:
     /* The results of each pages */
     QList<TResult*> results_;
-private:
-
+    
     QTime timeStart_;
 
     QTimer *updateTimer_;
