@@ -18,6 +18,7 @@
 #include <QGridLayout>
 #include <QMessageBox>
 #include <QDebug>
+#include <QTime>
 
 #include "QTypingTest/Dialogs/twindowtest.h"
 #include "QTypingTest/Dialogs/Exercices/tpracticerace.h"

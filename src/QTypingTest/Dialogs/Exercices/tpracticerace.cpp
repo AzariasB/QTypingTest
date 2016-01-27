@@ -30,7 +30,7 @@ generator_(orig.exerciceGenerator()) {
     setupPage();
 }
 
-void TPracticeRace::createPage(TResult* prevPageRes) {
+void TPracticeRace::createPage() {
     QString ex = generator_.buildExercice();
     pages_.addPage(ex);
 }

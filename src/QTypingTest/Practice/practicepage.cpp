@@ -75,10 +75,12 @@ void PracticePage::startExercice(TWindowTest *exercice) {
 
 void PracticePage::saveExerciceResult(TResult* res, QTime time) {
     //Save result and time somewhere
-    QMessageBox::information(currentDialog_, "Exercice finished", res->getResume());
+    QMessageBox::information(currentDialog_, "Exercice finished", res->getResume() + 
+        "<br/> Realized in :" + time.toString("mm:ss"));
     if (currentDialog_ != nullptr) {
         currentDialog_->close();
         currentDialog_->disconnect();
         currentDialog_ = nullptr;
     }
+    
 }
