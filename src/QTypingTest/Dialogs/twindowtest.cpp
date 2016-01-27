@@ -19,7 +19,6 @@
  */
 
 
-//#include <qt5/QtCore/qlogging.h>
 
 #include "twindowtest.h"
 
