@@ -13,7 +13,6 @@
 
 #include "tpage.h"
 
-
 TPage::TPage(QString model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
 toCopy_(QList<TLabel*>()),
@@ -98,15 +97,16 @@ void TPage::handleMistype(QChar userAns) {
 }
 
 void TPage::eraseAnswer() {
-    if (label()->previousChar())
+    bool prevChar = label()->previousChar();
+    if (prevChar || currentTLabel_ > 0) {
         lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
-    else if (currentTLabel_ > 0) {
-        lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
-        label()->setEnabled(false);
-        currentTLabel_--;
-        label()->setEnabled(true);
-        label()->previousChar();
-    }else{
+        if (!prevChar) {
+            label()->setEnabled(false);
+            currentTLabel_--;
+            label()->setEnabled(true);
+            label()->previousChar();
+        }
+    } else {
         emit eraseOverflow();
     }
 }
