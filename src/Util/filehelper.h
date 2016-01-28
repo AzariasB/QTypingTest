@@ -15,6 +15,9 @@
 
 
 #include <QString>
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
 
 extern const QString ETC_PATH;
 extern const QString WORDS_PATH;
@@ -24,6 +27,15 @@ extern const QString STYLE_EXT;
 
 namespace file{
     
+    /**
+     * Open and read all the content of a file
+     * returns an empty string if the file could not be
+     * open
+     * 
+     * @param fileName
+     * @return the content of the file (empty if nothing found)
+     */
+    QString readFile(QString fileName);
     /**
      * Helper to find the most common word of a given langage
      * 

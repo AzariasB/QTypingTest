@@ -15,7 +15,16 @@
 
 
 #include <QWidget>
+
+#include <QHash>
+#include <QRegExp>
+#include <QDebug>
+#include <QList>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
 #include "tvirtualkey.h"
+#include "Util/filehelper.h"
 
 class TVirtualKeyboard : public QWidget {
     Q_OBJECT
@@ -26,7 +35,23 @@ public:
         
     }
 private:
-
+    QList<TVirtualKey*> *keys_;
+    
+    QList<QStringList> *decomposeLayout(QString layout);
+    
+    QString findCorrespondingLayout(QString config,QString lang);
+    
+    void createKeys(QList<QStringList> *keyChars);
+    
+    QWidget *numberLine(QStringList keys);
+    
+    QWidget *upperLine(QStringList keys);
+    
+    QWidget *middleLine(QStringList keys);
+    
+    QWidget *bottomLine(QStringList keys);
+    
+    TVirtualKey *createKey(QString attributes);
 };
 
 #endif /* TVIRTUALKEYBOARD_H */

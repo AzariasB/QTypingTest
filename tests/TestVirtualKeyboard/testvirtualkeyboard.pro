@@ -10,10 +10,12 @@ INCLUDEPATH += $$SRC
 
 HEADERS = $$SRC/QTypingTest/Learn/tvirtualkey.h \
           $$SRC/QTypingTest/Learn/tvirtualkeyboard.h \
+          $$SRC/Util/filehelper.h
 
 
 SOURCES = $$SRC/QTypingTest/Learn/tvirtualkey.cpp \
           $$SRC/QTypingTest/Learn/tvirtualkeyboard.cpp \
+          $$SRC/Util/filehelper.cpp \
     testvirtualkeyboard.cpp
 
 # install

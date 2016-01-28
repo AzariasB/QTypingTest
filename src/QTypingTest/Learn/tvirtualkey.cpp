@@ -41,6 +41,15 @@ QWidget(orig.parentWidget()) {
     setupKey();
 }
 
+TVirtualKey::TVirtualKey(int w, QString text, QWidget *parent) :
+QWidget(parent) {
+    setFixedSize(w, 50);
+    QLabel *lab = new QLabel(text);
+    QGridLayout *center = new QGridLayout();
+    center->addWidget(lab, 0, 0, Qt::AlignHCenter);
+    this->setLayout(center);
+}
+
 /*
  * These are the different possibilities of key layouts
  * Exemples are based on a AZERTY keyboard but also
@@ -67,36 +76,53 @@ QWidget(orig.parentWidget()) {
  */
 void TVirtualKey::setupKey() {
     //Set a fixed size
+    //    this->setStyleSheet("border : 1px solid black;");
+    setAutoFillBackground(true);
     this->setFixedSize(50, 50);
     QLabel *defLab = new QLabel(default_);
-    QVBoxLayout *mainLayout = new QVBoxLayout();
+    defLab->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QGridLayout *grid = new QGridLayout();
 
     if (shifted_.isNull()) {
         //simply add the label to the widget
-        mainLayout->addWidget(defLab);
+        grid->addWidget(defLab, 0, 0, Qt::AlignHCenter);
     } else {
         QLabel *shiftLab = new QLabel(shifted_);
-        mainLayout->addWidget(shiftLab);
+        grid->addWidget(shiftLab, 0, 0, Qt::AlignHCenter);
 
         if (altgred_.isNull()) {
             if (default_ != shifted_.toLower()) {
                 //If there are the same letters, 
                 //we only need to display the uppercase one
-                mainLayout->addWidget(defLab);
+                //Otherwise ..
+                grid->addWidget(defLab, 0, 0, 2, 1, Qt::AlignHCenter | Qt::AlignBottom);
             }
         } else {
-            QHBoxLayout *combi = new QHBoxLayout();
             QLabel *altLab = new QLabel(altgred_);
-            combi->addWidget(defLab);
-            combi->addWidget(altLab);
-            mainLayout->addItem(combi);
+            shiftLab->setStyleSheet("font-size : 12px;");
+            defLab->setStyleSheet("font-size : 12px;");
+            altLab->setStyleSheet("font-size : 12px;");
+            grid->addWidget(defLab, 1, 0, Qt::AlignHCenter);
+            grid->addWidget(altLab, 1, 1, Qt::AlignHCenter);
         }
     }
-    this->setLayout(mainLayout);
+    this->setLayout(grid);
 }
 
 void TVirtualKey::constructLetters(QChar def, QChar shift, QChar altg) {
     default_ = def;
     shifted_ = shift;
     altgred_ = altg;
+}
+
+void TVirtualKey::setText(QString text) {
+    default_ = '\0';
+    altgred_ = '\0';
+    shifted_ = '\0';
+    QLabel *lab = new QLabel(text);
+    QGridLayout *center = new QGridLayout();
+    center->addWidget(lab,0,0,Qt::AlignHCenter);
+    //Destruct the existing layout
+    delete layout();
+    setLayout(center);
 }

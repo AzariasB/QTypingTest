@@ -15,8 +15,6 @@
 
 #include <QStringList>
 #include <QDebug>
-#include <QFile>
-#include <QTextStream>
 #include <algorithm>
 
 #include "filehelper.h"

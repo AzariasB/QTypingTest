@@ -66,19 +66,7 @@ bool wordsContains(QStringList words, QString contains) {
     return false;
 }
 
-QStringList readFile(QString fileName) {
-    QFile model(fileName);
-    if (model.exists() && model.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QString res(model.readAll());
-        return res.split("\n");
-    } else {//File not found
-        if (!model.exists())
-            qDebug() << "File does not exists : " + fileName + " \n Please, be sure to run the programm from its root folder";
-        else
-            qDebug() << "Could not open file";
-        return QStringList();
-    }
-}
+
 
 bool isValidWord(QString word, QString availableLetters) {
     for (auto it = availableLetters.begin();
@@ -95,7 +83,7 @@ QString factory::generateText(int numbersOfWords, QString lang){
         return ""; //Nothing for now
     }else{
         QString fPath = file::getTextPath(lang);
-        QStringList content = readFile(fPath);
+        QStringList content = file::readFile(fPath).split("\n");
         QStringList text = selectRandomElement(content).split(" ",QString::SkipEmptyParts);
         int start = randInt(0,text.size() - numbersOfWords);
         return QStringList(text.mid(start,numbersOfWords)).join(" ");
@@ -167,7 +155,7 @@ QString factory::generateFromLetters(QStringList letterList, int length) {
 }
 
 QStringList factory::findExistingWords(QString authorizedLetters, QString fileName, QString mustContain) {
-    QStringList words = readFile(fileName);
+    QStringList words = file::readFile(fileName).split("\n");
     QStringList res;
 
     foreach(QString word, words) {

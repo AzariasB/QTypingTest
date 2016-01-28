@@ -17,26 +17,40 @@
 class TestVirtualKeyboard : public QObject {
     Q_OBJECT
 private slots:
-    void testKey();
-//    void testFactory();
+//    void testKey();
+    void testKeyboard();
 };
 
-void TestVirtualKeyboard::testKey(){
+//void TestVirtualKeyboard::testKey(){
+//    QWidget *main = new QWidget();
+//    QHBoxLayout *lay = new QHBoxLayout();
+//    TVirtualKey *key = new TVirtualKey('a');
+//    key->wrong();
+//    TVirtualKey *shi = new TVirtualKey('a','A');
+//    shi->right();
+//    QString e = "é";//For utf8 chars, cannot directly use special chars
+//    TVirtualKey *alt = new TVirtualKey(e.at(0),'2','~');
+//    TVirtualKey *pon = new TVirtualKey(',','?');
+//    
+//    lay->addWidget(key);
+//    lay->addWidget(shi);
+//    lay->addWidget(alt);
+//    lay->addWidget(pon);
+//    
+//    main->setLayout(lay);
+//    main->show();
+//    QApplication::exec();
+//}
+
+void TestVirtualKeyboard::testKeyboard() {
     QWidget *main = new QWidget();
-    QHBoxLayout *lay = new QHBoxLayout();
-    TVirtualKey *key = new TVirtualKey('a');
-    TVirtualKey *shi = new TVirtualKey('a','A');
-    QString e = "é";//For utf8 chars, cannot directly use special chars
-    TVirtualKey *alt = new TVirtualKey(e.at(0),'2','~');
-    
-    lay->addWidget(key);
-    lay->addWidget(shi);
-    lay->addWidget(alt);
-    
-    main->setLayout(lay);
+    TVirtualKeyboard *kb = new TVirtualKeyboard("se",main);
+    main->setFixedSize(900,300);
+//    main->adjustSize();
     main->show();
     QApplication::exec();
 }
+
 
 QTEST_MAIN(TestVirtualKeyboard)
 #include "testvirtualkeyboard.moc"
