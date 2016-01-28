@@ -43,11 +43,11 @@ private slots:
 //}
 
 void TestVirtualKeyboard::testKeyboard() {
-    QWidget *main = new QWidget();
-    TVirtualKeyboard *kb = new TVirtualKeyboard("se",main);
-    main->setFixedSize(900,300);
+//    QWidget *main = new QWidget();
+    TVirtualKeyboard *kb = new TVirtualKeyboard("fr");
+//    main->setFixedSize(900,390);
 //    main->adjustSize();
-    main->show();
+    kb->show();
     QApplication::exec();
 }
 

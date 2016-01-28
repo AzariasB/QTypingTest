@@ -19,6 +19,7 @@
 #include <QGridLayout>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QDebug>
 
 class TVirtualKey : public QWidget {
     Q_OBJECT
@@ -36,7 +37,7 @@ public:
     TVirtualKey(QChar def, QChar shift, QChar alt, QWidget *parent = 0);
 
     //Create an 'empty' widget with the given width and the default height
-    TVirtualKey(int w,QString text,QWidget *parent = 0);
+    TVirtualKey(int w, QString text, QWidget *parent = 0);
 
 
     TVirtualKey(const TVirtualKey& orig);
@@ -56,6 +57,8 @@ public:
     QChar getShift() const {
         return shifted_;
     };
+
+public slots:
 
     /**
      * Change the color of the key
@@ -78,7 +81,16 @@ public:
         p.setColor(backgroundRole(), Qt::green);
         setPalette(p);
     }
-    
+
+    /**
+     * Reset the background color
+     */
+    void reset() {
+        auto p = palette();
+        p.setColor(backgroundRole(), Qt::transparent);
+        setPalette(p);
+    }
+
     /**
      * Remove all the existing layouts
      * and wigets, then add a single

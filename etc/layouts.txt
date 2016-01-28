@@ -1,0 +1,14 @@
+fr: &1 é2~ "3# '4{ (5[ -6| è7` _8\ ç9^ à0@ )°] =+} $$
+    aA zZ eE rR tT yY uU iI oO pP ^¨ $£¤ $$
+    qQ sS dD fF gG hH jJ kK lL mM ù% *µ $$
+    <> wW xX cC vV bB nN ,? ;. :/ !§ $$
+
+en: 1! 2@ 3# 4$ 5% 6^ 7& 8* 9( 0) -_ =+ $$
+    qQ wW eE rR tT yY uU iI oO pP [{ ]} $$
+    aA sS dD fF gG hH jJ kK lL mM ;: "' $$
+    zZ xX cC vV bB nN mM ,< .> /? $$
+
+se: 1! 2@ 3# 4$ 5% 6^ 7& 8* 9( 0) -_ =+ $$
+    qQ wW eE rR tT yY uU iI oO pP À{[ `]} $$
+    aA sS dD fF gG hH jJ kK lL mM Ö;: Ä"' $$
+    zZ xX cC vV bB nN mM ,< .> /? $$

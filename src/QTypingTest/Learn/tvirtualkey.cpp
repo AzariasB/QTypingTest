@@ -43,6 +43,7 @@ QWidget(orig.parentWidget()) {
 
 TVirtualKey::TVirtualKey(int w, QString text, QWidget *parent) :
 QWidget(parent) {
+    setAutoFillBackground(true);
     setFixedSize(w, 50);
     QLabel *lab = new QLabel(text);
     QGridLayout *center = new QGridLayout();
@@ -80,7 +81,6 @@ void TVirtualKey::setupKey() {
     setAutoFillBackground(true);
     this->setFixedSize(50, 50);
     QLabel *defLab = new QLabel(default_);
-    defLab->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QGridLayout *grid = new QGridLayout();
 
     if (shifted_.isNull()) {
