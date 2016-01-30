@@ -241,10 +241,10 @@ QString TVirtualKeyboard::findCorrespondingLayout(QString config, QString lang) 
 void TVirtualKeyboard::keyPressEvent(QKeyEvent *ev) {
     if (ev->key() == Key_Shift) {
         //TODO : is that working on other machines ?
-        if(ev->nativeScanCode() == 62)  rightShift_->right();
-        if(ev->nativeScanCode() == 50) leftShift_->right();
+        if(ev->nativeScanCode() == 62)  rightShift_->active();
+        if(ev->nativeScanCode() == 50) leftShift_->active();
     } else if (modifiers_->contains(ev->key())) {
-        modifiers_->value(ev->key())->right();
+        modifiers_->value(ev->key())->active();
     } else if (!ev->text().isEmpty()) {
         QChar txt = ev->text()[0];
         if (keys_->contains(txt)) {

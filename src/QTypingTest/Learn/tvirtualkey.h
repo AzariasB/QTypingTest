@@ -66,9 +66,7 @@ public slots:
      * the good letter)
      */
     void wrong() {
-        auto p = palette();
-        p.setColor(backgroundRole(), Qt::red);
-        setPalette(p);
+        paintBackground(Qt::red);
     }
 
     /**
@@ -77,17 +75,33 @@ public slots:
      * the good letter)
      */
     void right() {
-        auto p = palette();
-        p.setColor(backgroundRole(), Qt::green);
-        setPalette(p);
+        paintBackground(Qt::green);
     }
 
     /**
      * Reset the background color
      */
     void reset() {
+        paintBackground(Qt::transparent);
+    }
+
+    /**
+     * Change the color of the key
+     * to blue, to show that the
+     * key is 'active'
+     */
+    void active(){
+        paintBackground(Qt::blue);
+    }
+    
+    /**
+     * Change the background color of the widget
+     * 
+     * @param color the color (from Qt namespace)
+     */
+    void paintBackground(Qt::GlobalColor color) {
         auto p = palette();
-        p.setColor(backgroundRole(), Qt::transparent);
+        p.setColor(backgroundRole(),color);
         setPalette(p);
     }
 
