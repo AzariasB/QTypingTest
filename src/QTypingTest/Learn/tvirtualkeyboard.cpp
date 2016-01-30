@@ -17,19 +17,21 @@ using namespace Qt;
 
 TVirtualKeyboard::TVirtualKeyboard(const TVirtualKeyboard& orig) :
 QWidget(orig.parentWidget()),
-keys_(orig.getKeys()) {
+keys_(orig.getKeys()),
+modifiers_(new QHash<int, TVirtualKey*>()) {
 }
 
 TVirtualKeyboard::TVirtualKeyboard(QString lang, QWidget* parent) :
 QWidget(parent),
-keys_(new QHash<QChar, QList<TVirtualKey*> >()) {
+keys_(new QHash<QChar, TVirtualKey*>()),
+modifiers_(new QHash<int, TVirtualKey*>()) {
     setupWidget(lang);
 }
 
 void TVirtualKeyboard::setupWidget(QString lan) {
     leftShift_ = new TVirtualKey(55, "Shift");
     rightShift_ = new TVirtualKey(155, "Shift");
-    altGr_ = new TVirtualKey(55, "AltGr");
+
 
     QString layouts = file::readFile("etc/layouts.txt");
     QString config = findCorrespondingLayout(layouts, lan);
@@ -71,7 +73,10 @@ QWidget *TVirtualKeyboard::numberLine(QStringList keys) {
         lay->addWidget(createKey(elem));
     }
     //The 'backspace' key
-    lay->addWidget(new TVirtualKey(130, "Backspace"));
+    TVirtualKey *backspace = new TVirtualKey(130, "Backspace");
+    lay->addWidget(backspace);
+    modifiers_->insert(Key_Backspace, backspace);
+
     line->setLayout(lay);
     return line;
 }
@@ -80,7 +85,11 @@ QWidget *TVirtualKeyboard::upperLine(QStringList keys) {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
     //The 'tab' key
-    lay->addWidget(new TVirtualKey(70, "Tab"));
+    TVirtualKey *tab = new TVirtualKey(70, "Tab");
+    lay->addWidget(tab);
+    modifiers_->insert(Key_Tab, tab);
+    modifiers_->insert(Key_Backtab, tab);
+
     for (auto elem : keys) {
         lay->addWidget(createKey(elem));
     }
@@ -94,7 +103,10 @@ QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
     //The 'caps lock' key
-    lay->addWidget(new TVirtualKey(80, "Caps lock"));
+    TVirtualKey *capsLock = new TVirtualKey(80, "Caps lock");
+    lay->addWidget(capsLock);
+    modifiers_->insert(Key_CapsLock, capsLock);
+
     int index = 0;
     for (auto elem : keys) {
         TVirtualKey *key = createKey(elem);
@@ -107,7 +119,10 @@ QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
         index++;
     }
     //The lower part of the 'enter' key
-    lay->addWidget(new TVirtualKey(70, "Enter"));
+    TVirtualKey *lowerEnter = new TVirtualKey(70, "Enter");
+    lay->addWidget(lowerEnter);
+    modifiers_->insert(Key_Return, lowerEnter);
+
     line->setLayout(lay);
     return line;
 }
@@ -129,51 +144,27 @@ QWidget *TVirtualKeyboard::bottomLine(QStringList keys) {
 }
 
 TVirtualKey *TVirtualKeyboard::createKey(QString attributes) {
-    QList<TVirtualKey*> combin;
-    QList<TVirtualKey*> oldKeys;
     TVirtualKey *key;
     switch (attributes.size()) {
         case 1:
             key = new TVirtualKey(attributes[0]);
-            combin.append(key);
-            keys_->insert(attributes[0], combin);
+            keys_->insert(attributes[0], key);
             return key;
         case 2:
             key = new TVirtualKey(attributes[0], attributes[1]);
-            combin.append(key);
-            combin.append(leftShift_);
             //Add the the hash
-            keys_->insert(attributes[1], combin);
-            createKey(attributes.mid(0, 1));
-
-            //update the sub-key
-            oldKeys = keys_->value(attributes[0]);
-            oldKeys.replace(0, key);
-            keys_->insert(attributes[0], oldKeys);
+            keys_->insert(attributes[1], key);
+            keys_->insert(attributes[0], key);
             return key;
 
         case 3:
             //Create the key with alt,shift,and default
             key = new TVirtualKey(attributes[0], attributes[1], attributes[2]);
 
-            //Add to the list of combinaisons
-            combin.append(key);
-            combin.append(altGr_);
-
             //Add the the hash
-            keys_->insert(attributes[2], combin);
-            createKey(attributes.mid(0, 2));
-
-            //update the sub-key
-            oldKeys = keys_->value(attributes[1]);
-            oldKeys.replace(0, key);
-            keys_->insert(attributes[1], oldKeys);
-
-            //and the sub-sub key
-            oldKeys = keys_->value(attributes[0]);
-            oldKeys.replace(0, key);
-            keys_->insert(attributes[0], oldKeys);
-
+            keys_->insert(attributes[2], key);
+            keys_->insert(attributes[1], key);
+            keys_->insert(attributes[0], key);
             return key;
 
         default: return new TVirtualKey(); //Must NOT happen
@@ -184,12 +175,28 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
 
-    lay->addWidget(new TVirtualKey(55, "Ctrl"));
-    lay->addWidget(new TVirtualKey(50, "Fn"));
-    lay->addWidget(new TVirtualKey(50, "Win"));
-    lay->addWidget(new TVirtualKey(50, "Alt"));
-    lay->addWidget(new TVirtualKey(350, "Space"));
-    lay->addWidget(altGr_);
+    TVirtualKey *ctrl = new TVirtualKey(55, "Ctrl");
+    lay->addWidget(ctrl);
+    modifiers_->insert(Key_Control, ctrl);
+
+    lay->addWidget(new TVirtualKey(50, "Fn")); //Change from laptop to computer
+
+    TVirtualKey *home = new TVirtualKey(50, "Win");
+    lay->addWidget(home);
+    modifiers_->insert(Key_Meta, home);
+
+    TVirtualKey *alt = new TVirtualKey(50, "Alt");
+    lay->addWidget(alt);
+    modifiers_->insert(Key_Alt, alt);
+
+    TVirtualKey *space = new TVirtualKey(350, "Space");
+    lay->addWidget(space);
+    modifiers_->insert(Key_Space, space);
+
+    TVirtualKey *altGr = new TVirtualKey(55, "AltGr");
+    lay->addWidget(altGr);
+    modifiers_->insert(Key_AltGr, altGr);
+
     lay->addWidget(new TVirtualKey(50, "Opt"));
     lay->addWidget(new TVirtualKey(50, ""));
     lay->addWidget(new TVirtualKey(50, ""));
@@ -232,21 +239,32 @@ QString TVirtualKeyboard::findCorrespondingLayout(QString config, QString lang) 
 }
 
 void TVirtualKeyboard::keyPressEvent(QKeyEvent *ev) {
-    if (!ev->text().isEmpty()) {
+    if (ev->key() == Key_Shift) {
+        //TODO : is that working on other machines ?
+        if(ev->nativeScanCode() == 62)  rightShift_->right();
+        if(ev->nativeScanCode() == 50) leftShift_->right();
+    } else if (modifiers_->contains(ev->key())) {
+        modifiers_->value(ev->key())->right();
+    } else if (!ev->text().isEmpty()) {
         QChar txt = ev->text()[0];
-        QList<TVirtualKey*> pressed = keys_->value(txt);
-        for (auto key : pressed) {
-            key->right();
+        if (keys_->contains(txt)) {
+            TVirtualKey* pressed = keys_->value(txt);
+            pressed->right();
         }
     }
 }
 
-void TVirtualKeyboard::keyReleaseEvent(QKeyEvent *ev) {
-    if (!ev->text().isEmpty()) {
+void TVirtualKeyboard::keyReleaseEvent(QKeyEvent * ev) {
+    if (ev->key() == Key_Shift) {
+        //TODO : find the real shift
+        rightShift_->reset();
+        leftShift_->reset();
+    } else if (modifiers_->contains(ev->key())) {
+        modifiers_->value(ev->key())->reset();
+    } else if (!ev->text().isEmpty()) {
         QChar txt = ev->text()[0];
-        QList<TVirtualKey*> pressed = keys_->value(txt);
-        for (auto key : pressed) {
-            key->reset();
+        if (keys_->contains(txt)) {
+            keys_->value(txt)->reset();
         }
     }
 }

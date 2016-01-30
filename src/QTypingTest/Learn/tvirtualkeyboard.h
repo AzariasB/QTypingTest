@@ -37,7 +37,7 @@ public:
     virtual ~TVirtualKeyboard() {
     }
 
-    QHash<QChar, QList<TVirtualKey*> > *getKeys() const {
+    QHash<QChar, TVirtualKey*> *getKeys() const {
         return keys_;
     }
 
@@ -158,12 +158,20 @@ private:
      */
     TVirtualKey *createKey(QString attributes);
 
-    QHash<QChar, QList<TVirtualKey*> > *keys_;
-
-
+    /* All the 'normal' keys that can change of position on the 
+     * keyboard
+     *  */
+    QHash<QChar, TVirtualKey*> *keys_;
+    
+    /*
+     All the 'special' keys that will always be on the same position
+     * on the keyboard (spacebar, shift, enter, ...)
+     */
+    QHash<int,TVirtualKey*> *modifiers_;
+    
+    //Separate the two shift (qt does not separate left and right shift)
     TVirtualKey *leftShift_;
     TVirtualKey *rightShift_;
-    TVirtualKey *altGr_;
 };
 
 #endif /* TVIRTUALKEYBOARD_H */
