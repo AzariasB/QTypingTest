@@ -20,7 +20,7 @@ keyboard_(new TVirtualKeyboard(lang)),
 positions_(new TFingerPosition()) {
     QVBoxLayout *lay = new QVBoxLayout();
     lay->addWidget(keyboard_);
-    lay->addWidget(positions_,Qt::AlignRight);
+    lay->addWidget(positions_,0,Qt::AlignHCenter);
     setLayout(lay);
 }
 

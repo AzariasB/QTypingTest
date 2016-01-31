@@ -19,6 +19,7 @@ TVirtualKeyboard::TVirtualKeyboard(const TVirtualKeyboard& orig) :
 QWidget(orig.parentWidget()),
 keys_(orig.getKeys()),
 modifiers_(new QHash<int, TVirtualKey*>()) {
+
 }
 
 TVirtualKeyboard::TVirtualKeyboard(QString lang, QWidget* parent) :
@@ -61,6 +62,7 @@ void TVirtualKeyboard::createKeys(QList<QStringList>* keyChars) {
         mainLay->addWidget(line, AlignLeft);
     }
     mainLay->addWidget(spaceBarLine());
+    mainLay->setContentsMargins(0, 0, 0, 0);
     this->setLayout(mainLay);
 }
 
@@ -76,7 +78,7 @@ QWidget *TVirtualKeyboard::numberLine(QStringList keys) {
     TVirtualKey *backspace = new TVirtualKey(130, "Backspace");
     lay->addWidget(backspace);
     modifiers_->insert(Key_Backspace, backspace);
-
+    lay->setContentsMargins(0,0,0,0);
     line->setLayout(lay);
     return line;
 }
@@ -95,6 +97,7 @@ QWidget *TVirtualKeyboard::upperLine(QStringList keys) {
     }
     //The upper part of the 'enter' key
     lay->addWidget(new TVirtualKey(80, "Enter"));
+    lay->setContentsMargins(0,0,0,0);
     line->setLayout(lay);
     return line;
 }
@@ -121,6 +124,7 @@ QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
     //The lower part of the 'enter' key
     TVirtualKey *lowerEnter = new TVirtualKey(70, "Enter");
     lay->addWidget(lowerEnter);
+    lay->setContentsMargins(0,0,0,0);
     modifiers_->insert(Key_Return, lowerEnter);
 
     line->setLayout(lay);
@@ -139,6 +143,7 @@ QWidget *TVirtualKeyboard::bottomLine(QStringList keys) {
     lay->addWidget(rightShift_);
     //The 'up' key
     lay->addWidget(new TVirtualKey(50, ""));
+    lay->setContentsMargins(0,0,0,0);
     line->setLayout(lay);
     return line;
 }
@@ -186,6 +191,8 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
     lay->addWidget(new TVirtualKey(50, "Opt"));
     lay->addWidget(new TVirtualKey(50, ""));
     lay->addWidget(new TVirtualKey(50, ""));
+    
+    lay->setContentsMargins(0,0,0,0);
     line->setLayout(lay);
     return line;
 }
@@ -237,10 +244,10 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev) {
             target = keys_->value(txt);
         }
     }
-    if(target){
-        if(ev->type() == QEvent::KeyPress){
+    if (target) {
+        if (ev->type() == QEvent::KeyPress) {
             target->right();
-        }else if(ev->type() == QEvent::KeyRelease){
+        } else if (ev->type() == QEvent::KeyRelease) {
             target->reset();
         }
     }

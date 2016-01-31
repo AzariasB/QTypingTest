@@ -17,12 +17,15 @@ TVirtualKey::TVirtualKey(QString content, QWidget *parent) :
 QWidget(parent) {
     constructLetters(content);
     setupKey();
+    setContentsMargins(0, 0, 0, 0);
 }
 
 TVirtualKey::TVirtualKey(const TVirtualKey& orig) :
 QWidget(orig.parentWidget()) {
     constructLetters(orig.associatedFinger() + orig.getDefault() + orig.getShift() + orig.getAlt());
     setupKey();
+    setContentsMargins(0, 0, 0, 0);
+
 }
 
 TVirtualKey::TVirtualKey(int w, QString text, QWidget *parent) :
@@ -33,8 +36,7 @@ QWidget(parent) {
     QGridLayout *center = new QGridLayout();
     center->addWidget(lab, 0, 0, Qt::AlignHCenter);
     this->setLayout(center);
-    if(text == "Space"){
-    }
+    setContentsMargins(0,0,0,0);
 }
 
 /*
@@ -100,12 +102,12 @@ void TVirtualKey::constructLetters(QString letters) {
     shifted_ = '\0';
     altgred_ = '\0';
     associateFinger_ = TFingerPosition::NO_FINGER;
-    switch(letters.size()){
-        case 4 :
+    switch (letters.size()) {
+        case 4:
             altgred_ = letters[3];
         case 3:
             shifted_ = letters[2];
-        case 2 : 
+        case 2:
             associateFinger_ = (TFingerPosition::FINGER) letters[0].digitValue();
             default_ = letters[1];
             break;
