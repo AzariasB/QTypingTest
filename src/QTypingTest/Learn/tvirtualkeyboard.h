@@ -41,22 +41,15 @@ public:
         return keys_;
     }
 
-protected:
     /**
-     * Called whenever an event is trigerred
-     * will enlight the corresponding keys
+     * Will update the keyboard depending on the
+     *  key event (release or pressed)
+     * and return the key that was updated
      * 
-     * @param the key event
+     * @param ev the key event
+     * @return the virtualkey corresponding to the event
      */
-    void keyPressEvent(QKeyEvent *ev);
-
-    /**
-     * Called whenever an event is trigerred
-     * will reset
-     * 
-     * @param the key event
-     */
-    void keyReleaseEvent(QKeyEvent *ev);
+    TVirtualKey *updateKeyboard(QKeyEvent *ev);
 
 
 private:

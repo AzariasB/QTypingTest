@@ -21,6 +21,7 @@ TFingerPosition::TFingerPosition(QWidget* parent) :
 QWidget(parent),
 fingersPoints_(QList< QVector<QPoint>* >()),
 activeFingers_(QList<int>()) {
+    setFixedSize(400,200);
     initPoints();
 }
 
@@ -73,14 +74,14 @@ QPoint TFingerPosition::createPoint(const QString& coordinates) const {
 }
 
 void TFingerPosition::disableFinger(FINGER id) {
-    if (activeFingers_.contains(id)) {
+    if (activeFingers_.contains(id) && id < NO_FINGER ) {
         activeFingers_.removeAll(id);
     }
     update();
 }
 
 void TFingerPosition::enableFinger(FINGER id) {
-    if (!activeFingers_.contains(id)) {
+    if (!activeFingers_.contains(id) && id < NO_FINGER ) {
         activeFingers_.append(id);
     }
     update();

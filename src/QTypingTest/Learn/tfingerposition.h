@@ -35,7 +35,9 @@ public:
     }
 
     enum FINGER {
-        LEFT_PINKY, LEFT_RING, LEFT_MIDDLE, LEFT_INDEX, RIGHT_INDEX, RIGHT_MIDDLE_RIGHT_RING, RIGHT_PINKY
+        LEFT_PINKY, LEFT_RING, LEFT_MIDDLE, LEFT_INDEX, 
+        RIGHT_INDEX, RIGHT_MIDDLE, RIGHT_RING, RIGHT_PINKY,
+        NO_FINGER , TOTAL_FINGERS
     };
 
 public slots:
@@ -46,13 +48,6 @@ public slots:
 protected:
 
     void paintEvent(QPaintEvent *ev);
-
-
-    void keyPressEvent(QKeyEvent *ev);
-
-
-    void keyReleaseEvent(QKeyEvent *ev);
-
 
 private:
     /**

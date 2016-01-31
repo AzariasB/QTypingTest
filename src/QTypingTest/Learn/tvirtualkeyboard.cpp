@@ -144,31 +144,17 @@ QWidget *TVirtualKeyboard::bottomLine(QStringList keys) {
 }
 
 TVirtualKey *TVirtualKeyboard::createKey(QString attributes) {
-    TVirtualKey *key;
+    TVirtualKey *key = new TVirtualKey(attributes);
     switch (attributes.size()) {
-        case 1:
-            key = new TVirtualKey(attributes[0]);
-            keys_->insert(attributes[0], key);
-            return key;
-        case 2:
-            key = new TVirtualKey(attributes[0], attributes[1]);
-            //Add the the hash
-            keys_->insert(attributes[1], key);
-            keys_->insert(attributes[0], key);
-            return key;
-
+        case 4:
+            keys_->insert(attributes[3], key);
         case 3:
-            //Create the key with alt,shift,and default
-            key = new TVirtualKey(attributes[0], attributes[1], attributes[2]);
-
-            //Add the the hash
             keys_->insert(attributes[2], key);
+        case 2:
             keys_->insert(attributes[1], key);
-            keys_->insert(attributes[0], key);
-            return key;
-
-        default: return new TVirtualKey(); //Must NOT happen
+            break;
     }
+    return key;
 }
 
 QWidget* TVirtualKeyboard::spaceBarLine() {
@@ -238,33 +224,25 @@ QString TVirtualKeyboard::findCorrespondingLayout(QString config, QString lang) 
     }
 }
 
-void TVirtualKeyboard::keyPressEvent(QKeyEvent *ev) {
+TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev) {
+    TVirtualKey *target = 0;
     if (ev->key() == Key_Shift) {
         //TODO : is that working on other machines ?
-        if(ev->nativeScanCode() == 62)  rightShift_->active();
-        if(ev->nativeScanCode() == 50) leftShift_->active();
+        target = ev->nativeScanCode() == 62 ? rightShift_ : leftShift_;
     } else if (modifiers_->contains(ev->key())) {
-        modifiers_->value(ev->key())->active();
+        target = modifiers_->value(ev->key());
     } else if (!ev->text().isEmpty()) {
         QChar txt = ev->text()[0];
         if (keys_->contains(txt)) {
-            TVirtualKey* pressed = keys_->value(txt);
-            pressed->right();
+            target = keys_->value(txt);
         }
     }
-}
-
-void TVirtualKeyboard::keyReleaseEvent(QKeyEvent * ev) {
-    if (ev->key() == Key_Shift) {
-        //TODO : find the real shift
-        rightShift_->reset();
-        leftShift_->reset();
-    } else if (modifiers_->contains(ev->key())) {
-        modifiers_->value(ev->key())->reset();
-    } else if (!ev->text().isEmpty()) {
-        QChar txt = ev->text()[0];
-        if (keys_->contains(txt)) {
-            keys_->value(txt)->reset();
+    if(target){
+        if(ev->type() == QEvent::KeyPress){
+            target->right();
+        }else if(ev->type() == QEvent::KeyRelease){
+            target->reset();
         }
     }
+    return target;
 }

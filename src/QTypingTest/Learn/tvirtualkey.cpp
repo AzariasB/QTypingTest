@@ -9,35 +9,19 @@
  * Created on 27 janvier 2016, 10:32
  */
 
+#include <qt5/QtCore/qlogging.h>
+
 #include "tvirtualkey.h"
 
-TVirtualKey::TVirtualKey(QChar def, QWidget* parent) :
+TVirtualKey::TVirtualKey(QString content, QWidget *parent) :
 QWidget(parent) {
-    constructLetters(def);
-    setupKey();
-}
-
-TVirtualKey::TVirtualKey(QChar def, QChar shift, QWidget* parent) :
-QWidget(parent) {
-    constructLetters(def, shift);
-    setupKey();
-}
-
-TVirtualKey::TVirtualKey(QChar def, QChar shift, QChar alt, QWidget* parent) :
-QWidget(parent) {
-    constructLetters(def, shift, alt);
-    setupKey();
-}
-
-TVirtualKey::TVirtualKey(QWidget *parent) :
-QWidget(parent) {
-    constructLetters();
+    constructLetters(content);
     setupKey();
 }
 
 TVirtualKey::TVirtualKey(const TVirtualKey& orig) :
 QWidget(orig.parentWidget()) {
-    constructLetters(orig.getDefault(), orig.getShift(), orig.getAlt());
+    constructLetters(orig.associatedFinger() + orig.getDefault() + orig.getShift() + orig.getAlt());
     setupKey();
 }
 
@@ -49,6 +33,8 @@ QWidget(parent) {
     QGridLayout *center = new QGridLayout();
     center->addWidget(lab, 0, 0, Qt::AlignHCenter);
     this->setLayout(center);
+    if(text == "Space"){
+    }
 }
 
 /*
@@ -109,10 +95,21 @@ void TVirtualKey::setupKey() {
     this->setLayout(grid);
 }
 
-void TVirtualKey::constructLetters(QChar def, QChar shift, QChar altg) {
-    default_ = def;
-    shifted_ = shift;
-    altgred_ = altg;
+void TVirtualKey::constructLetters(QString letters) {
+    default_ = '\0';
+    shifted_ = '\0';
+    altgred_ = '\0';
+    associateFinger_ = TFingerPosition::NO_FINGER;
+    switch(letters.size()){
+        case 4 :
+            altgred_ = letters[3];
+        case 3:
+            shifted_ = letters[2];
+        case 2 : 
+            associateFinger_ = (TFingerPosition::FINGER) letters[0].digitValue();
+            default_ = letters[1];
+            break;
+    }
 }
 
 void TVirtualKey::setText(QString text) {
@@ -121,7 +118,7 @@ void TVirtualKey::setText(QString text) {
     shifted_ = '\0';
     QLabel *lab = new QLabel(text);
     QGridLayout *center = new QGridLayout();
-    center->addWidget(lab,0,0,Qt::AlignHCenter);
+    center->addWidget(lab, 0, 0, Qt::AlignHCenter);
     //Destruct the existing layout
     delete layout();
     setLayout(center);

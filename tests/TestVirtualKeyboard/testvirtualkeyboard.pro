@@ -11,12 +11,14 @@ INCLUDEPATH += $$SRC
 HEADERS = $$SRC/QTypingTest/Learn/tvirtualkey.h \
           $$SRC/QTypingTest/Learn/tvirtualkeyboard.h \
           $$SRC/QTypingTest/Learn/tfingerposition.h \
+          $$SRC/QTypingTest/Learn/tpresentation.h \
           $$SRC/Util/filehelper.h
 
 
 SOURCES = $$SRC/QTypingTest/Learn/tvirtualkey.cpp \
           $$SRC/QTypingTest/Learn/tvirtualkeyboard.cpp \
           $$SRC/QTypingTest/Learn/tfingerposition.cpp \
+          $$SRC/QTypingTest/Learn/tpresentation.cpp \
           $$SRC/Util/filehelper.cpp \
           testvirtualkeyboard.cpp
 

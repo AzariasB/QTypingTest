@@ -21,20 +21,24 @@
 #include <QPaintEvent>
 #include <QDebug>
 
+#include "tfingerposition.h"
+
 class TVirtualKey : public QWidget {
     Q_OBJECT
 public:
-    //No predefined letters
-    TVirtualKey(QWidget *parent = 0);
-
-    //Define only main letter
-    TVirtualKey(QChar def, QWidget *parent = 0);
-
-    //Define main letter and shift
-    TVirtualKey(QChar def, QChar shift, QWidget *parent = 0);
-
-    //Define main letter, shift letter an altgre letter
-    TVirtualKey(QChar def, QChar shift, QChar alt, QWidget *parent = 0);
+    /**
+     * Create the 'default' key.
+     * The string must contains at leas two chars 
+     * the first one must be and int
+     * then the key is reated like so :
+     *   - 1st char => default char
+     *   - 2nd char => shift char
+     *   - 3rd char => alt-gr char
+     * 
+     * @param content the content of the key
+     * @param parent the parent widget
+     */
+    TVirtualKey(QString content, QWidget *parent = 0);
 
     //Create an 'empty' widget with the given width and the default height
     TVirtualKey(int w, QString text, QWidget *parent = 0);
@@ -57,6 +61,10 @@ public:
     QChar getShift() const {
         return shifted_;
     };
+    
+    TFingerPosition::FINGER associatedFinger() const{
+        return associateFinger_;
+    }
 
 public slots:
 
@@ -124,7 +132,9 @@ protected:
 
 
 private:
-    void constructLetters(QChar def = '\0', QChar shift = '\0', QChar altg = '\0');
+    void constructLetters(QString letters);
+    
+    TFingerPosition::FINGER associateFinger_ = TFingerPosition::NO_FINGER;
 
     /* The letter when the user simply press the key */
     QChar default_;
