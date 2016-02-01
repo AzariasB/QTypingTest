@@ -73,7 +73,9 @@ SOURCES += src/main.cpp \
         src/Data/tprogression.cpp \
         src/Data/tuser.cpp \
         src/Data/tstats.cpp \
-        src/Data/tkeys.cpp
+        src/Data/tkeys.cpp \
+    src/Data/tpractical.cpp \
+    src/QTypingTest/Statistics/tstatswpm.cpp
 
 
 #------------
@@ -106,4 +108,8 @@ HEADERS +=  \
             src/Data/tpractice.h \
             src/Data/tuser.h \
             src/Data/tstats.h \
-            src/Data/tkeys.h
+            src/Data/tkeys.h \
+    src/Data/tpractical.h \
+    src/ui/ui_homepage.h \
+    src/QTypingTest/Statistics/statisticspage.h \
+    src/QTypingTest/Statistics/tstatswpm.h
