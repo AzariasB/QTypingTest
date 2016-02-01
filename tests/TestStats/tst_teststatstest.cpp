@@ -17,6 +17,7 @@ void TestStatsTest::testCase1()
 {
     TUser user;
     TStatsWPM w;
+    w.setFixedHeight(300);
     w.show();
     QApplication::exec();
 }
