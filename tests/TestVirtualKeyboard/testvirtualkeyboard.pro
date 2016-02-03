@@ -12,6 +12,7 @@ HEADERS = $$SRC/QTypingTest/Learn/tvirtualkey.h \
           $$SRC/QTypingTest/Learn/tvirtualkeyboard.h \
           $$SRC/QTypingTest/Learn/tfingerposition.h \
           $$SRC/QTypingTest/Learn/tpresentation.h \
+          $$SRC/Data/tlayouts.h \
           $$SRC/Util/filehelper.h
 
 
@@ -20,6 +21,7 @@ SOURCES = $$SRC/QTypingTest/Learn/tvirtualkey.cpp \
           $$SRC/QTypingTest/Learn/tfingerposition.cpp \
           $$SRC/QTypingTest/Learn/tpresentation.cpp \
           $$SRC/Util/filehelper.cpp \
+          $$SRC/Data/tlayouts.cpp \
           testvirtualkeyboard.cpp
 
 # install

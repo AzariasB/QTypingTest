@@ -33,15 +33,7 @@ void TVirtualKeyboard::setupWidget(QString lan) {
     leftShift_ = new TVirtualKey(55, "Shift");
     rightShift_ = new TVirtualKey(155, "Shift");
 
-
-    QString layouts = file::readFile("etc/layouts.txt");
-    QString config = findCorrespondingLayout(layouts, lan);
-    if (config.isEmpty()) {
-        qDebug() << "No correct config found";
-    } else {
-        QList<QStringList> * keys = decomposeLayout(config);
-        createKeys(keys);
-    }
+    createKeys(TLayouts::getInstance(lan).getLayouLines());
 }
 
 void TVirtualKeyboard::createKeys(QList<QStringList>* keyChars) {
@@ -78,7 +70,7 @@ QWidget *TVirtualKeyboard::numberLine(QStringList keys) {
     TVirtualKey *backspace = new TVirtualKey(130, "Backspace");
     lay->addWidget(backspace);
     modifiers_->insert(Key_Backspace, backspace);
-    lay->setContentsMargins(0,0,0,0);
+    lay->setContentsMargins(0, 0, 0, 0);
     line->setLayout(lay);
     return line;
 }
@@ -97,7 +89,7 @@ QWidget *TVirtualKeyboard::upperLine(QStringList keys) {
     }
     //The upper part of the 'enter' key
     lay->addWidget(new TVirtualKey(80, "Enter"));
-    lay->setContentsMargins(0,0,0,0);
+    lay->setContentsMargins(0, 0, 0, 0);
     line->setLayout(lay);
     return line;
 }
@@ -124,7 +116,7 @@ QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
     //The lower part of the 'enter' key
     TVirtualKey *lowerEnter = new TVirtualKey(70, "Enter");
     lay->addWidget(lowerEnter);
-    lay->setContentsMargins(0,0,0,0);
+    lay->setContentsMargins(0, 0, 0, 0);
     modifiers_->insert(Key_Return, lowerEnter);
 
     line->setLayout(lay);
@@ -143,7 +135,7 @@ QWidget *TVirtualKeyboard::bottomLine(QStringList keys) {
     lay->addWidget(rightShift_);
     //The 'up' key
     lay->addWidget(new TVirtualKey(50, ""));
-    lay->setContentsMargins(0,0,0,0);
+    lay->setContentsMargins(0, 0, 0, 0);
     line->setLayout(lay);
     return line;
 }
@@ -191,47 +183,14 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
     lay->addWidget(new TVirtualKey(50, "Opt"));
     lay->addWidget(new TVirtualKey(50, ""));
     lay->addWidget(new TVirtualKey(50, ""));
-    
-    lay->setContentsMargins(0,0,0,0);
+
+    lay->setContentsMargins(0, 0, 0, 0);
     line->setLayout(lay);
     return line;
 }
 
-QList<QStringList> *TVirtualKeyboard::decomposeLayout(QString layout) {
-    QStringList lines = layout.split("$$", QString::SkipEmptyParts);
-    if (lines.size() != 4) {
-        qDebug() << "Incorrect config, the keyboard must have 4 lines";
-        return new QList<QStringList>();
-    } else {
-        QList<QStringList> *parts = new QList<QStringList>();
-        for (auto elem : lines) {
-            parts->append(elem.trimmed().split(" ", QString::SkipEmptyParts));
-        }
-        return parts;
-    }
 
-}
-
-QString TVirtualKeyboard::findCorrespondingLayout(QString config, QString lang) {
-    QRegExp decomposition("\\$\\$(\\n\\n|$)");
-    //Split all the possible configurations
-    QStringList configs = config.split(decomposition, QString::SkipEmptyParts);
-
-    //Find the one that begins with 'lang'
-    QStringList filt = configs.filter(QRegExp("^" + lang + ":"));
-
-    if (filt.isEmpty()) {
-        //No config found, return empty String
-        return "";
-    } else {
-        //Take the first one (even if there are several same configs)
-        //Remove the lang (we don't need it anymore, and spaces at beginning/end of the string)
-        return filt[0].mid(lang.size() + 1).trimmed();
-
-    }
-}
-
-TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev) {
+TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, bool itsFalse) {
     TVirtualKey *target = 0;
     if (ev->key() == Key_Shift) {
         //TODO : is that working on other machines ?
@@ -246,10 +205,24 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev) {
     }
     if (target) {
         if (ev->type() == QEvent::KeyPress) {
-            target->right();
+            if (itsFalse) {
+                target->wrong();
+            } else {
+                target->right();
+            }
         } else if (ev->type() == QEvent::KeyRelease) {
             target->reset();
         }
     }
     return target;
+}
+
+TVirtualKey* TVirtualKeyboard::highlightKey(QChar keyChar) {
+    if (keys_->contains(keyChar)) {
+        TVirtualKey *target = keys_->value(keyChar);
+        target->right();
+        return target;
+    } else {
+        return 0;
+    }
 }

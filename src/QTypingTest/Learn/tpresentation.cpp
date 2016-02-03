@@ -18,9 +18,25 @@ TPresentation::TPresentation(QString lang, QWidget* parent) :
 QWidget(parent),
 keyboard_(new TVirtualKeyboard(lang)),
 positions_(new TFingerPosition()) {
+    setupWidgets();
+}
+
+TPresentation::TPresentation(QString lang, QString charsToCopy, QWidget* parent) :
+QWidget(parent),
+keyboard_(new TVirtualKeyboard(lang)),
+positions_(new TFingerPosition()) {
+    setupWidgets();
+    if (!charsToCopy.isEmpty()) {
+        for (auto elem : charsToCopy) {
+            keyboard_->highlightKey(elem);
+        }
+    }
+}
+
+void TPresentation::setupWidgets() {
     QVBoxLayout *lay = new QVBoxLayout();
     lay->addWidget(keyboard_);
-    lay->addWidget(positions_,0,Qt::AlignHCenter);
+    lay->addWidget(positions_, 0, Qt::AlignHCenter);
     setLayout(lay);
 }
 

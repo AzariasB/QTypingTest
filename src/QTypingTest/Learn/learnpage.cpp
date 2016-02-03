@@ -84,7 +84,7 @@ void LearnPage::lauchExercice() {
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
 
 
-            testWindow_ = new TWindowLearn(ex->buildExercice(),this);
+            testWindow_ = new TWindowLearn(ex,this);
             //Connect only once the test dialog
             connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
             connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));

@@ -38,6 +38,10 @@ public:
     virtual ~TExercice() {
 
     };
+
+    QStringList learningLetters() const{
+        return learningLetters_;
+    }
     
     
 private:

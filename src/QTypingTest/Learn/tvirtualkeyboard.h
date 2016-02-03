@@ -27,6 +27,7 @@
 
 #include "tvirtualkey.h"
 #include "Util/filehelper.h"
+#include "Data/tlayouts.h"
 
 class TVirtualKeyboard : public QWidget {
     Q_OBJECT
@@ -49,7 +50,10 @@ public:
      * @param ev the key event
      * @return the virtualkey corresponding to the event
      */
-    TVirtualKey *updateKeyboard(QKeyEvent *ev);
+    TVirtualKey *updateKeyboard(QKeyEvent *ev, bool itsWrong = false);
+    
+    
+    TVirtualKey *highlightKey(QChar keyChar);
 
 
 private:
@@ -62,27 +66,6 @@ private:
      */
     void setupWidget(QString lan);
 
-    /**
-     * Takes a single layout in parameter and split in
-     * into a QList for each line of the keyboard.
-     * This list contain a QStringlist containing the key
-     * combination for each key of the line (e.g. "aA" for the key A)
-     * 
-     * @param layout the layout data of a single keyboard type
-     * @return al list contating a list of the key for each line
-     */
-    QList<QStringList> *decomposeLayout(QString layout);
-
-    /**
-     * From the content of the file containg all the layouts,
-     * it will find the layout configuration corresponding to
-     * the given language code (e.g. "en" for english, "fr" for french ...)
-     * 
-     * @param config the content of the file containing the layouts
-     * @param lang the langage of the layout
-     * @return the layout of the given langage, empty String if not found
-     */
-    QString findCorrespondingLayout(QString config, QString lang);
 
     /**
      * Will create and add to the layout the

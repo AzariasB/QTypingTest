@@ -76,7 +76,7 @@ SOURCES += src/main.cpp \
         #Data classes
         #------------
         src/Data/texercice.cpp \
-        src/Data/tpractice.cpp \
+        src/Data/tlayouts.cpp \
         src/Data/tprogression.cpp \
         src/Data/tuser.cpp \
         src/Data/tstats.cpp 
@@ -114,6 +114,6 @@ HEADERS +=  \
             src/Data/tresult.h \
             src/Data/texercice.h \
             src/Data/tprogression.h \
-            src/Data/tpractice.h \
+            src/Data/tlayouts.h \
             src/Data/tuser.h \
             src/Data/tstats.h 
