@@ -19,7 +19,6 @@ HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
             $$SRC/Data/tprogression.h \
             $$SRC/Data/tresult.h \
             $$SRC/Data/texercice.h \
-            $$SRC/Data/tkeys.h \
             $$SRC/Data/tuser.h \
             $$SRC/Data/tstats.h \
             $$SRC/Util/filehelper.h \
@@ -35,7 +34,6 @@ SOURCES = $$SRC/QTypingTest/Dialogs/twindowtest.cpp \
             $$SRC/QTypingTest/Dialogs/Exercices/tpage.cpp \
             $$SRC/Data/tprogression.cpp \
             $$SRC/Data/tresult.cpp \
-            $$SRC/Data/tkeys.cpp \
             $$SRC/Data/texercice.cpp \
             $$SRC/Data/tuser.cpp \
             $$SRC/Data/tstats.cpp \
