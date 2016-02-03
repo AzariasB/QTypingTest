@@ -113,14 +113,13 @@ void TPage::eraseAnswer() {
 
 bool TPage::isValidKey(QKeyEvent* ev) {
 
-    return !ev->text().isEmpty() && !ev->text().isNull() &&
-            TKeys::isValidLetter(ev->key());
+    return !ev->text().isEmpty() && !ev->text().isNull() && ev->key() != Qt::Key_Backspace ;
 }
 
 void TPage::update(QKeyEvent* ev) {
     if (isValidKey(ev)) {
         typingAnswer(ev->text());
-    } else if (ev->key() == Key_Backspace) {
+    } else if (ev->key() == Qt::Key_Backspace) {
         eraseAnswer();
     }
 }

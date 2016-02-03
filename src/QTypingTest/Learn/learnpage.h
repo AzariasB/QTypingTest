@@ -24,7 +24,6 @@
 #include <QVector>
 #include <QScrollArea>
 
-
 #include "Data/tpractice.h"
 #include "Data/texercice.h"
 #include "Data/tresult.h"

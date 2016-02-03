@@ -32,7 +32,7 @@ void TWindowTest::setupWidget() {
     setLayout(centralLayout);
     //Setup window
     this->setModal(true);
-    this->setFocusPolicy(StrongFocus);
+    this->setFocusPolicy(Qt::StrongFocus);
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     this->move(0, 0);
 
@@ -129,7 +129,7 @@ void TWindowTest::setupShortcuts() {
 
     //Hack for testing => shortucut to end the exercice
     QShortcut *endShortcut = new QShortcut(this);
-    endShortcut->setKey(CTRL + Key_F);
+    endShortcut->setKey(Qt::CTRL + Qt::Key_F);
 
     connect(endShortcut, &QShortcut::activated, [ = ](){
         if (results_.isEmpty()) {
@@ -141,7 +141,7 @@ void TWindowTest::setupShortcuts() {
     //end of hacks
 
     QShortcut *pauseSh = new QShortcut(this);
-    pauseSh->setKey(CTRL + Key_P);
+    pauseSh->setKey(Qt::CTRL + Qt::Key_P);
     connect(pauseSh, SIGNAL(activated()), this, SLOT(pauseContinueExercice()));
 }
 

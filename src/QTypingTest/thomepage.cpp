@@ -1,3 +1,7 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 /* 
  * File:   THomePage.cpp
  * Author: boutina
@@ -52,7 +56,7 @@ void THomePage::connectEvents() {
     button_stack sGames = {
         ui.button_games,
         ui.page_games,
-        nullptr //TODO create games page
+        new GamePage()
     };
     button_stack sStat = {
         ui.button_stats,
@@ -71,7 +75,7 @@ void THomePage::connectEvents() {
     //Iterate over the buttons-page couple
     for (auto it = pagesButton.begin(); it != pagesButton.end(); ++it) {
         button_stack s = *it;
-        //If child is not nullptr create a simple layout with parent and add the chil into it
+        //If child is not nullptr create a simple layout with parent and add the child into it
         if (s.child) {
             QHBoxLayout *l = new QHBoxLayout(s.parent);
             l->addWidget(s.child);

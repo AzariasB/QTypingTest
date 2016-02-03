@@ -4,15 +4,18 @@ QT += widgets testlib
 CONFIG          += -std=c++11
 QMAKE_CXXFLAGS  += -std=c++11
 
+SRC = $$PWD/../../src/
 
-HEADERs = ../../src/Util/htmlhelp.h \    
-    ../../src/Util/factory.h \
-    ../../src/Util/filehelper.h
+INCLUDEPATH += $$SRC
+
+HEADERs = $$SRC/Util/htmlhelp.h \    
+    $$SRC/Util/factory.h \
+    $$SRC/Util/filehelper.h
 
 
-SOURCES = ../../src/Util/htmlhelper.cpp \
-    ../../src/Util/factory.cpp \
-    ../../src/Util/filehelper.cpp \
+SOURCES = $$SRC/Util/htmlhelper.cpp \
+    $$SRC/Util/factory.cpp \
+    $$SRC/Util/filehelper.cpp \
     testutils.cpp
 
 # install

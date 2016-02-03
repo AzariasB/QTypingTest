@@ -4,16 +4,27 @@ QT += widgets testlib
 CONFIG          += -std=c++11
 QMAKE_CXXFLAGS  += -std=c++11
 
+SRC = $$PWD/../../src/
 
-HEADERs = ../../src/Data/tuser.h \    
-    ../../src/Data/tresult.h \
-    ../../src/Data/tprogression.h \
-    ../../src/Data/texercice.h
+INCLUDEPATH += $$SRC
 
-SOURCES = ../../src/Data/tuser.cpp \
-    ../../src/Data/tresult.cpp \
-    ../../src/Data/tprogression.cpp \
-    ../../src/Data/texercice.cpp \
+HEADERs = $$SRC/Data/tuser.h \    
+    $$SRC/Data/tresult.h \
+    $$SRC/Data/tprogression.h \
+    $$SRC/Data/tstats.h \
+    $$SRC/Util/factory.h \
+    $$SRC/Util/htmlhelper.h \
+    $$SRC/Util/filehelper.h \
+    $$SRC/Data/texercice.h
+
+SOURCES = $$SRC/Data/tuser.cpp \
+    $$SRC/Data/tresult.cpp \
+    $$SRC/Data/tprogression.cpp \
+    $$SRC/Data/tstats.cpp \
+    $$SRC/Util/factory.cpp \
+    $$SRC/Util/htmlhelper.cpp \
+    $$SRC/Util/filehelper.cpp \
+    $$SRC/Data/texercice.cpp \
     testuser.cpp
 
 # install

@@ -39,7 +39,7 @@ void TPracticeRace::setupPage(int timeStart) {
 
     //HACK for testing => shortucut to end the exercice
     QShortcut *endShortcut = new QShortcut(this);
-    endShortcut->setKey(CTRL + Key_E);
+    endShortcut->setKey(Qt::CTRL + Qt::Key_E);
 
     connect(endShortcut, &QShortcut::activated, [ = ](){
         emit pages_.pageEnded(new TResult());

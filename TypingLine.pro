@@ -35,7 +35,8 @@ UI_DIR = src/ui
 
 
 TEMPLATE = app
-  
+
+#Icons for windows
 RC_ICONS += etc/icon.ico
 ICON = TypingLine.icns
 
@@ -58,7 +59,12 @@ SOURCES += src/main.cpp \
         src/QTypingTest/Dialogs/twindowtest.cpp \
         src/QTypingTest/thomepage.cpp \
         src/QTypingTest/Learn/learnpage.cpp \
+        src/QTypingTest/Learn/tfingerposition.cpp \
+        src/QTypingTest/Learn/tpresentation.cpp \
+        src/QTypingTest/Learn/tvirtualkey.cpp \
+        src/QTypingTest/Learn/tvirtualkeyboard.cpp \
         src/QTypingTest/Practice/practicepage.cpp \
+        src/QTypingTest/Games/gamepage.cpp \
         #------------       
         #Util class/functions
         #------------      
@@ -73,9 +79,7 @@ SOURCES += src/main.cpp \
         src/Data/tpractice.cpp \
         src/Data/tprogression.cpp \
         src/Data/tuser.cpp \
-        src/Data/tstats.cpp \
-        src/Data/tkeys.cpp
-
+        src/Data/tstats.cpp 
 
 #------------
 #Core classes
@@ -92,7 +96,12 @@ HEADERS +=  \
             src/QTypingTest/Dialogs/twindowtest.h \
             src/QTypingTest/thomepage.h \
             src/QTypingTest/Learn/learnpage.h \
+            src/QTypingTest/Learn/tfingerposition.h \
+            src/QTypingTest/Learn/tpresentation.h \
+            src/QTypingTest/Learn/tvirtualkey.h \
+            src/QTypingTest/Learn/tvirtualkeyboard.h \
             src/QTypingTest/Practice/practicepage.h \
+            src/QTypingTest/Games/gamepage.h \
             #------------
             #Util functions/classes
             #------------
@@ -107,5 +116,4 @@ HEADERS +=  \
             src/Data/tprogression.h \
             src/Data/tpractice.h \
             src/Data/tuser.h \
-            src/Data/tstats.h \
-            src/Data/tkeys.h
+            src/Data/tstats.h 

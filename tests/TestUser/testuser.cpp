@@ -16,6 +16,7 @@
 
 
 #include <QtTest/QtTest>
+#include <qt5/QtCore/qlogging.h>
 
 class TestTUser : public QObject {
     Q_OBJECT
@@ -70,23 +71,26 @@ void TestTUser::testDataStream() {
     QVERIFY(r.getPseudo() == t.getPseudo());
 
     qDebug() << "Write multiples users in file";
-    QVector<TUser> v1(30);
+    
+    QVector<TUser> v1;
+    int numberOfUsers = 30;
     QFile f2("users.dat");
+    QDataStream stream2(&f2);
     
-    
-    f2.open(QIODevice::ReadOnly);
-    for (int i = 0; i < v1.size(); i++) {
+    f2.open(QIODevice::WriteOnly);
+    for (int i = 0; i < numberOfUsers; i++) {
         TUser u(randomName());
         v1.append(u);
-        stream << u;
+        stream2 << u;
     }
-    f2.close();
-    f2.open(QIODevice::WriteOnly);
-    QVector<TUser> v2(v1.size());
     
-    for(int i = 0; i < v2.size();i++){
+    f2.close();
+    f2.open(QIODevice::ReadOnly);
+    QVector<TUser> v2;
+    
+    for(int i = 0; i < v1.size();i++){
         TUser u;
-        stream >> u;
+        stream2 >> u;
         v2.append(u);
     }
     f2.close();
