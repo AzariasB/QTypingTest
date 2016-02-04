@@ -149,5 +149,5 @@ namespace factory {
 
 
 
-#endif /* TESTCREATOR_H */
+#endif /* FACTORY_H */
 

@@ -17,6 +17,7 @@
 
 #include "tresult.h"
 #include "Util/factory.h"
+#include "Data/tlayouts.h"
 
 /**
  * A model class to define the type of exercice the user is about to do
@@ -50,7 +51,6 @@ private:
     QString availableLetters_;
     EXERCICE_TYPE exerciceType_ = LEARNING;
     
-    QString getAllLetters() const;
 };
 
 #endif /* TEXERCICE_H */

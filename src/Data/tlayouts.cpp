@@ -12,6 +12,7 @@
 
 #include "tlayouts.h"
 
+QString TLayouts::allAvailableLetters_("");
 TLayouts TLayouts::instance("fr");
 
 void TLayouts::initLetters(QString lang) {
@@ -21,9 +22,9 @@ void TLayouts::initLetters(QString lang) {
         qDebug() << "No correct config found";
     } else {
         lettersList_ = QStringList(); // reset the lettersList
+        TLayouts::allAvailableLetters_ = "";
         layoutLines_ = decomposeLayout(config);
     }
-
 }
 
 QList<QStringList> *TLayouts::decomposeLayout(QString layout) {
@@ -34,7 +35,10 @@ QList<QStringList> *TLayouts::decomposeLayout(QString layout) {
     } else {
         QList<QStringList> *parts = new QList<QStringList>();
         for (auto elem : lines) {
-            parts->append(elem.trimmed().split(" ", QString::SkipEmptyParts));
+            //Add the whole line to the 
+            QStringList splitedLine = elem.trimmed().split(" ", QString::SkipEmptyParts);
+            parts->append(splitedLine);
+            TLayouts::allAvailableLetters_ += splitedLine.replaceInStrings(QRegExp("^\\d"), "").join("");
         }
         return parts;
     }
@@ -74,7 +78,7 @@ QStringList TLayouts::getLetterList() {
                 wordLeft = j < wordLeft.size() ? QString(wordLeft[j]) : "";
                 wordRight = j < wordRight.size() ? QString(wordRight[j]) : "";
                 if (!(wordLeft + wordRight).isEmpty()) {
-                    lettersList_ << wordLeft+ wordRight;
+                    lettersList_ << wordLeft + wordRight;
                 }
             }
         }

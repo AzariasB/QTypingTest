@@ -50,9 +50,15 @@ public:
         return QStringList(getLetterList().mid(0, length)).join("");
     }
 
+    static QString getAllAvailableLetters() {
+        return TLayouts::allAvailableLetters_;
+    }
+
     virtual ~TLayouts() {
     };
 private:
+
+    static QString allAvailableLetters_;
 
     static TLayouts instance;
 

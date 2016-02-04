@@ -16,7 +16,7 @@
 TExercice::TExercice(EXERCICE_TYPE exType, bool allLetters) :
 allLetters_(allLetters),
 exerciceType_(exType) {
-    this->availableLetters_ = this->allLetters_ ? getAllLetters() : "";
+    this->availableLetters_ = this->allLetters_ ? TLayouts::getAllAvailableLetters() : "";
 }
 
 TExercice::TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters) :
@@ -37,17 +37,12 @@ QString TExercice::buildExercice() const {
         case LEARNING:
             return factory::generateLearning(learningLetters_, availableLetters_);
         case PRACTICING:
-            return factory::generatePractice(getAllLetters());
+            return factory::generatePractice(TLayouts::getAllAvailableLetters());
         case PRACTICING_RACE://TODO : change the number of words to generate
-            return factory::generatePractice(getAllLetters());
+            return factory::generatePractice(TLayouts::getAllAvailableLetters());
         case PRACTICING_TEXT:
             return factory::generateText(40);//Generate a text of 40 words
         default:
             return factory::generateLearning(availableLetters_, availableLetters_);
     }
-}
-
-QString TExercice::getAllLetters() const {
-    //TODO : create a 'global' function to give ALL the letters (layout)
-    return QString("abcdefghijklmnopqrstuvwxyz");
 }
