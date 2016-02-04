@@ -1,4 +1,7 @@
-
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 /* 
  * File:   tlayouts.cpp
  * Author: boutina
@@ -6,9 +9,6 @@
  * Created on 17 décembre 2015, 11:35
  */
 
-
-#include <qt5/QtCore/qstringlist.h>
-#include <qt5/QtCore/qlogging.h>
 
 #include "tlayouts.h"
 
@@ -62,18 +62,21 @@ QString TLayouts::findCorrespondingLayout(QString config, QString lang) {
 
 QStringList TLayouts::getLetterList() {
     if (lettersList_.isEmpty()) {
-        //Adding the 'basics' letters
-        for (int i = 0; i < 21; i++) {
-            int *elem = listOrder_[i];
-            QStringList curLine = layoutLines_->at(elem[0]);
-            lettersList_ << QString(curLine[elem[1]][1]) + curLine[elem[2]][1];
-        }
-        
-        //Adding the uppercase/shifted letters
-        for (int i = 0; i < 21; i++) {
-            int *elem = listOrder_[i];
-            QStringList curLine = layoutLines_->at(elem[0]);
-            lettersList_ << QString(curLine[elem[1]][2]) + curLine[elem[2]][2];
+        //Adding the 'basics' letters (if any)
+        //then the 'shifted' letters (if any)
+        //and finally the 'altgred' letters (if any)
+        for (int j = 1; j <= 3; j++) {
+            for (int i = 0; i < 21; i++) {
+                int *elem = listOrder_[i];
+                QStringList curLine = layoutLines_->at(elem[0]);
+                QString wordLeft = curLine[elem[1]];
+                QString wordRight = curLine[elem[2]];
+                wordLeft = j < wordLeft.size() ? QString(wordLeft[j]) : "";
+                wordRight = j < wordRight.size() ? QString(wordRight[j]) : "";
+                if (!(wordLeft + wordRight).isEmpty()) {
+                    lettersList_ << wordLeft+ wordRight;
+                }
+            }
         }
     }
     return lettersList_;

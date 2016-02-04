@@ -39,7 +39,7 @@ void LearnPage::createPractice() {
 
     //Create a button for each existing string and add it to the layout
     for (auto it = l.begin(); it != l.end(); ++it, index++) {
-        QPushButton *button = new QPushButton(*it);
+        QPushButton *button = new QPushButton((*it).replace('&',"&&"));
 
         connect(button, SIGNAL(clicked()), this, SLOT(lauchExercice()));
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
