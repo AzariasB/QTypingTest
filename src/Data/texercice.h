@@ -29,7 +29,7 @@ public:
         LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT
     };
 
-    TExercice(EXERCICE_TYPE exType, QStringList mainLetter, QStringList availableLetters);
+    TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
     TExercice(EXERCICE_TYPE exType, bool allLetters);
     TExercice(const TExercice& orig);
 
@@ -39,18 +39,18 @@ public:
 
     };
 
-    QStringList learningLetters() const{
+    QString learningLetters() const{
         return learningLetters_;
     }
     
     
 private:
     bool allLetters_ = false;
-    QStringList learningLetters_;
-    QStringList availableLetters_;
+    QString learningLetters_;
+    QString availableLetters_;
     EXERCICE_TYPE exerciceType_ = LEARNING;
     
-    QStringList getAllLetters() const;
+    QString getAllLetters() const;
 };
 
 #endif /* TEXERCICE_H */

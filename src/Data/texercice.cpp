@@ -16,10 +16,10 @@
 TExercice::TExercice(EXERCICE_TYPE exType, bool allLetters) :
 allLetters_(allLetters),
 exerciceType_(exType) {
-    this->availableLetters_ = this->allLetters_ ? getAllLetters() : QStringList();
+    this->availableLetters_ = this->allLetters_ ? getAllLetters() : "";
 }
 
-TExercice::TExercice(EXERCICE_TYPE exType, QStringList mainLetter, QStringList availableLetters) :
+TExercice::TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters) :
 learningLetters_(mainLetter),
 availableLetters_(availableLetters),
 exerciceType_(exType) {
@@ -47,6 +47,7 @@ QString TExercice::buildExercice() const {
     }
 }
 
-QStringList TExercice::getAllLetters() const {
-    return QStringList("abcdefghijklmnopqrstuvwxyz");
+QString TExercice::getAllLetters() const {
+    //TODO : create a 'global' function to give ALL the letters (layout)
+    return QString("abcdefghijklmnopqrstuvwxyz");
 }

@@ -19,7 +19,7 @@
 #include "../../src/Util/filehelper.h"
 
 
-const QStringList allLetters = QStringList("abcdefghijklmnopqrstuvwxyz");
+const QString allLetters = QString("abcdefghijklmnopqrstuvwxyz");
 
 class TestUtils : public QObject {
     Q_OBJECT
@@ -69,7 +69,7 @@ void TestUtils::testNotSame() {
 void TestUtils::testPracticeGeneration() {
     QString words = factory::generatePractice(allLetters);
     QString randW = factory::generatePractice(allLetters, false);
-    QString empt = factory::generatePractice(QStringList());
+    QString empt = factory::generatePractice("");
 
     QVERIFY(words.size() > 0);
     qDebug() << "Must contain only real words";

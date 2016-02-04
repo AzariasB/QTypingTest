@@ -42,13 +42,12 @@ public:
 
     QStringList getLetterList();
 
-    QStringList getLettersAt(int index) {
-        //TODO : turn this into a simple QString !!! (Azarias)
-        return getLetterList()[index].split("", QString::SkipEmptyParts);
+    QString getLettersAt(int index) {
+        return getLetterList()[index];
     }
 
-    QStringList getAllLettersTo(int length) {
-        return getLetterList().mid(0, length);
+    QString getAllLettersTo(int length) {
+        return QStringList(getLetterList().mid(0, length)).join("");
     }
 
     virtual ~TLayouts() {

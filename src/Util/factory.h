@@ -52,7 +52,7 @@ namespace factory {
      * @param allLetters all the available letters for the exercice
      * @return a random-generated list of words
      */
-    QString generateLearning(QStringList mainLetter, QStringList allLetters);
+    QString generateLearning(QString mainLetter, QString allLetters);
 
 
     /**
@@ -70,7 +70,7 @@ namespace factory {
      * @param onlyRealWords if it must generates only words existing in a language, or if it can generate random words
      * @return the generated text
      */
-    QString generatePractice(QStringList letters,bool onlyRealWords = true);
+    QString generatePractice(QString letters,bool onlyRealWords = true);
     
     
     /**
@@ -80,7 +80,7 @@ namespace factory {
      * @param length length of the result string
      * @return a string with random words proposed in the given string list in parameter
      */
-    QString generateFromLetters(QStringList letterList, int length = 50);
+    QString generateFromLetters(QString letterList, int length = 50);
     
     /**
      * Generate existing words with the available letters
@@ -105,13 +105,22 @@ namespace factory {
     QStringList findExistingWords(QString authorizedLetters,QString filename,QString mustContain="");
 
     /**
-     * Select one random element in the availables elements of the list
+     * Select one random char in the availables elements of the String
      * Helper to create exercices
      * 
-     * @param listString a list of elements
-     * @return a random-selected element in the list
+     * @param string
+     * @return a random-selected char (casted to a QString) in the string
      */
-    QString selectRandomElement(QStringList listString);
+    QString selectRandomChar(QString listString);
+    
+    /**
+     * Select a random element in the list of String
+     * 
+     * 
+     * @param strings the list of strings
+     * @return a element selected randomyl in the list
+     */
+    QString selectRandomString(QStringList strings);
     
     /**
      * Helper to find the closest space in a list of string to

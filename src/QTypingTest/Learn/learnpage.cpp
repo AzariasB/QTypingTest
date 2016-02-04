@@ -79,8 +79,8 @@ void LearnPage::lauchExercice() {
             QMessageBox::critical(this, "Exercice already running", "There is alerady a running exercice");
         } else {
             currentProgression_ = lastLetterIndex;
-            QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
-            QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
+            QString lastLetter = practice_.getLettersAt(lastLetterIndex);
+            QString allLetters = practice_.getAllLettersTo(lastLetterIndex + 1);
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
 
 
