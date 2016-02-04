@@ -10,8 +10,10 @@ using namespace std;
 #include <time.h>
 #include <iostream>
 
+//#include "Data/texercice.h"
 #include "Data/tuser.h"
 #include "Data/tresult.h"
+
 
 class TStatsWPM: public QWidget
 {
@@ -22,6 +24,8 @@ protected:
     void paintEvent(QPaintEvent *e);
     void createRandomXPoints();
     void createRandomYPoints();
+    //void implementQHash(date_exercice_ date, TResult result);
+//    resizeEvent();
 
 private:
     TUser *user_;
@@ -30,8 +34,18 @@ private:
     QHash<date_exercice_*, TResult*> historyresults_; //a temporary array
     int xpoints_[]; //tmp array
     int ypoints_[]; // tmp array
-    date_exercice_ arraydate_[];
-    TResult arrayresult_[];
+
+    TResult myresult_; //for QHash
+    //TExercice myexercice_; //for date_exercice
+    int year = 2016;
+    int month = 2;
+    int day = 3;
+    QDate date_;
+    QDateTime mydatetime_; //for date_exercice
+    date_exercice_ mydateexercice_;
+
+    //date_exercice_ arraydate_[];
+    //TResult arrayresult_[];
 };
 
 #endif // TSTATSWPM_H

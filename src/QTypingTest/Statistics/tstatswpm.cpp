@@ -17,6 +17,21 @@ TStatsWPM::TStatsWPM(TUser *user, QWidget *parent):
 
     //    this->mean_ = mean;
 
+    //// Code for TEST ////
+//    int year = 2016;
+//    int month = 2;
+//    int day = 3;
+
+//    this->date_.setDate(year,month,day);
+//    this->mydatetime_.setDate(date_);
+
+//    this->myexercice_.buildExercice();
+
+//    this->mydateexercice_.dateResult = mydatetime_ ;
+//    this->mydateexercice_.exercice = myexercice_;
+
+    //// End code for TEST ////
+
 }
 
 //todo getpoints
@@ -52,10 +67,17 @@ void TStatsWPM::createRandomYPoints(){
     //cout << "ypoints_[19] = " << ypoints_[19] << endl;
 }
 
+//void TStatsWPM::implementQHash(){
+
+//}
+
 void TStatsWPM::paintEvent(QPaintEvent *e){
     //create and display all polygone in a QPinater widget
 
-    createRandomXPoints();
+//    cout << "mydateexercice_.dateResult = " << this->mydateexercice_.dateResult << endl;
+//    cout << "mydateexercice_.exercice = " << this->mydateexercice_.exercice << endl;
+
+    //createRandomXPoints();
     createRandomYPoints();
 
     QPainter p;
