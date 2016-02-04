@@ -27,7 +27,7 @@ void TLayouts::initLetters(QString lang) {
 }
 
 QList<QStringList> *TLayouts::decomposeLayout(QString layout) {
-    QStringList lines = layout.split("$$", QString::SkipEmptyParts);
+    QStringList lines = layout.split("\n", QString::SkipEmptyParts);
     if (lines.size() != 4) {
         qDebug() << "Incorrect config, the keyboard must have 4 lines";
         return new QList<QStringList>();
@@ -42,7 +42,7 @@ QList<QStringList> *TLayouts::decomposeLayout(QString layout) {
 }
 
 QString TLayouts::findCorrespondingLayout(QString config, QString lang) {
-    QRegExp decomposition("\\$\\$(\\n\\n|$)");
+    QRegExp decomposition("(\\n\\n|$)");
     //Split all the possible configurations
     QStringList configs = config.split(decomposition, QString::SkipEmptyParts);
 
