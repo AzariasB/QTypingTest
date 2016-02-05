@@ -1,7 +1,10 @@
 #include <QString>
 #include <QtTest>
 #include <QCoreApplication>
+#include <QEvent>
+
 #include "Data/tuser.h"
+#include "Data/texercice.h"
 #include "QTypingTest/Statistics/tstatswpm.h"
 
 class TestStatsTest : public QObject
