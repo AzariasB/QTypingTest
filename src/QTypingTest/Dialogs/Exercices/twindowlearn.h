@@ -21,6 +21,7 @@
 class TWindowLearn : public TWindowTest {
     Q_OBJECT
 public:
+    TWindowLearn(QString content,QWidget *parent = 0);
     TWindowLearn(TExercice *ex, QWidget *parent = 0);
     TWindowLearn(TExercice *ex, int numberOfPages, QWidget *parent = 0);
 
@@ -29,7 +30,7 @@ public:
 
 protected:
     
-    void updateClock(){
+    void updateClock() override{
         topToolbar_.incrementTimer(1);
     };
     

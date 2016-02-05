@@ -18,6 +18,12 @@ instructions_(new TPresentation("fr")){
     
 }
 
+TWindowLearn::TWindowLearn(QString content,QWidget* parent):
+TWindowTest(content,1,parent){
+
+}
+
+
 
 TWindowLearn::TWindowLearn(TExercice* ex, int numberOfPages, QWidget* parent):
 TWindowTest(ex->buildExercice(),numberOfPages,parent){

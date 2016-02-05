@@ -38,6 +38,8 @@ QList<QStringList> *TLayouts::decomposeLayout(QString layout) {
             //Add the whole line to the 
             QStringList splitedLine = elem.trimmed().split(" ", QString::SkipEmptyParts);
             parts->append(splitedLine);
+            //Remove the first number of each string of the list (since it's not a char of the keyboard)
+            //And join all the rest
             TLayouts::allAvailableLetters_ += splitedLine.replaceInStrings(QRegExp("^\\d"), "").join("");
         }
         return parts;

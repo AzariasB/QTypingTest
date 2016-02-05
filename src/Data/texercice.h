@@ -50,7 +50,6 @@ private:
     QString learningLetters_;
     QString availableLetters_;
     EXERCICE_TYPE exerciceType_ = LEARNING;
-    
 };
 
 #endif /* TEXERCICE_H */

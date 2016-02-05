@@ -25,7 +25,7 @@ private slots:
 void TestLearnDialog::testOpen() {
     //Test if the dialogs shows up with text
     QWidget *w = new QWidget();
-    TWindowLearn learn("Now you have to type this little text which is a test",1,w);
+    TWindowLearn learn("Now you have to type this little text which is a test",w);
     learn.show();
     connect(&learn,&TWindowLearn::endOfExercice,this, [&learn,this](TResult *res, QTime time){
         qDebug() << "End of the exerice";
