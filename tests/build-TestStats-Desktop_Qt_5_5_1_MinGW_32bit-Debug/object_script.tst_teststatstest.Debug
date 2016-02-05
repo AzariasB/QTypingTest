@@ -1,0 +1,12 @@
+INPUT(
+./.obj\tstatswpm.o
+./.obj\tprogression.o
+./.obj\tresult.o
+./.obj\texercice.o
+./.obj\tuser.o
+./.obj\tstats.o
+./.obj\htmlhelper.o
+./.obj\factory.o
+./.obj\filehelper.o
+./.obj\tst_teststatstest.o
+);

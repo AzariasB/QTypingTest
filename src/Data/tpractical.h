@@ -13,6 +13,8 @@
 #ifndef TPRACTICAL_H
 #define TPRACTICAL_H
 
+#include <QString>
+
 class TPractical {
 public:
     TPractical();

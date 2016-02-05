@@ -21,18 +21,18 @@
 class TWindowLearn : public TWindowTest {
     Q_OBJECT
 public:
-    TWindowLearn(QString content,QWidget *parent = 0);
     TWindowLearn(TExercice *ex, QWidget *parent = 0);
     TWindowLearn(TExercice *ex, int numberOfPages, QWidget *parent = 0);
 
     virtual ~TWindowLearn() {
     };
-
+    
 protected:
     
     void updateClock() override{
         topToolbar_.incrementTimer(1);
     };
+   
     
 
 private:
