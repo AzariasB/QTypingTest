@@ -24,12 +24,23 @@ positions_(new TFingerPosition()) {
 TPresentation::TPresentation(QString lang, QString charsToCopy, QWidget* parent) :
 QWidget(parent),
 keyboard_(new TVirtualKeyboard(lang)),
-positions_(new TFingerPosition()) {
+positions_(new TFingerPosition()),
+toPress_(charsToCopy) {
     setupWidgets();
-    if (!charsToCopy.isEmpty()) {
-        for (auto elem : charsToCopy) {
-            keyboard_->highlightKey(elem);
+    nextCharToCopy();
+
+}
+
+void TPresentation::nextCharToCopy() {
+    if (!toPress_.isEmpty()) {
+        currentExample_ = toPress_[0];
+        TVirtualKey* hilighted = keyboard_->highlightKey(currentExample_);
+        if (hilighted) {
+            positions_->enableFinger(hilighted->associatedFinger());
+            toPress_ = toPress_.remove(0,1);
         }
+    } else {
+        emit allCopied();
     }
 }
 
@@ -41,15 +52,28 @@ void TPresentation::setupWidgets() {
 }
 
 void TPresentation::keyPressEvent(QKeyEvent *ev) {
-    TVirtualKey *updated = keyboard_->updateKeyboard(ev);
-    if (updated) {
-        positions_->enableFinger(updated->associatedFinger());
+    if (currentExample_.isNull()) {
+        TVirtualKey *updated = keyboard_->updateKeyboard(ev);
+        if (updated) {
+            positions_->enableFinger(updated->associatedFinger());
+        }
+    } else {
+        keyboard_->updateKeyboard(ev, currentExample_);
     }
 }
 
 void TPresentation::keyReleaseEvent(QKeyEvent *ev) {
-    TVirtualKey *updated = keyboard_->updateKeyboard(ev);
-    if (updated) {
-        positions_->disableFinger(updated->associatedFinger());
+    
+    if (currentExample_.isNull()) {
+        TVirtualKey *updated = keyboard_->updateKeyboard(ev);
+        if (updated) {
+            positions_->disableFinger(updated->associatedFinger());
+        }
+    } else {
+        TVirtualKey *rightKey = keyboard_->updateKeyboard(ev,currentExample_);
+        if(rightKey){
+            positions_->disableFinger(rightKey->associatedFinger());
+            nextCharToCopy();
+        }
     }
 }

@@ -50,7 +50,7 @@ public:
      * @param ev the key event
      * @return the virtualkey corresponding to the event
      */
-    TVirtualKey *updateKeyboard(QKeyEvent *ev, bool itsWrong = false);
+    TVirtualKey *updateKeyboard(QKeyEvent *ev, QChar expected = '\0');
     
     
     TVirtualKey *highlightKey(QChar keyChar);

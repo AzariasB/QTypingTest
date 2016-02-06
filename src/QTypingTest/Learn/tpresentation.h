@@ -23,11 +23,11 @@
 class TPresentation : public QWidget {
     Q_OBJECT
 public:
-    
+
     TPresentation(QString lang, QWidget *parent = 0);
 
-    TPresentation(QString lang, QString charsToCopy,QWidget *parent = 0);
-    
+    TPresentation(QString lang, QString charsToCopy, QWidget *parent = 0);
+
     virtual ~TPresentation() {
 
     }
@@ -40,6 +40,9 @@ public:
         return positions_;
     }
 
+signals:
+    void allCopied();
+
 protected:
 
     void keyPressEvent(QKeyEvent *ev);
@@ -51,12 +54,15 @@ protected:
 private:
     TVirtualKeyboard *keyboard_;
     TFingerPosition *positions_;
-    
+
     QString toPress_ = "";
-    
-    
+    QChar currentExample_ = '\0';
+
+    void nextCharToCopy();
+
+
     void setupWidgets();
-    
+
 };
 
 #endif /* TPRESENTATION_H */
