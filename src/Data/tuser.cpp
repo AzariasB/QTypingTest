@@ -10,11 +10,17 @@
 
 TUser *TUser::currentUser_ = nullptr;
 
-
-TUser::TUser(QString pseudo):
+TUser::TUser(QString pseudo) :
 pseudo_(pseudo),
 progress_(new TProgression()),
-statistics_(TStats()){
+statistics_(TStats()) {
+}
+
+TUser::TUser(const TUser &orig) :
+pseudo_(orig.pseudo_),
+progress_(orig.progress_),
+statistics_(orig.statistics_),
+practiceHistory_(orig.practiceHistory_) {
 }
 
 QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
@@ -28,7 +34,6 @@ QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
 void TUser::oneMoreMistake(const QChar& mistaken) {
     this->statistics_[mistaken]++;
 }
-
 
 TUser::~TUser() {
 

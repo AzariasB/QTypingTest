@@ -28,6 +28,14 @@ extern const QString STYLE_EXT;
 namespace file{
     
     /**
+     * Helper to easily have the path
+     * to an image
+     * 
+     * @param imageName the name of the image
+     * @return the relative path (from the project root) to the image
+     */
+    QString getImagePath(QString imageName);
+    /**
      * Open and read all the content of a file
      * returns an empty string if the file could not be
      * open

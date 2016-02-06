@@ -29,7 +29,6 @@ void LearnPage::createPractice() {
     scrollWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QScrollArea *scroll = new QScrollArea();
     scrollWidget->setMinimumSize(scroll->size());
-
     QStringList l = practice_.getLetterList();
 
     int col = 0,

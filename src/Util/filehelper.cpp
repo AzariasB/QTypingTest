@@ -13,6 +13,7 @@
 #include "filehelper.h"
 
 const QString WORDS_PATH = "words";
+const QString IMAGES_PATH = "images";
 const QString TEXT_PATH = "texts";
 const QString WORDS_EXT = ".txt";
 const QString STYLE_EXT = ".qss";
@@ -28,6 +29,10 @@ QString file::getPadlockIcon(bool open) {
 
 QString file::getStylesheet(QString stylesheetname) {
     return ETC_PATH + "/" + stylesheetname + STYLE_EXT;
+}
+
+QString file::getImagePath(QString imageName){
+    return ETC_PATH + "/" + IMAGES_PATH + "/" + imageName;
 }
 
 QString file::getTextPath(QString lang) {

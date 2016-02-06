@@ -15,7 +15,6 @@
 
 #include "tprogression.h"
 #include "texercice.h"
-#include "tlayouts.h"
 #include "tresult.h"
 #include "tstats.h"
 
@@ -27,6 +26,7 @@ struct date_exercice_ {
 class TUser {
 public:
     TUser(QString pseudo = "");
+    TUser(const TUser &origin);
     virtual ~TUser();
 
     QString getPseudo() const {
