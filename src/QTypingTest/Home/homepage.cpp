@@ -12,6 +12,8 @@
 
 
 
+#include <qt5/QtCore/qlogging.h>
+
 #include "homepage.h"
 
 HomePage::HomePage(QWidget* parent) :
@@ -81,10 +83,10 @@ void HomePage::updateUserDisplay() {
         userLine->addWidget(userButton,1);
         
         QPushButton *deleteUser = new QPushButton(QIcon(file::getImagePath("bin.png")),"");
+        connect(deleteUser,&QPushButton::clicked,this,[this,elem](){
+            this->deleteUser(elem);
+        });
         userLine->addWidget(deleteUser,0);
-        
-        QPushButton *editUser = new QPushButton(QIcon(file::getImagePath("pen.png")),"");
-        userLine->addWidget(editUser,0);
         
         usersList_->addLayout(userLine);
     }
@@ -96,10 +98,19 @@ void HomePage::clearLayout(QLayout* layout) {
         child = layout->takeAt(0);
         if(child->layout() != 0){
             clearLayout(child->layout());
-            delete child->layout();
         }else if (child->widget() != 0) {
             delete child->widget();
         }
         delete child;
+    }
+}
+
+void HomePage::deleteUser(TUser *user) {
+    int button = QMessageBox::warning(this,"Deleter user",
+                "Are you sure to delete this user ?",QMessageBox::Yes | QMessageBox::No);
+    if(button == QMessageBox::Yes){
+        users_.removeOne(user);
+        saveUsers();
+        updateUserDisplay();
     }
 }

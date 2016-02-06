@@ -22,6 +22,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QInputDialog>
+#include <QMessageBox>
 
 #include "Data/tuser.h"
 #include "Util/filehelper.h"
@@ -70,7 +71,14 @@ private:
     void setupWidgets();
     
     void clearLayout(QLayout *layout);
-
+    
+    /**
+     * Competely erase a user, in the list
+     * and in the files
+     * A message of confirmation is asked before
+     * to confirm the deletion
+     */
+    void deleteUser(TUser *user );
 };
 
 #endif /* HOMEPAGE_H */

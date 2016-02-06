@@ -12,6 +12,7 @@
 
 
 #include "thomepage.h"
+#include "Home/homepage.h"
 
 /**
  * Initiate the static vars
@@ -46,7 +47,7 @@ void THomePage::connectEvents() {
     button_stack sHome = {
         ui.button_home,
         ui.page_home,
-        nullptr //TODO : create homepage
+        new HomePage()
     };
     button_stack sLearn = {
         ui.button_learn,

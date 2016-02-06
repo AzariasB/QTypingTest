@@ -65,6 +65,7 @@ SOURCES += src/main.cpp \
         src/QTypingTest/Learn/tvirtualkeyboard.cpp \
         src/QTypingTest/Practice/practicepage.cpp \
         src/QTypingTest/Games/gamepage.cpp \
+        src/QTypingTest/Home/homepage.cpp \
         #------------       
         #Util class/functions
         #------------      
@@ -102,6 +103,7 @@ HEADERS +=  \
             src/QTypingTest/Learn/tvirtualkeyboard.h \
             src/QTypingTest/Practice/practicepage.h \
             src/QTypingTest/Games/gamepage.h \
+            src/QTypingTest/Home/homepage.h \
             #------------
             #Util functions/classes
             #------------

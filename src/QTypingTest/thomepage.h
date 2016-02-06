@@ -22,6 +22,7 @@
 #include "Learn/learnpage.h"
 #include "Practice/practicepage.h"
 #include "Games/gamepage.h"
+#include "Home/homepage.h"
 
 #include "Data/tlayouts.h"
 #include "ui/ui_homepage.h"
