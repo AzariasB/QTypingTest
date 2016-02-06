@@ -8,6 +8,8 @@ QT              += designer uitools core gui
 CONFIG          += -std=c++11 debug
 QMAKE_CXXFLAGS  += -std=c++11
 
+QMAKE_CXX = ccache g++
+
 PRO_PATH=$$PWD
 
 INCLUDEPATH = $$PRO_PATH/src
