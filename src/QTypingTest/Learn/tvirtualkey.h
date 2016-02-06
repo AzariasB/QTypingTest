@@ -85,7 +85,14 @@ public slots:
     void right() {
         paintBackground(Qt::green);
     }
-
+    
+    /**
+     * 
+     */
+    void example(){
+        paintBackground(Qt::darkCyan);
+    }
+    
     /**
      * Reset the background color
      */

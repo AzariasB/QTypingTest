@@ -60,7 +60,6 @@ private:
 
     QList<int> activeFingers_;
     
-
     void initPoints();
 
     /**

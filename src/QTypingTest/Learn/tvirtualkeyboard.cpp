@@ -189,9 +189,9 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
     return line;
 }
 
-
-TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, bool itsFalse) {
+TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
     TVirtualKey *target = 0;
+    bool wrongKey = !expected.isNull();
     if (ev->key() == Key_Shift) {
         //TODO : is that working on other machines ?
         target = ev->nativeScanCode() == 62 ? rightShift_ : leftShift_;
@@ -201,17 +201,20 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, bool itsFalse) {
         QChar txt = ev->text()[0];
         if (keys_->contains(txt)) {
             target = keys_->value(txt);
+            wrongKey = !expected.isNull() && txt != expected;
         }
     }
     if (target) {
         if (ev->type() == QEvent::KeyPress) {
-            if (itsFalse) {
+            if (wrongKey) {
                 target->wrong();
+                return 0;
             } else {
                 target->right();
             }
         } else if (ev->type() == QEvent::KeyRelease) {
             target->reset();
+            if (wrongKey) return 0;
         }
     }
     return target;
@@ -220,7 +223,7 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, bool itsFalse) {
 TVirtualKey* TVirtualKeyboard::highlightKey(QChar keyChar) {
     if (keys_->contains(keyChar)) {
         TVirtualKey *target = keys_->value(keyChar);
-        target->right();
+        target->example();
         return target;
     } else {
         return 0;
