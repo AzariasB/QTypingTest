@@ -7,6 +7,7 @@ using namespace std;
 #include <QPainter>
 #include <QMouseEvent>
 #include <QEvent>
+#include <QHash>
 
 #include <stdlib.h>
 #include <time.h>

@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += widgets testlib
-
+QT       += core
 QT       -= gui
 
 CONFIG          += -std=c++11

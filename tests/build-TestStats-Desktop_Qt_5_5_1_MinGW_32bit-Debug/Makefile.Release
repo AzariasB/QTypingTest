@@ -389,9 +389,9 @@ compiler_moc_source_clean:
 		C:/Qt/5.5/mingw492_32/include/QtCore/QMetaEnum \
 		C:/Qt/5.5/mingw492_32/include/QtTest/qttestversion.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QCoreApplication \
+		C:/Qt/5.5/mingw492_32/include/QtCore/QHash \
 		../../src/Data/tuser.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QDateTime \
-		C:/Qt/5.5/mingw492_32/include/QtCore/QHash \
 		../../src/Data/tprogression.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QDataStream \
 		../../src/Data/texercice.h \
@@ -404,6 +404,12 @@ compiler_moc_source_clean:
 		../../src/Util/filehelper.h \
 		../../src/Data/tpractice.h \
 		../../src/Data/tstats.h \
+		../../src/QTypingTest/Statistics/tstatswpm.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/QPainter \
+		C:/Qt/5.5/mingw492_32/include/QtGui/qpainter.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/qtextoption.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/qpen.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/QMouseEvent \
 		../TestStats/tst_teststatstest.cpp
 	C:\Qt\5.5\mingw492_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.5/mingw492_32/mkspecs/win32-g++ -IC:/Users/Pierre/Documents/QTypingTestv1/tests/TestStats -IC:/Users/Pierre/Documents/QTypingTestv1/src -IC:/Qt/5.5/mingw492_32/include -IC:/Qt/5.5/mingw492_32/include/QtWidgets -IC:/Qt/5.5/mingw492_32/include/QtGui -IC:/Qt/5.5/mingw492_32/include/QtANGLE -IC:/Qt/5.5/mingw492_32/include/QtTest -IC:/Qt/5.5/mingw492_32/include/QtCore -I. ..\TestStats\tst_teststatstest.cpp -o .moc\tst_teststatstest.moc
 
@@ -528,12 +534,14 @@ compiler_clean: compiler_moc_source_clean
 		C:/Qt/5.5/mingw492_32/include/QtGui/qpainter.h \
 		C:/Qt/5.5/mingw492_32/include/QtGui/qtextoption.h \
 		C:/Qt/5.5/mingw492_32/include/QtGui/qpen.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/QMouseEvent \
+		C:/Qt/5.5/mingw492_32/include/QtCore/QEvent \
+		C:/Qt/5.5/mingw492_32/include/QtCore/QHash \
 		../../src/Data/tuser.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QString \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QDateTime \
 		C:/Qt/5.5/mingw492_32/include/QtCore/qdatetime.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QDebug \
-		C:/Qt/5.5/mingw492_32/include/QtCore/QHash \
 		../../src/Data/tprogression.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QDataStream \
 		../../src/Data/texercice.h \
@@ -1332,9 +1340,9 @@ compiler_clean: compiler_moc_source_clean
 		C:/Qt/5.5/mingw492_32/include/QtCore/QMetaEnum \
 		C:/Qt/5.5/mingw492_32/include/QtTest/qttestversion.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QCoreApplication \
+		C:/Qt/5.5/mingw492_32/include/QtCore/QHash \
 		../../src/Data/tuser.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QDateTime \
-		C:/Qt/5.5/mingw492_32/include/QtCore/QHash \
 		../../src/Data/tprogression.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/QDataStream \
 		../../src/Data/texercice.h \
@@ -1347,6 +1355,12 @@ compiler_clean: compiler_moc_source_clean
 		../../src/Util/filehelper.h \
 		../../src/Data/tpractice.h \
 		../../src/Data/tstats.h \
+		../../src/QTypingTest/Statistics/tstatswpm.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/QPainter \
+		C:/Qt/5.5/mingw492_32/include/QtGui/qpainter.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/qtextoption.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/qpen.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/QMouseEvent \
 		.moc/tst_teststatstest.moc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o .obj\tst_teststatstest.o ..\TestStats\tst_teststatstest.cpp
 

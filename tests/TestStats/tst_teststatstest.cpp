@@ -2,6 +2,7 @@
 #include <QtTest>
 #include <QCoreApplication>
 #include <QEvent>
+#include <QHash>
 
 #include "Data/tuser.h"
 #include "Data/texercice.h"
