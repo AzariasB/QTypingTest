@@ -70,6 +70,8 @@ void PracticePage::startExercice(TWindowTest *exercice) {
         currentDialog_ = exercice;
         currentDialog_->show();
         connect(exercice, &TWindowTest::endOfExercice, this, &PracticePage::saveExerciceResult);
+        connect(exercice,SIGNAL(closed()), this, SLOT(resetExercice()));
+        
     }
 }
 
@@ -77,10 +79,12 @@ void PracticePage::saveExerciceResult(TResult* res, QTime time) {
     //Save result and time somewhere
     QMessageBox::information(currentDialog_, "Exercice finished", res->getResume() + 
         "<br/> Realized in :" + time.toString("mm:ss"));
-    if (currentDialog_ != nullptr) {
-        currentDialog_->close();
+    resetExercice();
+}
+
+void PracticePage::resetExercice() {
+    if(currentDialog_){
         currentDialog_->disconnect();
         currentDialog_ = nullptr;
     }
-    
 }

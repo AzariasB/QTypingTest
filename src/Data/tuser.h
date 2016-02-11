@@ -40,15 +40,15 @@ public:
     inline QHash<date_exercice_*, TResult*> getPracticeHistory() const {
         return practiceHistory_;
     }
-    
-    inline TProgression* getProgression() const{
+
+    inline TProgression* getProgression() const {
         return progress_;
     }
-    
-    inline const TStats &getStatistics() const{
+
+    inline const TStats &getStatistics() const {
         return statistics_;
     }
-    
+
     void oneMoreMistake(const QChar &mistaken);
 
     /**
@@ -61,15 +61,18 @@ public:
      * @return the time when this result was saved
      */
     QDateTime addResult(TExercice *exTyp, TResult *exRes);
-    
-    static TUser *currentUser(){
+
+    static TUser *currentUser() {
         return currentUser_;
     };
-    
-    static void setCurrentUser(TUser *nwUser){
+
+    static void setCurrentUser(TUser *nwUser) {
         currentUser_ = nwUser;
     }
-    
+
+signals:
+    void userChanged(TUser *nwUser);
+
 private:
     QString pseudo_;
     TProgression *progress_;
@@ -85,7 +88,7 @@ QDataStream &operator<<(QDataStream& out, const TUser& user);
 
 QDataStream &operator>>(QDataStream& in, TUser &user);
 
-inline bool operator==(const TUser& user1,const TUser& user2) {
+inline bool operator==(const TUser& user1, const TUser& user2) {
     // This means pseuo are UNIQUES !
     return user1.getPseudo() == user2.getPseudo();
 }
