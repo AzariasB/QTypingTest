@@ -82,6 +82,7 @@ SOURCES += src/main.cpp \
         src/Data/tlayouts.cpp \
         src/Data/tprogression.cpp \
         src/Data/tuser.cpp \
+        src/Data/tusermanager.cpp \
         src/Data/tstats.cpp 
 
 #------------
@@ -120,4 +121,5 @@ HEADERS +=  \
             src/Data/tprogression.h \
             src/Data/tlayouts.h \
             src/Data/tuser.h \
+            src/Data/tusermanager.h \
             src/Data/tstats.h 

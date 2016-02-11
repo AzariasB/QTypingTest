@@ -24,7 +24,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 
-#include "Data/tuser.h"
+#include "Data/tusermanager.h"
 #include "Util/filehelper.h"
 
 class HomePage : public QWidget {

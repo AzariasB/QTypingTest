@@ -9,6 +9,7 @@ SRC = $$PWD/../../src/
 INCLUDEPATH += $$SRC
 
 HEADERS = $$SRC/QTypingTest/Home/homepage.h \
+          $$SRC/Data/tusermanager.h \
           $$SRC/Data/tuser.h \
           $$SRC/Data/tprogression.h \
           $$SRC/Data/texercice.h \
@@ -25,6 +26,7 @@ SOURCES = $$SRC/QTypingTest/Home/homepage.cpp \
           $$SRC/Data/texercice.cpp \
           $$SRC/Data/tresult.cpp \
           $$SRC/Data/tstats.cpp \
+          $$SRC/Data/tusermanager.cpp \
           $$SRC/Data/tuser.cpp \
           $$SRC/Data/tlayouts.cpp \
           $$SRC/Util/factory.cpp \

@@ -11,19 +11,22 @@
 
 
 
+#include <qt5/QtCore/qvector.h>
+
 #include "thomepage.h"
-#include "Home/homepage.h"
 
 /**
  * Initiate the static vars
  */
 
 THomePage::THomePage(QWidget *parent) :
-QMainWindow(parent) {
-    
+QMainWindow(parent),
+pagesButtons_(QVector<button_stack>()) {
+
     //For the test : create a new user
-    TUser *timmy = new TUser("timmy");
-    TUser::setCurrentUser(timmy);
+    //    TUser *timmy = new TUser("timmy");
+    //    TUserManager& manager = TUserManager::getInstance();
+    //    manager.setCurrentUser(timmy);
 
     ui.setupUi(this);
     connectEvents();
@@ -35,14 +38,6 @@ THomePage::~THomePage() {
 
 void THomePage::connectEvents() {
 
-    struct button_stack {
-        QPushButton *triggerer;
-        QWidget *parent;
-        QWidget *child;
-    };
-
-    QVector<button_stack> pagesButton;
-
 
     button_stack sHome = {
         ui.button_home,
@@ -52,7 +47,7 @@ void THomePage::connectEvents() {
     button_stack sLearn = {
         ui.button_learn,
         ui.page_learn,
-        new LearnPage() 
+        new LearnPage()
     };
     button_stack sGames = {
         ui.button_games,
@@ -71,21 +66,33 @@ void THomePage::connectEvents() {
     };
 
     //Adding the structures to the array
-    pagesButton << sHome << sLearn << sGames << sPractice << sStat;
+    pagesButtons_ << sHome << sLearn << sGames << sPractice << sStat;
 
     //Iterate over the buttons-page couple
-    for (auto it = pagesButton.begin(); it != pagesButton.end(); ++it) {
+    for (auto it = pagesButtons_.begin(); it != pagesButtons_.end(); ++it) {
         button_stack s = *it;
         //If child is not nullptr create a simple layout with parent and add the child into it
         if (s.child) {
             QHBoxLayout *l = new QHBoxLayout(s.parent);
             l->addWidget(s.child);
         }
+        if (!TUserManager::getInstance().getCurrentUser()) {
+            s.triggerer->setEnabled(false);
+        }
+
         connect(s.triggerer, &QPushButton::clicked, [ = ](){
             int i = ui.stack_main->indexOf(s.parent);
             ui.stack_main->setCurrentIndex(i);
         });
     }
+    connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this, SLOT(updateUI(TUser*)));
 
 }
 
+void THomePage::updateUI(TUser* nwUser) {
+    if (nwUser) {
+        for (auto it = pagesButtons_.begin(); it != pagesButtons_.end(); ++it) {
+            it->triggerer->setEnabled(true);
+        }
+    }
+}

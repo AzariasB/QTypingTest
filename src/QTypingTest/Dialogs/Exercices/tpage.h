@@ -24,7 +24,7 @@
 
 #include "Data/tresult.h"
 #include "Util/factory.h"
-#include "Data/tuser.h"
+#include "Data/tusermanager.h"
 
 #include "tlabel.h"
 

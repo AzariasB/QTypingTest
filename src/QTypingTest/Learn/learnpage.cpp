@@ -24,11 +24,18 @@ void LearnPage::createPractice() {
 
     QWidget *scrollWidget = new QWidget();
     QGridLayout *lay = new QGridLayout(scrollWidget);
-
+    createButtons(lay);
 
     scrollWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QScrollArea *scroll = new QScrollArea();
     scrollWidget->setMinimumSize(scroll->size());
+
+
+    scroll->setWidget(scrollWidget);
+    main->addWidget(scroll);
+}
+
+void LearnPage::createButtons(QGridLayout* lay) {
     QStringList l = practice_.getLetterList();
 
     int col = 0,
@@ -38,7 +45,7 @@ void LearnPage::createPractice() {
 
     //Create a button for each existing string and add it to the layout
     for (auto it = l.begin(); it != l.end(); ++it, index++) {
-        QPushButton *button = new QPushButton((*it).replace('&',"&&"));
+        QPushButton *button = new QPushButton((*it).replace('&', "&&"));
 
         connect(button, SIGNAL(clicked()), this, SLOT(lauchExercice()));
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -46,7 +53,13 @@ void LearnPage::createPractice() {
         button->setContentsMargins(1, 1, 1, 1);
         button->setFocusPolicy(Qt::NoFocus);
 
-        if (index > TUser::currentUser()->getProgression()->getLastExericeIndex()) {
+        TUser *currentUser = TUserManager::getInstance().getCurrentUser();
+        int lastUserExercice = -1;
+        if (currentUser) {
+            lastUserExercice = currentUser->getProgression()->getLastExericeIndex();
+        }
+
+        if (index > lastUserExercice) {
             button->setEnabled(false);
         }
 
@@ -61,9 +74,6 @@ void LearnPage::createPractice() {
         }
 
     }
-
-    scroll->setWidget(scrollWidget);
-    main->addWidget(scroll);
 }
 
 void LearnPage::lauchExercice() {
@@ -83,7 +93,7 @@ void LearnPage::lauchExercice() {
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
 
 
-            testWindow_ = new TWindowLearn(ex,this);
+            testWindow_ = new TWindowLearn(ex, this);
             //Connect only once the test dialog
             connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
             connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
@@ -100,7 +110,7 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
     if ((timeEx.msecsSinceStartOfDay() / 1000.f) > 120) {
         QMessageBox::information(this, "Too long", "You didn't made in time.");
     } else {
-        TProgression *curProgr = TUser::currentUser()->getProgression();
+        TProgression *curProgr = TUserManager::getInstance().getCurrentUser()->getProgression();
         if (currentProgression_ == curProgr->getLastExericeIndex())
             curProgr->avdvanceExIndex();
 
@@ -125,4 +135,22 @@ void LearnPage::resetExercice() {
     testWindow_->disconnect();
     testWindow_ = nullptr;
     currentProgression_ = -1;
+}
+
+void LearnPage::updateUserProgression(TUser* nwUser) {
+    if (nwUser) {
+        int lastUserExercice = nwUser->getProgression()->getLastExericeIndex();
+        for (int i = 0; i < lastUserExercice && i < learnButtons_.size(); i++) {
+            learnButtons_[i]->setEnabled(true);
+        }
+
+        for (int i = lastUserExercice; i < learnButtons_.size(); i++) {
+            learnButtons_[i]->setEnabled(false);
+        }
+    } else {
+        for (QPushButton *elem : learnButtons_) {
+            elem->setEnabled(false);
+        }
+
+    }
 }

@@ -8,7 +8,6 @@
 
 #include "tuser.h"
 
-TUser *TUser::currentUser_ = nullptr;
 
 TUser::TUser(QString pseudo) :
 pseudo_(pseudo),

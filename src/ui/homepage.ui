@@ -76,7 +76,7 @@
        </property>
        <item row="0" column="0">
         <widget class="QStackedWidget" name="stack_main">
-         <widget class="QWidget" name="page_learn">
+         <widget class="QWidget" name="page_home">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -90,7 +90,7 @@
            <bool>false</bool>
           </property>
          </widget>
-         <widget class="QWidget" name="page_home"/>
+         <widget class="QWidget" name="page_learn"/>
          <widget class="QWidget" name="page_practice"/>
          <widget class="QWidget" name="page_stats">
           <widget class="QLabel" name="label_3">

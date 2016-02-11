@@ -27,7 +27,7 @@
 #include "Data/tlayouts.h"
 #include "Data/texercice.h"
 #include "Data/tresult.h"
-#include "Data/tuser.h"
+#include "Data/tusermanager.h"
 #include "Util/filehelper.h"
 #include "Util/htmlhelper.h"
 #include "QTypingTest/Dialogs/Exercices/twindowlearn.h"
@@ -61,6 +61,8 @@ public slots:
      * dialog is closed to reset all the necessary values
      */
     void resetExercice();
+    
+    void updateUserProgression(TUser *nwUser);
 
 private:
     /**
@@ -68,6 +70,13 @@ private:
      * the layout
      */
     void createPractice();
+    
+    /**
+     * Creates the buttons
+     * of the learn page, based 
+     * on the actual layout
+     */
+    void createButtons(QGridLayout *lay);
     
 
     //Save the tpractice instead of instanciate it over and over

@@ -78,12 +78,13 @@ void HomePage::updateUserDisplay() {
     for (auto elem : users_) {
         QHBoxLayout *userLine = new QHBoxLayout();
         QPushButton *userButton = new QPushButton(elem->getPseudo());
-        if (TUser::currentUser() && elem == TUser::currentUser()) {
+        TUser *currentUser = TUserManager::getInstance().getCurrentUser();
+        if (currentUser && elem == currentUser){
             userButton->setEnabled(false);
         }
         
         connect(userButton, &QPushButton::clicked, this, [this, elem]() {
-            TUser::setCurrentUser(elem);
+            TUserManager::getInstance().setCurrentUser(elem);
             updateUserDisplay();
         });
         userLine->addWidget(userButton, 1);

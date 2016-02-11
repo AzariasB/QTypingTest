@@ -25,8 +25,14 @@
 #include "Home/homepage.h"
 
 #include "Data/tlayouts.h"
+#include "Data/tusermanager.h"
 #include "ui/ui_homepage.h"
-#include "Data/tuser.h"
+
+struct button_stack {
+    QPushButton *triggerer;
+    QWidget *parent;
+    QWidget *child;
+};
 
 class THomePage : public QMainWindow {
     Q_OBJECT
@@ -34,7 +40,9 @@ public:
     THomePage(QWidget *parent = 0);
     virtual ~THomePage();
 
-    
+public slots:
+    void updateUI(TUser *nwUser);
+
 private:
     /**
      *  Connect the basics event for the main window,,
@@ -43,7 +51,9 @@ private:
      */
     void connectEvents();
     Ui_MainWindow ui;
-    
+
+    QVector<button_stack> pagesButtons_;
+
 };
 
 #endif /* THOMEPAGE_H */

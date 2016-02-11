@@ -62,13 +62,6 @@ public:
      */
     QDateTime addResult(TExercice *exTyp, TResult *exRes);
 
-    static TUser *currentUser() {
-        return currentUser_;
-    };
-
-    static void setCurrentUser(TUser *nwUser) {
-        currentUser_ = nwUser;
-    }
 
 signals:
     void userChanged(TUser *nwUser);
@@ -80,7 +73,6 @@ private:
 
     QHash<date_exercice_*, TResult*> practiceHistory_;
 
-    static TUser *currentUser_;
 };
 
 
