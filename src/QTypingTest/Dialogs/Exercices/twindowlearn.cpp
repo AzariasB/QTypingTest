@@ -10,13 +10,12 @@
  * Created on 10 janvier 2016, 11:40
  */
 
-#include <qt5/QtWidgets/qwidget.h>
 
 #include "twindowlearn.h"
 
 TWindowLearn::TWindowLearn(TExercice* ex, QWidget* parent) :
 TWindowTest(ex->buildExercice(), parent),
-instructions_(new TPresentation("fr",ex->learningLetters())) {
+instructions_(new TPresentation("fr",ex->getLearningLetters())) {
     addInstructions();
 }
 

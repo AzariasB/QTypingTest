@@ -7,25 +7,25 @@
 
 #include "tprogression.h"
 
-// CHANGE HERE TO SET THE PROGRESSION TO SOMEHTING ELSE
-TProgression::TProgression(): lastExerciceIndex_(20) {
+TProgression::TProgression(): lastExerciceIndex_(0) {
     
 }
 
-TProgression::TProgression(const TProgression& orig) {
-    this->lastExerciceIndex_ = orig.getLastExericeIndex();
+TProgression::TProgression(const TProgression& orig):
+lastExerciceIndex_(orig.lastExerciceIndex_){
 }
 
 TProgression::~TProgression() {
 }
 
 QDataStream &operator<<(QDataStream &out,const TProgression &prog){
-    out << prog.getLastExericeIndex();
+    qint16 lastExIndex = prog.getLastExericeIndex();
+    out << lastExIndex;
     return out;
 }
 
 QDataStream &operator>>(QDataStream &in,TProgression &prog){
-    int lastExIndex;
+    qint16 lastExIndex;
     in >> lastExIndex;
     prog.setLastExerciceIndex(lastExIndex);
     return in;

@@ -12,6 +12,7 @@ HEADERs = $$SRC/Data/tuser.h \
     $$SRC/Data/tresult.h \
     $$SRC/Data/tprogression.h \
     $$SRC/Data/tstats.h \
+    $$SRC/Data/tlayouts.h \
     $$SRC/Util/factory.h \
     $$SRC/Util/htmlhelper.h \
     $$SRC/Util/filehelper.h \
@@ -21,6 +22,7 @@ SOURCES = $$SRC/Data/tuser.cpp \
     $$SRC/Data/tresult.cpp \
     $$SRC/Data/tprogression.cpp \
     $$SRC/Data/tstats.cpp \
+    $$SRC/Data/tlayouts.cpp \
     $$SRC/Util/factory.cpp \
     $$SRC/Util/htmlhelper.cpp \
     $$SRC/Util/filehelper.cpp \

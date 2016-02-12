@@ -12,6 +12,7 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QHash>
+#include <QDataStream>
 
 #include "tprogression.h"
 #include "texercice.h"
@@ -20,7 +21,7 @@
 
 struct date_exercice_ {
     QDateTime dateResult;
-    TExercice *exercice;
+    TExercice exercice;
 };
 
 class TUser {
@@ -37,16 +38,28 @@ public:
         this->pseudo_ = pseudo;
     }
 
-    inline QHash<date_exercice_*, TResult*> getPracticeHistory() const {
+    QHash<date_exercice_, TResult> getPracticeHistory() const {
         return practiceHistory_;
     }
 
-    inline TProgression* getProgression() const {
+    TProgression* getProgression() const {
         return progress_;
     }
 
-    inline const TStats &getStatistics() const {
+    const TStats &getStatistics() const {
         return statistics_;
+    }
+
+    void setProgression(TProgression *nwProgression) {
+        progress_ = nwProgression;
+    }
+
+    void setStatistics(const TStats& stats) {
+        statistics_ = stats;
+    }
+
+    void setPracticeHistory(QHash<date_exercice_, TResult> history) {
+        practiceHistory_ = history;
     }
 
     void oneMoreMistake(const QChar &mistaken);
@@ -71,20 +84,57 @@ private:
     TProgression *progress_;
     TStats statistics_;
 
-    QHash<date_exercice_*, TResult*> practiceHistory_;
+    QHash<date_exercice_, TResult> practiceHistory_;
 
 };
 
 
+QDataStream &operator>>(QDataStream& in, const date_exercice_& dateEx);
+
+/**
+ * Save the date_exercice_ structure
+ * 
+ * @param out the dataStream targer (where to write the data)
+ * @param dateEx the structur to be written in the dataStream
+ * @return teh modified datastream
+ */
+QDataStream &operator<<(QDataStream& out, const date_exercice_& dateEx);
+
+
+/**
+ * Write a user in the DataStream
+ * 
+ * @param out the dataStream target (where to write the data)
+ * @param user the user that is to be written in the dataStream
+ * @return the modified dataStream
+ */
 QDataStream &operator<<(QDataStream& out, const TUser& user);
 
+
+/**
+ * Takes back all the user's informations
+ * from the DataStream
+ * 
+ * @param in the dataStream containing the user
+ * @param user the user to initialize from the datastream
+ * @return the datastream
+ */
 QDataStream &operator>>(QDataStream& in, TUser &user);
 
 inline bool operator==(const TUser& user1, const TUser& user2) {
     // This means pseuo are UNIQUES !
-    return user1.getPseudo() == user2.getPseudo();
+    return user1.getPseudo() == user2.getPseudo() &&
+            user1.getProgression() == user1.getProgression();
 }
 
+inline bool operator==(const date_exercice_& date1, const date_exercice_& date2){
+    return date1.dateResult == date2.dateResult && 
+            date1.exercice == date2.exercice;
+}
+
+inline uint qHash(const date_exercice_ & key) {
+    return qHash(static_cast<qint64> (key.dateResult.currentMSecsSinceEpoch()));
+}
 
 #endif /* TUSER_H */
 

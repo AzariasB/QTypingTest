@@ -94,9 +94,10 @@ void LearnPage::lauchExercice() {
 
 
             testWindow_ = new TWindowLearn(ex, this);
+
+            connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
             //Connect only once the test dialog
             connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
-            connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
             testWindow_->show();
             testWindow_->focusWidget();
         }
@@ -125,6 +126,12 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
             learnButtons_.at(curProgr->getLastExericeIndex())->setEnabled(true);
         } else {
             //Finished the game !
+            QMessageBox::information(this,"End of the game","Congratulation, you completed the game.");
+            /*
+             You get a firework,
+             * you get a firework;
+             * EVERYBODY gets a fireworks !!!
+             */
         }
     }
 
@@ -132,19 +139,22 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
 }
 
 void LearnPage::resetExercice() {
-    testWindow_->disconnect();
-    testWindow_ = nullptr;
+    if (testWindow_) {
+        testWindow_->hide();
+        testWindow_->disconnect();
+        testWindow_ = nullptr;
+    }
     currentProgression_ = -1;
 }
 
 void LearnPage::updateUserProgression(TUser* nwUser) {
     if (nwUser) {
         int lastUserExercice = nwUser->getProgression()->getLastExericeIndex();
-        for (int i = 0; i < lastUserExercice && i < learnButtons_.size(); i++) {
+        for (int i = 0; i <= lastUserExercice && i < learnButtons_.size(); i++) {
             learnButtons_[i]->setEnabled(true);
         }
 
-        for (int i = lastUserExercice; i < learnButtons_.size(); i++) {
+        for (int i = lastUserExercice + 1; i < learnButtons_.size(); i++) {
             learnButtons_[i]->setEnabled(false);
         }
     } else {

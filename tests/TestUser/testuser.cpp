@@ -10,13 +10,11 @@
 #include <QDebug>
 #include <QVector>
 #include <QDataStream>
+#include <qt5/QtCore/qlogging.h>
 #include "../../src/Data/texercice.h"
 #include "../../src/Data/tresult.h"
 #include "../../src/Data/tuser.h"
 
-
-#include <QtTest/QtTest>
-#include <qt5/QtCore/qlogging.h>
 
 class TestTUser : public QObject {
     Q_OBJECT
@@ -98,7 +96,7 @@ void TestTUser::testDataStream() {
 }
 
 void TestTUser::testProgression() {
-    TExercice *ex = new TExercice(TExercice::LEARNING, QStringList("d"), QStringList("d"));
+    TExercice *ex = new TExercice(TExercice::LEARNING, "d", "d");
     TResult *res = new TResult();
 
     TUser t("Dupont");

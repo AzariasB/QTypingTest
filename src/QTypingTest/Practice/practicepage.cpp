@@ -84,6 +84,7 @@ void PracticePage::saveExerciceResult(TResult* res, QTime time) {
 
 void PracticePage::resetExercice() {
     if(currentDialog_){
+        currentDialog_->hide();
         currentDialog_->disconnect();
         currentDialog_ = nullptr;
     }

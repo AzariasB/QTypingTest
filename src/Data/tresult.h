@@ -6,7 +6,7 @@
  */
 
 #ifndef TRESULT_H
-#define	TRESULT_H
+#define TRESULT_H
 
 #include <QString>
 
@@ -38,7 +38,7 @@ public:
         return this->wrongWords_;
     };
 
-    int getWPM() {
+    int getWPM() const {
         return wordsPerMinute_;
     }
 
@@ -50,9 +50,14 @@ public:
         this->wrongKeystrokes_ = wrongKeysStrokes;
     }
 
+    void setWPM(int nwWPM){
+        wordsPerMinute_ = nwWPM;
+    }
+    
     void incrWrongKeyStrokes(int incrementation) {
         this->wrongKeystrokes_ += incrementation;
-    }
+    } 
+   
 
     void incrCorrectKeystrokes(int incrementation) {
         this->correctKeystrokes_ += incrementation;
@@ -66,7 +71,7 @@ public:
      * @return the resume of all the data
      */
     QString getResume();
-    
+
     int updateWPM(float deltaTime/*in minutes*/);
     int getTotalWords() const;
     int getTotalKeysStokres() const;
@@ -99,5 +104,9 @@ private:
     }
 };
 
-#endif	/* TRESULT_H */
+QDataStream &operator>>(QDataStream &in, TResult &result);
+
+QDataStream &operator<<(QDataStream &out, const TResult &result);
+
+#endif /* TRESULT_H */
 
