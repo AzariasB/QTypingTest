@@ -50,16 +50,22 @@ void PracticePage::setupLayout() {
 }
 
 void PracticePage::connectEvents() {
-    connect(&practiceAgainstTime_, &QPushButton::clicked, this, [=](){
-        this->startExercice(new TPracticeRace(60,this));
+    connect(&practiceAgainstTime_, &QPushButton::clicked, this, [ = ](){
+        this->startExercice(new TPracticeRace(60, this));
     });
-    connect(&practiceDefault_,&QPushButton::clicked,this,[=](){
+    connect(&practiceDefault_, &QPushButton::clicked, this, [ = ](){
         this->startExercice(new TPracticeBase(this));
     });
-    
-    connect(&practiceText_,&QPushButton::clicked,this,[=](){
+
+    connect(&practiceText_, &QPushButton::clicked, this, [ = ](){
         this->startExercice(new TPracticeText(this));
     });
+
+    connect(&practiceImprove_, &QPushButton::clicked, this, [ = ](){
+        this->startExercice(new TImprove(this));
+    });
+
+    connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(userChanges(TUser*)));
 }
 
 void PracticePage::startExercice(TWindowTest *exercice) {
@@ -70,22 +76,42 @@ void PracticePage::startExercice(TWindowTest *exercice) {
         currentDialog_ = exercice;
         currentDialog_->show();
         connect(exercice, &TWindowTest::endOfExercice, this, &PracticePage::saveExerciceResult);
-        connect(exercice,SIGNAL(closed()), this, SLOT(resetExercice()));
-        
+        connect(exercice, SIGNAL(closed()), this, SLOT(resetExercice()));
+
     }
 }
 
 void PracticePage::saveExerciceResult(TResult* res, QTime time) {
     //Save result and time somewhere
-    QMessageBox::information(currentDialog_, "Exercice finished", res->getResume() + 
-        "<br/> Realized in :" + time.toString("mm:ss"));
+    QMessageBox::information(currentDialog_, "Exercice finished", res->getResume() +
+            "<br/> Realized in :" + time.toString("mm:ss"));
     resetExercice();
 }
 
 void PracticePage::resetExercice() {
-    if(currentDialog_){
+    if (currentDialog_) {
         currentDialog_->hide();
         currentDialog_->disconnect();
         currentDialog_ = nullptr;
+    }
+}
+
+void PracticePage::updateImproveButton(TUser* nwUser) {
+    if (nwUser) {
+        TStats stats = nwUser->getStatistics();
+        if (stats.isEmpty()) {
+            practiceImprove_.setEnabled(false);
+        } else {
+            practiceImprove_.setEnabled(true);
+        }
+    } else {
+        practiceImprove_.setEnabled(false);
+    }
+}
+
+void PracticePage::userChanges(TUser* nwUser) {
+    if (nwUser) {
+        updateImproveButton(nwUser);
+//        connect(nwUser, SIGNAL(updatedStats(TUser*)), this, SLOT(updateImproveButton(TUser*)));
     }
 }

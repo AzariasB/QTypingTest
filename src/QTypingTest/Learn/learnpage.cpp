@@ -33,6 +33,8 @@ void LearnPage::createPractice() {
 
     scroll->setWidget(scrollWidget);
     main->addWidget(scroll);
+    
+    connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this,SLOT(updateUserProgression(TUser*)));
 }
 
 void LearnPage::createButtons(QGridLayout* lay) {

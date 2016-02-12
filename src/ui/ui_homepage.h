@@ -41,7 +41,7 @@ public:
     QAction *actionChange_user_2;
     QAction *actionHomepage;
     QWidget *centralwidget;
-    QWidget *verticalLayoutWidget;
+    QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *button_home;
@@ -67,7 +67,13 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(629, 464);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMouseTracking(false);
         actionChange_user = new QAction(MainWindow);
         actionChange_user->setObjectName(QStringLiteral("actionChange_user"));
         actionOnline_competitoin = new QAction(MainWindow);
@@ -88,38 +94,59 @@ public:
         actionHomepage->setObjectName(QStringLiteral("actionHomepage"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayoutWidget = new QWidget(centralwidget);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 0, 801, 551));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
+        centralwidget->setSizePolicy(sizePolicy);
+        centralwidget->setMouseTracking(false);
+        centralwidget->setAcceptDrops(false);
+        centralwidget->setToolTipDuration(-1);
+        centralwidget->setAutoFillBackground(false);
+        gridLayout = new QGridLayout(centralwidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
-        button_home = new QPushButton(verticalLayoutWidget);
+        horizontalLayout_2->setSizeConstraint(QLayout::SetMaximumSize);
+        horizontalLayout_2->setContentsMargins(-1, -1, 0, -1);
+        button_home = new QPushButton(centralwidget);
         button_home->setObjectName(QStringLiteral("button_home"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(button_home->sizePolicy().hasHeightForWidth());
+        button_home->setSizePolicy(sizePolicy1);
 
         horizontalLayout_2->addWidget(button_home);
 
-        button_learn = new QPushButton(verticalLayoutWidget);
+        button_learn = new QPushButton(centralwidget);
         button_learn->setObjectName(QStringLiteral("button_learn"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(button_learn->sizePolicy().hasHeightForWidth());
+        button_learn->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(button_learn);
 
-        button_practice = new QPushButton(verticalLayoutWidget);
+        button_practice = new QPushButton(centralwidget);
         button_practice->setObjectName(QStringLiteral("button_practice"));
+        sizePolicy2.setHeightForWidth(button_practice->sizePolicy().hasHeightForWidth());
+        button_practice->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(button_practice);
 
-        button_stats = new QPushButton(verticalLayoutWidget);
+        button_stats = new QPushButton(centralwidget);
         button_stats->setObjectName(QStringLiteral("button_stats"));
+        sizePolicy2.setHeightForWidth(button_stats->sizePolicy().hasHeightForWidth());
+        button_stats->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(button_stats);
 
-        button_games = new QPushButton(verticalLayoutWidget);
+        button_games = new QPushButton(centralwidget);
         button_games->setObjectName(QStringLiteral("button_games"));
+        sizePolicy2.setHeightForWidth(button_games->sizePolicy().hasHeightForWidth());
+        button_games->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(button_games);
 
@@ -129,13 +156,12 @@ public:
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
-        stack_main = new QStackedWidget(verticalLayoutWidget);
+        stack_main = new QStackedWidget(centralwidget);
         stack_main->setObjectName(QStringLiteral("stack_main"));
+        sizePolicy.setHeightForWidth(stack_main->sizePolicy().hasHeightForWidth());
+        stack_main->setSizePolicy(sizePolicy);
         page_home = new QWidget();
         page_home->setObjectName(QStringLiteral("page_home"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(page_home->sizePolicy().hasHeightForWidth());
         page_home->setSizePolicy(sizePolicy);
         page_home->setLayoutDirection(Qt::LeftToRight);
@@ -143,18 +169,26 @@ public:
         stack_main->addWidget(page_home);
         page_learn = new QWidget();
         page_learn->setObjectName(QStringLiteral("page_learn"));
+        sizePolicy.setHeightForWidth(page_learn->sizePolicy().hasHeightForWidth());
+        page_learn->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_learn);
         page_practice = new QWidget();
         page_practice->setObjectName(QStringLiteral("page_practice"));
+        sizePolicy.setHeightForWidth(page_practice->sizePolicy().hasHeightForWidth());
+        page_practice->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_practice);
         page_stats = new QWidget();
         page_stats->setObjectName(QStringLiteral("page_stats"));
+        sizePolicy.setHeightForWidth(page_stats->sizePolicy().hasHeightForWidth());
+        page_stats->setSizePolicy(sizePolicy);
         label_3 = new QLabel(page_stats);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(230, 220, 67, 17));
         stack_main->addWidget(page_stats);
         page_games = new QWidget();
         page_games->setObjectName(QStringLiteral("page_games"));
+        sizePolicy.setHeightForWidth(page_games->sizePolicy().hasHeightForWidth());
+        page_games->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_games);
 
         gridLayout_2->addWidget(stack_main, 0, 0, 1, 1);
@@ -162,10 +196,13 @@ public:
 
         verticalLayout->addLayout(gridLayout_2);
 
+
+        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 629, 25));
         menuUser = new QMenu(menubar);
         menuUser->setObjectName(QStringLiteral("menuUser"));
         menuOptions = new QMenu(menubar);
@@ -188,6 +225,9 @@ public:
         menuUser->addAction(actionHomepage);
 
         retranslateUi(MainWindow);
+
+        stack_main->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

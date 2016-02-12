@@ -58,6 +58,7 @@ SOURCES += src/main.cpp \
         src/QTypingTest/Dialogs/Exercices/tpracticerace.cpp \
         src/QTypingTest/Dialogs/Exercices/tpracticebase.cpp \
         src/QTypingTest/Dialogs/Exercices/tpracticetext.cpp \
+        src/QTypingTest/Dialogs/Exercices/timprove.cpp \
         src/QTypingTest/Dialogs/twindowtest.cpp \
         src/QTypingTest/thomepage.cpp \
         src/QTypingTest/Learn/learnpage.cpp \
@@ -97,6 +98,7 @@ HEADERS +=  \
             src/QTypingTest/Dialogs/Exercices/tpracticerace.h \
             src/QTypingTest/Dialogs/Exercices/tpracticebase.h \
             src/QTypingTest/Dialogs/Exercices/tpracticetext.h \
+            src/QTypingTest/Dialogs/Exercices/timprove.h \
             src/QTypingTest/Dialogs/twindowtest.h \
             src/QTypingTest/thomepage.h \
             src/QTypingTest/Learn/learnpage.h \

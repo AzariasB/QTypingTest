@@ -24,9 +24,9 @@ struct date_exercice_ {
     TExercice exercice;
 };
 
-class TUser {
+class TUser  {
 public:
-    TUser(QString pseudo = "");
+    explicit TUser(QString pseudo = "");
     TUser(const TUser &origin);
     virtual ~TUser();
 
@@ -76,9 +76,6 @@ public:
     QDateTime addResult(TExercice *exTyp, TResult *exRes);
 
 
-signals:
-    void userChanged(TUser *nwUser);
-
 private:
     QString pseudo_;
     TProgression *progress_;
@@ -127,8 +124,8 @@ inline bool operator==(const TUser& user1, const TUser& user2) {
             user1.getProgression() == user1.getProgression();
 }
 
-inline bool operator==(const date_exercice_& date1, const date_exercice_& date2){
-    return date1.dateResult == date2.dateResult && 
+inline bool operator==(const date_exercice_& date1, const date_exercice_& date2) {
+    return date1.dateResult == date2.dateResult &&
             date1.exercice == date2.exercice;
 }
 
