@@ -17,7 +17,7 @@
  * to know what's the last letters he learned
  * the difficulty of the exercices
  * 
- * TODO : add progression for the practice exerccices
+ *  \todo : add progression for the practice exerccices
  */
 class TProgression {
 public:

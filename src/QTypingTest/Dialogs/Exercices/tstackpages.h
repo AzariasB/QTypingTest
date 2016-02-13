@@ -44,7 +44,7 @@ public:
 
     void addPage(QString pageText, bool isFirst = false);
 
-    //TODO : change the name of the function... to somthing more explicit (Azarias)
+    // \todo : change the name of the function... to somthing more explicit (Azarias)
     bool setFollowingPage();
 
     virtual ~TStackPages() {

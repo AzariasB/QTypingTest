@@ -1,3 +1,7 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 /* 
  * File:   TUser.h
  * Author: boutina
@@ -24,10 +28,25 @@ struct date_exercice_ {
     TExercice exercice;
 };
 
-class TUser  {
+class TUser : public QObject {
+
+    Q_OBJECT
 public:
-    explicit TUser(QString pseudo = "");
-    TUser(const TUser &origin);
+    TUser(QString pseudo = "", QObject *parent = 0) :
+    QObject(parent),
+    pseudo_(pseudo),
+    progress_(new TProgression()),
+    statistics_(TStats()) {
+    }
+
+    TUser(const TUser &orig) :
+    QObject(orig.parent()),
+    pseudo_(orig.pseudo_),
+    progress_(orig.progress_),
+    statistics_(orig.statistics_) {
+
+    }
+
     virtual ~TUser();
 
     QString getPseudo() const {
@@ -56,6 +75,7 @@ public:
 
     void setStatistics(const TStats& stats) {
         statistics_ = stats;
+        emit statsChanged(this);
     }
 
     void setPracticeHistory(QHash<date_exercice_, TResult> history) {
@@ -75,6 +95,16 @@ public:
      */
     QDateTime addResult(TExercice *exTyp, TResult *exRes);
 
+    void operator=(const TUser &orig) {
+        setParent(orig.parent());
+        pseudo_ = orig.pseudo_;
+        progress_ = orig.progress_;
+        statistics_ = orig.statistics_;
+        practiceHistory_ = orig.practiceHistory_;
+    }
+
+signals:
+    void statsChanged(TUser *);
 
 private:
     QString pseudo_;

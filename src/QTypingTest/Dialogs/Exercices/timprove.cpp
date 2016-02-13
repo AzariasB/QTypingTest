@@ -18,7 +18,7 @@ TWindowTest(parent){
     QList<QChar> chars =  TUserManager::getInstance().getCurrentUser()->getStatistics().keys();
     QString training = listToString(chars);
     
-    //TODO : create a longer string and split up in two parts for the two pages
+    // \todo : create a longer string and split up in two parts for the two pages
     QString page1 = factory::generatePractice(training,false);
     pages_.setNumberOfPages(2);
     pages_.setupPages(page1);

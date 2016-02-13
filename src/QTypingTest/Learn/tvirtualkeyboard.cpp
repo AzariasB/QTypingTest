@@ -193,7 +193,7 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
     TVirtualKey *target = 0;
     bool wrongKey = !expected.isNull();
     if (ev->key() == Key_Shift) {
-        //TODO : is that working on other machines ?
+        // \todo : is that working on other machines ?
         target = ev->nativeScanCode() == 62 ? rightShift_ : leftShift_;
     } else if (modifiers_->contains(ev->key())) {
         target = modifiers_->value(ev->key());

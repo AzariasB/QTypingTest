@@ -33,14 +33,14 @@
 #include "QTypingTest/Dialogs/Exercices/twindowlearn.h"
 
 
-//Thomepage is for the current user. TODO : change the location of the current user
+//Thomepage is for the current user.  \todo : change the location of the current user
 #include "QTypingTest/thomepage.h"
 
 class LearnPage : public QWidget {
     Q_OBJECT
 public:
     LearnPage(QWidget *parent = 0);
-    //TODO : add constructor with User as parameter to set the buttons
+    // \todo : add constructor with User as parameter to set the buttons
 
 
     LearnPage(const LearnPage& orig);

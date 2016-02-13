@@ -24,7 +24,7 @@ namespace factory {
     
     /**
      * 
-     * TODO : instead of passing lang in argument, get the 
+     *  \todo : instead of passing lang in argument, get the 
      * language from the user's computer (Azarias)
      * 
      * This function will read the texts files of the project
@@ -64,7 +64,7 @@ namespace factory {
      * The size of the produced string is made to be contained in only ONE page
      * of an exercice.
      * 
-     * TODO : add a parameter to choose the size of the text ? (Azarias)
+     *  \todo : add a parameter to choose the size of the text ? (Azarias)
      * 
      * @param letters the available letters
      * @param onlyRealWords if it must generates only words existing in a language, or if it can generate random words
@@ -84,7 +84,7 @@ namespace factory {
     
     /**
      * Generate existing words with the available letters
-     * TODO : add a language parameter
+     *  \todo : add a language parameter
      * 
      * @param authorizedLetters all the available chars to build a word
      * @param language the language of the file to find

@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 /* 
  * File:   TUser.cpp
  * Author: boutina
@@ -9,18 +14,6 @@
 
 #include "tuser.h"
 
-TUser::TUser(QString pseudo) :
-pseudo_(pseudo),
-progress_(new TProgression()),
-statistics_(TStats()) {
-}
-
-TUser::TUser(const TUser &orig) :
-pseudo_(orig.pseudo_),
-progress_(orig.progress_),
-statistics_(orig.statistics_),
-practiceHistory_(orig.practiceHistory_) {
-}
 
 QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
     date_exercice_ key;
@@ -32,6 +25,7 @@ QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
 
 void TUser::oneMoreMistake(const QChar& mistaken) {
     this->statistics_[mistaken]++;
+    emit statsChanged(this);
 }
 
 TUser::~TUser() {
@@ -49,7 +43,7 @@ QDataStream &operator<<(QDataStream& out, const TUser& user) {
 QDataStream &operator>>(QDataStream& in, TUser &user) {
     QString pseudo;
     in >> pseudo;
-    user = TUser(pseudo);
+    user.setPseudo(pseudo);
     TProgression progress;
     in >> progress;
     user.setProgression(new TProgression(progress));

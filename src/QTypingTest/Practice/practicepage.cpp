@@ -112,6 +112,6 @@ void PracticePage::updateImproveButton(TUser* nwUser) {
 void PracticePage::userChanges(TUser* nwUser) {
     if (nwUser) {
         updateImproveButton(nwUser);
-//        connect(nwUser, SIGNAL(updatedStats(TUser*)), this, SLOT(updateImproveButton(TUser*)));
+        connect(nwUser, SIGNAL(statsChanged(TUser*)), this, SLOT(updateImproveButton(TUser*)));
     }
 }

@@ -107,7 +107,7 @@ void LearnPage::lauchExercice() {
 }
 
 void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
-    //TODO : check if the result is good enought to set the advance in the progression (Azarias)
+    // \todo : check if the result is good enought to set the advance in the progression (Azarias)
     testWindow_->hide();
 
     if ((timeEx.msecsSinceStartOfDay() / 1000.f) > 120) {

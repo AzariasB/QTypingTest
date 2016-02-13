@@ -10,10 +10,9 @@
 #include <QDebug>
 #include <QVector>
 #include <QDataStream>
-#include <qt5/QtCore/qlogging.h>
-#include "../../src/Data/texercice.h"
-#include "../../src/Data/tresult.h"
-#include "../../src/Data/tuser.h"
+
+#include "Data/tuser.h"
+#include "Data/texercice.h"
 
 
 class TestTUser : public QObject {
@@ -22,10 +21,26 @@ private slots:
     void testConstructor();
     void testDataStream();
     void testProgression();
+    void testSignals();
 
 private:
     QString randomName();
 };
+
+void TestTUser::testSignals() {
+    bool signalEmited  = false;
+    
+    TUser timmy("timmy");
+    
+    connect(&timmy,&TUser::statsChanged,this,[this,&signalEmited](){
+        signalEmited = true;
+    });
+    
+    timmy.oneMoreMistake('o');
+    
+    QVERIFY(signalEmited);
+}
+
 
 QString TestTUser::randomName() {
     int nameLength = rand() % 10 + 1;
@@ -106,5 +121,5 @@ void TestTUser::testProgression() {
 }
 
 
-QTEST_MAIN(TestTUser)
-#include "testuser.moc"
+QTEST_MAIN(TestTUser);
+#include ".moc/testuser.moc"

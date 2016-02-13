@@ -57,7 +57,7 @@ void THomePage::connectEvents() {
     button_stack sStat = {
         ui.button_stats,
         ui.page_stats,
-        nullptr //TODO : create statistics page
+        nullptr // \todo : create statistics page
     };
     button_stack sPractice = {
         ui.button_practice,

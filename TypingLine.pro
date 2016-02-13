@@ -8,8 +8,6 @@ QT              += designer uitools core gui
 CONFIG          += -std=c++11 debug
 QMAKE_CXXFLAGS  += -std=c++11
 
-QMAKE_CXX = ccache g++
-
 PRO_PATH=$$PWD
 
 INCLUDEPATH = $$PRO_PATH/src
@@ -70,7 +68,7 @@ SOURCES += src/main.cpp \
         src/QTypingTest/Games/gamepage.cpp \
         src/QTypingTest/Home/homepage.cpp \
         #------------       
-        #Util class/functions
+        #Util class/functions/namespaces
         #------------      
         src/Util/factory.cpp \
         src/Util/filehelper.cpp \
@@ -89,8 +87,7 @@ SOURCES += src/main.cpp \
 #------------
 #Core classes
 #------------
-HEADERS +=  \
-            src/QTypingTest/Dialogs/Exercices/tpage.h \
+HEADERS +=  src/QTypingTest/Dialogs/Exercices/tpage.h \
             src/QTypingTest/Dialogs/Exercices/tlabel.h \
             src/QTypingTest/Dialogs/Exercices/tstackpages.h \
             src/QTypingTest/Dialogs/Exercices/ttoolbar.h \
