@@ -40,8 +40,8 @@ TEMPLATE = app
 RC_ICONS += etc/icon.ico
 ICON = TypingLine.icns
 
-FORMS += \
-    src/ui/homepage.ui
+FORMS += src/ui/homepage.ui \
+         src/ui/options.ui
 
 
 SOURCES += src/main.cpp \
@@ -67,6 +67,7 @@ SOURCES += src/main.cpp \
         src/QTypingTest/Practice/practicepage.cpp \
         src/QTypingTest/Games/gamepage.cpp \
         src/QTypingTest/Home/homepage.cpp \
+        src/QTypingTest/toptiondialog.cpp \
         #------------       
         #Util class/functions/namespaces
         #------------      
@@ -82,12 +83,14 @@ SOURCES += src/main.cpp \
         src/Data/tprogression.cpp \
         src/Data/tuser.cpp \
         src/Data/tusermanager.cpp \
-        src/Data/tstats.cpp 
-
+        src/Data/tsettings.cpp \
+        src/Data/tstats.cpp \ 
 #------------
 #Core classes
 #------------
-HEADERS +=  src/QTypingTest/Dialogs/Exercices/tpage.h \
+
+HEADERS += \
+            src/QTypingTest/Dialogs/Exercices/tpage.h \
             src/QTypingTest/Dialogs/Exercices/tlabel.h \
             src/QTypingTest/Dialogs/Exercices/tstackpages.h \
             src/QTypingTest/Dialogs/Exercices/ttoolbar.h \
@@ -106,6 +109,7 @@ HEADERS +=  src/QTypingTest/Dialogs/Exercices/tpage.h \
             src/QTypingTest/Practice/practicepage.h \
             src/QTypingTest/Games/gamepage.h \
             src/QTypingTest/Home/homepage.h \
+            src/QTypingTest/toptiondialog.h \
             #------------
             #Util functions/classes
             #------------
@@ -121,4 +125,5 @@ HEADERS +=  src/QTypingTest/Dialogs/Exercices/tpage.h \
             src/Data/tlayouts.h \
             src/Data/tuser.h \
             src/Data/tusermanager.h \
+            src/Data/tsettings.h \
             src/Data/tstats.h 

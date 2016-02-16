@@ -136,9 +136,9 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>3</number>
           </property>
-          <widget class="QWidget" name="page_home">
+          <widget class="QWidget" name="page_learn">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -152,7 +152,7 @@
             <bool>false</bool>
            </property>
           </widget>
-          <widget class="QWidget" name="page_learn">
+          <widget class="QWidget" name="page_home">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -175,19 +175,6 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <widget class="QLabel" name="label_3">
-            <property name="geometry">
-             <rect>
-              <x>230</x>
-              <y>220</y>
-              <width>67</width>
-              <height>17</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Statistics</string>
-            </property>
-           </widget>
           </widget>
           <widget class="QWidget" name="page_games">
            <property name="sizePolicy">
@@ -205,37 +192,33 @@
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
      <width>629</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuUser">
     <property name="title">
      <string>User</string>
     </property>
-    <addaction name="actionChange_user_2"/>
-    <addaction name="actionHomepage"/>
+    <addaction name="action_change_user"/>
+    <addaction name="action_homepage"/>
+    <addaction name="action_option"/>
    </widget>
-   <widget class="QMenu" name="menuOptions">
+   <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Options</string>
+     <string>Help</string>
     </property>
-   </widget>
-   <widget class="QMenu" name="menuAbout">
-    <property name="title">
-     <string>About</string>
-    </property>
+    <addaction name="action_about"/>
    </widget>
    <addaction name="menuUser"/>
-   <addaction name="menuOptions"/>
-   <addaction name="menuAbout"/>
+   <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionChange_user">
    <property name="text">
     <string>Change user</string>
@@ -271,23 +254,33 @@
     <string>Preferences</string>
    </property>
   </action>
-  <action name="actionChange_user_2">
+  <action name="action_change_user">
    <property name="text">
     <string>Change user</string>
    </property>
   </action>
-  <action name="actionHomepage">
+  <action name="action_homepage">
    <property name="text">
     <string>Homepage</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="action_option">
+   <property name="text">
+    <string>Option</string>
    </property>
   </action>
  </widget>
  <tabstops>
   <tabstop>button_home</tabstop>
   <tabstop>button_learn</tabstop>
-  <tabstop>button_games</tabstop>
   <tabstop>button_practice</tabstop>
   <tabstop>button_stats</tabstop>
+  <tabstop>button_games</tabstop>
  </tabstops>
  <resources/>
  <connections/>

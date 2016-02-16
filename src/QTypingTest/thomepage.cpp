@@ -11,8 +11,6 @@
 
 
 
-#include <qt5/QtCore/qvector.h>
-
 #include "thomepage.h"
 
 /**
@@ -24,11 +22,12 @@ QMainWindow(parent),
 pagesButtons_(QVector<button_stack>()) {
 
     //For the test : create a new user
-    //    TUser *timmy = new TUser("timmy");
-    //    TUserManager& manager = TUserManager::getInstance();
-    //    manager.setCurrentUser(timmy);
+    TUser *timmy = new TUser("timmy");
+    TUserManager& manager = TUserManager::getInstance();
+    manager.setCurrentUser(timmy);
 
     ui.setupUi(this);
+
     connectEvents();
 
 }
@@ -36,8 +35,18 @@ pagesButtons_(QVector<button_stack>()) {
 THomePage::~THomePage() {
 }
 
-void THomePage::connectEvents() {
+void THomePage::showAboutDialogs(){
+    QMessageBox::about(this,"About","<h1>QTypingTest</h1><p> created by :</p><br/> Pierre and Azarias <br/> Version : 0.1");
+}
 
+void THomePage::showOptionDialog(){
+    TOptionDialog *opt = new TOptionDialog(this);
+    opt->show();
+}
+
+void THomePage::connectEvents() {
+    connect(ui.action_about,SIGNAL(triggered(bool)),this,SLOT(showAboutDialogs()));
+    connect(ui.action_option,SIGNAL(triggered(bool)),this,SLOT(showOptionDialog()));
 
     button_stack sHome = {
         ui.button_home,
@@ -85,7 +94,7 @@ void THomePage::connectEvents() {
             ui.stack_main->setCurrentIndex(i);
         });
     }
-    connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this, SLOT(updateUI(TUser*)));
+    connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(updateUI(TUser*)));
 
 }
 

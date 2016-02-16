@@ -13,8 +13,7 @@
 #ifndef LEARNPAGE_H
 #define LEARNPAGE_H
 
-#define MAX_COL 6
-
+#define BUTTON_WIDTH 100
 
 #include <QWidget>
 #include <QPushButton>
@@ -45,15 +44,16 @@ public:
 
     LearnPage(const LearnPage& orig);
 
-    virtual ~LearnPage() {
-    };
+    virtual ~LearnPage(){
+        
+    }
 
 public slots:
     void lauchExercice();
     /**
      * Called when an exercice is finished
      */
-    void endExercice(TResult *exerciceResult,QTime timeEx);
+    void endExercice(TResult *exerciceResult, QTime timeEx);
 
 
     /**
@@ -61,8 +61,12 @@ public slots:
      * dialog is closed to reset all the necessary values
      */
     void resetExercice();
-    
+
     void updateUserProgression(TUser *nwUser);
+
+protected:
+     void resizeEvent(QResizeEvent *ev);
+
 
 private:
     /**
@@ -70,14 +74,15 @@ private:
      * the layout
      */
     void createPractice();
-    
+
     /**
      * Creates the buttons
      * of the learn page, based 
      * on the actual layout
      */
     void createButtons(QGridLayout *lay);
-    
+   
+
 
     //Save the tpractice instead of instanciate it over and over
     TLayouts practice_ = TLayouts::getInstance("fr");
@@ -87,11 +92,13 @@ private:
 
     /*A list of button to save the state (activated or not) of each depending on the user progression*/
     QVector<QPushButton*> learnButtons_;
-    
+
     /**
      * When a user start a new exercice, this int is set to the index of the letter he's doing
      */
     int currentProgression_ = -1;
+    
+    QGridLayout *learnButtonsLayout_;
 };
 
 #endif /* LEARNPAGE_H */

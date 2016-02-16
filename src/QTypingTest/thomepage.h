@@ -27,6 +27,8 @@
 #include "Data/tlayouts.h"
 #include "Data/tusermanager.h"
 #include "ui/ui_homepage.h"
+#include "toptiondialog.h"
+
 
 struct button_stack {
     QPushButton *triggerer;
@@ -42,6 +44,10 @@ public:
 
 public slots:
     void updateUI(TUser *nwUser);
+
+    void showAboutDialogs();
+
+    void showOptionDialog();
 
 private:
     /**

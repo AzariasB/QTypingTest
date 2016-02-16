@@ -11,6 +11,9 @@
 
 
 
+#include <qt5/QtCore/qlogging.h>
+#include <qt5/QtWidgets/qwidget.h>
+
 #include "learnpage.h"
 
 LearnPage::LearnPage(QWidget* parent) :
@@ -23,35 +26,38 @@ void LearnPage::createPractice() {
     QGridLayout *main = new QGridLayout(this);
 
     QWidget *scrollWidget = new QWidget();
-    QGridLayout *lay = new QGridLayout(scrollWidget);
-    createButtons(lay);
-
     scrollWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QScrollArea *scroll = new QScrollArea();
     scrollWidget->setMinimumSize(scroll->size());
 
 
+    learnButtonsLayout_ = new QGridLayout(scrollWidget);
+    createButtons(learnButtonsLayout_);
+
     scroll->setWidget(scrollWidget);
     main->addWidget(scroll);
-    
-    connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this,SLOT(updateUserProgression(TUser*)));
+    connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(updateUserProgression(TUser*)));
 }
 
-void LearnPage::createButtons(QGridLayout* lay) {
+void LearnPage::createButtons(QGridLayout *lay) {
     QStringList l = practice_.getLetterList();
+
+    int buttonWidth = 100;
 
     int col = 0,
             row = 0,
             index = 0;
 
+    int maxCols = (this->size().width() / buttonWidth) - 1;
 
     //Create a button for each existing string and add it to the layout
     for (auto it = l.begin(); it != l.end(); ++it, index++) {
         QPushButton *button = new QPushButton((*it).replace('&', "&&"));
 
         connect(button, SIGNAL(clicked()), this, SLOT(lauchExercice()));
-        button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        //        button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         button->setMinimumHeight(100);
+        button->setMinimumWidth(buttonWidth);
         button->setContentsMargins(1, 1, 1, 1);
         button->setFocusPolicy(Qt::NoFocus);
 
@@ -69,14 +75,17 @@ void LearnPage::createButtons(QGridLayout* lay) {
 
         lay->addWidget(button, row, col);
 
+
         col++;
-        if (col >= MAX_COL) {
+        if (col >= maxCols) {
             row++;
             col = 0;
         }
 
     }
 }
+
+
 
 void LearnPage::lauchExercice() {
 
@@ -128,7 +137,7 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
             learnButtons_.at(curProgr->getLastExericeIndex())->setEnabled(true);
         } else {
             //Finished the game !
-            QMessageBox::information(this,"End of the game","Congratulation, you completed the game.");
+            QMessageBox::information(this, "End of the game", "Congratulation, you completed the game.");
             /*
              You get a firework,
              * you get a firework;
@@ -164,5 +173,11 @@ void LearnPage::updateUserProgression(TUser* nwUser) {
             elem->setEnabled(false);
         }
 
+    }
+}
+
+void LearnPage::resizeEvent(QResizeEvent* ev) {
+    if (learnButtonsLayout_) {
+       
     }
 }
