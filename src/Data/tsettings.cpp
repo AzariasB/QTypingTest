@@ -13,9 +13,12 @@
 #include "tsettings.h"
 
 TSettings::TSettings() {
+    //TLayouts::get
 }
 
-TSettings::TSettings(const TSettings& orig) {
+TSettings::TSettings(const TSettings& orig):
+currentlang_(orig.currentlang_),
+layout_(orig.layout_){
 }
 
 TSettings::~TSettings() {

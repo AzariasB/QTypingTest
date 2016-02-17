@@ -99,19 +99,7 @@ public:
         Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", 0));
         label_2->setText(QApplication::translate("Dialog", "Pseudo", 0));
         label_3->setText(QApplication::translate("Dialog", "Layout", 0));
-        comboBox_layout->clear();
-        comboBox_layout->insertItems(0, QStringList()
-         << QApplication::translate("Dialog", "QWerty (US)", 0)
-         << QApplication::translate("Dialog", "Fran\303\247ais (France)", 0)
-         << QApplication::translate("Dialog", "Swedish (Sweden)", 0)
-        );
         label->setText(QApplication::translate("Dialog", "Language", 0));
-        comboBox_language->clear();
-        comboBox_language->insertItems(0, QStringList()
-         << QApplication::translate("Dialog", "English", 0)
-         << QApplication::translate("Dialog", "Fran\303\247ais", 0)
-         << QApplication::translate("Dialog", "Swedish", 0)
-        );
     } // retranslateUi
 
 };

@@ -38,7 +38,7 @@ public:
 
     QList<QStringList> *getLayouLines() const {
         return layoutLines_;
-    };
+    }
 
     QStringList getLetterList();
 
@@ -54,17 +54,29 @@ public:
         return TLayouts::allAvailableLetters_;
     }
 
+    static QStringList getAvailablLayouLangs(){
+        return TLayouts::availableLangs_;
+    }
+
+
     virtual ~TLayouts() {
-    };
+    }
 private:
 
     static QString allAvailableLetters_;
 
     static TLayouts instance;
 
+    static QStringList availableLangs_;
+
     TLayouts(QString lang) {
         this->initLetters(lang);
-    };
+    }
+
+    void setAvailableLangs(const QStringList &ori){
+        TLayouts::availableLangs_ =  ori;
+    }
+
     /**
      * Init the list of letters, from the given
      * langage
@@ -96,6 +108,12 @@ private:
      * @return the layout of the given langage, empty String if not found
      */
     QString findCorrespondingLayout(QString config, QString lang);
+
+    /**
+     * @brief findAvailableLangs will find the available language in the layout file
+     * @param fileContent the content of layouts.txt (or the file containg the layouts)
+     */
+    void findAvailableLangs(const QString &fileContent);
 
     QString currentLang_;
     QStringList lettersList_;

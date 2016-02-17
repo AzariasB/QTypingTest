@@ -12,11 +12,13 @@
 
 #include "tlayouts.h"
 
+QStringList TLayouts::availableLangs_ = QStringList();
 QString TLayouts::allAvailableLetters_("");
 TLayouts TLayouts::instance("fr");
 
 void TLayouts::initLetters(QString lang) {
     QString layouts = file::readFile("etc/layouts.txt");
+    findAvailableLangs(layouts);
     QString config = findCorrespondingLayout(layouts, lang);
     if (config.isEmpty()) {
         qDebug() << "No correct config found";
@@ -25,6 +27,13 @@ void TLayouts::initLetters(QString lang) {
         TLayouts::allAvailableLetters_ = "";
         layoutLines_ = decomposeLayout(config);
     }
+}
+
+void TLayouts::findAvailableLangs(const QString &fileContent){
+    QRegExp ex("^([a-z]{2,})(?=:)[\\d\\D]*");
+    QStringList match = fileContent.split("\n\n");
+    match.replaceInStrings(ex,"\\1");
+    TLayouts::setAvailableLangs(match);
 }
 
 QList<QStringList> *TLayouts::decomposeLayout(QString layout) {

@@ -22,6 +22,7 @@
 #include "texercice.h"
 #include "tresult.h"
 #include "tstats.h"
+#include "tsettings.h"
 
 struct date_exercice_ {
     QDateTime dateResult;
@@ -36,14 +37,16 @@ public:
     QObject(parent),
     pseudo_(pseudo),
     progress_(new TProgression()),
-    statistics_(TStats()) {
+    statistics_(TStats()),
+    settings_(TSettings()){
     }
 
     TUser(const TUser &orig) :
     QObject(orig.parent()),
     pseudo_(orig.pseudo_),
     progress_(orig.progress_),
-    statistics_(orig.statistics_) {
+    statistics_(orig.statistics_),
+    settings_(TSettings()){
 
     }
 
@@ -51,7 +54,7 @@ public:
 
     QString getPseudo() const {
         return pseudo_;
-    };
+    }
 
     void setPseudo(QString pseudo) {
         this->pseudo_ = pseudo;
@@ -63,6 +66,14 @@ public:
 
     TProgression* getProgression() const {
         return progress_;
+    }
+
+    TSettings getSettings() const{
+        return settings_;
+    }
+
+    void setSettings(const TSettings &orig){
+        settings_ = orig;
     }
 
     const TStats &getStatistics() const {
@@ -110,6 +121,7 @@ private:
     QString pseudo_;
     TProgression *progress_;
     TStats statistics_;
+    TSettings settings_;
 
     QHash<date_exercice_, TResult> practiceHistory_;
 

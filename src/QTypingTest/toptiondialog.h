@@ -17,15 +17,28 @@
 
 #include "ui/ui_options.h"
 #include "Data/tusermanager.h"
+#include "Data/tsettings.h"
 
 class TOptionDialog : public QDialog
 {
 public:
-    TOptionDialog(QWidget *parent =0);
+    TOptionDialog(const TUser &user,QWidget *parent =0);
+
+    /**
+     * \todo return a TUser (and delete settings)
+     * @brief getCurrentSettings
+     * @return the settings selected
+     */
+    TSettings getCurrentSettings();
 private :
     Ui_Dialog ui_option;
 
-    void showUserOptions();
+    /**
+     * \todo : separate layout and language origin
+     * @brief showUserOptions change the fileds of the dialog to show the user's settings
+     * @param settingsReference the user
+     */
+    void showUserOptions(const TUser &settingsReference);
 };
 
 #endif // TOPTIONDIALOG_H

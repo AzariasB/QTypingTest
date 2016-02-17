@@ -34,23 +34,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QComboBox" name="comboBox_layout">
-       <item>
-        <property name="text">
-         <string>QWerty (US)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Français (France)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Swedish (Sweden)</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QComboBox" name="comboBox_layout"/>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label">
@@ -60,23 +44,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QComboBox" name="comboBox_language">
-       <item>
-        <property name="text">
-         <string>English</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Français</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Swedish</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QComboBox" name="comboBox_language"/>
      </item>
     </layout>
    </item>
