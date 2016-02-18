@@ -24,7 +24,6 @@
 #include <QPaintEvent>
 #include <QKeyEvent>
 
-#include "Util/filehelper.h"
 
 class TFingerPosition : public QWidget {
     Q_OBJECT
@@ -47,7 +46,7 @@ public slots:
 
 protected:
 
-    void paintEvent(QPaintEvent *ev);
+    void paintEvent(QPaintEvent *);
 
 private:
     /**

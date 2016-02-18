@@ -28,8 +28,11 @@ void TUser::oneMoreMistake(const QChar& mistaken) {
     emit statsChanged(this);
 }
 
-TUser::~TUser() {
+void TUser::detectLang(){
+    lang_ = QLocale::system().name().section('_', 0, 0);
+}
 
+TUser::~TUser() {
 }
 
 QDataStream &operator<<(QDataStream& out, const TUser& user) {

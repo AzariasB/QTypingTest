@@ -9,8 +9,6 @@
  * Created on 27 janvier 2016, 10:32
  */
 
-#include <qt5/QtCore/qlogging.h>
-
 #include "tvirtualkey.h"
 
 TVirtualKey::TVirtualKey(QString content, QWidget *parent) :

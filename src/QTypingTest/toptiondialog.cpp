@@ -11,13 +11,14 @@
 
 #include "toptiondialog.h"
 
+
 TOptionDialog::TOptionDialog(const TUser &user,QWidget *parent):
  QDialog(parent)
 {
     QStringList layouts = TLayouts::getAvailablLayouLangs();
     ui_option.setupUi(this);
     ui_option.comboBox_layout->addItems(layouts);
-    ui_option.comboBox_language->addItems(layouts);
+    ui_option.comboBox_language->addItems(availableLanguages);
     showUserOptions(user);
 }
 
@@ -34,6 +35,7 @@ void TOptionDialog::showUserOptions(const TUser &settingsReference){
 
 TUser TOptionDialog::getCurrentSettings(){
     TUser sets;
+    sets.setPseudo(ui_option.line_pseudo->text());
     sets.setLang(ui_option.comboBox_language->currentText());
     sets.setLayout(ui_option.comboBox_layout->currentText());
     return sets;

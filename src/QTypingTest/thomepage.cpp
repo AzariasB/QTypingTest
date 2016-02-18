@@ -42,6 +42,16 @@ void THomePage::showAboutDialogs(){
 void THomePage::showOptionDialog(){
     TOptionDialog *opt = new TOptionDialog(*TUserManager::getInstance().getCurrentUser(),this);
     opt->show();
+    connect(opt,&QDialog::finished ,this,[=,opt](int res){
+        if(res == 1){
+            TUser *currentUser = TUserManager::getInstance().getCurrentUser();
+            currentUser->setSettings(opt->getCurrentSettings());
+            if(HomePage::getInstance().saveUsers()){
+                ui.statusbar->showMessage("Users saved !",4000);
+            }
+        }
+        delete opt;
+    });
 }
 
 void THomePage::connectEvents() {
@@ -51,7 +61,7 @@ void THomePage::connectEvents() {
     button_stack sHome = {
         ui.button_home,
         ui.page_home,
-        new HomePage()
+        &HomePage::getInstance(this)
     };
     button_stack sLearn = {
         ui.button_learn,

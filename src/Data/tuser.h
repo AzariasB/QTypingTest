@@ -37,14 +37,16 @@ public:
     pseudo_(pseudo),
     progress_(new TProgression()),
     statistics_(TStats()){
+        detectLang();
     }
 
     TUser(const TUser &orig) :
     QObject(orig.parent()),
     pseudo_(orig.pseudo_),
     progress_(orig.progress_),
-    statistics_(orig.statistics_){
-
+    statistics_(orig.statistics_),
+    lang_(orig.lang_),
+    layout_(orig.layout_){
     }
 
     virtual ~TUser();
@@ -136,6 +138,11 @@ private:
     QString layout_;
 
     QHash<date_exercice_, TResult> practiceHistory_;
+
+    /**
+     * @brief setLang detect the computer language setting and apply it to the user's lang
+     */
+    void detectLang();
 
 };
 

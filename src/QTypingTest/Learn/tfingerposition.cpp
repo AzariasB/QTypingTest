@@ -11,10 +11,6 @@
  * Created on 30 janvier 2016, 14:33
  */
 
-#include <qt5/QtCore/qlogging.h>
-#include <qt5/QtCore/qstring.h>
-#include <qt5/QtGui/qevent.h>
-
 #include "tfingerposition.h"
 
 TFingerPosition::TFingerPosition(QWidget* parent) :
@@ -64,7 +60,7 @@ void TFingerPosition::enableFinger(FINGER id) {
     update();
 }
 
-void TFingerPosition::paintEvent(QPaintEvent* ev) {
+void TFingerPosition::paintEvent(QPaintEvent*) {
     QPainter painter(this);
     painter.scale(0.5, 0.5);
 

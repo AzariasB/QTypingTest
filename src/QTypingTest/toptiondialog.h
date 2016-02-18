@@ -18,6 +18,8 @@
 #include "ui/ui_options.h"
 #include "Data/tusermanager.h"
 
+extern const QStringList availableLanguages;
+
 class TOptionDialog : public QDialog
 {
 public:
@@ -33,7 +35,6 @@ private :
     Ui_Dialog ui_option;
 
     /**
-     * \todo : separate layout and language origin
      * @brief showUserOptions change the fileds of the dialog to show the user's settings
      * @param settingsReference the user
      */

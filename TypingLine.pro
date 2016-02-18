@@ -125,3 +125,6 @@ HEADERS += \
             src/Data/tuser.h \
             src/Data/tusermanager.h \
             src/Data/tstats.h 
+
+DISTFILES += \
+    etc/layouts.txt

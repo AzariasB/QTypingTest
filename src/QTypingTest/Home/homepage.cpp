@@ -22,11 +22,11 @@ usersList_(new QVBoxLayout()) {
 }
 
 QList<TUser*> HomePage::getUsers() {
-    QList<TUser*> *users = new QList<TUser*>();
+    QList<TUser*> users;
     QFile f("etc/users.dat");
     if (!f.exists()) {
         qDebug() << "File 'users.dat' not found";
-        return *users;
+        return users;
     }
 
     QDataStream in(&f);
@@ -34,11 +34,11 @@ QList<TUser*> HomePage::getUsers() {
     while (!in.atEnd()) {
         TUser u;
         in >> u;
-        users->append(new TUser(u));
+        users << new TUser(u);
     }
     f.close();
 
-    return *users;
+    return users;
 }
 
 void HomePage::setupWidgets() {
@@ -58,19 +58,22 @@ void HomePage::createUser() {
         TUser *nwUser = new TUser(pseudo);
         users_ << nwUser;
         saveUsers();
-        updateUserDisplay();
     }
 }
 
-void HomePage::saveUsers() {
+bool HomePage::saveUsers() {
     QFile f("etc/users.dat");
+    if(!f.exists())
+        return false;
     QDataStream in(&f);
     f.open(QFile::WriteOnly);
 
     for (auto elem : users_) {
         in << *elem;
     }
+    updateUserDisplay();
     f.close();
+    return true;
 }
 
 void HomePage::updateUserDisplay() {
