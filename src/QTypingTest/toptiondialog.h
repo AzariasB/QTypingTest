@@ -17,7 +17,6 @@
 
 #include "ui/ui_options.h"
 #include "Data/tusermanager.h"
-#include "Data/tsettings.h"
 
 class TOptionDialog : public QDialog
 {
@@ -29,7 +28,7 @@ public:
      * @brief getCurrentSettings
      * @return the settings selected
      */
-    TSettings getCurrentSettings();
+    TUser getCurrentSettings();
 private :
     Ui_Dialog ui_option;
 

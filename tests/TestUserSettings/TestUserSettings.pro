@@ -40,7 +40,6 @@ SOURCES += tst_testusersettingstest.cpp \
     ../../src/Data/tlayouts.cpp \
     ../../src/Data/tprogression.cpp \
     ../../src/Data/tresult.cpp \
-    ../../src/Data/tsettings.cpp \
     ../../src/Data/tstats.cpp \
     ../../src/Data/tuser.cpp \
     ../../src/Data/tusermanager.cpp \
@@ -56,7 +55,6 @@ HEADERS += \
     ../../src/Data/tlayouts.h \
     ../../src/Data/tprogression.h \
     ../../src/Data/tresult.h \
-    ../../src/Data/tsettings.h \
     ../../src/Data/tstats.h \
     ../../src/Data/tuser.h \
     ../../src/Data/tusermanager.h \

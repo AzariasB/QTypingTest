@@ -40,7 +40,7 @@ void THomePage::showAboutDialogs(){
 }
 
 void THomePage::showOptionDialog(){
-    TOptionDialog *opt = new TOptionDialog(this);
+    TOptionDialog *opt = new TOptionDialog(*TUserManager::getInstance().getCurrentUser(),this);
     opt->show();
 }
 

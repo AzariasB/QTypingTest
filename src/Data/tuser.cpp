@@ -37,22 +37,28 @@ QDataStream &operator<<(QDataStream& out, const TUser& user) {
     out << *user.getProgression();
     out << user.getStatistics();
     out << user.getPracticeHistory();
+    out << user.getLang();
+    out << user.getLayout();
     return out;
 }
 
 QDataStream &operator>>(QDataStream& in, TUser &user) {
-    QString pseudo;
-    in >> pseudo;
-    user.setPseudo(pseudo);
+    QString pseudo, layout,lang;
     TProgression progress;
-    in >> progress;
-    user.setProgression(new TProgression(progress));
     TStats stat;
-    in >> stat;
-    user.setStatistics(stat);
     QHash<date_exercice_, TResult> history;
+    in >> pseudo;
+    in >> progress;
+    in >> stat;
     in >> history;
+    in >> lang;
+    in >> layout;
+    user.setPseudo(pseudo);
+    user.setProgression(new TProgression(progress));
+    user.setStatistics(stat);
     user.setPracticeHistory(history);
+    user.setLang(lang);
+    user.setLayout(layout);
     return in;
 }
 

@@ -22,7 +22,6 @@
 #include "texercice.h"
 #include "tresult.h"
 #include "tstats.h"
-#include "tsettings.h"
 
 struct date_exercice_ {
     QDateTime dateResult;
@@ -37,16 +36,14 @@ public:
     QObject(parent),
     pseudo_(pseudo),
     progress_(new TProgression()),
-    statistics_(TStats()),
-    settings_(TSettings()){
+    statistics_(TStats()){
     }
 
     TUser(const TUser &orig) :
     QObject(orig.parent()),
     pseudo_(orig.pseudo_),
     progress_(orig.progress_),
-    statistics_(orig.statistics_),
-    settings_(TSettings()){
+    statistics_(orig.statistics_){
 
     }
 
@@ -68,16 +65,30 @@ public:
         return progress_;
     }
 
-    TSettings getSettings() const{
-        return settings_;
+    QString getLayout() const{
+        return layout_;
     }
 
-    void setSettings(const TSettings &orig){
-        settings_ = orig;
+    void setLayout(const QString &nwLayou){
+        layout_ = nwLayou;
+    }
+
+    QString getLang() const{
+        return lang_;
+    }
+
+    void setLang(const QString &lang){
+        lang_ = lang;
     }
 
     const TStats &getStatistics() const {
         return statistics_;
+    }
+
+    void setSettings(const TUser &user){
+        pseudo_ = user.getPseudo();
+        lang_ = user.getLang();
+        layout_ = user.getLayout();
     }
 
     void setProgression(TProgression *nwProgression) {
@@ -121,7 +132,8 @@ private:
     QString pseudo_;
     TProgression *progress_;
     TStats statistics_;
-    TSettings settings_;
+    QString lang_;
+    QString layout_;
 
     QHash<date_exercice_, TResult> practiceHistory_;
 
