@@ -56,23 +56,18 @@ private:
      * list of list for each fingers
      * 
      */
-    QList< QVector<QPoint>* > fingersPoints_;
+    QList< QVector<QPoint> > fingersPoints_ =
+    {
+        {QPoint(44,251),QPoint(86,205),QPoint(18,102),QPoint(0,102),QPoint(0,158)},//44,251 86,205 18,102 0,102 0,158
+        {QPoint(93,201),QPoint(151,190),QPoint(92,31),QPoint(44,37)},//93,201 151,190 92,31 44,37
+        {QPoint(161,174),QPoint(222,174),QPoint(222,0),QPoint(161,0)},//161,174 222,174 222,0 161,0
+        {QPoint(222,185),QPoint(284,207),QPoint(322,50),QPoint(260,24)}//222,185 284,207 322,50 260,24
+    };
 
     QList<int> activeFingers_;
     
     void initPoints();
 
-    /**
-     * Create a list of list of point from 
-     * the given string lsit.
-     * Each string must be written as follow :
-     * (\d+,\d+)\s*
-     * The first number is the X coordinate of the point
-     * The second number is the Y coordinate of the point
-     * 
-     * @param fingers the string of points for each finger
-     */
-    void initLeftHand(QStringList fingers);
 
     /**
      * Creates the points of the right hand
@@ -80,17 +75,6 @@ private:
      * initLeftHand must be called before this function
      */
     void initRightHand();
-
-    /**
-     * create a point with the given string
-     * the string must be as follow :
-     * \d+,\d+
-     * where the first number if the x coordinate
-     * and the second number if the y coordinate
-     * 
-     * @param coordinates the coordinates of the point
-     */
-    QPoint createPoint(const QString& coordinates) const;
 
     /**
      * Create a new point and set this point's

@@ -18,7 +18,6 @@
 
 #include "tfingerposition.h"
 #include "tvirtualkeyboard.h"
-#include "tvirtualkeyboard.h"
 
 class TPresentation : public QWidget {
     Q_OBJECT

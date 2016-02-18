@@ -19,39 +19,24 @@
 
 TFingerPosition::TFingerPosition(QWidget* parent) :
 QWidget(parent),
-fingersPoints_(QList< QVector<QPoint>* >()),
 activeFingers_(QList<int>()) {
     setFixedSize(400,200);
     initPoints();
 }
 
 void TFingerPosition::initPoints() {
-    QString points = file::readFile("etc/fingers.txt");
-    QStringList fingers = points.split("\n", QString::SkipEmptyParts);
-    initLeftHand(fingers);
     initRightHand();
 }
 
-void TFingerPosition::initLeftHand(QStringList fingers) {
-
-    for (int i = 0; i < fingers.size(); i++) {
-        QStringList pointsPosition = fingers[i].split(" ", QString::SkipEmptyParts);
-        QVector<QPoint> *points = new QVector<QPoint>();
-        for (int j = 0; j < pointsPosition.size(); j++) {
-            points->append(createPoint(pointsPosition[j]));
-        }
-        fingersPoints_.append(points);
-    }
-}
 
 void TFingerPosition::initRightHand() {
     //Size of image/2 = 800/2 = 400
     int size = fingersPoints_.size();
     for (int i = size - 1; i >= 0; i--) {
-        QVector<QPoint> *origin = fingersPoints_[i];
-        QVector<QPoint> *points = new QVector<QPoint>();
-        for (int j = 0; j < origin->size(); j++) {
-            points->append(getSymmetric(origin->at(j)));
+        QVector<QPoint> origin = fingersPoints_[i];
+        QVector<QPoint> points;
+        for (int j = 0; j < origin.size(); j++) {
+            points.append(getSymmetric(origin[j]));
         }
         fingersPoints_.append(points);
     }
@@ -62,14 +47,6 @@ QPoint TFingerPosition::getSymmetric(const QPoint& origin) const {
     QPoint point;
     point.setX(origin.x() + ((middleImage - origin.x()) << 1));
     point.setY(origin.y());
-    return point;
-}
-
-QPoint TFingerPosition::createPoint(const QString& coordinates) const {
-    QPoint point;
-    QStringList xAndY = coordinates.split(",");
-    point.setX(xAndY.at(0).toInt());
-    point.setY(xAndY.at(1).toInt());
     return point;
 }
 
@@ -93,8 +70,8 @@ void TFingerPosition::paintEvent(QPaintEvent* ev) {
 
     QPainterPath tmpPath;
     for (auto elem : activeFingers_) {
-        QVector<QPoint> *pol = fingersPoints_[elem];
-        QPolygon p(*pol);
+        QVector<QPoint> pol = fingersPoints_[elem];
+        QPolygon p(pol);
         tmpPath.addPolygon(p);
     }
     painter.fillPath(tmpPath, QBrush(Qt::blue));
