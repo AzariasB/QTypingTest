@@ -10,13 +10,20 @@
  * Created on 10 janvier 2016, 11:40
  */
 
+#include <qt5/QtCore/qlogging.h>
+
 #include "twindowlearn.h"
 
-TWindowLearn::TWindowLearn(QString model, QWidget* parent) :
-TWindowTest(model,parent){
-    
+TWindowLearn::TWindowLearn(TExercice* ex, QWidget* parent) :
+TWindowTest(ex->buildExercice()),
+instructions_(new TPresentation("fr")) {
+    delete layout();
+    QLabel *lab = new QLabel("hé hé");
+    QGridLayout *mainLay = new QGridLayout();
+    mainLay->addWidget(lab);
+    setLayout(mainLay);
 }
 
-TWindowLearn::TWindowLearn(QString model, int numberOfPages, QWidget* parent):
-TWindowTest(model,numberOfPages,parent){
+TWindowLearn::TWindowLearn(TExercice* ex, int numberOfPages, QWidget* parent) :
+TWindowTest(ex->buildExercice(), numberOfPages, parent) {
 }

@@ -10,9 +10,6 @@
  */
 
 
-//#include <qt5/QtCore/qlogging.h>
-//#include <qt5/QtCore/qstringlist.h>
-
 #include "tstackpages.h"
 
 TStackPages::TStackPages(QWidget *parent) :
@@ -22,16 +19,22 @@ toCopy_(QStringList()) {
 
 TStackPages::TStackPages(const TStackPages& orig) :
 QStackedWidget(orig.parentWidget()),
-toCopy_(QStringList()),
-numberOfPages_(orig.numberOfPages()) {
+numberOfPages_(orig.numberOfPages()),
+toCopy_(QStringList()) {
     setupPages(orig.getText());
 }
 
 TStackPages::TStackPages(const QString &text, int numberOfPages, QWidget *parent) :
 QStackedWidget(parent),
-toCopy_(QStringList()),
-numberOfPages_(numberOfPages) {
+numberOfPages_(numberOfPages),
+toCopy_(QStringList()) {
     setupPages(text);
+}
+
+TStackPages::TStackPages(int numberOfPages, QWidget* parent) :
+QStackedWidget(parent),
+numberOfPages_(numberOfPages),
+toCopy_(QStringList()) {
 }
 
 void TStackPages::setupPages(QString wholeText) {
@@ -49,8 +52,8 @@ void TStackPages::nextPage(TResult* previousScore) {
     emit pageEnded(previousScore);
     if (!setFollowingPage()) {
         emit textFinished();
-    }else{
-        
+    } else {
+
     }
 }
 

@@ -6,12 +6,16 @@
  */
 
 
-#include "QTypingTest/Dialogs/Exercices/twindowlearn.h"
 
 
 #include <QtTest/QtTest>
 #include <QApplication>
 #include <time.h>
+
+#include "QTypingTest/Dialogs/Exercices/twindowlearn.h"
+#include "Data/texercice.h"
+#include "Data/tlayouts.h"
+
 
 class TestLearnDialog : public QObject {
     Q_OBJECT
@@ -25,7 +29,9 @@ private slots:
 void TestLearnDialog::testOpen() {
     //Test if the dialogs shows up with text
     QWidget *w = new QWidget();
-    TWindowLearn learn("Now you have to type this little text which is a test",1,w);
+    TLayouts lay = TLayouts::getInstance("fr");
+    TExercice *ex = new TExercice(TExercice::LEARNING,lay.getLettersAt(10),lay.getAllLettersTo(10));
+    TWindowLearn learn(ex,w);
     learn.show();
     connect(&learn,&TWindowLearn::endOfExercice,this, [&learn,this](TResult *res, QTime time){
         qDebug() << "End of the exerice";

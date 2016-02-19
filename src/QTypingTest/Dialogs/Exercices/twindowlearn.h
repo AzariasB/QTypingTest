@@ -15,25 +15,28 @@
 
 #include <QWidget>
 #include "QTypingTest/Dialogs/twindowtest.h"
+#include "QTypingTest/Learn/tpresentation.h"
+#include "Data/texercice.h"
 
 class TWindowLearn : public TWindowTest {
     Q_OBJECT
 public:
-    TWindowLearn(QString model, QWidget *parent = 0);
-    TWindowLearn(QString model, int numberOfPages, QWidget *parent = 0);
+    TWindowLearn(TExercice *ex, QWidget *parent = 0);
+    TWindowLearn(TExercice *ex, int numberOfPages, QWidget *parent = 0);
 
     virtual ~TWindowLearn() {
     };
-
+    
 protected:
     
-    void updateClock(){
+    void updateClock() override{
         topToolbar_.incrementTimer(1);
     };
+   
     
 
 private:
-
+    TPresentation *instructions_;
 };
 
 #endif /* TWINDOWLEARN_H */

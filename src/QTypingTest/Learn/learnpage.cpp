@@ -39,13 +39,13 @@ void LearnPage::createPractice() {
 
     //Create a button for each existing string and add it to the layout
     for (auto it = l.begin(); it != l.end(); ++it, index++) {
-        QPushButton *button = new QPushButton(*it);
+        QPushButton *button = new QPushButton((*it).replace('&',"&&"));
 
         connect(button, SIGNAL(clicked()), this, SLOT(lauchExercice()));
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         button->setMinimumHeight(100);
         button->setContentsMargins(1, 1, 1, 1);
-        button->setFocusPolicy(FocusPolicy::NoFocus);
+        button->setFocusPolicy(Qt::NoFocus);
 
         if (index > TUser::currentUser()->getProgression()->getLastExericeIndex()) {
             button->setEnabled(false);
@@ -79,12 +79,12 @@ void LearnPage::lauchExercice() {
             QMessageBox::critical(this, "Exercice already running", "There is alerady a running exercice");
         } else {
             currentProgression_ = lastLetterIndex;
-            QStringList lastLetter = practice_.getLettersAt(lastLetterIndex);
-            QStringList allLetters = QStringList(practice_.getAllLettersTo(lastLetterIndex + 1));
+            QString lastLetter = practice_.getLettersAt(lastLetterIndex);
+            QString allLetters = practice_.getAllLettersTo(lastLetterIndex + 1);
             TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
 
 
-            testWindow_ = new TWindowLearn(ex->buildExercice(),this);
+            testWindow_ = new TWindowLearn(ex,this);
             //Connect only once the test dialog
             connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
             connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));

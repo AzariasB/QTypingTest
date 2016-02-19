@@ -34,31 +34,31 @@ class TWindowTest : public QDialog {
 public:
     TWindowTest(QWidget* parent = 0) :
     QDialog(parent),
+    topToolbar_(TToolbar()),
+    pages_(TStackPages(2)),
     results_(QList<TResult*>()),
     timeStart_(QTime(0, 0)),
-    updateTimer_(new QTimer()),
-    topToolbar_(TToolbar()),
-    pages_(TStackPages()) {
+    updateTimer_(new QTimer()) {
         setupWidget();
     }
 
     TWindowTest(QString text, QWidget *parent = 0) :
     QDialog(parent),
+    topToolbar_(TToolbar()),
+    pages_(TStackPages(text, 2)),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
-    updateTimer_(new QTimer()),
-    topToolbar_(TToolbar()),
-    pages_(TStackPages(text, 2)) {
+    updateTimer_(new QTimer()) {
         setupWidget();
     }
 
     TWindowTest(QString text, int numberOfPages, QWidget *parent = 0) :
     QDialog(parent),
+    topToolbar_(TToolbar()),
+    pages_(TStackPages(text, numberOfPages)),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
-    updateTimer_(new QTimer()),
-    topToolbar_(TToolbar()),
-    pages_(TStackPages(text, numberOfPages)) {
+    updateTimer_(new QTimer()) {
         setupWidget();
     }
 
@@ -68,6 +68,14 @@ public:
 
     TStackPages stackPages() const {
         return pages_;
+    }
+
+    /**
+     * 
+     * @return a pointer to the list of restuls
+     */
+    void addResult(TResult* nwResult) {
+        results_.append(nwResult);
     }
 
     virtual ~TWindowTest();
@@ -208,9 +216,9 @@ protected:
     /* The pages */
     TStackPages pages_;
 
+private:
     /* The results of each pages */
     QList<TResult*> results_;
-private:
 
     QTime timeStart_;
 

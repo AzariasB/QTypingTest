@@ -17,6 +17,7 @@
 
 #include "tresult.h"
 #include "Util/factory.h"
+#include "Data/tlayouts.h"
 
 /**
  * A model class to define the type of exercice the user is about to do
@@ -29,7 +30,7 @@ public:
         LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT
     };
 
-    TExercice(EXERCICE_TYPE exType, QStringList mainLetter, QStringList availableLetters);
+    TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
     TExercice(EXERCICE_TYPE exType, bool allLetters);
     TExercice(const TExercice& orig);
 
@@ -38,15 +39,17 @@ public:
     virtual ~TExercice() {
 
     };
+
+    QString learningLetters() const{
+        return learningLetters_;
+    }
     
     
 private:
     bool allLetters_ = false;
-    QStringList learningLetters_;
-    QStringList availableLetters_;
+    QString learningLetters_;
+    QString availableLetters_;
     EXERCICE_TYPE exerciceType_ = LEARNING;
-    
-    QStringList getAllLetters() const;
 };
 
 #endif /* TEXERCICE_H */

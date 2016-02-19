@@ -27,6 +27,16 @@ int randomNextSpace() {
 }
 
 /**
+ * 
+ * @param 
+ * @param 
+ * @return 
+ */
+int randInt(int min,int max){
+    return (rand() % (max + 1 - min)) + min;
+}
+
+/**
  * Little helper to check if at least each chars of the contains QString
  * is contained in one of the words.
  * For example, with the words ("fly","my") and the string "ty", the function
@@ -56,19 +66,7 @@ bool wordsContains(QStringList words, QString contains) {
     return false;
 }
 
-QStringList readFile(QString fileName) {
-    QFile model(fileName);
-    if (model.exists() && model.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QString res = QLatin1String(model.readAll());
-        return res.split("\n");
-    } else {//File not found
-        if (!model.exists())
-            qDebug() << "File does not exists : " + fileName + " \n Please, be sure to run the programm from its root folder";
-        else
-            qDebug() << "Could not open file";
-        return QStringList();
-    }
-}
+
 
 bool isValidWord(QString word, QString availableLetters) {
     for (auto it = availableLetters.begin();
@@ -78,7 +76,21 @@ bool isValidWord(QString word, QString availableLetters) {
     return word.isEmpty();
 }
 
-QString factory::generateLearning(QStringList mainLetter, QStringList allLetters) {
+
+QString factory::generateText(int numbersOfWords, QString lang){
+    //TODO : change to have a list of available langs
+    if(lang != "en"){
+        return ""; //Nothing for now
+    }else{
+        QString fPath = file::getTextPath(lang);
+        QStringList content = file::readFile(fPath).split("\n");
+        QStringList text = selectRandomString(content).split(" ",QString::SkipEmptyParts);
+        int start = randInt(0,text.size() - numbersOfWords);
+        return QStringList(text.mid(start,numbersOfWords)).join(" ");
+    }
+}
+
+QString factory::generateLearning(QString mainLetter, QString allLetters) {
 
     QString res;
 
@@ -88,12 +100,12 @@ QString factory::generateLearning(QStringList mainLetter, QStringList allLetters
     //TODO : change here the language of the words to depend on the user configuration (Azarias)
     if (!allLetters.isEmpty()) {
         res += generateFromLetters(allLetters);
-        QString wordsWMain = generateWords(allLetters.join(""), "en", mainLetter.join(""));
+        QString wordsWMain = generateWords(allLetters, "en", mainLetter);
 
         //If no words can be generated
         if (wordsWMain.isEmpty()) {
             //Try without main letter
-            QString randWords = generateWords(allLetters.join(""), "en");
+            QString randWords = generateWords(allLetters, "en");
             //
             if (randWords.isEmpty()) {//Generate random letters
                 res += generateFromLetters(allLetters);
@@ -112,13 +124,13 @@ QString factory::generateLearning(QStringList mainLetter, QStringList allLetters
     return res;
 }
 
-QString factory::generatePractice(QStringList letters, bool onlyRealWords){
+QString factory::generatePractice(QString letters, bool onlyRealWords){
     QString res;
     if(!onlyRealWords)
         res += generateFromLetters(letters);
     
     if(!letters.isEmpty()){
-        res += generateWords(letters.join(""),"en");
+        res += generateWords(letters,"en");
         QStringList words = res.split(" ",QString::SkipEmptyParts);
         std::random_shuffle(words.begin(),words.end());
         res = words.join(" ");
@@ -129,11 +141,11 @@ QString factory::generatePractice(QStringList letters, bool onlyRealWords){
     return res;
 }
 
-QString factory::generateFromLetters(QStringList letterList, int length) {
+QString factory::generateFromLetters(QString letters, int length) {
     int nextSpace = randomNextSpace();
     QString res;
     for (int i = 0; i < length; i++, nextSpace--) {
-        res += selectRandomElement(letterList);
+        res += selectRandomChar(letters);
         if (nextSpace == 0) {
             res += " ";
             nextSpace = randomNextSpace();
@@ -143,7 +155,7 @@ QString factory::generateFromLetters(QStringList letterList, int length) {
 }
 
 QStringList factory::findExistingWords(QString authorizedLetters, QString fileName, QString mustContain) {
-    QStringList words = readFile(fileName);
+    QStringList words = file::readFile(fileName).split("\n");
     QStringList res;
 
     foreach(QString word, words) {
@@ -166,15 +178,19 @@ QString factory::generateWords(QString authorizedLetters, QString language, QStr
     QStringList words = factory::findExistingWords(authorizedLetters, file::getWordsPath(language), mainLetters);
     if (!words.isEmpty()) {
         for (int i = 0; i < numberOfWords; i++) {
-            res += selectRandomElement(words);
+            res += selectRandomString(words);
             if (i != numberOfWords - 1) res += " ";
         }
     }
     return res;
 }
 
-QString factory::selectRandomElement(QStringList lettersList) {
-    return lettersList[rand() % lettersList.size()];
+QString factory::selectRandomChar(QString lettersList) {
+    return QString(lettersList[rand() % lettersList.size()]);
+}
+
+QString factory::selectRandomString(QStringList strings){
+    return strings[rand() % strings.size()];
 }
 
 int factory::findClosestSpace(const QString& search, int indexStart) {

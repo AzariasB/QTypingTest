@@ -30,7 +30,7 @@ generator_(orig.exerciceGenerator()) {
     setupPage();
 }
 
-void TPracticeRace::createPage(TResult* prevPageRes) {
+void TPracticeRace::createPage() {
     QString ex = generator_.buildExercice();
     pages_.addPage(ex);
 }
@@ -39,7 +39,7 @@ void TPracticeRace::setupPage(int timeStart) {
 
     //HACK for testing => shortucut to end the exercice
     QShortcut *endShortcut = new QShortcut(this);
-    endShortcut->setKey(CTRL + Key_E);
+    endShortcut->setKey(Qt::CTRL + Qt::Key_E);
 
     connect(endShortcut, &QShortcut::activated, [ = ](){
         emit pages_.pageEnded(new TResult());
@@ -56,6 +56,7 @@ void TPracticeRace::setupPage(int timeStart) {
 void TPracticeRace::updateClock() {
     double res = topToolbar_.incrementTimer(-1);
     if(res <= 0.f){
+        addResult(pages_.currentPage()->getResult());
         emit pages_.textFinished();
     }
 }

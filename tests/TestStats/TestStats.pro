@@ -25,6 +25,7 @@ HEADERS = $$SRC/QTypingTest/Statistics/tstatswpm.h \
             $$SRC/Data/texercice.h \
             $$SRC/Data/tuser.h \
             $$SRC/Data/tstats.h \
+            $$SRC/Data/tlayouts.h \
             $$SRC/Util/htmlhelper.h \
             $$SRC/Util/factory.h \
             $$SRC/Util/filehelper.h
@@ -35,6 +36,7 @@ SOURCES = $$SRC/QTypingTest/Statistics/tstatswpm.cpp \
             $$SRC/Data/texercice.cpp \
             $$SRC/Data/tuser.cpp \
             $$SRC/Data/tstats.cpp \
+            $$SRC/Data/tlayouts.cpp \
             $$SRC/Util/htmlhelper.cpp \
             $$SRC/Util/factory.cpp \
             $$SRC/Util/filehelper.cpp \

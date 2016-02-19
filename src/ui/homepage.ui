@@ -107,21 +107,7 @@
            </property>
           </widget>
          </widget>
-         <widget class="QWidget" name="page_games">
-          <widget class="QLabel" name="label_4">
-           <property name="geometry">
-            <rect>
-             <x>210</x>
-             <y>260</y>
-             <width>67</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>games</string>
-           </property>
-          </widget>
-         </widget>
+         <widget class="QWidget" name="page_games"/>
         </widget>
        </item>
       </layout>

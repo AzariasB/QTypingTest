@@ -18,10 +18,12 @@
 #include <QGridLayout>
 #include <QMessageBox>
 #include <QDebug>
+#include <QTime>
 
 #include "QTypingTest/Dialogs/twindowtest.h"
 #include "QTypingTest/Dialogs/Exercices/tpracticerace.h"
 #include "QTypingTest/Dialogs/Exercices/tpracticebase.h"
+#include "QTypingTest/Dialogs/Exercices/tpracticetext.h"
 
 class PracticePage : public QWidget {
     Q_OBJECT

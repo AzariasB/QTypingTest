@@ -52,7 +52,7 @@ public slots:
      * 
      * @param prevPageRes the result of the page that was just finished
      */
-    void createPage(TResult *prev = 0);
+    void createPage();
 
 private:
     /**

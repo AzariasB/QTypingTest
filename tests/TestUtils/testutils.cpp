@@ -10,6 +10,7 @@
 #include <QStringList>
 #include <QDir>
 #include <time.h>
+#include <qt5/QtCore/qlogging.h>
 
 
 
@@ -18,7 +19,7 @@
 #include "../../src/Util/filehelper.h"
 
 
-const QStringList allLetters = QStringList("abcdefghijklmnopqrstuvwxyz");
+const QString allLetters = QString("abcdefghijklmnopqrstuvwxyz");
 
 class TestUtils : public QObject {
     Q_OBJECT
@@ -30,6 +31,7 @@ private:
     void testWordsFinding();
     void testPracticeGeneration();
     void testNotSame();
+    void testText();
 
     //Functions to test HTML
     void testSurroundAll();
@@ -38,8 +40,19 @@ private:
     void testAbsolutePosition();
 };
 
-//Two generated practice must be different
+//test if the files are found and the text correct
+void TestUtils::testText() {
+    QStringList twoWords = factory::generateText(2).split(" ",QString::SkipEmptyParts);
+    QStringList realText = factory::generateText(20).split(" ",QString::SkipEmptyParts);
+    
+    qDebug() << twoWords;
+    qDebug() << realText;
+    QVERIFY(twoWords.size() == 2);
+    QVERIFY(realText.size() == 20);
+}
 
+
+//Two generated practice must be different
 void TestUtils::testNotSame() {
     for (int i = 0; i < 100; i++) {
         QString exo1 = factory::generatePractice(allLetters);
@@ -56,7 +69,7 @@ void TestUtils::testNotSame() {
 void TestUtils::testPracticeGeneration() {
     QString words = factory::generatePractice(allLetters);
     QString randW = factory::generatePractice(allLetters, false);
-    QString empt = factory::generatePractice(QStringList());
+    QString empt = factory::generatePractice("");
 
     QVERIFY(words.size() > 0);
     qDebug() << "Must contain only real words";
@@ -196,6 +209,9 @@ void TestUtils::testFactory() {
 
     qDebug() << "Testing that the generation is completely random";
     testNotSame();
+    
+    qDebug() << "Testing the text generation";
+    testText();
 }
 
 QTEST_MAIN(TestUtils)

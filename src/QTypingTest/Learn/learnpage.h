@@ -24,8 +24,7 @@
 #include <QVector>
 #include <QScrollArea>
 
-
-#include "Data/tpractice.h"
+#include "Data/tlayouts.h"
 #include "Data/texercice.h"
 #include "Data/tresult.h"
 #include "Data/tuser.h"
@@ -72,7 +71,7 @@ private:
     
 
     //Save the tpractice instead of instanciate it over and over
-    TPractice practice_ = TPractice::getInstance();
+    TLayouts practice_ = TLayouts::getInstance("fr");
 
     //Have a unique window for the exercice that will change depending on the exercices
     TWindowLearn *testWindow_;

@@ -57,7 +57,6 @@ public:
     QWidget *page_stats;
     QLabel *label_3;
     QWidget *page_games;
-    QLabel *label_4;
     QMenuBar *menubar;
     QMenu *menuUser;
     QMenu *menuOptions;
@@ -156,9 +155,6 @@ public:
         stack_main->addWidget(page_stats);
         page_games = new QWidget();
         page_games->setObjectName(QStringLiteral("page_games"));
-        label_4 = new QLabel(page_games);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(210, 260, 67, 17));
         stack_main->addWidget(page_games);
 
         gridLayout_2->addWidget(stack_main, 0, 0, 1, 1);
@@ -214,7 +210,6 @@ public:
         button_stats->setText(QApplication::translate("MainWindow", "Statistics", 0));
         button_games->setText(QApplication::translate("MainWindow", "Games", 0));
         label_3->setText(QApplication::translate("MainWindow", "Statistics", 0));
-        label_4->setText(QApplication::translate("MainWindow", "games", 0));
         menuUser->setTitle(QApplication::translate("MainWindow", "User", 0));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
         menuAbout->setTitle(QApplication::translate("MainWindow", "About", 0));

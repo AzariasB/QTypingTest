@@ -1,4 +1,7 @@
-
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
 /* 
  * File:   THomePage.h
  * Author: boutina
@@ -18,8 +21,9 @@
 
 #include "Learn/learnpage.h"
 #include "Practice/practicepage.h"
+#include "Games/gamepage.h"
 
-#include "Data/tpractice.h"
+#include "Data/tlayouts.h"
 #include "ui/ui_homepage.h"
 #include "Data/tuser.h"
 

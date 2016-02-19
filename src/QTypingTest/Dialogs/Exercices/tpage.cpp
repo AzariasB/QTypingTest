@@ -13,7 +13,6 @@
 
 #include "tpage.h"
 
-
 TPage::TPage(QString model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
 toCopy_(QList<TLabel*>()),
@@ -98,29 +97,29 @@ void TPage::handleMistype(QChar userAns) {
 }
 
 void TPage::eraseAnswer() {
-    if (label()->previousChar())
+    bool prevChar = label()->previousChar();
+    if (prevChar || currentTLabel_ > 0) {
         lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
-    else if (currentTLabel_ > 0) {
-        lastAnswer_ = lastAnswer_.mid(0, lastAnswer_.size() - 1);
-        label()->setEnabled(false);
-        currentTLabel_--;
-        label()->setEnabled(true);
-        label()->previousChar();
-    }else{
+        if (!prevChar) {
+            label()->setEnabled(false);
+            currentTLabel_--;
+            label()->setEnabled(true);
+            label()->previousChar();
+        }
+    } else {
         emit eraseOverflow();
     }
 }
 
 bool TPage::isValidKey(QKeyEvent* ev) {
 
-    return !ev->text().isEmpty() && !ev->text().isNull() &&
-            TKeys::isValidLetter(ev->key());
+    return !ev->text().isEmpty() && !ev->text().isNull() && ev->key() != Qt::Key_Backspace ;
 }
 
 void TPage::update(QKeyEvent* ev) {
     if (isValidKey(ev)) {
         typingAnswer(ev->text());
-    } else if (ev->key() == Key_Backspace) {
+    } else if (ev->key() == Qt::Key_Backspace) {
         eraseAnswer();
     }
 }
