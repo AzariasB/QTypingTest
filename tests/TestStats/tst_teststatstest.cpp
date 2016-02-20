@@ -4,15 +4,22 @@
 #include <QEvent>
 #include <QHash>
 
+#include "time.h"
 #include "Data/tuser.h"
 #include "Data/texercice.h"
 #include "QTypingTest/Statistics/tstatswpm.h"
+#include "QTypingTest/Statistics/tlayoutwidget.h"
+#include "QTypingTest/Statistics/tscrollwidget.h"
 
 class TestStatsTest : public QObject
 {
     Q_OBJECT
 
 private slots:
+    void initTestCase(){
+        srand(time(NULL));
+    }
+
     void testCase1();
 };
 
@@ -20,9 +27,9 @@ private slots:
 void TestStatsTest::testCase1()
 {
     TUser user;
-    TStatsWPM w;
-    w.setFixedHeight(300);
-    w.show();
+    TScrollWidget sw;
+
+    sw.show();
     QApplication::exec();
 }
 

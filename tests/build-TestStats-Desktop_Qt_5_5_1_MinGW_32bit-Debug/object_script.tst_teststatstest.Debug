@@ -9,5 +9,7 @@ INPUT(
 ./.obj\htmlhelper.o
 ./.obj\factory.o
 ./.obj\filehelper.o
+./.obj\tscrollwidget.o
+./.obj\tlayoutwidget.o
 ./.obj\tst_teststatstest.o
 );

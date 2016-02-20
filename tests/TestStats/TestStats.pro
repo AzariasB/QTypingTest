@@ -28,7 +28,9 @@ HEADERS = $$SRC/QTypingTest/Statistics/tstatswpm.h \
             $$SRC/Data/tlayouts.h \
             $$SRC/Util/htmlhelper.h \
             $$SRC/Util/factory.h \
-            $$SRC/Util/filehelper.h
+            $$SRC/Util/filehelper.h \
+            $$SRC/QTypingTest/Statistics/tscrollwidget.h \
+            $$SRC/QTypingTest/Statistics/tlayoutwidget.h
 
 SOURCES = $$SRC/QTypingTest/Statistics/tstatswpm.cpp \
             $$SRC/Data/tprogression.cpp \
@@ -39,7 +41,9 @@ SOURCES = $$SRC/QTypingTest/Statistics/tstatswpm.cpp \
             $$SRC/Data/tlayouts.cpp \
             $$SRC/Util/htmlhelper.cpp \
             $$SRC/Util/factory.cpp \
-            $$SRC/Util/filehelper.cpp \
+            $$SRC/Util/filehelper.cpp \           
+            $$SRC/QTypingTest/Statistics/tscrollwidget.cpp \
+            $$SRC/QTypingTest/Statistics/tlayoutwidget.cpp \
             tst_teststatstest.cpp
 
 TARGET = tst_teststatstest

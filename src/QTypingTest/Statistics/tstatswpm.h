@@ -8,7 +8,6 @@ using namespace std;
 #include <QMouseEvent>
 #include <QEvent>
 #include <QHash>
-
 #include <QDebug>
 
 #include <stdlib.h>
@@ -32,15 +31,16 @@ protected:
     void drawGraph();
     void mouseMoveEvent(QMouseEvent * e);
     void paintEvent(QPaintEvent *ev);
-
+    QRect getCurrRect(QMouseEvent * e);
+    void calcMean();
     //Temporaly => To be replaced wit points of user
     int *createRandomPoints();
 
 private:
     TUser *user_;
-    float mean_ = 0;
-
-    //QHash<date_exercice_*, TResult*> historyresults_; //a temporary array
+    int mean_ = 0;
+    QPoint currentpoint_;
+    QRect currentrect_;
 
     //Keep track of ther order of the points to draw
     QList<QPoint> orderedPoints_;
