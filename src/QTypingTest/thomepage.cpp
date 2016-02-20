@@ -42,7 +42,7 @@ void THomePage::showAboutDialogs(){
 void THomePage::showOptionDialog(){
     TOptionDialog *opt = new TOptionDialog(*TUserManager::getInstance().getCurrentUser(),this);
     opt->show();
-    connect(opt,&QDialog::finished ,this,[=,opt](int res){
+    connect(opt,&QDialog::finished ,this,[=](int res){
         if(res == 1){
             TUser *currentUser = TUserManager::getInstance().getCurrentUser();
             currentUser->setSettings(opt->getCurrentSettings());
@@ -104,6 +104,7 @@ void THomePage::connectEvents() {
             ui.stack_main->setCurrentIndex(i);
         });
     }
+
     connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(updateUI(TUser*)));
 
 }

@@ -18,3 +18,20 @@
 TUserManager::~TUserManager() {
 }
 
+QDataStream &TUserManager::readUsers(QDataStream &in)
+{
+    while (!in.atEnd()) {
+        TUser u;
+        in >> u;
+        users_.append(new TUser(u));
+    }
+    return in;
+}
+
+QDataStream &TUserManager::saveUsers(QDataStream &out)
+{
+    foreach (auto elem, users_) {
+        out << *elem;
+    }
+    return out;
+}

@@ -17,25 +17,20 @@
 HomePage::HomePage(QWidget* parent) :
 QWidget(parent),
 usersList_(new QVBoxLayout()) {
-    users_ = getUsers();
+    getUsers();
     setupWidgets();
 }
 
 QList<TUser*> HomePage::getUsers() {
     QList<TUser*> users;
     QFile f("etc/users.dat");
-    if (!f.exists()) {
+    if (!f.exists() || !f.open(QFile::ReadOnly)) {
         qDebug() << "File 'users.dat' not found";
         return users;
     }
 
     QDataStream in(&f);
-    f.open(QFile::ReadOnly);
-    while (!in.atEnd()) {
-        TUser u;
-        in >> u;
-        users << new TUser(u);
-    }
+    TUserManager::getInstance().readUsers(in);
     f.close();
 
     return users;
@@ -55,30 +50,24 @@ void HomePage::createUser() {
     QString pseudo = QInputDialog::getText(this, "Create new user",
             "User's pseudo :", QLineEdit::Normal, "", &ok);
     if (ok) {
-        TUser *nwUser = new TUser(pseudo);
-        users_ << nwUser;
+        TUserManager::getInstance() << new TUser(pseudo);
         saveUsers();
     }
 }
 
 bool HomePage::saveUsers() {
     QFile f("etc/users.dat");
-    if(!f.exists())
-        return false;
-    QDataStream in(&f);
     f.open(QFile::WriteOnly);
-
-    for (auto elem : users_) {
-        in << *elem;
-    }
-    updateUserDisplay();
+    QDataStream out(&f);
+    TUserManager::getInstance().saveUsers(out);
     f.close();
+    updateUserDisplay();
     return true;
 }
 
 void HomePage::updateUserDisplay() {
     clearLayout(usersList_);
-    for (auto elem : users_) {
+    for (auto elem : TUserManager::getInstance().users() ) {
         QHBoxLayout *userLine = new QHBoxLayout();
         QPushButton *userButton = new QPushButton(elem->getPseudo());
         TUser *currentUser = TUserManager::getInstance().getCurrentUser();
@@ -119,7 +108,7 @@ void HomePage::deleteUser(TUser *user) {
     int button = QMessageBox::warning(this, "Deleter user",
             "Are you sure to delete this user ?", QMessageBox::Yes | QMessageBox::No);
     if (button == QMessageBox::Yes) {
-        users_.removeOne(user);
+        TUserManager::getInstance() - user;
         saveUsers();
         updateUserDisplay();
     }

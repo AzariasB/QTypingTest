@@ -63,8 +63,6 @@ private:
     HomePage(QWidget *parent = 0);
 
 
-    QList<TUser*> users_;
-
     /**
      * List of the users
      * this layout is updated

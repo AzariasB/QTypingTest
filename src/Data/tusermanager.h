@@ -15,6 +15,8 @@
 #define TUSERMANAGER_H
 
 #include <QObject>
+#include <QList>
+#include <QDataStream>
 
 #include "tuser.h"
 
@@ -37,18 +39,39 @@ public:
         return currentUser_;
     }
 
+    const QList<TUser*> users()
+    {
+        return users_;
+    }
+
+    QDataStream &saveUsers(QDataStream &out);
+
+    QDataStream &readUsers(QDataStream &in);
+
+
     virtual ~TUserManager();
+
+    void operator<<(TUser *nwUser){
+        users_ << nwUser;
+    }
+
+    bool operator -(TUser *userLess)
+    {
+        return users_.removeOne(userLess);
+    }
 
     TUserManager(const TUserManager& orig) = delete;
     void operator=(TUserManager const&) = delete;
 
 signals:
-
     void userChanged(TUser *);
 
 private:
 
     TUser *currentUser_;
+
+    QList<TUser*> users_;
+
 
     TUserManager() : QObject() {
         currentUser_ = 0;
