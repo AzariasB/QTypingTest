@@ -10,20 +10,18 @@
  * Created on 31 janvier 2016, 15:38
  */
 
-#include <qt5/QtCore/qlogging.h>
-
 #include "tpresentation.h"
 
-TPresentation::TPresentation(QString lang, QWidget* parent) :
+TPresentation::TPresentation(TLayouts &layout, QWidget* parent) :
 QWidget(parent),
-keyboard_(new TVirtualKeyboard(lang)),
+keyboard_(new TVirtualKeyboard(layout)),
 positions_(new TFingerPosition()) {
     setupWidgets();
 }
 
-TPresentation::TPresentation(QString lang, QString charsToCopy, QWidget* parent) :
+TPresentation::TPresentation(TLayouts &layout, QString charsToCopy, QWidget* parent) :
 QWidget(parent),
-keyboard_(new TVirtualKeyboard(lang)),
+keyboard_(new TVirtualKeyboard(layout)),
 positions_(new TFingerPosition()),
 toPress_(charsToCopy) {
     setupWidgets();

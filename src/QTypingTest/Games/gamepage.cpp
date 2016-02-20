@@ -34,7 +34,7 @@ void GamePage::connectEvents() {
 
 void GamePage::showInteractiveKeyboard() {
     QDialog *dial = new QDialog(this);
-    TPresentation *p = new TPresentation("fr");
+    TPresentation *p = new TPresentation(TLayouts::getInstance("azerty"));
     QGridLayout *dialLay = new QGridLayout();
     dialLay->addWidget(p);
     

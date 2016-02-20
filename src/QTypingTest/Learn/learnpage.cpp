@@ -9,11 +9,6 @@
  * Created on 17 décembre 2015, 17:58
  */
 
-
-
-#include <qt5/QtCore/qlogging.h>
-#include <qt5/QtWidgets/qwidget.h>
-
 #include "learnpage.h"
 
 LearnPage::LearnPage(QWidget* parent) :

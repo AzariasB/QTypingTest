@@ -22,24 +22,24 @@ modifiers_(new QHash<int, TVirtualKey*>()) {
 
 }
 
-TVirtualKeyboard::TVirtualKeyboard(QString lang, QWidget* parent) :
+TVirtualKeyboard::TVirtualKeyboard(TLayouts &layout, QWidget* parent) :
 QWidget(parent),
 keys_(new QHash<QChar, TVirtualKey*>()),
 modifiers_(new QHash<int, TVirtualKey*>()) {
-    setupWidget(lang);
+    setupWidget(layout);
 }
 
-void TVirtualKeyboard::setupWidget(QString lan) {
+void TVirtualKeyboard::setupWidget(TLayouts &layout) {
     leftShift_ = new TVirtualKey(55, "Shift");
     rightShift_ = new TVirtualKey(155, "Shift");
-
-    createKeys(TLayouts::getInstance(lan).getLayouLines());
+    qDebug() << layout.getLayouLines().size();
+    createKeys(layout.getLayouLines());
 }
 
-void TVirtualKeyboard::createKeys(QList<QStringList>* keyChars) {
+void TVirtualKeyboard::createKeys(QList<QStringList> keyChars) {
     QVBoxLayout *mainLay = new QVBoxLayout();
-    for (int i = 0; i < keyChars->size(); i++) {
-        QStringList lst = keyChars->at(i);
+    for (int i = 0; i < keyChars.size(); i++) {
+        QStringList lst = keyChars[i];
         QWidget *line;
         switch (i) {
             case 0: line = numberLine(lst);

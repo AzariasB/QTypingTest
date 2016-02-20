@@ -23,9 +23,9 @@ class TPresentation : public QWidget {
     Q_OBJECT
 public:
 
-    TPresentation(QString lang, QWidget *parent = 0);
+    TPresentation(TLayouts &layout, QWidget *parent = 0);
 
-    TPresentation(QString lang, QString charsToCopy, QWidget *parent = 0);
+    TPresentation(TLayouts &layout, QString charsToCopy, QWidget *parent = 0);
 
     virtual ~TPresentation() {
 

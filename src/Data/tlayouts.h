@@ -25,19 +25,24 @@
 class TLayouts {
 public:
 
-    static TLayouts &getInstance(QString lang) {
-        if (instance.getCurrentLang() != lang) {
-            instance = TLayouts(lang);
+    static TLayouts &getInstance(QString layout , QString country = "") {
+        static TLayouts instance(layout,country);
+        if (instance.getCurrentLang() != layout || instance.getCurrentCountry() != country) {
+            instance = TLayouts(layout,country);
         }
         return instance;
     }
 
     QString getCurrentLang() const {
-        return currentLang_;
+        return currentLayout_;
     }
 
-    QList<QStringList> *getLayouLines() const {
-        return layoutLines_;
+    QString getCurrentCountry() const{
+        return currentCountry_;
+    }
+
+    QList<QStringList> getLayouLines() const {
+        return *layoutLines_;
     }
 
     QStringList getLetterList();
@@ -61,16 +66,15 @@ public:
 
     virtual ~TLayouts() {
     }
+
 private:
 
     static QString allAvailableLetters_;
 
-    static TLayouts instance;
-
     static QStringList availableLangs_;
 
-    TLayouts(QString lang) {
-        this->initLetters(lang);
+    TLayouts(QString layout,QString lang = "") {
+        this->initLetters(layout,lang);
     }
 
     void setAvailableLangs(const QStringList &ori){
@@ -79,11 +83,15 @@ private:
 
     /**
      * Init the list of letters, from the given
-     * langage
+     * layout name and the country code
+     * If the country code is empty, the first config found will
+     * be chosen
      * 
      * @param layout layout of the keyboard
+     * @param country the country code of the layout
+     * (FR for France, SW for Sweden ...)
      */
-    void initLetters(QString lang);
+    void initLetters(QString layout, QString country = "");
 
 
     /**
@@ -107,7 +115,7 @@ private:
      * @param lang the langage of the layout
      * @return the layout of the given langage, empty String if not found
      */
-    QString findCorrespondingLayout(QString config, QString lang);
+    QString findCorrespondingLayout(QString config, QString lang, QString country = "");
 
     /**
      * @brief findAvailableLangs will find the available language in the layout file
@@ -115,7 +123,9 @@ private:
      */
     void findAvailableLangs(const QString &fileContent);
 
-    QString currentLang_;
+    QString currentLayout_;
+    QString currentCountry_;
+
     QStringList lettersList_;
     QList<QStringList> *layoutLines_;
 
