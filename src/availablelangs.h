@@ -1,0 +1,5 @@
+#ifndef AVAILABLELANGS
+#define AVAILABLELANGS
+
+#endif // AVAILABLELANGS
+
