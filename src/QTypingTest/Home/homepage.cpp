@@ -17,23 +17,7 @@
 HomePage::HomePage(QWidget* parent) :
 QWidget(parent),
 usersList_(new QVBoxLayout()) {
-    getUsers();
     setupWidgets();
-}
-
-QList<TUser*> HomePage::getUsers() {
-    QList<TUser*> users;
-    QFile f("etc/users.dat");
-    if (!f.exists() || !f.open(QFile::ReadOnly)) {
-        qDebug() << "File 'users.dat' not found";
-        return users;
-    }
-
-    QDataStream in(&f);
-    TUserManager::getInstance().readUsers(in);
-    f.close();
-
-    return users;
 }
 
 void HomePage::setupWidgets() {
@@ -51,18 +35,8 @@ void HomePage::createUser() {
             "User's pseudo :", QLineEdit::Normal, "", &ok);
     if (ok) {
         TUserManager::getInstance() << new TUser(pseudo);
-        saveUsers();
+        updateUserDisplay();
     }
-}
-
-bool HomePage::saveUsers() {
-    QFile f("etc/users.dat");
-    f.open(QFile::WriteOnly);
-    QDataStream out(&f);
-    TUserManager::getInstance().saveUsers(out);
-    f.close();
-    updateUserDisplay();
-    return true;
 }
 
 void HomePage::updateUserDisplay() {
@@ -109,7 +83,6 @@ void HomePage::deleteUser(TUser *user) {
             "Are you sure to delete this user ?", QMessageBox::Yes | QMessageBox::No);
     if (button == QMessageBox::Yes) {
         TUserManager::getInstance() - user;
-        saveUsers();
         updateUserDisplay();
     }
 }

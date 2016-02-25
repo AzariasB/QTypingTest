@@ -124,7 +124,8 @@ HEADERS += \
             src/Data/tlayouts.h \
             src/Data/tuser.h \
             src/Data/tusermanager.h \
-            src/Data/tstats.h 
+            src/Data/tstats.h \ 
+    src/availablelangs.h
 
 DISTFILES += \
     etc/layouts.txt

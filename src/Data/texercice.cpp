@@ -23,7 +23,7 @@ exerciceType_(PRACTICING) {
 TExercice::TExercice(EXERCICE_TYPE exType, bool allLetters) :
 allLetters_(allLetters),
 exerciceType_(exType) {
-    this->availableLetters_ = this->allLetters_ ? TLayouts::getAllAvailableLetters() : "";
+    this->availableLetters_ = this->allLetters_ ? TLayouts::getInstance("qwerty").getAllAvailableLetters() : "";
 }
 
 TExercice::TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters) :
@@ -44,9 +44,9 @@ QString TExercice::buildExercice() const {
         case LEARNING:
             return factory::generateLearning(learningLetters_, availableLetters_);
         case PRACTICING:
-            return factory::generatePractice(TLayouts::getAllAvailableLetters());
+            return factory::generatePractice(TLayouts::getInstance("qwerty").getAllAvailableLetters());
         case PRACTICING_RACE:// \todo : change the number of words to generate
-            return factory::generatePractice(TLayouts::getAllAvailableLetters());
+            return factory::generatePractice(TLayouts::getInstance("qwerty").getAllAvailableLetters());
         case PRACTICING_TEXT:
             return factory::generateText(40); //Generate a text of 40 words
         default:

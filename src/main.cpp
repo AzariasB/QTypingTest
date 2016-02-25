@@ -11,12 +11,6 @@
 
 #include "QTypingTest/thomepage.h"
 
-const QStringList availableLanguages = {
-    QLocale(QLocale::French,QLocale::France).nativeLanguageName(),
-    QLocale(QLocale::English).nativeLanguageName(),
-    QLocale(QLocale::Swedish,QLocale::Sweden).nativeLanguageName()
-};
-
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     qDebug() << "Running from " << QDir::currentPath();

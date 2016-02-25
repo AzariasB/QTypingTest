@@ -18,20 +18,35 @@
 TUserManager::~TUserManager() {
 }
 
-QDataStream &TUserManager::readUsers(QDataStream &in)
+QList<TUser*> TUserManager::readUsers()
 {
+    QFile f("etc/users.dat");
+    if (!f.exists() || !f.open(QFile::ReadOnly)) {
+        qDebug() << "File 'users.dat' not found";
+        return QList<TUser*>();
+    }
+
+    QDataStream in(&f);
     while (!in.atEnd()) {
         TUser u;
         in >> u;
         users_.append(new TUser(u));
     }
-    return in;
+    f.close();
+    return users_;
 }
 
-QDataStream &TUserManager::saveUsers(QDataStream &out)
+bool TUserManager::saveUsers()
 {
+    QFile f("etc/users.dat");
+    if(!f.open(QFile::WriteOnly)) return false;
+
+    QDataStream out(&f);
+
     foreach (auto elem, users_) {
         out << *elem;
     }
-    return out;
+    f.close();
+    emit usersSaved();
+    return true;
 }

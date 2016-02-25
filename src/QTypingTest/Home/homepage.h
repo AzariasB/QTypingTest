@@ -31,38 +31,17 @@ class HomePage : public QWidget {
     Q_OBJECT
 public:
 
-    static HomePage &getInstance(QWidget *parent = 0){
-        static HomePage home(parent);
-        return home;
-    }
+    HomePage(QWidget *parent = 0);
 
     virtual ~HomePage() {
     }
 
-    /**
-     * Read the file 'users.dat' and recover
-     * all the saved users
-     * If the file does not exist,
-     * a new one is created
-     */
-    QList<TUser*> getUsers();
-
 public slots:
     void createUser();
-
-    /**
-     * @brief saveUsers
-     * open the target file to save users, and write them in (by default users.dat)
-     */
-    bool saveUsers();
 
     void updateUserDisplay();
     
 private:
-
-    HomePage(QWidget *parent = 0);
-
-
     /**
      * List of the users
      * this layout is updated

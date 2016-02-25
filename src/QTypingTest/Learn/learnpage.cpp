@@ -171,8 +171,8 @@ void LearnPage::updateUserProgression(TUser* nwUser) {
     }
 }
 
-void LearnPage::resizeEvent(QResizeEvent* ev) {
+void LearnPage::resizeEvent(QResizeEvent*) {
     if (learnButtonsLayout_) {
-       
+       // \todo : fits the button to the scrollbar to avoid horizontal scrolling
     }
 }

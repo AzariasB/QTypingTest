@@ -22,6 +22,7 @@ build/
 .obj/
 .moc/
 *.pro.user
+*.pro.user.*
 
 #Ignore the makefiles
 #Don't need them since there are the .pro files

@@ -91,6 +91,7 @@ public:
         pseudo_ = user.getPseudo();
         lang_ = user.getLang();
         layout_ = user.getLayout();
+        emit settingsChanged(this);
     }
 
     void setProgression(TProgression *nwProgression) {
@@ -129,6 +130,8 @@ public:
 
 signals:
     void statsChanged(TUser *);
+
+    void settingsChanged(TUser *);
 
 private:
     QString pseudo_;

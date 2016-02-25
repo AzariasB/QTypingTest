@@ -46,9 +46,6 @@ void THomePage::showOptionDialog(){
         if(res == 1){
             TUser *currentUser = TUserManager::getInstance().getCurrentUser();
             currentUser->setSettings(opt->getCurrentSettings());
-            if(HomePage::getInstance().saveUsers()){
-                ui.statusbar->showMessage("Users saved !",4000);
-            }
         }
         delete opt;
     });
@@ -57,11 +54,14 @@ void THomePage::showOptionDialog(){
 void THomePage::connectEvents() {
     connect(ui.action_about,SIGNAL(triggered(bool)),this,SLOT(showAboutDialogs()));
     connect(ui.action_option,SIGNAL(triggered(bool)),this,SLOT(showOptionDialog()));
+    connect(&TUserManager::getInstance(),&TUserManager::usersSaved,this,[=](){
+        ui.statusbar->showMessage("Users saved !",4000);
+    });
 
     button_stack sHome = {
         ui.button_home,
         ui.page_home,
-        &HomePage::getInstance(this)
+        new HomePage()
     };
     button_stack sLearn = {
         ui.button_learn,

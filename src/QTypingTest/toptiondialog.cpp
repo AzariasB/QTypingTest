@@ -15,7 +15,7 @@
 TOptionDialog::TOptionDialog(const TUser &user,QWidget *parent):
  QDialog(parent)
 {
-    QStringList layouts = TLayouts::getAvailablLayouLangs();
+    QStringList layouts = TLayouts::getInstance("qwerty").getAvailablLayoutLangs();
     ui_option.setupUi(this);
     ui_option.comboBox_layout->addItems(layouts);
     ui_option.comboBox_language->addItems(availableLanguages);

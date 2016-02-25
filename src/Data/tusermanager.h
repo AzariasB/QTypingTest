@@ -31,7 +31,10 @@ public:
     }
 
     void setCurrentUser(TUser *nwUser) {
+        disconnect(currentUser_);
         currentUser_ = nwUser;
+        connect(currentUser_,SIGNAL(settingsChanged(TUser*)),this,SLOT(saveUsers()));
+        connect(currentUser_,SIGNAL(statsChanged(TUser*)),this,SLOT(saveUsers()));
         emit userChanged(currentUser_);
     }
 
@@ -39,32 +42,39 @@ public:
         return currentUser_;
     }
 
-    const QList<TUser*> users()
+    const QList<TUser*> &users()
     {
         return users_;
     }
 
-    QDataStream &saveUsers(QDataStream &out);
-
-    QDataStream &readUsers(QDataStream &in);
+    QList<TUser *> readUsers();
 
 
     virtual ~TUserManager();
 
     void operator<<(TUser *nwUser){
         users_ << nwUser;
+        saveUsers();
     }
 
     bool operator -(TUser *userLess)
     {
-        return users_.removeOne(userLess);
+        bool rmed = users_.removeOne(userLess);
+        saveUsers();
+        return rmed;
     }
+
 
     TUserManager(const TUserManager& orig) = delete;
     void operator=(TUserManager const&) = delete;
 
+public slots:
+    bool saveUsers();
+
 signals:
     void userChanged(TUser *);
+
+    void usersSaved();
 
 private:
 
@@ -75,9 +85,8 @@ private:
 
     TUserManager() : QObject() {
         currentUser_ = 0;
+        readUsers();
     }
-
-
 
 };
 

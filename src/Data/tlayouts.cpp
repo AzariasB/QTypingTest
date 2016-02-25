@@ -12,8 +12,6 @@
 
 #include "tlayouts.h"
 
-QStringList TLayouts::availableLangs_ = QStringList();
-QString TLayouts::allAvailableLetters_("");
 
 void TLayouts::initLetters(QString layout, QString country) {
     QString layouts = file::readFile("etc/layouts.txt");
@@ -30,9 +28,10 @@ void TLayouts::initLetters(QString layout, QString country) {
 }
 
 void TLayouts::findAvailableLangs(const QString &fileContent){
-    QRegExp ex("^([a-z]{2,}(-[A-Z]{2,})?(?=:)[\\d\\D]*");
+    QRegExp ex("^([a-z]{2,})(-([A-Z]{2,}))?(?=:)[\\d\\D]*");
     QStringList match = fileContent.split("\n\n");
-    match.replaceInStrings(ex,"\\1");
+    match.replaceInStrings(ex,"\\1 (\\3)");
+    match.replaceInStrings("()","");
     TLayouts::setAvailableLangs(match);
 }
 

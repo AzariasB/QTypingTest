@@ -55,12 +55,12 @@ public:
         return QStringList(getLetterList().mid(0, length)).join("");
     }
 
-    static QString getAllAvailableLetters() {
-        return TLayouts::allAvailableLetters_;
+    QString getAllAvailableLetters() {
+        return allAvailableLetters_;
     }
 
-    static QStringList getAvailablLayouLangs(){
-        return TLayouts::availableLangs_;
+    QStringList getAvailablLayoutLangs(){
+        return availableLangs_;
     }
 
 
@@ -69,9 +69,9 @@ public:
 
 private:
 
-    static QString allAvailableLetters_;
+    QString allAvailableLetters_;
 
-    static QStringList availableLangs_;
+    QStringList availableLangs_;
 
     TLayouts(QString layout,QString lang = "") {
         this->initLetters(layout,lang);

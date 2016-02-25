@@ -6,6 +6,7 @@
 #include "Data/tuser.h"
 #include "Data/tusermanager.h"
 
+
 class TestUserSettingsTest : public QObject
 {
     Q_OBJECT

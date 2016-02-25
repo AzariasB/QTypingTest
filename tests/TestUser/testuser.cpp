@@ -121,5 +121,5 @@ void TestTUser::testProgression() {
 }
 
 
-QTEST_MAIN(TestTUser);
+QTEST_MAIN(TestTUser)
 #include ".moc/testuser.moc"

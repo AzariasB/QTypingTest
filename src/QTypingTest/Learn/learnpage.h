@@ -65,7 +65,7 @@ public slots:
     void updateUserProgression(TUser *nwUser);
 
 protected:
-     void resizeEvent(QResizeEvent *ev);
+     void resizeEvent(QResizeEvent *);
 
 
 private:
