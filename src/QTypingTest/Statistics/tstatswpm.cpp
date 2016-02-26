@@ -7,13 +7,20 @@ TStatsWPM::TStatsWPM(TUser *user, QWidget *parent):
     currentpoint_(QPoint()),
     currentrect_(QRect()),
     mean_(int()),
+    historyresults_(QHash<date_exercice_*,TResult*>()),
+    vectRes_(QVector<TResult*>()),
     rectpoint_(QHash<QPoint,QRect>())
 {
     setFocus();
     setMouseTracking(true);
+
+    /* temp functions */
     initPoints();
+    createRandomResult();
+    createFakeQHash();
 }
 
+/******* Temporary function to be delete later *******/
 int *TStatsWPM::createRandomPoints(){
 
     int *val = (int*)malloc(sizeof(int)*20);
@@ -27,6 +34,39 @@ int *TStatsWPM::createRandomPoints(){
     return val;
 }
 
+void TStatsWPM::createRandomResult(){
+    int number;
+    int wrong;
+    for(int i=0;i<20;i++){
+        vectRes_[i] = new TResult();
+    }
+    for(int i=0;i<20;i++){
+       number = rand()%(300-200)+200;
+       vectRes_[i]->setCorrectKeysStrokes(number);
+       cout << "correct key["<<i<<"] = "<<vectRes_[i]->getCorrectKeysStrokes()<<endl;
+       wrong = rand()%(30-10)+10;
+       vectRes_[i]->setWrongKeysStrokes(wrong);
+       cout << "wrong key["<<i<<"] = "<<vectRes_[i]->getWrongKeysStrokes()<<endl;
+       vectRes_[i]->setCorrectWords(number/5);
+       cout << "correct words["<<i<<"] = "<<vectRes_[i]->getCorrectWords()<<endl;
+       vectRes_[i]->setWrongWords(wrong/5);
+       cout << "wrong words["<<i<<"] = "<<vectRes_[i]->getWrongWords()<<endl;
+       listWPM[i] = vectRes_[i]->updateWPM(2.0);
+       cout << "WPM["<<i<<"] = "<<vectRes_[i]->getWPM()<<endl;
+       cout << "WPM["<<i<<"] = "<<listWPM[i]<<endl;
+    }
+}
+
+void TStatsWPM::createFakeQHash(){
+    myex_ = new TExercice(TExercice::LEARNING,QString("a"),QString("a"));
+    dateex_ = new date_exercice_;
+    dateex_->dateResult = QDateTime::currentDateTime();
+    dateex_->exercice=myex_;
+
+    for(int i=0;i<20;i++){
+       historyresults_[dateex_] = vectRes_[i];
+    }
+}
 
 void TStatsWPM::initPoints(){
     int *pointsY = createRandomPoints();
@@ -42,6 +82,7 @@ void TStatsWPM::initPoints(){
 
     delete pointsY;//Don't need it anymore
 }
+/******* End temporary functions *******/
 
 QRect TStatsWPM::getCurrRect(QMouseEvent *e){
     QRect curr = currentrect_;

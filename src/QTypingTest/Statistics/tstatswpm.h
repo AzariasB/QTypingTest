@@ -9,6 +9,7 @@ using namespace std;
 #include <QEvent>
 #include <QHash>
 #include <QDebug>
+#include <QDate>
 
 #include <stdlib.h>
 #include <time.h>
@@ -33,8 +34,11 @@ protected:
     void paintEvent(QPaintEvent *ev);
     QRect getCurrRect(QMouseEvent * e);
     void calcMean();
+
     //Temporaly => To be replaced wit points of user
     int *createRandomPoints();
+    void createRandomResult();
+    void createFakeQHash();
 
 private:
     TUser *user_;
@@ -44,6 +48,12 @@ private:
 
     //Keep track of ther order of the points to draw
     QList<QPoint> orderedPoints_;
+    QVector<TResult*> vectRes_;
+    QVector<int> listWPM;
+    TExercice *myex_;
+    QDateTime *mydate_;
+    date_exercice_ *dateex_;
+    QHash<date_exercice_ *,TResult*> historyresults_;
     
     //If wa use the keys to draw the polygon, the point are disordonned
     QHash<QPoint,QRect> rectpoint_;
