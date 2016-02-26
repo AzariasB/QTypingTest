@@ -11,6 +11,8 @@
 
 #include "QTypingTest/thomepage.h"
 
+using namespace std;
+
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     qDebug() << "Running from " << QDir::currentPath();
@@ -18,6 +20,7 @@ int main(int argc, char *argv[]) {
     srand(time(NULL)); //Random number generation
 
     THomePage hp;
+
 
     //Set style
     QFile file(file::getStylesheet("style"));

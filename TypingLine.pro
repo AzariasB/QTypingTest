@@ -129,3 +129,6 @@ HEADERS += \
 
 DISTFILES += \
     etc/layouts.txt
+
+RESOURCES += \
+    ressources.qrc
