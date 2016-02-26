@@ -22,24 +22,24 @@ modifiers_(new QHash<int, TVirtualKey*>()) {
 
 }
 
-TVirtualKeyboard::TVirtualKeyboard(QString lang, QWidget* parent) :
+TVirtualKeyboard::TVirtualKeyboard(TLayouts &layout, QWidget* parent) :
 QWidget(parent),
 keys_(new QHash<QChar, TVirtualKey*>()),
 modifiers_(new QHash<int, TVirtualKey*>()) {
-    setupWidget(lang);
+    setupWidget(layout);
 }
 
-void TVirtualKeyboard::setupWidget(QString lan) {
+void TVirtualKeyboard::setupWidget(TLayouts &layout) {
     leftShift_ = new TVirtualKey(55, "Shift");
     rightShift_ = new TVirtualKey(155, "Shift");
-
-    createKeys(TLayouts::getInstance(lan).getLayouLines());
+    qDebug() << layout.getLayouLines().size();
+    createKeys(layout.getLayouLines());
 }
 
-void TVirtualKeyboard::createKeys(QList<QStringList>* keyChars) {
+void TVirtualKeyboard::createKeys(QList<QStringList> keyChars) {
     QVBoxLayout *mainLay = new QVBoxLayout();
-    for (int i = 0; i < keyChars->size(); i++) {
-        QStringList lst = keyChars->at(i);
+    for (int i = 0; i < keyChars.size(); i++) {
+        QStringList lst = keyChars[i];
         QWidget *line;
         switch (i) {
             case 0: line = numberLine(lst);
@@ -189,11 +189,11 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
     return line;
 }
 
-
-TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, bool itsFalse) {
+TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
     TVirtualKey *target = 0;
+    bool wrongKey = !expected.isNull();
     if (ev->key() == Key_Shift) {
-        //TODO : is that working on other machines ?
+        // \todo : is that working on other machines ?
         target = ev->nativeScanCode() == 62 ? rightShift_ : leftShift_;
     } else if (modifiers_->contains(ev->key())) {
         target = modifiers_->value(ev->key());
@@ -201,17 +201,20 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, bool itsFalse) {
         QChar txt = ev->text()[0];
         if (keys_->contains(txt)) {
             target = keys_->value(txt);
+            wrongKey = !expected.isNull() && txt != expected;
         }
     }
     if (target) {
         if (ev->type() == QEvent::KeyPress) {
-            if (itsFalse) {
+            if (wrongKey) {
                 target->wrong();
+                return 0;
             } else {
                 target->right();
             }
         } else if (ev->type() == QEvent::KeyRelease) {
             target->reset();
+            if (wrongKey) return 0;
         }
     }
     return target;
@@ -220,7 +223,7 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, bool itsFalse) {
 TVirtualKey* TVirtualKeyboard::highlightKey(QChar keyChar) {
     if (keys_->contains(keyChar)) {
         TVirtualKey *target = keys_->value(keyChar);
-        target->right();
+        target->example();
         return target;
     } else {
         return 0;

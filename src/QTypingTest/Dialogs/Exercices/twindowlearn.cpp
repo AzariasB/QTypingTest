@@ -10,20 +10,34 @@
  * Created on 10 janvier 2016, 11:40
  */
 
-#include <qt5/QtCore/qlogging.h>
-
 #include "twindowlearn.h"
 
 TWindowLearn::TWindowLearn(TExercice* ex, QWidget* parent) :
-TWindowTest(ex->buildExercice()),
-instructions_(new TPresentation("fr")) {
-    delete layout();
-    QLabel *lab = new QLabel("hé hé");
-    QGridLayout *mainLay = new QGridLayout();
-    mainLay->addWidget(lab);
-    setLayout(mainLay);
+TWindowTest(ex->buildExercice(), parent),
+instructions_(new TPresentation(TLayouts::getInstance("azerty"),ex->getLearningLetters())) {
+    addInstructions();
+}
+
+TWindowLearn::TWindowLearn(QString content, QWidget* parent) :
+TWindowTest(content, 1, parent),
+instructions_(new TPresentation(TLayouts::getInstance("azerty"))) {
+    addInstructions();
 }
 
 TWindowLearn::TWindowLearn(TExercice* ex, int numberOfPages, QWidget* parent) :
 TWindowTest(ex->buildExercice(), numberOfPages, parent) {
+}
+
+void TWindowLearn::addInstructions() {
+    QStackedLayout *mainLayout = layout();
+    mainLayout->insertWidget(0, instructions_);
+    mainLayout->setCurrentIndex(0);
+    instructions_->setFocus();
+    connect(instructions_,SIGNAL(allCopied()),this,SLOT(endOfTraining()));
+}
+
+void TWindowLearn::endOfTraining() {
+    layout()->removeWidget(instructions_);
+    layout()->currentWidget()->setFocus();
+    adjustSize();
 }

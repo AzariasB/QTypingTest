@@ -18,8 +18,10 @@ private slots:
 };
 
 
-void TestVirtualKeyboard::testKeyboard() {
-    TPresentation *pres = new TPresentation("fr");
+void TestVirtualKeyboard::testKeyboard()
+{
+    TLayouts layTest = TLayouts::getInstance("azerty");
+    TPresentation *pres = new TPresentation(layTest);
     pres->show();
     QApplication::exec();
 }

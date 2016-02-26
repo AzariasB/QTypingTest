@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 /* 
  * File:   TUser.cpp
  * Author: boutina
@@ -6,42 +11,72 @@
  */
 
 
+
 #include "tuser.h"
 
-TUser *TUser::currentUser_ = nullptr;
-
-
-TUser::TUser(QString pseudo):
-pseudo_(pseudo),
-progress_(new TProgression()),
-statistics_(TStats()){
-}
 
 QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
     date_exercice_ key;
     key.dateResult = QDateTime::currentDateTime();
-    key.exercice = exTyp;
-    practiceHistory_[&key] = exRes;
+    key.exercice = *exTyp;
+    practiceHistory_[key] = *exRes;
     return key.dateResult;
 }
 
 void TUser::oneMoreMistake(const QChar& mistaken) {
     this->statistics_[mistaken]++;
+    emit statsChanged(this);
 }
 
+void TUser::detectLang(){
+    lang_ = QLocale::system().name().section('_', 0, 0);
+}
 
 TUser::~TUser() {
-
 }
 
 QDataStream &operator<<(QDataStream& out, const TUser& user) {
     out << user.getPseudo();
+    out << *user.getProgression();
+    out << user.getStatistics();
+    out << user.getPracticeHistory();
+    out << user.getLang();
+    out << user.getLayout();
     return out;
 }
 
 QDataStream &operator>>(QDataStream& in, TUser &user) {
-    QString pseudo;
+    QString pseudo, layout,lang;
+    TProgression progress;
+    TStats stat;
+    QHash<date_exercice_, TResult> history;
     in >> pseudo;
-    user = TUser(pseudo);
+    in >> progress;
+    in >> stat;
+    in >> history;
+    in >> lang;
+    in >> layout;
+    user.setPseudo(pseudo);
+    user.setProgression(new TProgression(progress));
+    user.setStatistics(stat);
+    user.setPracticeHistory(history);
+    user.setLang(lang);
+    user.setLayout(layout);
+    return in;
+}
+
+QDataStream &operator<<(QDataStream& out, const date_exercice_& dateEx) {
+    out << dateEx.dateResult;
+    out << dateEx.exercice;
+    return out;
+}
+
+QDataStream &operator>>(QDataStream& in, date_exercice_& dateEx) {
+    QDateTime time;
+    in >> time;
+    TExercice ex;
+    in >> ex;
+    dateEx.dateResult = time;
+    dateEx.exercice = ex;
     return in;
 }

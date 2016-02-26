@@ -10,7 +10,6 @@
 #include <QStringList>
 #include <QDir>
 #include <time.h>
-#include <qt5/QtCore/qlogging.h>
 
 
 

@@ -24,6 +24,7 @@
 #include "QTypingTest/Dialogs/Exercices/tpracticerace.h"
 #include "QTypingTest/Dialogs/Exercices/tpracticebase.h"
 #include "QTypingTest/Dialogs/Exercices/tpracticetext.h"
+#include "QTypingTest/Dialogs/Exercices/timprove.h"
 
 class PracticePage : public QWidget {
     Q_OBJECT
@@ -37,9 +38,23 @@ public:
 public slots:
     /* Start a practice against time */
     void startExercice(TWindowTest *exercice);
-    
+
     /* Save the result and the time at the end of each exercice */
-    void saveExerciceResult(TResult *res,QTime time);
+    void saveExerciceResult(TResult *res, QTime time);
+
+    /* Reset the dialog (disconnect and set to null) */
+    void resetExercice();
+    
+    /**
+     * Called whenever the user changes, or
+     * when the user finished an exercice (and has some new errors)
+     * to update the button 'improve'
+     */    
+    void updateImproveButton(TUser *nwUser);
+    
+    /**
+     */
+    void userChanges(TUser *nwUser);
 
 private:
     /* Setup the widget on the page */
@@ -47,6 +62,7 @@ private:
 
     /* Connect the events of each button */
     void connectEvents();
+
 
     /*Button to acces an exercice against the time*/
     QPushButton practiceAgainstTime_;
@@ -59,7 +75,7 @@ private:
 
     /* Practice on a text */
     QPushButton practiceText_;
-    
+
     /* Dialog of the exercice */
     QDialog *currentDialog_ = nullptr;
 };

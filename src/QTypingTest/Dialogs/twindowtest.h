@@ -20,7 +20,7 @@
 #include <QVBoxLayout>
 #include <QKeyEvent>
 #include <QDebug>
-
+#include <QStackedLayout>
 
 #include "Exercices/tstackpages.h"
 #include "Exercices/ttoolbar.h"
@@ -38,7 +38,8 @@ public:
     pages_(TStackPages(2)),
     results_(QList<TResult*>()),
     timeStart_(QTime(0, 0)),
-    updateTimer_(new QTimer()) {
+    updateTimer_(new QTimer()),
+    mainLayout_(new QStackedLayout()) {
         setupWidget();
     }
 
@@ -48,7 +49,8 @@ public:
     pages_(TStackPages(text, 2)),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
-    updateTimer_(new QTimer()) {
+    updateTimer_(new QTimer()),
+    mainLayout_(new QStackedLayout()) {
         setupWidget();
     }
 
@@ -58,7 +60,8 @@ public:
     pages_(TStackPages(text, numberOfPages)),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
-    updateTimer_(new QTimer()) {
+    updateTimer_(new QTimer()),
+    mainLayout_(new QStackedLayout()) {
         setupWidget();
     }
 
@@ -76,6 +79,10 @@ public:
      */
     void addResult(TResult* nwResult) {
         results_.append(nwResult);
+    }
+
+    QStackedLayout *layout() const {
+        return mainLayout_;
     }
 
     virtual ~TWindowTest();
@@ -227,6 +234,8 @@ private:
     /* Save the ms elapsed if the user pause the exercice*/
     int elapsedMS_ = 0;
 
+    /* The main layout (to be able to customize in the subclasses) */
+    QStackedLayout *mainLayout_;
 
     /* The current state of the game */
     bool paused_ = false;

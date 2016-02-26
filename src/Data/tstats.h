@@ -15,6 +15,10 @@
 
 #include <QHash>
 
+/**
+ * Number of WRONG keystrokes for each char
+ * 
+ */
 class TStats : public QHash<QChar,int> {
 public:
     TStats();

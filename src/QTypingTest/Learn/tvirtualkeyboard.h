@@ -32,11 +32,12 @@
 class TVirtualKeyboard : public QWidget {
     Q_OBJECT
 public:
-    TVirtualKeyboard(QString lang = "en", QWidget *parent = 0);
+    TVirtualKeyboard(TLayouts &layout, QWidget *parent = 0);
     TVirtualKeyboard(const TVirtualKeyboard& orig);
 
     virtual ~TVirtualKeyboard() {
     }
+
 
     QHash<QChar, TVirtualKey*> *getKeys() const {
         return keys_;
@@ -50,7 +51,7 @@ public:
      * @param ev the key event
      * @return the virtualkey corresponding to the event
      */
-    TVirtualKey *updateKeyboard(QKeyEvent *ev, bool itsWrong = false);
+    TVirtualKey *updateKeyboard(QKeyEvent *ev, QChar expected = '\0');
     
     
     TVirtualKey *highlightKey(QChar keyChar);
@@ -63,8 +64,9 @@ private:
      * depending on the language
      * 
      * @param lan the language of the keyboard
+     * @param country the country code of the keyboard
      */
-    void setupWidget(QString lan);
+    void setupWidget(TLayouts &layout);
 
 
     /**
@@ -79,7 +81,7 @@ private:
      * 
      * @param keyChars the list of list of key code
      */
-    void createKeys(QList<QStringList> *keyChars);
+    void createKeys(QList<QStringList> keyChars);
 
     /**
      * Create the line containin the number in the

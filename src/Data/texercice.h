@@ -14,6 +14,7 @@
 
 #include <QStringList>
 #include <QDebug>
+#include <QDataStream>
 
 #include "tresult.h"
 #include "Util/factory.h"
@@ -30,6 +31,7 @@ public:
         LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT
     };
 
+    TExercice();
     TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
     TExercice(EXERCICE_TYPE exType, bool allLetters);
     TExercice(const TExercice& orig);
@@ -40,17 +42,44 @@ public:
 
     };
 
-    QString learningLetters() const{
+    QString learningLetters() const;
+
+    bool getAllLetters() const {
+        return allLetters_;
+    }
+
+    const QString &getLearningLetters() const {
         return learningLetters_;
     }
-    
-    
+
+    const QString &getAvailableLetters() const {
+        return availableLetters_;
+    }
+
+    const EXERCICE_TYPE& getExerciceType() const {
+        return exerciceType_;
+    }
+
+    void setAllLetters(bool allLetters) {
+        allLetters_ = allLetters;
+    }
+
 private:
     bool allLetters_ = false;
     QString learningLetters_;
     QString availableLetters_;
-    EXERCICE_TYPE exerciceType_ = LEARNING;
+    EXERCICE_TYPE exerciceType_;
 };
+
+QDataStream &operator>>(QDataStream &in, TExercice &ex);
+
+QDataStream &operator<<(QDataStream &out, const TExercice &ex);
+
+inline bool operator==(const TExercice& exo1, const TExercice& exo2) {
+    return exo1.getAvailableLetters() == exo2.getAvailableLetters() &&
+            exo1.getExerciceType() == exo2.getExerciceType() &&
+            exo1.getLearningLetters() == exo2.getLearningLetters();
+}
 
 #endif /* TEXERCICE_H */
 

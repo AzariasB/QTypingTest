@@ -10,13 +10,10 @@
 #include <QDebug>
 #include <QVector>
 #include <QDataStream>
-#include "../../src/Data/texercice.h"
-#include "../../src/Data/tresult.h"
-#include "../../src/Data/tuser.h"
 
+#include "Data/tuser.h"
+#include "Data/texercice.h"
 
-#include <QtTest/QtTest>
-#include <qt5/QtCore/qlogging.h>
 
 class TestTUser : public QObject {
     Q_OBJECT
@@ -24,10 +21,26 @@ private slots:
     void testConstructor();
     void testDataStream();
     void testProgression();
+    void testSignals();
 
 private:
     QString randomName();
 };
+
+void TestTUser::testSignals() {
+    bool signalEmited  = false;
+    
+    TUser timmy("timmy");
+    
+    connect(&timmy,&TUser::statsChanged,this,[this,&signalEmited](){
+        signalEmited = true;
+    });
+    
+    timmy.oneMoreMistake('o');
+    
+    QVERIFY(signalEmited);
+}
+
 
 QString TestTUser::randomName() {
     int nameLength = rand() % 10 + 1;
@@ -98,7 +111,7 @@ void TestTUser::testDataStream() {
 }
 
 void TestTUser::testProgression() {
-    TExercice *ex = new TExercice(TExercice::LEARNING, QStringList("d"), QStringList("d"));
+    TExercice *ex = new TExercice(TExercice::LEARNING, "d", "d");
     TResult *res = new TResult();
 
     TUser t("Dupont");
@@ -109,4 +122,4 @@ void TestTUser::testProgression() {
 
 
 QTEST_MAIN(TestTUser)
-#include "testuser.moc"
+#include ".moc/testuser.moc"

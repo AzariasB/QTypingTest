@@ -16,7 +16,6 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -38,10 +37,12 @@ public:
     QAction *actionMap_keyboard;
     QAction *actionLanguage;
     QAction *actionPreferences;
-    QAction *actionChange_user_2;
-    QAction *actionHomepage;
+    QAction *action_change_user;
+    QAction *action_homepage;
+    QAction *action_about;
+    QAction *action_option;
     QWidget *centralwidget;
-    QWidget *verticalLayoutWidget;
+    QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *button_home;
@@ -55,19 +56,23 @@ public:
     QWidget *page_home;
     QWidget *page_practice;
     QWidget *page_stats;
-    QLabel *label_3;
     QWidget *page_games;
+    QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuUser;
-    QMenu *menuOptions;
-    QMenu *menuAbout;
-    QStatusBar *statusbar;
+    QMenu *menuHelp;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(629, 464);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMouseTracking(false);
         actionChange_user = new QAction(MainWindow);
         actionChange_user->setObjectName(QStringLiteral("actionChange_user"));
         actionOnline_competitoin = new QAction(MainWindow);
@@ -82,44 +87,69 @@ public:
         actionLanguage->setObjectName(QStringLiteral("actionLanguage"));
         actionPreferences = new QAction(MainWindow);
         actionPreferences->setObjectName(QStringLiteral("actionPreferences"));
-        actionChange_user_2 = new QAction(MainWindow);
-        actionChange_user_2->setObjectName(QStringLiteral("actionChange_user_2"));
-        actionHomepage = new QAction(MainWindow);
-        actionHomepage->setObjectName(QStringLiteral("actionHomepage"));
+        action_change_user = new QAction(MainWindow);
+        action_change_user->setObjectName(QStringLiteral("action_change_user"));
+        action_homepage = new QAction(MainWindow);
+        action_homepage->setObjectName(QStringLiteral("action_homepage"));
+        action_about = new QAction(MainWindow);
+        action_about->setObjectName(QStringLiteral("action_about"));
+        action_option = new QAction(MainWindow);
+        action_option->setObjectName(QStringLiteral("action_option"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayoutWidget = new QWidget(centralwidget);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 0, 801, 551));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
+        centralwidget->setSizePolicy(sizePolicy);
+        centralwidget->setMouseTracking(false);
+        centralwidget->setAcceptDrops(false);
+        centralwidget->setToolTipDuration(-1);
+        centralwidget->setAutoFillBackground(false);
+        gridLayout = new QGridLayout(centralwidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
-        button_home = new QPushButton(verticalLayoutWidget);
+        horizontalLayout_2->setSizeConstraint(QLayout::SetMaximumSize);
+        horizontalLayout_2->setContentsMargins(-1, -1, 0, -1);
+        button_home = new QPushButton(centralwidget);
         button_home->setObjectName(QStringLiteral("button_home"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(button_home->sizePolicy().hasHeightForWidth());
+        button_home->setSizePolicy(sizePolicy1);
 
         horizontalLayout_2->addWidget(button_home);
 
-        button_learn = new QPushButton(verticalLayoutWidget);
+        button_learn = new QPushButton(centralwidget);
         button_learn->setObjectName(QStringLiteral("button_learn"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(button_learn->sizePolicy().hasHeightForWidth());
+        button_learn->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(button_learn);
 
-        button_practice = new QPushButton(verticalLayoutWidget);
+        button_practice = new QPushButton(centralwidget);
         button_practice->setObjectName(QStringLiteral("button_practice"));
+        sizePolicy2.setHeightForWidth(button_practice->sizePolicy().hasHeightForWidth());
+        button_practice->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(button_practice);
 
-        button_stats = new QPushButton(verticalLayoutWidget);
+        button_stats = new QPushButton(centralwidget);
         button_stats->setObjectName(QStringLiteral("button_stats"));
+        sizePolicy2.setHeightForWidth(button_stats->sizePolicy().hasHeightForWidth());
+        button_stats->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(button_stats);
 
-        button_games = new QPushButton(verticalLayoutWidget);
+        button_games = new QPushButton(centralwidget);
         button_games->setObjectName(QStringLiteral("button_games"));
+        sizePolicy2.setHeightForWidth(button_games->sizePolicy().hasHeightForWidth());
+        button_games->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(button_games);
 
@@ -129,13 +159,12 @@ public:
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
-        stack_main = new QStackedWidget(verticalLayoutWidget);
+        stack_main = new QStackedWidget(centralwidget);
         stack_main->setObjectName(QStringLiteral("stack_main"));
+        sizePolicy.setHeightForWidth(stack_main->sizePolicy().hasHeightForWidth());
+        stack_main->setSizePolicy(sizePolicy);
         page_learn = new QWidget();
         page_learn->setObjectName(QStringLiteral("page_learn"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(page_learn->sizePolicy().hasHeightForWidth());
         page_learn->setSizePolicy(sizePolicy);
         page_learn->setLayoutDirection(Qt::LeftToRight);
@@ -143,18 +172,23 @@ public:
         stack_main->addWidget(page_learn);
         page_home = new QWidget();
         page_home->setObjectName(QStringLiteral("page_home"));
+        sizePolicy.setHeightForWidth(page_home->sizePolicy().hasHeightForWidth());
+        page_home->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_home);
         page_practice = new QWidget();
         page_practice->setObjectName(QStringLiteral("page_practice"));
+        sizePolicy.setHeightForWidth(page_practice->sizePolicy().hasHeightForWidth());
+        page_practice->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_practice);
         page_stats = new QWidget();
         page_stats->setObjectName(QStringLiteral("page_stats"));
-        label_3 = new QLabel(page_stats);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(230, 220, 67, 17));
+        sizePolicy.setHeightForWidth(page_stats->sizePolicy().hasHeightForWidth());
+        page_stats->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_stats);
         page_games = new QWidget();
         page_games->setObjectName(QStringLiteral("page_games"));
+        sizePolicy.setHeightForWidth(page_games->sizePolicy().hasHeightForWidth());
+        page_games->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_games);
 
         gridLayout_2->addWidget(stack_main, 0, 0, 1, 1);
@@ -162,32 +196,37 @@ public:
 
         verticalLayout->addLayout(gridLayout_2);
 
+
+        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 25));
-        menuUser = new QMenu(menubar);
-        menuUser->setObjectName(QStringLiteral("menuUser"));
-        menuOptions = new QMenu(menubar);
-        menuOptions->setObjectName(QStringLiteral("menuOptions"));
-        menuAbout = new QMenu(menubar);
-        menuAbout->setObjectName(QStringLiteral("menuAbout"));
-        MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         MainWindow->setStatusBar(statusbar);
+        menubar = new QMenuBar(MainWindow);
+        menubar->setObjectName(QStringLiteral("menubar"));
+        menubar->setGeometry(QRect(0, 0, 629, 22));
+        menuUser = new QMenu(menubar);
+        menuUser->setObjectName(QStringLiteral("menuUser"));
+        menuHelp = new QMenu(menubar);
+        menuHelp->setObjectName(QStringLiteral("menuHelp"));
+        MainWindow->setMenuBar(menubar);
         QWidget::setTabOrder(button_home, button_learn);
-        QWidget::setTabOrder(button_learn, button_games);
-        QWidget::setTabOrder(button_games, button_practice);
+        QWidget::setTabOrder(button_learn, button_practice);
         QWidget::setTabOrder(button_practice, button_stats);
+        QWidget::setTabOrder(button_stats, button_games);
 
         menubar->addAction(menuUser->menuAction());
-        menubar->addAction(menuOptions->menuAction());
-        menubar->addAction(menuAbout->menuAction());
-        menuUser->addAction(actionChange_user_2);
-        menuUser->addAction(actionHomepage);
+        menubar->addAction(menuHelp->menuAction());
+        menuUser->addAction(action_change_user);
+        menuUser->addAction(action_homepage);
+        menuUser->addAction(action_option);
+        menuHelp->addAction(action_about);
 
         retranslateUi(MainWindow);
+
+        stack_main->setCurrentIndex(3);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -202,17 +241,17 @@ public:
         actionMap_keyboard->setText(QApplication::translate("MainWindow", "Map keyboard", 0));
         actionLanguage->setText(QApplication::translate("MainWindow", "Language", 0));
         actionPreferences->setText(QApplication::translate("MainWindow", "Preferences", 0));
-        actionChange_user_2->setText(QApplication::translate("MainWindow", "Change user", 0));
-        actionHomepage->setText(QApplication::translate("MainWindow", "Homepage", 0));
+        action_change_user->setText(QApplication::translate("MainWindow", "Change user", 0));
+        action_homepage->setText(QApplication::translate("MainWindow", "Homepage", 0));
+        action_about->setText(QApplication::translate("MainWindow", "About", 0));
+        action_option->setText(QApplication::translate("MainWindow", "Option", 0));
         button_home->setText(QApplication::translate("MainWindow", "Home", 0));
         button_learn->setText(QApplication::translate("MainWindow", "Learn", 0));
         button_practice->setText(QApplication::translate("MainWindow", "Practice", 0));
         button_stats->setText(QApplication::translate("MainWindow", "Statistics", 0));
         button_games->setText(QApplication::translate("MainWindow", "Games", 0));
-        label_3->setText(QApplication::translate("MainWindow", "Statistics", 0));
         menuUser->setTitle(QApplication::translate("MainWindow", "User", 0));
-        menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
-        menuAbout->setTitle(QApplication::translate("MainWindow", "About", 0));
+        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
     } // retranslateUi
 
 };

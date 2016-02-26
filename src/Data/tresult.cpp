@@ -5,8 +5,9 @@
  * Created on 24 novembre 2015, 11:27
  */
 
-#include "tresult.h"
+#include <qt5/QtCore/qdatastream.h>
 
+#include "tresult.h"
 
 TResult::TResult() {
 }
@@ -19,7 +20,7 @@ int TResult::getTotalKeysStokres() const {
     return getCorrectKeysStrokes() + getWrongKeysStrokes();
 }
 
-int TResult::updateWPM(float deltaTime ) {
+int TResult::updateWPM(float deltaTime) {
     if (deltaTime > 0) {
         wordsPerMinute_ = (getCorrectKeysStrokes() / 5) / deltaTime;
     }
@@ -54,16 +55,35 @@ QString TResult::getResume() {
     QString corrects = QString::number(correctKeystrokes_);
     QString wrongs = QString::number(wrongKeystrokes_);
     QString tot = QString::number(getTotalKeysStokres());
-    
+
     return QString("WPM : %1<br/>Correct keyStrokes : %2<br/>"
             "Wrong keystrokes : %3<br/>Total keystrokes : %4")
-            .arg(html::addTagToChars(wpm,"b"))
-            .arg(html::addTagToChars(corrects,"span","stlye='color : green;'"))
-            .arg(html::addTagToChars(wrongs,"span","style='color :red;'"))
+            .arg(html::addTagToChars(wpm, "b"))
+            .arg(html::addTagToChars(corrects, "span", "stlye='color : green;'"))
+            .arg(html::addTagToChars(wrongs, "span", "style='color :red;'"))
             .arg(tot);
 }
-
 
 TResult::~TResult() {
 }
 
+QDataStream &operator<<(QDataStream& out, const TResult& result) {
+    out << result.getCorrectKeysStrokes();
+    out << result.getWrongKeysStrokes();
+    out << result.getWPM();
+    return out;
+}
+
+QDataStream &operator>>(QDataStream& in, TResult& result) {
+    int correcKeyStrokes;
+    in >> correcKeyStrokes;
+    int wrongKeyStrokes;
+    in >> wrongKeyStrokes;
+    int wordsPerMinute;
+    in >> wordsPerMinute;
+    result = TResult();
+    result.setCorrectKeysStrokes(correcKeyStrokes);
+    result.setWrongKeysStrokes(wrongKeyStrokes);
+    result.setWPM(wordsPerMinute);
+    return in;
+}

@@ -23,19 +23,23 @@
 #include "twindowtest.h"
 
 void TWindowTest::setupWidget() {
+    QWidget *mainWidget = new QWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();
 
     topToolbar_.setProgression(getPageProgression());
 
     centralLayout->addWidget(&topToolbar_);
     centralLayout->addWidget(&pages_);
-    setLayout(centralLayout);
+
     //Setup window
     this->setModal(true);
     this->setFocusPolicy(Qt::StrongFocus);
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     this->move(0, 0);
 
+    mainWidget->setLayout(centralLayout);
+    mainLayout_->insertWidget(0,mainWidget);
+    setLayout(mainLayout_);
     setupShortcuts();
     connectEvents();
     setupTimer();
@@ -151,7 +155,7 @@ void TWindowTest::connectEvents() {
         this->exerciceFinished(false);
     });
     connect(&pages_, &TStackPages::pageEnded, this, &TWindowTest::saveResult);
-    connect(&pages_,&TStackPages::currentChanged,this,&TWindowTest::updateToolbarProgression);
+    connect(&pages_, &TStackPages::currentChanged, this, &TWindowTest::updateToolbarProgression);
     connect(&pages_, SIGNAL(exerciceStarted()), this, SLOT(beginExercice()));
     connect(&topToolbar_, SIGNAL(pauseClicked()), this, SLOT(pauseContinueExercice()));
 }

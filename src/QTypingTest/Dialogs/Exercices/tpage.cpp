@@ -91,8 +91,8 @@ void TPage::handleMistype(QChar userAns) {
         previousWasRight = globalAnswer_[lastAnswer_.size() - 2] == lastAnswer_[lastAnswer_.size() - 2];
     }
 
-    if (previousWasRight && TUser::currentUser()) {
-        TUser::currentUser()->oneMoreMistake(userAns);
+    if (previousWasRight && TUserManager::getInstance().getCurrentUser()) {
+        TUserManager::getInstance().getCurrentUser()->oneMoreMistake(userAns);
     }
 }
 

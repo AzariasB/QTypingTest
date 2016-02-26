@@ -8,10 +8,6 @@
  * 
  * Created on 14 décembre 2015, 20:41
  */
-
-//#include <qt5/QtCore/qstringlist.h>
-//#include <qt5/QtCore/qlogging.h>
-
 #include "factory.h"
 
 //The number of word that a single page can contain
@@ -78,7 +74,7 @@ bool isValidWord(QString word, QString availableLetters) {
 
 
 QString factory::generateText(int numbersOfWords, QString lang){
-    //TODO : change to have a list of available langs
+    // \todo : change to have a list of available langs
     if(lang != "en"){
         return ""; //Nothing for now
     }else{
@@ -97,7 +93,7 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
     if (!mainLetter.isEmpty())
         res += generateFromLetters(mainLetter);
 
-    //TODO : change here the language of the words to depend on the user configuration (Azarias)
+    // \todo : change here the language of the words to depend on the user configuration (Azarias)
     if (!allLetters.isEmpty()) {
         res += generateFromLetters(allLetters);
         QString wordsWMain = generateWords(allLetters, "en", mainLetter);
