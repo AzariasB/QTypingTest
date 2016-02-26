@@ -24,19 +24,19 @@ public:
 
     int getCorrectKeysStrokes() const {
         return this->correctKeystrokes_;
-    };
+    }
 
     int getWrongKeysStrokes() const {
         return this->wrongKeystrokes_;
-    };
+    }
 
     int getCorrectWords() const {
         return this->correctWords_;
-    };
+    }
 
     int getWrongWords() const {
         return this->wrongWords_;
-    };
+    }
 
     int getWPM() const {
         return wordsPerMinute_;

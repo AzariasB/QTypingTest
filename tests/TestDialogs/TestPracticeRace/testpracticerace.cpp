@@ -17,7 +17,7 @@
 #include <QtTest/QtTest>
 #include <QApplication>
 #include <QTime>
-#include <qt5/QtWidgets/QMessageBox>
+#include <QMessageBox>
 #include <time.h>
 
 class TestPracticeRace : public QObject {

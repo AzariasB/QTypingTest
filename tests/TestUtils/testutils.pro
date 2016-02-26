@@ -9,13 +9,11 @@ SRC = $$PWD/../../src/
 INCLUDEPATH += $$SRC
 
 HEADERs = $$SRC/Util/htmlhelp.h \    
-    $$SRC/Util/factory.h \
-    $$SRC/Util/filehelper.h
+    $$SRC/Util/factory.h
 
 
 SOURCES = $$SRC/Util/htmlhelper.cpp \
     $$SRC/Util/factory.cpp \
-    $$SRC/Util/filehelper.cpp \
     testutils.cpp
 
 # install
@@ -28,3 +26,6 @@ OBJECTS_DIR = .obj
 MOC_DIR = .moc
 RCC_DIR = .rcc
 
+
+RESOURCES += \
+    ../../ressources.qrc

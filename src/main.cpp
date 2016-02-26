@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 
 
     //Set style
-    QFile file(file::getStylesheet("style"));
+    QFile file(":/style.qss");
     if (file.exists()) {
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             qDebug() << "Could not open file, please check the permissions";

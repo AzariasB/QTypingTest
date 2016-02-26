@@ -20,7 +20,7 @@ TUserManager::~TUserManager() {
 
 QList<TUser*> TUserManager::readUsers()
 {
-    QFile f("etc/users.dat");
+    QFile f(":/users.dat");
     if (!f.exists() || !f.open(QFile::ReadOnly)) {
         qDebug() << "File 'users.dat' not found";
         return QList<TUser*>();
@@ -38,7 +38,7 @@ QList<TUser*> TUserManager::readUsers()
 
 bool TUserManager::saveUsers()
 {
-    QFile f("etc/users.dat");
+    QFile f(":/users.dat");
     if(!f.open(QFile::WriteOnly)) return false;
 
     QDataStream out(&f);

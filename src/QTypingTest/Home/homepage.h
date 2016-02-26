@@ -25,7 +25,6 @@
 #include <QMessageBox>
 
 #include "Data/tusermanager.h"
-#include "Util/filehelper.h"
 
 class HomePage : public QWidget {
     Q_OBJECT

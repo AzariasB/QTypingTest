@@ -55,7 +55,7 @@ void HomePage::updateUserDisplay() {
         });
         userLine->addWidget(userButton, 1);
 
-        QPushButton *deleteUser = new QPushButton(QIcon(file::getImagePath("bin.png")), "");
+        QPushButton *deleteUser = new QPushButton(QIcon(":/icons/bin.png"), "");
         connect(deleteUser, &QPushButton::clicked, this, [this, elem]() {
             this->deleteUser(elem);
         });

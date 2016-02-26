@@ -72,18 +72,17 @@ SOURCES += src/main.cpp \
         #Util class/functions/namespaces
         #------------      
         src/Util/factory.cpp \
-        src/Util/filehelper.cpp \
         src/Util/htmlhelper.cpp \
-        src/Data/tresult.cpp \
         #------------
         #Data classes
         #------------
+        src/Data/tresult.cpp \
         src/Data/texercice.cpp \
         src/Data/tlayouts.cpp \
         src/Data/tprogression.cpp \
         src/Data/tuser.cpp \
         src/Data/tusermanager.cpp \
-        src/Data/tstats.cpp \ 
+        src/Data/tstats.cpp
 #------------
 #Core classes
 #------------
@@ -113,7 +112,6 @@ HEADERS += \
             #Util functions/classes
             #------------
             src/Util/factory.h \
-            src/Util/filehelper.h \
             src/Util/htmlhelper.h \
             #------------
             #Data classes
@@ -125,10 +123,11 @@ HEADERS += \
             src/Data/tuser.h \
             src/Data/tusermanager.h \
             src/Data/tstats.h \ 
-    src/availablelangs.h
+            src/availablelangs.h
 
 DISTFILES += \
-    etc/layouts.txt
+    ressources/layouts.txt \
+    ressources/syle.qss
 
 RESOURCES += \
     ressources.qrc

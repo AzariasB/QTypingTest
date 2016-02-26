@@ -12,16 +12,15 @@ HEADERS = $$SRC/QTypingTest/Learn/tvirtualkey.h \
           $$SRC/QTypingTest/Learn/tvirtualkeyboard.h \
           $$SRC/QTypingTest/Learn/tfingerposition.h \
           $$SRC/QTypingTest/Learn/tpresentation.h \
-          $$SRC/Data/tlayouts.h \
-          $$SRC/Util/filehelper.h
-
+          $$SRC/Util/factory.h \
+          $$SRC/Data/tlayouts.h
 
 SOURCES = $$SRC/QTypingTest/Learn/tvirtualkey.cpp \
           $$SRC/QTypingTest/Learn/tvirtualkeyboard.cpp \
           $$SRC/QTypingTest/Learn/tfingerposition.cpp \
           $$SRC/QTypingTest/Learn/tpresentation.cpp \
-          $$SRC/Util/filehelper.cpp \
           $$SRC/Data/tlayouts.cpp \
+          $$SRC/Util/factory.cpp \
           testvirtualkeyboard.cpp
 
 # install
@@ -34,3 +33,5 @@ OBJECTS_DIR = .obj
 MOC_DIR = .moc
 RCC_DIR = .rcc
 
+RESOURCES += \
+    ../../ressources.qrc
