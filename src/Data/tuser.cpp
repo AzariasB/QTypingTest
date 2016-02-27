@@ -51,7 +51,7 @@ QDataStream &operator>>(QDataStream& in, TUser &user) {
     in >> stat;
     in >> history;
     in >> layout;
-    user.setPseudo(pseudo);
+    user = TUser(pseudo);
     user.setProgression(new TProgression(progress));
     user.setStatistics(stat);
     user.setPracticeHistory(history);

@@ -21,7 +21,6 @@ TUserManager::TUserManager() :
     saveTarget_("QTypingTest")
 {
     currentUser_ = 0;
-    readUsers();
 }
 
 TUserManager::~TUserManager() {
@@ -32,7 +31,6 @@ QList<TUser*> TUserManager::readUsers()
     users_.clear();
     saveTarget_.beginGroup("users");
     QStringList keys= saveTarget_.childKeys();
-    qDebug() << keys;
     for(const QString &k : keys){
         QVariant v = saveTarget_.value(k);
         if(v.isValid())
@@ -47,6 +45,7 @@ QList<TUser*> TUserManager::readUsers()
 void TUserManager::saveUsers()
 {
     saveTarget_.beginGroup("users");
+    saveTarget_.clear();
     for(const TUser *u : users_){
         QVariant uVariant = QVariant::fromValue(*u);
         if(uVariant.isValid())
@@ -55,6 +54,7 @@ void TUserManager::saveUsers()
             qDebug() << "Tried to save an invalid user";
     }
     saveTarget_.endGroup();
+    emit usersSaved();
 }
 
 

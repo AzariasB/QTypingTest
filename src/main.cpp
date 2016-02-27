@@ -12,10 +12,11 @@
 #include "QTypingTest/thomepage.h"
 
 void registerTypes(){
-    qRegisterMetaTypeStreamOperators<TUser>         ("TUser"         );
-    qRegisterMetaTypeStreamOperators<TResult>       ("TResult"       );
-    qRegisterMetaTypeStreamOperators<TExercice>     ("TExercice"     );
-    qRegisterMetaTypeStreamOperators<TProgression>  ("TProgression"  );
+    qRegisterMetaTypeStreamOperators<TUser         >("TUser"         );
+    qRegisterMetaTypeStreamOperators<TStats        >("TStats"        );
+    qRegisterMetaTypeStreamOperators<TResult       >("TResult"       );
+    qRegisterMetaTypeStreamOperators<TExercice     >("TExercice"     );
+    qRegisterMetaTypeStreamOperators<TProgression  >("TProgression"  );
     qRegisterMetaTypeStreamOperators<date_exercice_>("date_exercice_");
 }
 

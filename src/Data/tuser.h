@@ -33,10 +33,10 @@ class TUser : public QObject {
     Q_OBJECT
 public:
     TUser(QString pseudo = "", QObject *parent = 0) :
-    QObject(parent),
-    pseudo_(pseudo),
-    progress_(new TProgression()),
-    statistics_(TStats()){
+        QObject(parent),
+        pseudo_(pseudo),
+        progress_(new TProgression()),
+        statistics_(TStats()){
     }
 
     TUser(const TUser &orig) :
