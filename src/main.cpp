@@ -11,13 +11,20 @@
 
 #include "QTypingTest/thomepage.h"
 
-using namespace std;
+void registerTypes(){
+    qRegisterMetaTypeStreamOperators<TUser>         ("TUser"         );
+    qRegisterMetaTypeStreamOperators<TResult>       ("TResult"       );
+    qRegisterMetaTypeStreamOperators<TExercice>     ("TExercice"     );
+    qRegisterMetaTypeStreamOperators<TProgression>  ("TProgression"  );
+    qRegisterMetaTypeStreamOperators<date_exercice_>("date_exercice_");
+}
+
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-    qDebug() << "Running from " << QDir::currentPath();
 
     srand(time(NULL)); //Random number generation
+    registerTypes();   //Register the type to be able to create QVariant from them
 
     THomePage hp;
 

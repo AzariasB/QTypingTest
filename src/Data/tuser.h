@@ -132,8 +132,10 @@ private:
     QHash<date_exercice_, TResult> practiceHistory_;
 };
 
+Q_DECLARE_METATYPE(TUser)
+Q_DECLARE_METATYPE(date_exercice_)
 
-QDataStream &operator>>(QDataStream& in, const date_exercice_& dateEx);
+QDataStream &operator>>(QDataStream& in, date_exercice_& dateEx);
 
 /**
  * Save the date_exercice_ structure

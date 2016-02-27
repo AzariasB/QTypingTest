@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 
 /* 
  * File:   TProgression.h
@@ -40,6 +45,8 @@ public:
 private:
     int lastExerciceIndex_;
 };
+
+Q_DECLARE_METATYPE(TProgression)
 
 QDataStream &operator<<(QDataStream &out, const TProgression &prog);
 

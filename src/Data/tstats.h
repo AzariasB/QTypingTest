@@ -14,6 +14,7 @@
 #define TSTATS_H
 
 #include <QHash>
+#include <QtCore>
 
 /**
  * Number of WRONG keystrokes for each char
@@ -34,7 +35,7 @@ private:
 
 };
 
-
+Q_DECLARE_METATYPE(TStats)
 
 #endif /* TSTATS_H */
 

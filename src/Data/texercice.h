@@ -38,9 +38,7 @@ public:
 
     QString buildExercice() const;
 
-    virtual ~TExercice() {
-
-    };
+    virtual ~TExercice() {}
 
     QString learningLetters() const;
 
@@ -70,6 +68,8 @@ private:
     QString availableLetters_;
     EXERCICE_TYPE exerciceType_;
 };
+
+Q_DECLARE_METATYPE(TExercice)
 
 QDataStream &operator>>(QDataStream &in, TExercice &ex);
 

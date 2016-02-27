@@ -19,6 +19,14 @@
 class TestTUser : public QObject {
     Q_OBJECT
 private slots:
+    void initTestCase(){
+        qRegisterMetaTypeStreamOperators<TUser>         ("TUser"         );
+        qRegisterMetaTypeStreamOperators<TResult>       ("TResult"       );
+        qRegisterMetaTypeStreamOperators<TExercice>     ("TExercice"     );
+        qRegisterMetaTypeStreamOperators<TProgression>  ("TProgression"  );
+        qRegisterMetaTypeStreamOperators<date_exercice_>("date_exercice_");
+    }
+
     void testConstructor();
     void testDataStream();
     void testProgression();
@@ -36,6 +44,8 @@ void TestTUser::testUserManager()
     connect(&TUserManager::getInstance(),&TUserManager::userChanged,this,[=,&numberOfChanges](){
         numberOfChanges++;
     });
+
+    TUserManager::getInstance().removeAllUsers();
 
     for(int i = 0; i < 10;i++){
         TUser *u = new TUser(randomName());

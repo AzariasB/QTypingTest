@@ -11,7 +11,6 @@
     <qresource prefix="/">
         <file alias="layouts.txt">ressources/layouts.txt</file>
         <file alias="style.qss">ressources/style.qss</file>
-        <file alias="users.dat">ressources/users.dat</file>
     </qresource>
     <qresource prefix="/icons">
         <file alias="play.png">ressources/play.png</file>

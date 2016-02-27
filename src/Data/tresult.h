@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 /* 
  * File:   TResult.h
  * Author: boutina
@@ -103,6 +108,9 @@ private:
         this->wrongWords_ = wrongWords;
     }
 };
+
+Q_DECLARE_METATYPE(TResult)
+
 
 QDataStream &operator>>(QDataStream &in, TResult &result);
 

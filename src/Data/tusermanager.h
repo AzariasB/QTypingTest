@@ -17,6 +17,7 @@
 #include <QObject>
 #include <QList>
 #include <QDataStream>
+#include <QSettings>
 
 #include "tuser.h"
 
@@ -36,7 +37,6 @@ public:
             connect(currentUser_,SIGNAL(settingsChanged(TUser*)),this,SLOT(saveUsers()));
             connect(currentUser_,SIGNAL(statsChanged(TUser*)),this,SLOT(saveUsers()));
         }
-        qDebug() << "user changed";
         emit userChanged(currentUser_);
     }
 
@@ -66,32 +66,46 @@ public:
         return rmed;
     }
 
+    /**
+     * ONLY FOR TESTING
+     *
+     * The aim of this function is to start with no users
+     * this function must not be called in production
+     *
+     * \todo : add preprocessor for DEBUG only
+     *
+     * @brief removeAllUsers
+     */
+    void removeAllUsers(){
+        users_.clear();
+        saveTarget_.beginGroup("users");
+        saveTarget_.clear();
+        saveTarget_.endGroup();
+    }
 
     //Respect singleton patter, prevent assigning values by any mean
     TUserManager(const TUserManager& orig) = delete;
     void operator=(TUserManager const&)    = delete;
 
 public slots:
-    bool saveUsers();
+    void saveUsers();
 
 signals:
     void userChanged(TUser *);
 
     void usersSaved();
 
-private:
+private:    
     static TUserManager _instance;
+
+
+    QSettings saveTarget_;
 
     TUser *currentUser_;
 
     QList<TUser*> users_;
 
-
-    TUserManager() : QObject() {
-        currentUser_ = 0;
-        readUsers();
-    }
-
+    TUserManager();
 };
 
 #endif /* TUSERMANAGER_H */

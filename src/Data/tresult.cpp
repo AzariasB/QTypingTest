@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 /* 
  * File:   TResult.cpp
  * Author: boutina
@@ -5,7 +10,6 @@
  * Created on 24 novembre 2015, 11:27
  */
 
-#include <qt5/QtCore/qdatastream.h>
 
 #include "tresult.h"
 
@@ -13,6 +17,7 @@ TResult::TResult() {
 }
 
 TResult::TResult(const TResult &base) {
+    qRegisterMetaType<TResult>("TResult");
     *this += base;
 }
 
