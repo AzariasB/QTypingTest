@@ -13,23 +13,14 @@
 
 #include "thomepage.h"
 
-/**
- * Initiate the static vars
- */
 
 THomePage::THomePage(QWidget *parent) :
 QMainWindow(parent),
-pagesButtons_(QVector<button_stack>()) {
-
-    //For the test : create a new user
-    TUser *timmy = new TUser("timmy");
-    TUserManager& manager = TUserManager::getInstance();
-    manager.setCurrentUser(timmy);
-
+pagesButtons_(QVector<button_stack>())
+{
     ui.setupUi(this);
-
+//    TUserManager::getInstance().setCurrentUser(new TUser("timmy"));
     connectEvents();
-
 }
 
 THomePage::~THomePage() {
@@ -57,6 +48,7 @@ void THomePage::connectEvents() {
     connect(&TUserManager::getInstance(),&TUserManager::usersSaved,this,[=](){
         ui.statusbar->showMessage("Users saved !",4000);
     });
+    connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this,SLOT(updateUI(TUser*)) );
 
     button_stack sHome = {
         ui.button_home,
@@ -104,12 +96,11 @@ void THomePage::connectEvents() {
             ui.stack_main->setCurrentIndex(i);
         });
     }
-
-    connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(updateUI(TUser*)));
-
+    ui.stack_main->setCurrentWidget(ui.page_home);
 }
 
 void THomePage::updateUI(TUser* nwUser) {
+    qDebug() << "user changed ";
     if (nwUser) {
         for (auto it = pagesButtons_.begin(); it != pagesButtons_.end(); ++it) {
             it->triggerer->setEnabled(true);

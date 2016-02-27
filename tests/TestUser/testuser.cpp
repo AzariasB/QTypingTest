@@ -13,6 +13,7 @@
 
 #include "Data/tuser.h"
 #include "Data/texercice.h"
+#include "Data/tusermanager.h"
 
 
 class TestTUser : public QObject {
@@ -22,10 +23,39 @@ private slots:
     void testDataStream();
     void testProgression();
     void testSignals();
+    void testUserManager();
 
 private:
     QString randomName();
 };
+
+void TestTUser::testUserManager()
+{
+    int numberOfChanges = 0;
+    TUser *other = new TUser(randomName());
+    connect(&TUserManager::getInstance(),&TUserManager::userChanged,this,[=,&numberOfChanges](){
+        numberOfChanges++;
+    });
+
+    for(int i = 0; i < 10;i++){
+        TUser *u = new TUser(randomName());
+        TUserManager::getInstance() << u;
+    }
+
+
+    //Operator testing
+    QVERIFY(TUserManager::getInstance().users().size() == 10);
+    TUserManager::getInstance() << other;
+    QVERIFY(TUserManager::getInstance().users().size() == 11);
+    TUserManager::getInstance() - other;
+    QVERIFY(TUserManager::getInstance().users().size() == 10);
+    QVERIFY(!TUserManager::getInstance().users().contains(other));
+
+    //Signal testing
+    for(int i = 0; i < 10;i++)
+        TUserManager::getInstance().setCurrentUser(other);
+    QVERIFY(numberOfChanges == 10);
+}
 
 void TestTUser::testSignals() {
     bool signalEmited  = false;

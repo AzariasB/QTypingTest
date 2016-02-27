@@ -17,9 +17,6 @@
 
 #include "ui/ui_options.h"
 #include "Data/tusermanager.h"
-#include "availablelangs.h"
-
-extern const QStringList availableLanguages;
 
 class TOptionDialog : public QDialog
 {

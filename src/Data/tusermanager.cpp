@@ -5,7 +5,7 @@
 
 
 /* 
- * File:   TUserManager.cpp
+ * File:   tusermanager.cpp
  * Author: boutina
  * 
  * Created on 11 février 2016, 16:50
@@ -13,7 +13,7 @@
 
 #include "tusermanager.h"
 
-
+TUserManager TUserManager::_instance;
 
 TUserManager::~TUserManager() {
 }

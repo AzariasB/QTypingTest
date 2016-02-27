@@ -23,18 +23,20 @@
 class TUserManager : public QObject {
 
     Q_OBJECT
+
 public:
 
     static TUserManager& getInstance() {
-        static TUserManager manager;
-        return manager;
+        return _instance;
     }
 
-    void setCurrentUser(TUser *nwUser) {
-        disconnect(currentUser_);
+    void setCurrentUser(TUser *nwUser = 0) {
         currentUser_ = nwUser;
-        connect(currentUser_,SIGNAL(settingsChanged(TUser*)),this,SLOT(saveUsers()));
-        connect(currentUser_,SIGNAL(statsChanged(TUser*)),this,SLOT(saveUsers()));
+        if(currentUser_){
+            connect(currentUser_,SIGNAL(settingsChanged(TUser*)),this,SLOT(saveUsers()));
+            connect(currentUser_,SIGNAL(statsChanged(TUser*)),this,SLOT(saveUsers()));
+        }
+        qDebug() << "user changed";
         emit userChanged(currentUser_);
     }
 
@@ -65,8 +67,9 @@ public:
     }
 
 
+    //Respect singleton patter, prevent assigning values by any mean
     TUserManager(const TUserManager& orig) = delete;
-    void operator=(TUserManager const&) = delete;
+    void operator=(TUserManager const&)    = delete;
 
 public slots:
     bool saveUsers();
@@ -77,6 +80,7 @@ signals:
     void usersSaved();
 
 private:
+    static TUserManager _instance;
 
     TUser *currentUser_;
 

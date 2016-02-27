@@ -37,7 +37,6 @@ public:
     pseudo_(pseudo),
     progress_(new TProgression()),
     statistics_(TStats()){
-        detectLang();
     }
 
     TUser(const TUser &orig) :
@@ -45,7 +44,6 @@ public:
     pseudo_(orig.pseudo_),
     progress_(orig.progress_),
     statistics_(orig.statistics_),
-    lang_(orig.lang_),
     layout_(orig.layout_){
     }
 
@@ -75,13 +73,6 @@ public:
         layout_ = nwLayou;
     }
 
-    QString getLang() const{
-        return lang_;
-    }
-
-    void setLang(const QString &lang){
-        lang_ = lang;
-    }
 
     const TStats &getStatistics() const {
         return statistics_;
@@ -89,7 +80,6 @@ public:
 
     void setSettings(const TUser &user){
         pseudo_ = user.getPseudo();
-        lang_ = user.getLang();
         layout_ = user.getLayout();
         emit settingsChanged(this);
     }
@@ -137,16 +127,9 @@ private:
     QString pseudo_;
     TProgression *progress_;
     TStats statistics_;
-    QString lang_;
     QString layout_;
 
     QHash<date_exercice_, TResult> practiceHistory_;
-
-    /**
-     * @brief setLang detect the computer language setting and apply it to the user's lang
-     */
-    void detectLang();
-
 };
 
 

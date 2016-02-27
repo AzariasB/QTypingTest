@@ -2,7 +2,7 @@
     <qresource prefix="/words">
         <file alias="words.txt">ressources/words.txt</file>
     </qresource>
-    <qresource prefix="/words" lang="fr">
+    <qresource lang="fr" prefix="/words">
         <file alias="words.txt">ressources/words_fr.txt</file>
     </qresource>
     <qresource prefix="/texts">

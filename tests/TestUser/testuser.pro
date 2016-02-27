@@ -9,6 +9,7 @@ SRC = $$PWD/../../src/
 INCLUDEPATH += $$SRC
 
 HEADERS = $$SRC/Data/tuser.h \
+         $$SRC/Data/tusermanager.h \
          $$SRC/Data/texercice.h \
          $$SRC/Data/tstats.h \
          $$SRC/Data/tresult.h \
@@ -18,6 +19,7 @@ HEADERS = $$SRC/Data/tuser.h \
          $$SRC/Util/htmlhelper.h
 
 SOURCES = $$SRC/Data/tuser.cpp \
+         $$SRC/Data/tusermanager.cpp \
          $$SRC/Data/texercice.cpp \
          $$SRC/Data/tstats.cpp \
          $$SRC/Data/tresult.cpp \
