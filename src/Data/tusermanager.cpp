@@ -14,13 +14,12 @@
 #include "tusermanager.h"
 
 
-TUserManager TUserManager::_instance;
-
 TUserManager::TUserManager() :
     QObject(),
     saveTarget_("QTypingTest")
 {
     currentUser_ = 0;
+    readUsers();
 }
 
 TUserManager::~TUserManager() {
@@ -28,17 +27,20 @@ TUserManager::~TUserManager() {
 
 QList<TUser*> TUserManager::readUsers()
 {
-    users_.clear();
     saveTarget_.beginGroup("users");
+    bool allValid = true;
+    QList<TUser*> usersTemp;
     QStringList keys= saveTarget_.childKeys();
     for(const QString &k : keys){
         QVariant v = saveTarget_.value(k);
+        allValid = allValid && v.isValid();
         if(v.isValid())
-            users_ << new TUser(v.value<TUser>());
-        else
-            qDebug() << "Tried to read an invalid user";
+            usersTemp << new TUser(v.value<TUser>());
     }
     saveTarget_.endGroup();
+
+    if(allValid)
+        users_ = usersTemp;
     return users_;
 }
 

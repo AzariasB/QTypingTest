@@ -28,7 +28,8 @@ class TUserManager : public QObject {
 public:
 
     static TUserManager& getInstance() {
-        return _instance;
+        static TUserManager instance;
+        return instance;
     }
 
     void setCurrentUser(TUser *nwUser = 0) {
@@ -95,10 +96,7 @@ signals:
 
     void usersSaved();
 
-private:    
-    static TUserManager _instance;
-
-
+private:
     QSettings saveTarget_;
 
     TUser *currentUser_;

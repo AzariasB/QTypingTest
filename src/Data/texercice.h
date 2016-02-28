@@ -67,9 +67,19 @@ private:
     QString learningLetters_;
     QString availableLetters_;
     EXERCICE_TYPE exerciceType_;
-};
 
-Q_DECLARE_METATYPE(TExercice)
+    friend QDataStream &operator>>(QDataStream &in, TExercice &ex){
+        qint16 type;
+        in >> ex.allLetters_ >> ex.availableLetters_ >> type >> ex.learningLetters_;
+        ex.exerciceType_ = static_cast<EXERCICE_TYPE>(type);
+        return in;
+    }
+
+    friend QDataStream &operator<<(QDataStream &out, const TExercice &ex){
+        out << ex.allLetters_ << ex.availableLetters_ << static_cast<qint16>(ex.exerciceType_) << ex.learningLetters_;
+        return out;
+    }
+};
 
 QDataStream &operator>>(QDataStream &in, TExercice &ex);
 

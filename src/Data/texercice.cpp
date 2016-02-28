@@ -53,27 +53,3 @@ QString TExercice::buildExercice() const {
             return factory::generateLearning(availableLetters_, availableLetters_);
     }
 }
-
-QDataStream &operator<<(QDataStream& out, const TExercice& ex) {
-    out << ex.getAllLetters();
-    out << ex.getAvailableLetters();
-    qint16 type = static_cast<qint16> (ex.getExerciceType());
-    out << type;
-    out << ex.getLearningLetters();
-    return out;
-}
-
-QDataStream &operator>>(QDataStream& in, TExercice& ex) {
-    bool allLetters;
-    in >> allLetters;
-    QString availableLetters;
-    in >> availableLetters;
-    qint16 type;
-    in >> type;
-    TExercice::EXERCICE_TYPE exeT = static_cast<TExercice::EXERCICE_TYPE>(type);
-    QString learningLetters;
-    in >> learningLetters;
-    ex = TExercice(exeT, learningLetters, availableLetters);
-    ex.setAllLetters(allLetters);
-    return in;
-}

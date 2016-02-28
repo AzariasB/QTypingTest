@@ -11,24 +11,25 @@
 
 #include "QTypingTest/thomepage.h"
 
-void registerTypes(){
-    qRegisterMetaTypeStreamOperators<TUser         >("TUser"         );
-    qRegisterMetaTypeStreamOperators<TStats        >("TStats"        );
-    qRegisterMetaTypeStreamOperators<TResult       >("TResult"       );
-    qRegisterMetaTypeStreamOperators<TExercice     >("TExercice"     );
-    qRegisterMetaTypeStreamOperators<TProgression  >("TProgression"  );
-    qRegisterMetaTypeStreamOperators<date_exercice_>("date_exercice_");
+void init(){
+    srand(time(NULL)); //Random number generation
+
+    qRegisterMetaTypeStreamOperators<TUser>("TUser"); //Metatype declaration
+
+    //Set translator
+    QString locale = QLocale::system().name().section('_',0,0);
+    QTranslator translator;
+    translator.load(QString("qt_") + locale,QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    QApplication::installTranslator(&translator);
 }
 
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    srand(time(NULL)); //Random number generation
-    registerTypes();   //Register the type to be able to create QVariant from them
+    init();   //Register the type to be able to create QVariant from them
 
     THomePage hp;
-
 
     //Set style
     QFile file(":/style.qss");
@@ -43,11 +44,6 @@ int main(int argc, char *argv[]) {
         qDebug() << "Could not load stylesheet";
     }
 
-    //Set translator
-    QString locale = QLocale::system().name().section('_',0,0);
-    QTranslator translator;
-    translator.load(QString("qt_") + locale,QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    a.installTranslator(&translator);
 
     hp.show();
 

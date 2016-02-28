@@ -107,10 +107,17 @@ private:
     void setWrongWords(int wrongWords) {
         this->wrongWords_ = wrongWords;
     }
+
+    friend QDataStream &operator>>(QDataStream &in, TResult &result){
+        in >> result.correctKeystrokes_ >> result.wrongKeystrokes_ >> result.wordsPerMinute_;
+        return in;
+    }
+
+    friend QDataStream &operator<<(QDataStream &out, const TResult &result){
+        out << result.correctKeystrokes_ << result.wrongKeystrokes_ << result.wordsPerMinute_;
+        return out;
+    }
 };
-
-Q_DECLARE_METATYPE(TResult)
-
 
 QDataStream &operator>>(QDataStream &in, TResult &result);
 

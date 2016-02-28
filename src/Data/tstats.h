@@ -35,7 +35,6 @@ private:
 
 };
 
-Q_DECLARE_METATYPE(TStats)
 
 #endif /* TSTATS_H */
 

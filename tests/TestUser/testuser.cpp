@@ -22,11 +22,6 @@ class TestTUser : public QObject {
 private slots:
     void initTestCase(){
         qRegisterMetaTypeStreamOperators<TUser>("TUser");
-        qRegisterMetaTypeStreamOperators<TStats>("TStats");
-        qRegisterMetaTypeStreamOperators<TResult>("TResult");
-        qRegisterMetaTypeStreamOperators<TExercice>("TExercice");
-        qRegisterMetaTypeStreamOperators<TProgression>("TProgression");
-        qRegisterMetaTypeStreamOperators<date_exercice_>("date_exercice_");
         srand(time(NULL));
     }
 
@@ -54,48 +49,7 @@ void TestTUser::testSettings()
 
 void TestTUser::testMetaTypes()
 {
-    TProgression p;
-    p.setLastExerciceIndex(200);
-    QVariant v = QVariant::fromValue(p);
-    QVERIFY(v.canConvert<TProgression>());
-    {
-        QSettings write("test");
-        write.beginGroup("test");
-        write.clear();
-        write.setValue("progression",v);
-        write.endGroup();
-    }
 
-    {
-        QSettings read("test");
-        read.beginGroup("test");
-        QVariant rec =  read.value("progression");
-        qDebug() << rec.value<TProgression>().getLastExericeIndex();
-        read.endGroup();
-        QVERIFY(rec.type() == QVariant::UserType);
-        QVERIFY(rec.isValid());
-    }
-
-
-    date_exercice_ ex;
-    v = QVariant::fromValue(ex);
-    QVERIFY(v.canConvert<date_exercice_>());
-
-    TExercice exo;
-    v = QVariant::fromValue(exo);
-    QVERIFY(v.canConvert<TExercice>());
-
-    TStats stats;
-    v = QVariant::fromValue(stats);
-    QVERIFY(v.canConvert<TStats>());
-
-    TResult res;
-    v = QVariant::fromValue(res);
-    QVERIFY(v.canConvert<TResult>());
-
-    TUser u;
-    v = QVariant::fromValue(u);
-    QVERIFY(v.canConvert<TUser>());
 }
 
 void TestTUser::testUserManager()

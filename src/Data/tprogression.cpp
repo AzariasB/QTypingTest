@@ -7,15 +7,13 @@
 
 #include "tprogression.h"
 
-TProgression::TProgression(QObject *parent):
-    QObject(parent),
+TProgression::TProgression() :
     lastExerciceIndex_(0) {
     
 }
 
 
 TProgression::TProgression(const TProgression& orig):
-    QObject(orig.parent()),
 lastExerciceIndex_(orig.lastExerciceIndex_){
 }
 

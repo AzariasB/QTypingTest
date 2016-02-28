@@ -24,12 +24,10 @@
  * 
  *  \todo : add progression for the practice exerccices
  */
-class TProgression : public QObject {
-
-    Q_OBJECT
+class TProgression {
 
 public:
-    TProgression(QObject *parent = 0);
+    TProgression();
     TProgression(const TProgression& orig);
     virtual ~TProgression();
 
@@ -57,8 +55,6 @@ private:
         return in;
     }
 };
-
-Q_DECLARE_METATYPE(TProgression)
 
 QDataStream &operator<<(QDataStream &out, const TProgression &prog);
 

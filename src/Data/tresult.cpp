@@ -71,24 +71,3 @@ QString TResult::getResume() {
 
 TResult::~TResult() {
 }
-
-QDataStream &operator<<(QDataStream& out, const TResult& result) {
-    out << result.getCorrectKeysStrokes();
-    out << result.getWrongKeysStrokes();
-    out << result.getWPM();
-    return out;
-}
-
-QDataStream &operator>>(QDataStream& in, TResult& result) {
-    int correcKeyStrokes;
-    in >> correcKeyStrokes;
-    int wrongKeyStrokes;
-    in >> wrongKeyStrokes;
-    int wordsPerMinute;
-    in >> wordsPerMinute;
-    result = TResult();
-    result.setCorrectKeysStrokes(correcKeyStrokes);
-    result.setWrongKeysStrokes(wrongKeyStrokes);
-    result.setWPM(wordsPerMinute);
-    return in;
-}
