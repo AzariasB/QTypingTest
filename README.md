@@ -24,14 +24,14 @@ Instead of typing series of random words, you have to type a real text. This exe
 Previews
 --------
 <p align="center"  >
-  <img src="etc/images/screensho1.png" alt="Main window" />
+  <img src="ressources/etc/screenshot1.png" alt="Main window" />
 </p>
 <p align="center">
-  <img src="etc/images/screenshot2.png" alt="Exercice dialo" />
+  <img src="ressources/etc//screenshot2.png" alt="Exercise dialog" />
 </p>
 <p align="center">
-  <img src="etc/images/screenshot3.png" alt="Interactive keyboard" />
+  <img src="ressources/etc//screenshot3.png" alt="Interactive keyboard" />
 </p>
 <p align="center">
-  <img src="etc/images/screenshot4.png" alt="Learn finger positions" />
+  <img src="ressources/etc//screenshot4.png" alt="Learn finger positions" />
 </p>

@@ -101,8 +101,8 @@ void THomePage::connectEvents() {
 }
 
 void THomePage::updateUI(TUser* nwUser) {
-    qDebug() << "user changed ";
     if (nwUser) {
+        ui.action_option->setEnabled(true);
         for (auto it = pagesButtons_.begin(); it != pagesButtons_.end(); ++it) {
             it->triggerer->setEnabled(true);
         }

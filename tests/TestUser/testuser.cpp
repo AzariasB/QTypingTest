@@ -39,17 +39,20 @@ private:
 void TestTUser::testSettings()
 {
     TUserManager::getInstance().removeAllUsers();
-    QVERIFY(TUserManager::getInstance().users().size() == 0);
+    QCOMPARE(TUserManager::getInstance().users().size(),0);
     for(int i = 0; i < 10;i++)
         TUserManager::getInstance() << new TUser(randomName());
     TUserManager::getInstance().saveUsers();
-    qDebug() << TUserManager::getInstance().readUsers().size();
-    QVERIFY(TUserManager::getInstance().readUsers().size() == 10);
+    QCOMPARE(TUserManager::getInstance().readUsers().size(),10);
 }
 
 void TestTUser::testMetaTypes()
 {
-
+    TUser t;
+    QVariant v = QVariant::fromValue(t);
+    QVERIFY(v.isValid());
+    TUser tV = v.value<TUser>();
+    QCOMPARE(tV,t);
 }
 
 void TestTUser::testUserManager()
@@ -69,11 +72,11 @@ void TestTUser::testUserManager()
 
 
     //Operator testing
-    QVERIFY(TUserManager::getInstance().users().size() == 10);
+    QCOMPARE(TUserManager::getInstance().users().size(),10);
     TUserManager::getInstance() << other;
-    QVERIFY(TUserManager::getInstance().users().size() == 11);
+    QCOMPARE(TUserManager::getInstance().users().size(),11);
     TUserManager::getInstance() - other;
-    QVERIFY(TUserManager::getInstance().users().size() == 10);
+    QCOMPARE(TUserManager::getInstance().users().size(),10);
     QVERIFY(!TUserManager::getInstance().users().contains(other));
 
     //Signal testing

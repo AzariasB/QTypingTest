@@ -27,17 +27,18 @@ TUserManager::~TUserManager() {
 
 QList<TUser*> TUserManager::readUsers()
 {
-    saveTarget_.beginGroup("users");
     bool allValid = true;
+    int arrSize = saveTarget_.beginReadArray("users");
     QList<TUser*> usersTemp;
-    QStringList keys= saveTarget_.childKeys();
-    for(const QString &k : keys){
-        QVariant v = saveTarget_.value(k);
+    for(int i =0; i < arrSize;i++){
+        saveTarget_.setArrayIndex(i);
+        QString key = saveTarget_.childKeys()[0];
+        QVariant v = saveTarget_.value(key);
         allValid = allValid && v.isValid();
         if(v.isValid())
             usersTemp << new TUser(v.value<TUser>());
     }
-    saveTarget_.endGroup();
+    saveTarget_.endArray();
 
     if(allValid)
         users_ = usersTemp;
@@ -46,16 +47,18 @@ QList<TUser*> TUserManager::readUsers()
 
 void TUserManager::saveUsers()
 {
-    saveTarget_.beginGroup("users");
+    saveTarget_.beginWriteArray("users");
     saveTarget_.clear();
-    for(const TUser *u : users_){
+    for(int i = 0; i< users_.size();i++){
+        saveTarget_.setArrayIndex(i);
+        TUser *u = users_[i];
         QVariant uVariant = QVariant::fromValue(*u);
         if(uVariant.isValid())
             saveTarget_.setValue(u->getPseudo(),uVariant);
         else
             qDebug() << "Tried to save an invalid user";
     }
-    saveTarget_.endGroup();
+    saveTarget_.endArray();
     emit usersSaved();
 }
 
