@@ -16,7 +16,7 @@
 #include <QDebug>
 #include <QList>
 
-#include "Util/filehelper.h"
+#include "Util/factory.h"
 
 /**
  * This class is here to have a way to create the exercices

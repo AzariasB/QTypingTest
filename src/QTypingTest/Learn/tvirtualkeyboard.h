@@ -26,7 +26,6 @@
 #include <QTimer>
 
 #include "tvirtualkey.h"
-#include "Util/filehelper.h"
 #include "Data/tlayouts.h"
 
 class TVirtualKeyboard : public QWidget {

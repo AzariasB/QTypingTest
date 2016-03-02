@@ -11,16 +11,28 @@
 
 #include "QTypingTest/thomepage.h"
 
+void init(){
+    srand(time(NULL)); //Random number generation
+
+    qRegisterMetaTypeStreamOperators<TUser>("TUser"); //Metatype declaration
+
+    //Set translator
+    QString locale = QLocale::system().name().section('_',0,0);
+    QTranslator translator;
+    translator.load(QString("qt_") + locale,QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    QApplication::installTranslator(&translator);
+}
+
+
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-    qDebug() << "Running from " << QDir::currentPath();
 
-    srand(time(NULL)); //Random number generation
+    init();   //Register the type to be able to create QVariant from them
 
     THomePage hp;
 
     //Set style
-    QFile file(file::getStylesheet("style"));
+    QFile file(":/style.qss");
     if (file.exists()) {
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             qDebug() << "Could not open file, please check the permissions";
@@ -32,11 +44,6 @@ int main(int argc, char *argv[]) {
         qDebug() << "Could not load stylesheet";
     }
 
-    //Set translator
-    QString locale = QLocale::system().name().section('_',0,0);
-    QTranslator translator;
-    translator.load(QString("qt_") + locale,QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    a.installTranslator(&translator);
 
     hp.show();
 

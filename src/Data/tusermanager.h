@@ -17,24 +17,27 @@
 #include <QObject>
 #include <QList>
 #include <QDataStream>
+#include <QSettings>
 
 #include "tuser.h"
 
 class TUserManager : public QObject {
 
     Q_OBJECT
+
 public:
 
     static TUserManager& getInstance() {
-        static TUserManager manager;
-        return manager;
+        static TUserManager instance;
+        return instance;
     }
 
-    void setCurrentUser(TUser *nwUser) {
-        disconnect(currentUser_);
+    void setCurrentUser(TUser *nwUser = 0) {
         currentUser_ = nwUser;
-        connect(currentUser_,SIGNAL(settingsChanged(TUser*)),this,SLOT(saveUsers()));
-        connect(currentUser_,SIGNAL(statsChanged(TUser*)),this,SLOT(saveUsers()));
+        if(currentUser_){
+            connect(currentUser_,SIGNAL(settingsChanged(TUser*)),this,SLOT(saveUsers()));
+            connect(currentUser_,SIGNAL(statsChanged(TUser*)),this,SLOT(saveUsers()));
+        }
         emit userChanged(currentUser_);
     }
 
@@ -64,12 +67,29 @@ public:
         return rmed;
     }
 
+    /**
+     * ONLY FOR TESTING
+     *
+     * The aim of this function is to start with no users
+     * this function must not be called in production
+     *
+     * \todo : add preprocessor for DEBUG only
+     *
+     * @brief removeAllUsers
+     */
+    void removeAllUsers(){
+        users_.clear();
+        saveTarget_.beginGroup("users");
+        saveTarget_.clear();
+        saveTarget_.endGroup();
+    }
 
+    //Respect singleton patter, prevent assigning values by any mean
     TUserManager(const TUserManager& orig) = delete;
-    void operator=(TUserManager const&) = delete;
+    void operator=(TUserManager const&)    = delete;
 
 public slots:
-    bool saveUsers();
+    void saveUsers();
 
 signals:
     void userChanged(TUser *);
@@ -77,17 +97,13 @@ signals:
     void usersSaved();
 
 private:
+    QSettings saveTarget_;
 
     TUser *currentUser_;
 
     QList<TUser*> users_;
 
-
-    TUserManager() : QObject() {
-        currentUser_ = 0;
-        readUsers();
-    }
-
+    TUserManager();
 };
 
 #endif /* TUSERMANAGER_H */

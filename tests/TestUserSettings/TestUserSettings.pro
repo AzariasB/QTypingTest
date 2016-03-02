@@ -45,7 +45,6 @@ SOURCES += tst_testusersettingstest.cpp \
     ../../src/Data/tusermanager.cpp \
     ../../src/QTypingTest/toptiondialog.cpp \
     ../../src/Util/factory.cpp \
-    ../../src/Util/filehelper.cpp \
     ../../src/Util/htmlhelper.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
@@ -60,11 +59,14 @@ HEADERS += \
     ../../src/Data/tusermanager.h \
     ../../src/QTypingTest/toptiondialog.h \
     ../../src/Util/factory.h \
-    ../../src/Util/filehelper.h \
     ../../src/Util/htmlhelper.h
 
 FORMS += \
     ../../src/ui/options.ui
 
 UI_DIR = ../../src/ui
+
+
+RESOURCES += \
+    ../../ressources.qrc
 

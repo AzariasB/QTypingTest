@@ -9,8 +9,6 @@
  * Created on 27 janvier 2016, 10:32
  */
 
-#include <qt5/QtCore/qlogging.h>
-
 #include "tvirtualkeyboard.h"
 
 using namespace Qt;

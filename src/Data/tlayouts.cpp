@@ -14,7 +14,7 @@
 
 
 void TLayouts::initLetters(QString layout, QString country) {
-    QString layouts = file::readFile("etc/layouts.txt");
+    QString layouts = factory::readFile(":/layouts.txt");
     findAvailableLangs(layouts);
     QString config = findCorrespondingLayout(layouts, layout, country);
     if (config.isEmpty()) {

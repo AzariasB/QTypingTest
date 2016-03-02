@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 /* 
  * File:   TResult.h
  * Author: boutina
@@ -27,19 +32,19 @@ public:
 
     int getCorrectKeysStrokes() const {
         return this->correctKeystrokes_;
-    };
+    }
 
     int getWrongKeysStrokes() const {
         return this->wrongKeystrokes_;
-    };
+    }
 
     int getCorrectWords() const {
         return this->correctWords_;
-    };
+    }
 
     int getWrongWords() const {
         return this->wrongWords_;
-    };
+    }
 
     int getWPM() const {
         return wordsPerMinute_;
@@ -108,9 +113,19 @@ private:
         this->wrongWords_++;
     }
 
+    void setWrongWords(int wrongWords) {
+        this->wrongWords_ = wrongWords;
+    }
 
+    friend QDataStream &operator>>(QDataStream &in, TResult &result){
+        in >> result.correctKeystrokes_ >> result.wrongKeystrokes_ >> result.wordsPerMinute_;
+        return in;
+    }
 
-
+    friend QDataStream &operator<<(QDataStream &out, const TResult &result){
+        out << result.correctKeystrokes_ << result.wrongKeystrokes_ << result.wordsPerMinute_;
+        return out;
+    }
 };
 
 QDataStream &operator>>(QDataStream &in, TResult &result);

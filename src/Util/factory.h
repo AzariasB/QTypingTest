@@ -16,8 +16,7 @@
 #include <QStringList>
 #include <QDebug>
 #include <algorithm>
-
-#include "filehelper.h"
+#include <QFile>
 
 namespace factory {
     
@@ -33,11 +32,10 @@ namespace factory {
      * only the asked number of words
      * 
      * @param numbersOfWords the number of words for the text
-     * @param lang the language of the text to generate
      * @return a part of a text containing n words, choosen from the file corresponding
      * to the given language. If the file does not exists, english is chosen by default
      */
-    QString generateText(int numbersOfWords,QString lang = "en");
+    QString generateText(int numbersOfWords);
     /**
      * This function generate the practice exercice from the given letters.
      * The result is devided into three parts :
@@ -91,7 +89,7 @@ namespace factory {
      * @param mainLetters an optional QString. If existing, all the words must contain at least one letter of this string
      * @return a string with `numberOfWord` words separated by space.
      */
-    QString generateWords(QString authorizedLetters, QString language, QString mainLetters = "");
+    QString generateWords(QString authorizedLetters, QString mainLetters = "");
     
     /**
      * Will look into a file (depending on the chosen langage)
@@ -144,6 +142,17 @@ namespace factory {
      * @return the text splitted
      */
     QStringList splitText(QString toSplit,int numberOfSplit);
+
+
+    /**
+     * Open and read all the content of a file
+     * returns an empty string if the file could not be
+     * open
+     *
+     * @param fileName
+     * @return the content of the file (empty if nothing found)
+     */
+    QString readFile(QString fileName);
 
 }
 

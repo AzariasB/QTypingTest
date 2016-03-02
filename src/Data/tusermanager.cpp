@@ -5,7 +5,7 @@
 
 
 /* 
- * File:   TUserManager.cpp
+ * File:   tusermanager.cpp
  * Author: boutina
  * 
  * Created on 11 février 2016, 16:50
@@ -14,39 +14,55 @@
 #include "tusermanager.h"
 
 
+TUserManager::TUserManager() :
+    QObject(),
+    saveTarget_("QTypingTest")
+{
+    currentUser_ = 0;
+    readUsers();
+}
 
 TUserManager::~TUserManager() {
 }
 
 QList<TUser*> TUserManager::readUsers()
 {
-    QFile f("etc/users.dat");
-    if (!f.exists() || !f.open(QFile::ReadOnly)) {
-        qDebug() << "File 'users.dat' not found";
-        return QList<TUser*>();
+    bool allValid = true;
+    int arrSize = saveTarget_.beginReadArray("users");
+    QList<TUser*> usersTemp;
+    for(int i =0; i < arrSize;i++){
+        saveTarget_.setArrayIndex(i);
+        QString key = saveTarget_.childKeys()[0];
+        QVariant v = saveTarget_.value(key);
+        allValid = allValid && v.isValid();
+        if(v.isValid())
+            usersTemp << new TUser(v.value<TUser>());
     }
+    saveTarget_.endArray();
 
-    QDataStream in(&f);
-    while (!in.atEnd()) {
-        TUser u;
-        in >> u;
-        users_.append(new TUser(u));
-    }
-    f.close();
+    if(allValid)
+        users_ = usersTemp;
     return users_;
 }
 
-bool TUserManager::saveUsers()
+void TUserManager::saveUsers()
 {
-    QFile f("etc/users.dat");
-    if(!f.open(QFile::WriteOnly)) return false;
-
-    QDataStream out(&f);
-
-    foreach (auto elem, users_) {
-        out << *elem;
+    saveTarget_.beginWriteArray("users");
+    saveTarget_.clear();
+    for(int i = 0; i< users_.size();i++){
+        saveTarget_.setArrayIndex(i);
+        TUser *u = users_[i];
+        QVariant uVariant = QVariant::fromValue(*u);
+        if(uVariant.isValid())
+            saveTarget_.setValue(u->getPseudo(),uVariant);
+        else
+            qDebug() << "Tried to save an invalid user";
     }
-    f.close();
+    saveTarget_.endArray();
     emit usersSaved();
-    return true;
 }
+
+
+
+
+

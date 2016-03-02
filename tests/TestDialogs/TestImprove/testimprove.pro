@@ -27,7 +27,6 @@ HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
             $$SRC/Data/tusermanager.h \
             $$SRC/Data/tstats.h \
             $$SRC/Data/tlayouts.h \
-            $$SRC/Util/filehelper.h \
             $$SRC/Util/htmlhelper.h \
             $$SRC/Util/factory.h 
           
@@ -49,7 +48,6 @@ SOURCES = $$SRC/QTypingTest/Dialogs/twindowtest.cpp \
             $$SRC/Data/tusermanager.cpp \
             $$SRC/Data/tstats.cpp \
             $$SRC/Data/tlayouts.cpp \
-            $$SRC/Util/filehelper.cpp \
             $$SRC/Util/htmlhelper.cpp \
             $$SRC/Util/factory.cpp \
             testimprove.cpp

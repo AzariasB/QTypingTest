@@ -73,17 +73,11 @@ bool isValidWord(QString word, QString availableLetters) {
 }
 
 
-QString factory::generateText(int numbersOfWords, QString lang){
-    // \todo : change to have a list of available langs
-    if(lang != "en"){
-        return ""; //Nothing for now
-    }else{
-        QString fPath = file::getTextPath(lang);
-        QStringList content = file::readFile(fPath).split("\n");
-        QStringList text = selectRandomString(content).split(" ",QString::SkipEmptyParts);
-        int start = randInt(0,text.size() - numbersOfWords);
-        return QStringList(text.mid(start,numbersOfWords)).join(" ");
-    }
+QString factory::generateText(int numbersOfWords){
+    QStringList content = readFile(":/texts/texts.txt").split("\n");
+    QStringList text = selectRandomString(content).split(" ",QString::SkipEmptyParts);
+    int start = randInt(0,text.size() - numbersOfWords);
+    return QStringList(text.mid(start,numbersOfWords)).join(" ");
 }
 
 QString factory::generateLearning(QString mainLetter, QString allLetters) {
@@ -96,12 +90,12 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
     // \todo : change here the language of the words to depend on the user configuration (Azarias)
     if (!allLetters.isEmpty()) {
         res += generateFromLetters(allLetters);
-        QString wordsWMain = generateWords(allLetters, "en", mainLetter);
+        QString wordsWMain = generateWords(allLetters,mainLetter);
 
         //If no words can be generated
         if (wordsWMain.isEmpty()) {
             //Try without main letter
-            QString randWords = generateWords(allLetters, "en");
+            QString randWords = generateWords(allLetters);
             //
             if (randWords.isEmpty()) {//Generate random letters
                 res += generateFromLetters(allLetters);
@@ -126,7 +120,7 @@ QString factory::generatePractice(QString letters, bool onlyRealWords){
         res += generateFromLetters(letters);
     
     if(!letters.isEmpty()){
-        res += generateWords(letters,"en");
+        res += generateWords(letters);
         QStringList words = res.split(" ",QString::SkipEmptyParts);
         std::random_shuffle(words.begin(),words.end());
         res = words.join(" ");
@@ -151,7 +145,7 @@ QString factory::generateFromLetters(QString letters, int length) {
 }
 
 QStringList factory::findExistingWords(QString authorizedLetters, QString fileName, QString mustContain) {
-    QStringList words = file::readFile(fileName).split("\n");
+    QStringList words = readFile(fileName).split("\n");
     QStringList res;
 
     foreach(QString word, words) {
@@ -169,9 +163,9 @@ QStringList factory::findExistingWords(QString authorizedLetters, QString fileNa
     return res;
 }
 
-QString factory::generateWords(QString authorizedLetters, QString language, QString mainLetters) {
+QString factory::generateWords(QString authorizedLetters, QString mainLetters) {
     QString res = "";
-    QStringList words = factory::findExistingWords(authorizedLetters, file::getWordsPath(language), mainLetters);
+    QStringList words = factory::findExistingWords(authorizedLetters, ":/words/words.txt", mainLetters);
     if (!words.isEmpty()) {
         for (int i = 0; i < numberOfWords; i++) {
             res += selectRandomString(words);
@@ -215,4 +209,19 @@ QStringList factory::splitText(QString toSplit, int numberOfSplit) {
         models << line;
     }
     return models;
+}
+
+
+QString factory::readFile(QString fileName) {
+    QFile model(fileName);
+    if (model.exists() && model.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QString res(model.readAll());
+        return res;
+    } else {//File not found
+        if (!model.exists())
+            qDebug() << "File does not exists : " + fileName + " \n Please, be sure to run the programm from its root folder";
+        else
+            qDebug() << "Could not open file";
+        return QString("");
+    }
 }

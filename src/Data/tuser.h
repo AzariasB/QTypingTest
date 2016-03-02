@@ -33,11 +33,10 @@ class TUser : public QObject {
     Q_OBJECT
 public:
     TUser(QString pseudo = "", QObject *parent = 0) :
-    QObject(parent),
-    pseudo_(pseudo),
-    progress_(new TProgression()),
-    statistics_(TStats()){
-        detectLang();
+        QObject(parent),
+        pseudo_(pseudo),
+        progress_(new TProgression()),
+        statistics_(TStats()){
     }
 
     TUser(const TUser &orig) :
@@ -45,7 +44,6 @@ public:
     pseudo_(orig.pseudo_),
     progress_(orig.progress_),
     statistics_(orig.statistics_),
-    lang_(orig.lang_),
     layout_(orig.layout_){
     }
 
@@ -75,13 +73,6 @@ public:
         layout_ = nwLayou;
     }
 
-    QString getLang() const{
-        return lang_;
-    }
-
-    void setLang(const QString &lang){
-        lang_ = lang;
-    }
 
     const TStats &getStatistics() const {
         return statistics_;
@@ -89,7 +80,6 @@ public:
 
     void setSettings(const TUser &user){
         pseudo_ = user.getPseudo();
-        lang_ = user.getLang();
         layout_ = user.getLayout();
         emit settingsChanged(this);
     }
@@ -137,31 +127,23 @@ private:
     QString pseudo_;
     TProgression *progress_;
     TStats statistics_;
-    QString lang_;
     QString layout_;
 
     QHash<date_exercice_, TResult> practiceHistory_;
 
-    /**
-     * @brief setLang detect the computer language setting and apply it to the user's lang
-     */
-    void detectLang();
 
+    friend QDataStream &operator<<(QDataStream& out, const TUser& user){
+        out << user.pseudo_ << *user.progress_ << user.statistics_ << user.practiceHistory_ << user.layout_;
+        return out;
+    }
+
+    friend QDataStream &operator>>(QDataStream& in, TUser &user){
+        in >> user.pseudo_ >> *user.progress_ >> user.statistics_ >> user.practiceHistory_ >> user.layout_;
+        return in;
+    }
 };
 
-
-QDataStream &operator>>(QDataStream& in, const date_exercice_& dateEx);
-
-/**
- * Save the date_exercice_ structure
- * 
- * @param out the dataStream targer (where to write the data)
- * @param dateEx the structur to be written in the dataStream
- * @return teh modified datastream
- */
-QDataStream &operator<<(QDataStream& out, const date_exercice_& dateEx);
-
-
+Q_DECLARE_METATYPE(TUser)
 /**
  * Write a user in the DataStream
  * 
@@ -181,6 +163,25 @@ QDataStream &operator<<(QDataStream& out, const TUser& user);
  * @return the datastream
  */
 QDataStream &operator>>(QDataStream& in, TUser &user);
+
+
+
+inline QDataStream &operator>>(QDataStream& in, date_exercice_& dateEx){
+    in >> dateEx.dateResult >> dateEx.exercice;
+    return in;
+}
+
+/**
+ * Save the date_exercice_ structure
+ *
+ * @param out the dataStream targer (where to write the data)
+ * @param dateEx the structur to be written in the dataStream
+ * @return teh modified datastream
+ */
+inline QDataStream &operator<<(QDataStream& out, const date_exercice_& dateEx){
+    out << dateEx.dateResult << dateEx.exercice;
+    return out;
+}
 
 inline bool operator==(const TUser& user1, const TUser& user2) {
     // This means pseuo are UNIQUES !

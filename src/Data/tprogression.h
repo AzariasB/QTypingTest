@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 
 /* 
  * File:   TProgression.h
@@ -20,6 +25,7 @@
  *  \todo : add progression for the practice exerccices
  */
 class TProgression {
+
 public:
     TProgression();
     TProgression(const TProgression& orig);
@@ -39,6 +45,15 @@ public:
 
 private:
     int lastExerciceIndex_;
+    friend QDataStream &operator<<(QDataStream &out, const TProgression &prog){
+        out << prog.lastExerciceIndex_;
+        return out;
+    }
+
+    friend QDataStream &operator>>(QDataStream &in, TProgression &prog){
+        in >> prog.lastExerciceIndex_;
+        return in;
+    }
 };
 
 QDataStream &operator<<(QDataStream &out, const TProgression &prog);

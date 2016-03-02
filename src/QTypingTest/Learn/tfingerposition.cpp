@@ -72,6 +72,6 @@ void TFingerPosition::paintEvent(QPaintEvent*) {
     }
     painter.fillPath(tmpPath, QBrush(Qt::blue));
 
-    QImage image("./etc/images/hands.png");
+    QImage image(":/images/hands.png");
     painter.drawImage(image.rect(), image);
 }

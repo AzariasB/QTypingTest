@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 /* 
  * File:   TResult.cpp
  * Author: boutina
@@ -11,6 +16,7 @@ TResult::TResult() {
 }
 
 TResult::TResult(const TResult &base) {
+    qRegisterMetaType<TResult>("TResult");
     *this += base;
 }
 
@@ -63,25 +69,4 @@ QString TResult::getResume() {
 }
 
 TResult::~TResult() {
-}
-
-QDataStream &operator<<(QDataStream& out, const TResult& result) {
-    out << result.getCorrectKeysStrokes();
-    out << result.getWrongKeysStrokes();
-    out << result.getWPM();
-    return out;
-}
-
-QDataStream &operator>>(QDataStream& in, TResult& result) {
-    int correcKeyStrokes;
-    in >> correcKeyStrokes;
-    int wrongKeyStrokes;
-    in >> wrongKeyStrokes;
-    int wordsPerMinute;
-    in >> wordsPerMinute;
-    result = TResult();
-    result.setCorrectKeysStrokes(correcKeyStrokes);
-    result.setWrongKeysStrokes(wrongKeyStrokes);
-    result.setWPM(wordsPerMinute);
-    return in;
 }

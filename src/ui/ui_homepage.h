@@ -95,6 +95,7 @@ public:
         action_about->setObjectName(QStringLiteral("action_about"));
         action_option = new QAction(MainWindow);
         action_option->setObjectName(QStringLiteral("action_option"));
+        action_option->setEnabled(false);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());

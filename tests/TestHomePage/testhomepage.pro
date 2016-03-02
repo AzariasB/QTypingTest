@@ -17,7 +17,6 @@ HEADERS = $$SRC/QTypingTest/Home/homepage.h \
           $$SRC/Data/tstats.h  \
           $$SRC/Data/tlayouts.h \
           $$SRC/Util/factory.h \
-          $$SRC/Util/filehelper.h \
           $$SRC/Util/htmlhelper.h 
 
 
@@ -30,7 +29,6 @@ SOURCES = $$SRC/QTypingTest/Home/homepage.cpp \
           $$SRC/Data/tuser.cpp \
           $$SRC/Data/tlayouts.cpp \
           $$SRC/Util/factory.cpp \
-          $$SRC/Util/filehelper.cpp \
           $$SRC/Util/htmlhelper.cpp  \
           testhomepage.cpp
 

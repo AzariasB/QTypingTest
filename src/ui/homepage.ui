@@ -270,6 +270,9 @@
    </property>
   </action>
   <action name="action_option">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Option</string>
    </property>

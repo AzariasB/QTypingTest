@@ -33,15 +33,13 @@ public:
     QLineEdit *line_pseudo;
     QLabel *label_3;
     QComboBox *comboBox_layout;
-    QLabel *label;
-    QComboBox *comboBox_language;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *Dialog)
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(408, 173);
+        Dialog->resize(405, 124);
         gridLayout = new QGridLayout(Dialog);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         formLayout = new QFormLayout();
@@ -66,16 +64,6 @@ public:
 
         formLayout->setWidget(2, QFormLayout::FieldRole, comboBox_layout);
 
-        label = new QLabel(Dialog);
-        label->setObjectName(QStringLiteral("label"));
-
-        formLayout->setWidget(3, QFormLayout::LabelRole, label);
-
-        comboBox_language = new QComboBox(Dialog);
-        comboBox_language->setObjectName(QStringLiteral("comboBox_language"));
-
-        formLayout->setWidget(3, QFormLayout::FieldRole, comboBox_language);
-
 
         gridLayout->addLayout(formLayout, 0, 0, 1, 1);
 
@@ -99,7 +87,6 @@ public:
         Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", 0));
         label_2->setText(QApplication::translate("Dialog", "Pseudo", 0));
         label_3->setText(QApplication::translate("Dialog", "Layout", 0));
-        label->setText(QApplication::translate("Dialog", "Language", 0));
     } // retranslateUi
 
 };

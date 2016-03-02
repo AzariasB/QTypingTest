@@ -15,7 +15,6 @@
 
 #include "../../src/Util/htmlhelper.h"
 #include "../../src/Util/factory.h"
-#include "../../src/Util/filehelper.h"
 
 
 const QString allLetters = QString("abcdefghijklmnopqrstuvwxyz");
@@ -96,18 +95,18 @@ void TestUtils::testAbsolutePosition() {
 
 void TestUtils::testWordsFinding() {
     QString letters = "fod";
-    QStringList found = factory::findExistingWords(letters, file::getWordsPath("en"));
+    QStringList found = factory::findExistingWords(letters,":/words/words.txt");
     qDebug() << found;
     QVERIFY(found.contains("food"));
     QVERIFY(found.contains("off"));
 
     letters = "be";
-    found = factory::findExistingWords(letters, file::getWordsPath("en"));
+    found = factory::findExistingWords(letters, ":/words/words.txt");
     qDebug() << found;
     QVERIFY(found.contains("be"));
 
     letters = "betwn";
-    found = factory::findExistingWords(letters, file::getWordsPath("en"));
+    found = factory::findExistingWords(letters, ":/words/words.txt");
     qDebug() << found;
     QVERIFY(found.contains("be"));
     QVERIFY(found.contains("between"));
@@ -196,6 +195,8 @@ void TestUtils::testHTML() {
 }
 
 void TestUtils::testFactory() {
+    qDebug() << "Changing locale for test purpose";
+    QLocale::setDefault(QLocale::English);
     
     srand(time(NULL)); //Random number generation
     
