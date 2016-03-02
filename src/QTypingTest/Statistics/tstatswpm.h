@@ -35,7 +35,7 @@ protected:
     QRect getCurrRect(QMouseEvent * e);
     void calcMean();
 
-    //Temporaly => To be replaced wit points of user
+    //Temporaly => To be replaced with points of user
     int *createRandomPoints();
     void createRandomResult();
     void createFakeQHash();
@@ -50,10 +50,8 @@ private:
     QList<QPoint> orderedPoints_;
     QVector<TResult*> vectRes_;
     QVector<int> listWPM;
-    TExercice *myex_;
     QDateTime *mydate_;
-    date_exercice_ *dateex_;
-    QHash<date_exercice_ *,TResult*> historyresults_;
+    QHash<date_exercice_,TResult> historyresults_;
     
     //If wa use the keys to draw the polygon, the point are disordonned
     QHash<QPoint,QRect> rectpoint_;

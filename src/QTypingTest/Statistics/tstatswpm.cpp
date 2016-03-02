@@ -7,8 +7,7 @@ TStatsWPM::TStatsWPM(TUser *user, QWidget *parent):
     currentpoint_(QPoint()),
     currentrect_(QRect()),
     mean_(int()),
-    historyresults_(QHash<date_exercice_*,TResult*>()),
-    vectRes_(QVector<TResult*>()),
+    historyresults_(QHash<date_exercice_,TResult>()),
     rectpoint_(QHash<QPoint,QRect>())
 {
     setFocus();
@@ -35,16 +34,11 @@ int *TStatsWPM::createRandomPoints(){
 }
 
 void TStatsWPM::createRandomResult(){
-    int number;
-    int wrong;
     for(int i=0;i<20;i++){
-        vectRes_[i] = new TResult();
-    }
-    for(int i=0;i<20;i++){
-       number = rand()%(300-200)+200;
+       int number = rand()%(300-200)+200;
        vectRes_[i]->setCorrectKeysStrokes(number);
        cout << "correct key["<<i<<"] = "<<vectRes_[i]->getCorrectKeysStrokes()<<endl;
-       wrong = rand()%(30-10)+10;
+       int wrong = rand()%(30-10)+10;
        vectRes_[i]->setWrongKeysStrokes(wrong);
        cout << "wrong key["<<i<<"] = "<<vectRes_[i]->getWrongKeysStrokes()<<endl;
        vectRes_[i]->setCorrectWords(number/5);
@@ -58,13 +52,13 @@ void TStatsWPM::createRandomResult(){
 }
 
 void TStatsWPM::createFakeQHash(){
-    myex_ = new TExercice(TExercice::LEARNING,QString("a"),QString("a"));
-    dateex_ = new date_exercice_;
-    dateex_->dateResult = QDateTime::currentDateTime();
-    dateex_->exercice=myex_;
+    TExercice *exTyp = new TExercice(TExercice::LEARNING,QString("a"),QString("a"));
+    date_exercice_ key;
+    key.dateResult = QDateTime::currentDateTime();
+    key.exercice = *exTyp;
 
     for(int i=0;i<20;i++){
-       historyresults_[dateex_] = vectRes_[i];
+       historyresults_[key] = *vectRes_[i];
     }
 }
 

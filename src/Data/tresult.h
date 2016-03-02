@@ -8,9 +8,12 @@
 #ifndef TRESULT_H
 #define TRESULT_H
 
+#include <qdatastream.h>
+
 #include <QString>
 
 #include "Util/htmlhelper.h"
+#include "tuser.h"
 
 /**
  * This class is here to calculate the results of an exercice

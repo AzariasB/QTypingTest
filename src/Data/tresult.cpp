@@ -5,8 +5,6 @@
  * Created on 24 novembre 2015, 11:27
  */
 
-#include <qt5/QtCore/qdatastream.h>
-
 #include "tresult.h"
 
 TResult::TResult() {
