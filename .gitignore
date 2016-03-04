@@ -18,9 +18,10 @@ build/
 #Ignore all the files generated during compilling : 
 # - The object files
 # - The moc files
-#
+# - The compiled ressource file
 .obj/
 .moc/
+.rcc/
 *.pro.user
 *.pro.user.*
 

@@ -15,6 +15,9 @@
 #include <QStringList>
 #include <QDebug>
 #include <QList>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 #include "Util/factory.h"
 
@@ -103,25 +106,15 @@ private:
      * @param layout the layout data of a single keyboard type
      * @return al list contating a list of the key for each line
      */
-    QList<QStringList> *decomposeLayout(QString layout);
+    QList<QStringList> *decomposeLayout(const QJsonObject &layout);
 
 
-    /**
-     * From the content of the file containg all the layouts,
-     * it will find the layout configuration corresponding to
-     * the given language code (e.g. "en" for english, "fr" for french ...)
-     * 
-     * @param config the content of the file containing the layouts
-     * @param lang the langage of the layout
-     * @return the layout of the given langage, empty String if not found
-     */
-    QString findCorrespondingLayout(QString config, QString lang, QString country = "");
 
     /**
      * @brief findAvailableLangs will find the available language in the layout file
      * @param fileContent the content of layouts.txt (or the file containg the layouts)
      */
-    void findAvailableLangs(const QString &fileContent);
+    void findAvailableLangs(const QJsonValue &doc);
 
     QString currentLayout_;
     QString currentCountry_;

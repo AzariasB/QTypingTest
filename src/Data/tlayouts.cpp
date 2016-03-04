@@ -14,69 +14,79 @@
 
 
 void TLayouts::initLetters(QString layout, QString country) {
-    QString layouts = factory::readFile(":/layouts.txt");
-    findAvailableLangs(layouts);
-    QString config = findCorrespondingLayout(layouts, layout, country);
-    if (config.isEmpty()) {
+    QString layouts = factory::readFile(":/layouts.json");// \todo : create multiple json files for multiples locales
+    QJsonDocument doc = QJsonDocument::fromJson(layouts.toUtf8());
+    if(doc.isNull()){
+        qDebug() << "File not found or not valid json";
+        return;// \todo : less brutal end (Azarias)
+    }
+
+    QJsonObject jsonLays = doc.object();
+    findAvailableLangs(jsonLays["layouts"]);//Get all the keys !
+
+    QString firstLang = availableLangs_[0];//take first. \todo : qt will take the good file to parse for us !
+
+    if (firstLang.isEmpty()) {
         layoutLines_ = new QList<QStringList>;
         qDebug() << "No correct config found";
     } else {
+        // \todo : check to avoir parsing twice the same file
         lettersList_ = QStringList(); // reset the lettersList
         TLayouts::allAvailableLetters_ = "";
-        layoutLines_ = decomposeLayout(config);
+        layoutLines_ = decomposeLayout(jsonLays["layouts"].toObject()[firstLang].toObject());
     }
 }
 
-void TLayouts::findAvailableLangs(const QString &fileContent){
-    QRegExp ex("^([a-z]{2,})(-([A-Z]{2,}))?(?=:)[\\d\\D]*");
-    QStringList match = fileContent.split("\n\n");
-    match.replaceInStrings(ex,"\\1 (\\3)");
-    match.replaceInStrings("()","");
-    TLayouts::setAvailableLangs(match);
+void TLayouts::findAvailableLangs(const QJsonValue& doc){
+    QStringList langs;
+    if(doc.isNull() || !doc.isObject() )
+    {
+        qDebug() << "Json not well configured";
+    }else
+    {
+        QJsonObject obj = doc.toObject();
+        for(auto it = obj.begin();it != obj.end(); ++it){
+            langs << it.key();
+        }
+    }
+    setAvailableLangs(langs);
 }
 
-QList<QStringList> *TLayouts::decomposeLayout(QString layout) {
-    QStringList lines = layout.split("\n", QString::SkipEmptyParts);
-    if (lines.size() != 4) {
+QList<QStringList> *TLayouts::decomposeLayout(const QJsonObject &layout) {
+    QJsonArray arr = layout["rows"].toArray();
+
+    if (arr.size() != 4) {
         qDebug() << "Incorrect config, the keyboard must have 4 lines of config";
         return new QList<QStringList>();
     } else {
+        QRegExp isLetter("[a-z]");
         QList<QStringList> *parts = new QList<QStringList>;
-        for (auto elem : lines) {
+        for (auto elem : arr) {
+            QJsonArray theArr = elem.toArray();
             //Add the whole splitted line to the main lines
-            QStringList splitedLine = elem.trimmed().split(" ", QString::SkipEmptyParts);
-            parts->append(splitedLine);
+            QStringList splitedLine;
+            QString total = "";
+            for(auto keyInfo : theArr){
+                QJsonObject keyObj = keyInfo.toObject();
+                QString main = keyObj["main"].toString();
+                if(isLetter.exactMatch(main)){
+                    main += main.toUpper();
+                }
+                main += keyObj["shift"].toString() + keyObj["altgr"].toString();
+                total += main;
+                splitedLine << QString::number(keyObj["finger"].toInt()) + main;
+            }
             //Remove the first number of each string of the list (since it's not a char of the keyboard)
             //but an indication to tell the corresponding finger
             //And join all the rest
-            TLayouts::allAvailableLetters_ += splitedLine.replaceInStrings(QRegExp("^\\d"), "").join("");
+            parts->append(splitedLine);
+            TLayouts::allAvailableLetters_ += total;
         }
         return parts;
     }
 
 }
 
-QString TLayouts::findCorrespondingLayout(QString config, QString layout, QString country) {
-    if(!country.isEmpty()){
-        country = "-" + country;
-    }
-    QRegExp decomposition("(\\n\\n|$)");
-    //Split all the possible configurations
-    QStringList configs = config.split(decomposition, QString::SkipEmptyParts);
-
-    //Find the one that begins with 'layout' (and has a country if country is not empty)
-    QStringList filt = configs.filter(QRegExp("^" + layout + country + ":"));
-
-    if (filt.isEmpty()) {
-        //No correct config found, return empty String
-        return "";
-    } else {
-        //Take the first one (even if there are several same configs)
-        //Remove the lang (we don't need it anymore, and spaces at beginning/end of the string)
-        return filt[0].mid(filt[0].indexOf(':')+1).trimmed();
-
-    }
-}
 
 QStringList TLayouts::getLetterList() {
     if(layoutLines_->isEmpty())
