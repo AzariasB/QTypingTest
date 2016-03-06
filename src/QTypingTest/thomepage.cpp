@@ -46,6 +46,9 @@ void THomePage::connectEvents() {
     TUserManager::getInstance().readUsers();
     connect(ui.action_about,SIGNAL(triggered(bool)),this,SLOT(showAboutDialogs()));
     connect(ui.action_option,SIGNAL(triggered(bool)),this,SLOT(showOptionDialog()));
+    connect(ui.action_change_user,SIGNAL(triggered(bool)),this,SLOT(changeUser()));
+    connect(ui.action_homepage,SIGNAL(triggered(bool)),this,SLOT(goToHomePage()));
+    connect(ui.action_aboutQt,SIGNAL(triggered(bool)),qApp,SLOT(aboutQt()));
     connect(&TUserManager::getInstance(),&TUserManager::usersSaved,this,[=](){
         ui.statusbar->showMessage("Users saved !",4000);
     });
@@ -53,28 +56,23 @@ void THomePage::connectEvents() {
 
     button_stack sHome = {
         ui.button_home,
-        ui.page_home,
-        new HomePage()
+        ui.page_home
     };
     button_stack sLearn = {
         ui.button_learn,
-        ui.page_learn,
-        new LearnPage()
+        ui.page_learn
     };
     button_stack sGames = {
         ui.button_games,
-        ui.page_games,
-        new GamePage()
+        ui.page_games
     };
     button_stack sStat = {
         ui.button_stats,
-        ui.page_stats,
-        nullptr // \todo : create statistics page
+        ui.page_stats
     };
     button_stack sPractice = {
         ui.button_practice,
-        ui.page_practice,
-        new PracticePage()
+        ui.page_practice
     };
 
     //Adding the structures to the array
@@ -84,27 +82,36 @@ void THomePage::connectEvents() {
     for (auto it = pagesButtons_.begin(); it != pagesButtons_.end(); ++it) {
         button_stack s = *it;
         //If child is not nullptr create a simple layout with parent and add the child into it
-        if (s.child) {
-            QHBoxLayout *l = new QHBoxLayout(s.parent);
-            l->addWidget(s.child);
-        }
         if (!TUserManager::getInstance().getCurrentUser()) {
             s.triggerer->setEnabled(false);
         }
 
         connect(s.triggerer, &QPushButton::clicked, [ = ](){
-            int i = ui.stack_main->indexOf(s.parent);
-            ui.stack_main->setCurrentIndex(i);
+            ui.stack_main->setCurrentWidget(s.container);
         });
     }
     ui.stack_main->setCurrentWidget(ui.page_home);
 }
 
 void THomePage::updateUI(TUser* nwUser) {
-    if (nwUser) {
-        ui.action_option->setEnabled(true);
-        for (auto it = pagesButtons_.begin(); it != pagesButtons_.end(); ++it) {
-            it->triggerer->setEnabled(true);
-        }
+    bool enable = nwUser != 0;
+    ui.action_option->setEnabled(enable);
+    ui.action_change_user->setEnabled(enable);
+    ui.action_homepage->setEnabled(enable);
+    for (auto it = pagesButtons_.begin(); it != pagesButtons_.end(); ++it) {
+        it->triggerer->setEnabled(enable);
     }
 }
+
+
+void THomePage::changeUser()
+{
+    TUserManager::getInstance().setCurrentUser();
+    goToHomePage();
+}
+
+void THomePage::goToHomePage()
+{
+    ui.stack_main->setCurrentWidget(ui.page_home);
+}
+

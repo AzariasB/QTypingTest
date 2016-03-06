@@ -24,6 +24,10 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "QTypingTest/Games/gamepage.h"
+#include "QTypingTest/Home/homepage.h"
+#include "QTypingTest/Learn/learnpage.h"
+#include "QTypingTest/Practice/practicepage.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -41,6 +45,7 @@ public:
     QAction *action_homepage;
     QAction *action_about;
     QAction *action_option;
+    QAction *action_aboutQt;
     QWidget *centralwidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
@@ -52,11 +57,11 @@ public:
     QPushButton *button_games;
     QGridLayout *gridLayout_2;
     QStackedWidget *stack_main;
-    QWidget *page_learn;
-    QWidget *page_home;
-    QWidget *page_practice;
+    LearnPage *page_learn;
+    HomePage *page_home;
+    PracticePage *page_practice;
     QWidget *page_stats;
-    QWidget *page_games;
+    GamePage *page_games;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuUser;
@@ -89,13 +94,17 @@ public:
         actionPreferences->setObjectName(QStringLiteral("actionPreferences"));
         action_change_user = new QAction(MainWindow);
         action_change_user->setObjectName(QStringLiteral("action_change_user"));
+        action_change_user->setEnabled(false);
         action_homepage = new QAction(MainWindow);
         action_homepage->setObjectName(QStringLiteral("action_homepage"));
+        action_homepage->setEnabled(false);
         action_about = new QAction(MainWindow);
         action_about->setObjectName(QStringLiteral("action_about"));
         action_option = new QAction(MainWindow);
         action_option->setObjectName(QStringLiteral("action_option"));
         action_option->setEnabled(false);
+        action_aboutQt = new QAction(MainWindow);
+        action_aboutQt->setObjectName(QStringLiteral("action_aboutQt"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
@@ -164,19 +173,19 @@ public:
         stack_main->setObjectName(QStringLiteral("stack_main"));
         sizePolicy.setHeightForWidth(stack_main->sizePolicy().hasHeightForWidth());
         stack_main->setSizePolicy(sizePolicy);
-        page_learn = new QWidget();
+        page_learn = new LearnPage();
         page_learn->setObjectName(QStringLiteral("page_learn"));
         sizePolicy.setHeightForWidth(page_learn->sizePolicy().hasHeightForWidth());
         page_learn->setSizePolicy(sizePolicy);
         page_learn->setLayoutDirection(Qt::LeftToRight);
         page_learn->setAutoFillBackground(false);
         stack_main->addWidget(page_learn);
-        page_home = new QWidget();
+        page_home = new HomePage();
         page_home->setObjectName(QStringLiteral("page_home"));
         sizePolicy.setHeightForWidth(page_home->sizePolicy().hasHeightForWidth());
         page_home->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_home);
-        page_practice = new QWidget();
+        page_practice = new PracticePage();
         page_practice->setObjectName(QStringLiteral("page_practice"));
         sizePolicy.setHeightForWidth(page_practice->sizePolicy().hasHeightForWidth());
         page_practice->setSizePolicy(sizePolicy);
@@ -186,7 +195,7 @@ public:
         sizePolicy.setHeightForWidth(page_stats->sizePolicy().hasHeightForWidth());
         page_stats->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_stats);
-        page_games = new QWidget();
+        page_games = new GamePage();
         page_games->setObjectName(QStringLiteral("page_games"));
         sizePolicy.setHeightForWidth(page_games->sizePolicy().hasHeightForWidth());
         page_games->setSizePolicy(sizePolicy);
@@ -223,10 +232,11 @@ public:
         menuUser->addAction(action_homepage);
         menuUser->addAction(action_option);
         menuHelp->addAction(action_about);
+        menuHelp->addAction(action_aboutQt);
 
         retranslateUi(MainWindow);
 
-        stack_main->setCurrentIndex(3);
+        stack_main->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -246,6 +256,7 @@ public:
         action_homepage->setText(QApplication::translate("MainWindow", "Homepage", 0));
         action_about->setText(QApplication::translate("MainWindow", "About", 0));
         action_option->setText(QApplication::translate("MainWindow", "Option", 0));
+        action_aboutQt->setText(QApplication::translate("MainWindow", "About Qt", 0));
         button_home->setText(QApplication::translate("MainWindow", "Home", 0));
         button_learn->setText(QApplication::translate("MainWindow", "Learn", 0));
         button_practice->setText(QApplication::translate("MainWindow", "Practice", 0));

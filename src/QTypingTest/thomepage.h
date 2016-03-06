@@ -32,8 +32,7 @@
 
 struct button_stack {
     QPushButton *triggerer;
-    QWidget *parent;
-    QWidget *child;
+    QWidget *container;
 };
 
 class THomePage : public QMainWindow {
@@ -48,6 +47,19 @@ public slots:
     void showAboutDialogs();
 
     void showOptionDialog();
+
+private slots:
+    /**
+     * @brief changeUser disonnect the current user
+     * redirect him to the homepage
+     */
+    void changeUser();
+
+    /**
+     * @brief goToHomePage set the current widget of the
+     * main stack to homepage
+     */
+    void goToHomePage();
 
 private:
     /**

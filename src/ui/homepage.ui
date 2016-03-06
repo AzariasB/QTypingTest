@@ -136,9 +136,9 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>3</number>
+           <number>0</number>
           </property>
-          <widget class="QWidget" name="page_learn">
+          <widget class="LearnPage" name="page_learn">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -152,7 +152,7 @@
             <bool>false</bool>
            </property>
           </widget>
-          <widget class="QWidget" name="page_home">
+          <widget class="HomePage" name="page_home">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -160,7 +160,7 @@
             </sizepolicy>
            </property>
           </widget>
-          <widget class="QWidget" name="page_practice">
+          <widget class="PracticePage" name="page_practice">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -176,7 +176,7 @@
             </sizepolicy>
            </property>
           </widget>
-          <widget class="QWidget" name="page_games">
+          <widget class="GamePage" name="page_games">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -215,6 +215,7 @@
      <string>Help</string>
     </property>
     <addaction name="action_about"/>
+    <addaction name="action_aboutQt"/>
    </widget>
    <addaction name="menuUser"/>
    <addaction name="menuHelp"/>
@@ -255,11 +256,17 @@
    </property>
   </action>
   <action name="action_change_user">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Change user</string>
    </property>
   </action>
   <action name="action_homepage">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Homepage</string>
    </property>
@@ -277,7 +284,38 @@
     <string>Option</string>
    </property>
   </action>
+  <action name="action_aboutQt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HomePage</class>
+   <extends>QWidget</extends>
+   <header>QTypingTest/Home/homepage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LearnPage</class>
+   <extends>QWidget</extends>
+   <header>QTypingTest/Learn/learnpage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PracticePage</class>
+   <extends>QWidget</extends>
+   <header>QTypingTest/Practice/practicepage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GamePage</class>
+   <extends>QWidget</extends>
+   <header>QTypingTest/Games/gamepage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>button_home</tabstop>
   <tabstop>button_learn</tabstop>
