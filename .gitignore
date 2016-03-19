@@ -11,6 +11,7 @@
 !refman.pdf
 
 #And the latex report
+/docs/report/main.pdf
 !/docs/report/
 
 #Ignore the binary of the project
