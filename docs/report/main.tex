@@ -1,0 +1,233 @@
+
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}%english gestion
+\usepackage[bottom]{footmisc}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[newparttoc]{titlesec}
+\usepackage[export]{adjustbox}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{hyperref}
+
+
+%All the packages
+\usepackage{url,ragged2e,textcomp,lmodern}
+\usepackage{graphicx,xcolor,float,afterpage}
+\usepackage{chngcntr,csquotes,helvet,lastpage}
+\usepackage{subcaption,wrapfig,fancyhdr,blindtext}
+\usepackage{titletoc,transparent}
+%Nouvelles commandes
+\renewcommand{\familydefault}{\sfdefault} %default font
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\Mline}{\hrule \mbox{}\\[0.1cm]}
+\renewcommand{\thechapter}{\Roman{chapter}}
+
+%final page
+\newcommand\blankpage{%
+\null
+\thispagestyle{empty}%
+\addtocounter{page}{-1}%
+\newpage
+}
+
+%Format de part
+\titleclass{\part}{top}
+\titleformat{\part}[hang]
+	{}
+	{\Large \sffamily \bfseries \thepart. \hspace{0.1cm} }
+	{0pt}
+	{\Large \sffamily \bfseries }
+\titlespacing*{\part}{0pt}{0pt}{18pt}
+
+%FORMAT DU CHAPITRE
+\titleclass{\chapter}{straight}
+\titleformat{\chapter}[hang]
+  {}
+  {\normalfont \sffamily \bfseries \thechapter. \hspace{0.1cm} }
+  {0pt}
+  {\normalfont \sffamily \bfseries }
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+
+%FORMAT De section
+\renewcommand*\thesection{\arabic{section}}
+\titleclass{\section}{straight}
+\titleformat{\section}[hang]
+  {}
+  {\normalfont \sffamily \hspace{1cm} \bfseries \thesection . }
+  {0pt}
+  {\normalfont \sffamily \bfseries }
+  
+\titlespacing*{\chapter}{0pt}{50pt}{18pt}
+
+%Comptage des figures
+\renewcommand{\thefigure}{\arabic{figure}}
+
+%Ne pas reset le numéro des figures  à chaque chapitre
+\counterwithout{figure}{chapter}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+
+% Title
+\Mline
+{ \LARGE QTypingTest \\[0.4cm] }
+\Mline
+% Author and supervisor
+
+\textsf{Supervisor : Mark Cummins}\\[3cm]
+
+\textsf{Thubé Pierre B00092354\\
+	Boutin Azarias B00092351\\[2cm]
+	BN013 BSC in Computing}
+
+\end{center}
+\end{titlepage}
+
+\setcounter{page}{2}
+
+\tableofcontents
+
+
+\part{Introduction}
+
+\chapter{System prototype report}
+
+\section{Abstract}
+Abstract
+
+\section{Introduction}
+Introduction
+
+\section{Brief walkthrough}
+Brief walkthrough
+
+\section{Technology}
+Technology
+
+\section{Difficulties Faced}
+Difficulties Faced
+
+\section{Current Functionality}
+Current Functionality
+
+\section{Next Stage Features}
+Next Stage Features
+
+\section{Conclusion}
+Conclusion
+
+\chapter{Computing Domain}
+Computing Domain
+
+\chapter{The project group}
+The project group
+
+\chapter{Project deliverables}
+Project deliverables
+
+\chapter{Document outline}
+Document outline
+
+\part{Literature review}
+Literature review
+(include pdf here)
+
+\part{System analysis}
+
+\chapter{Functional requirements}
+Functional requirements
+
+\section{What the software does}
+What the software does
+
+\section{Systems and subsystems}
+Systems and subsystems
+
+\section{Data requirements}
+Data requirements
+
+\subsection{Entity relationship diagrams}
+
+\part{System design}
+System design
+
+\chapter{User interface design}
+User interface design
+
+\section{Qt features}
+Qt features
+
+\chapter{Functional Design}
+Functional Design
+
+\section{Structure of the system}
+Structure of the system
+
+\section{Code walkthrough}
+Code walkthrough
+
+
+\chapter{Data design}
+Data design
+
+\part{System implementation}
+System implementation
+
+\chapter{Building the software}
+Building the software
+
+\chapter{Current state of the software}
+Current state of the software
+
+\part{Testing}
+Testing and evaluating
+
+\chapter{Unit testing}
+Unit tests
+
+\chapter{GUI testing}
+GUI testing
+
+\part{Usability - Users tasks}
+Usability - Users tasks
+
+\chapter{What can the user do}
+What can the user do
+
+
+\chapter{Efficiency and response times}
+Efficiency and response times
+
+\chapter{Overall aesthetic}
+Overall aesthetic
+
+\part{Conclusion and further work}
+Conclusion and further work
+
+\chapter{Project result}
+Project result
+
+\chapter{Possible improvements}
+Possible improvements
+
+\chapter{Further work}
+Further work
+
+\part{Personal reflections on project experiences}
+Personal reflections on project experiences
+
+\chapter{Pierre Thubé}
+Pierre Thubé
+
+\chapter{Azarias Boutin}
+Azarias Boutin
+
+
+\part*{Appendix}
+C++ code here ?
+
+\end{document}
