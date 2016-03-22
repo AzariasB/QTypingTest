@@ -48,7 +48,7 @@ public:
     bool setFollowingPage();
 
     virtual ~TStackPages() {
-    };
+    }
 
     /**
      * allocate the givent text

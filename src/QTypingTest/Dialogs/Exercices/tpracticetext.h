@@ -29,13 +29,6 @@ public:
     virtual ~TPracticeText() {
 
     }
-
-    
-protected:
-
-    void updateClock(){
-        topToolbar_.incrementTimer(1);
-    }
     
 };
 

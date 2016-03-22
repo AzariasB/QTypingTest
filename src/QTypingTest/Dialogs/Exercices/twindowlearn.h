@@ -27,17 +27,12 @@ public:
     TWindowLearn(TExercice *ex, int numberOfPages, QWidget *parent = 0);
 
     virtual ~TWindowLearn() {
-    };
+    }
 
 public slots:
     /* Called when the presentation is over */
     void endOfTraining();
 
-protected:
-
-    void updateClock() override {
-        topToolbar_.incrementTimer(1);
-    };
 
 
 private:

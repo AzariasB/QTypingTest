@@ -73,6 +73,22 @@ public:
         return pages_;
     }
 
+    void setTimeIncrement(int timeInc){
+        timeIncrementation_ = timeInc;
+    }
+
+    int getTimeIncrementation() const{
+        return timeIncrementation_;
+    }
+
+    void setTimerEnd(double timeEnd){
+        timerEnd_ = timeEnd;
+    }
+
+    int getTimerEnd() const{
+        return timerEnd_;
+    }
+
     /**
      * 
      * @return a pointer to the list of restuls
@@ -118,7 +134,12 @@ public slots:
     /**
      * Called to update the clock of the toolbar
      */
-    virtual void updateClock() = 0;
+    void updateClock(){
+        double nwTime = topToolbar_.incrementTimer(timeIncrementation_);
+        if(timerEnd_ != INFINITY && nwTime == timerEnd_){
+            emit timerEnded();
+        }
+    }
 
     void updateToolbarProgression() {
         topToolbar_.setProgression(getPageProgression());
@@ -139,6 +160,11 @@ signals:
      * is forced to finish and no result/score is expected from the user 
      */
     void closed();
+
+    /**
+     * @brief timerEnded Called whenever the timer is equal to 'timerEnd'
+     */
+    void timerEnded();
 
 protected:
     /**
@@ -231,11 +257,16 @@ private:
 
     QTimer *updateTimer_;
 
+    /* The main layout (to be able to customize in the subclasses) */
+    QStackedLayout *mainLayout_;
+
     /* Save the ms elapsed if the user pause the exercice*/
     int elapsedMS_ = 0;
 
-    /* The main layout (to be able to customize in the subclasses) */
-    QStackedLayout *mainLayout_;
+    /* Time to increment the timer with */
+    int timeIncrementation_ = 1;
+
+    double timerEnd_ = INFINITY;
 
     /* The current state of the game */
     bool paused_ = false;

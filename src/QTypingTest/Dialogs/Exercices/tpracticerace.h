@@ -31,7 +31,7 @@ public:
     TPracticeRace(const TPracticeRace& orig);
 
     virtual ~TPracticeRace() {
-    };
+    }
 
     TExercice exerciceGenerator() const {
         return generator_;
@@ -40,12 +40,9 @@ public:
 public slots:
 
     /**
-     * @Override
-     * 
-     * decrement the time on the counter
+     * @brief stopRun
      */
-    void updateClock();
-
+    void stopRun();
 
     /**
      * Generate a new page for the exercice

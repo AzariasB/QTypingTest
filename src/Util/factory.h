@@ -23,8 +23,6 @@ namespace factory {
     
     /**
      * 
-     *  \todo : instead of passing lang in argument, get the 
-     * language from the user's computer (Azarias)
      * 
      * This function will read the texts files of the project
      * corresponding to the language.
@@ -36,6 +34,7 @@ namespace factory {
      * to the given language. If the file does not exists, english is chosen by default
      */
     QString generateText(int numbersOfWords);
+
     /**
      * This function generate the practice exercice from the given letters.
      * The result is devided into three parts :
@@ -62,13 +61,11 @@ namespace factory {
      * The size of the produced string is made to be contained in only ONE page
      * of an exercice.
      * 
-     *  \todo : add a parameter to choose the size of the text ? (Azarias)
-     * 
      * @param letters the available letters
      * @param onlyRealWords if it must generates only words existing in a language, or if it can generate random words
      * @return the generated text
      */
-    QString generatePractice(QString letters,bool onlyRealWords = true);
+    QString generatePractice(QString letters,bool onlyRealWords = true, int numberOfWords = 40);
     
     
     /**
@@ -82,14 +79,13 @@ namespace factory {
     
     /**
      * Generate existing words with the available letters
-     *  \todo : add a language parameter
      * 
      * @param authorizedLetters all the available chars to build a word
      * @param language the language of the file to find
      * @param mainLetters an optional QString. If existing, all the words must contain at least one letter of this string
      * @return a string with `numberOfWord` words separated by space.
      */
-    QString generateWords(QString authorizedLetters, QString mainLetters = "");
+    QString generateWords(QString authorizedLetters, QString mainLetters = "", int numberOfWords = 40);
     
     /**
      * Will look into a file (depending on the chosen langage)

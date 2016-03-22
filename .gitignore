@@ -57,7 +57,7 @@ Makefile
 *.lof
 *.lot
 *.maf
-*.mtc
+*.mtc*
 *.mtc1
 *.out
 *.synctex.gz
