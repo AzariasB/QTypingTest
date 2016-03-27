@@ -99,169 +99,13 @@
 %'Page'
 \addtocontents{toc}{~\hfill\textbf{Page}\par}
 
-%------------------------------------
-% Début Partie Pierre
-%------------------------------------
-\part{Introduction}
-
-\chapter{System prototype report}
-
-\section{Abstract}
-Abstract
-
-\section{Introduction}
-Introduction
-
-\section{Brief walkthrough}
-Brief walkthrough
-
-\section{Technology}
-Technology
-
-\section{Difficulties Faced}
-Difficulties Faced
-
-\section{Current Functionality}
-Current Functionality
-
-\section{Next Stage Features}
-Next Stage Features
-
-\section{Conclusion}
-Conclusion
-
-\chapter{Computing Domain}
-Computing Domain
-
-\chapter{The project group}
-The project group
-
-\chapter{Project deliverables}
-Project deliverables
-
-\chapter{Document outline}
-Document outline
-
-\part{Literature review}
-Literature review
-(include pdf here)
-
-\part{System analysis}
-
-\chapter{Functional requirements}
-Functional requirements
-
-\section{What the software does}
-What the software does
-
-\section{Systems and subsystems}
-Systems and subsystems
-
-\section{Data requirements}
-Data requirements
-
-\subsection{Entity relationship diagrams}
-%------------------------------------
-% Fin Partie Pierre
-%------------------------------------
+%Partie Pierre
+\input{pierre.tex}
 
 
-%------------------------------------%
-% Début Partie Azarias				%
-%------------------------------------%
-\part{System design}
-System design
+%Partie Azarias
+\input{azarias.tex}
 
-\chapter{User interface design}
-User interface design
-
-\section{Qt features}
-Qt features
-
-\chapter{Functional Design}
-Functional Design
-
-\section{Structure of the system}
-Structure of the system
-
-\section{Code walkthrough}
-Code walkthrough
-
-
-\chapter{Data design}
-Data design
-\part{System implementation}
-
-\chapter{Building the software}
-\section{First prototype}
-The first prototype that the group presented to the first demo was giving an idea of the project. It was really fast to build and was containing only one window. On which the user could write down a text. It was a sort of 'proof of concept'. The purpose of this prototype was to demonstrate the main feature of the software and it was also a starting point for the group.\\
-The first prototype was containing only two C++ classes. One for the whole window, and one for each row. Even if the prototype was working well, the interface was not very user-friendly and an offset could easily appear when the user was making too many mistakes.
-Meaning that even if the prototype was working, a lot of work would be necessary to improve the user interface. \\
-This prototype was also a sort of training for the group, it was the first window ever made with Qt. Because the group members didn't know anything about Qt, it was absolutely normal to have such a poor interface.
-
-\section{Second prototype}
-The second an actual prototype is a lot more evolved than the first prototype. There are more features, it's working better and it's more user-friendly. Of course, there is some improvements that remains possible.\\
-However, the software is ready for production and can be used by anyone who wants to.\\
-The second prototype started with a big improvement of the first prototype. The two lines : one for the text, and one for the text-field where the user can type were merged into a single one. So, as the user would type the text, the current character would be displayed in a certain color, the future characters would also be displayed as 'passed'. Therefore, the offset problem was solved. Thanks to the support of HTML in the label with Qt, the task was quite easy.\\
-Now that the group had a functional and user-friendly base, they could start to work on the other parts of the project and use this base for differents features.\\
-Here are the list of features that were developed on this base, by order of development :
-\begin{enumerate}
-	\item random-letters typing. Were the user has to type a random set of letters
-	\item random-words typing. Were the user has to type real words
-	\item text typing. Were the user has to type an existing text (written by great authors such as George Orwell)
-	\item improvement. This exercise is using the statistics of the user to know what mistake is the more frequent
-\end{enumerate}
-All these differents exercise has its own class. But they also all inherit from the same base class to have access to the same resources such as a timer, a play/pause button, and a score a the end.\\
-Then the group worked on different aspects of the main program, such as an interactive keyboard, the user's statistics and a homepage where a use can create its account, connect/disconnect.
-
-
-\chapter{Current state of the software}
-The current state of the software is complete. The software is available on \url{github.com} and can be downloaded for Linux or Windows. Anyone with a computer can download the software and start to learn how to type !
-Even if the system is working well, the GUI is improvable. However, since the group is not design experts, they did as they could to create a usable software that does not hurt the eyes. And because the software is made up in C++, it's a bit harder than the web to stylize the interface. Even though Qt provides a CSS-like feature to change the style of every elements in a window.
-
-
-\part{Testing}
-
-\chapter{Unit testing}
-Really early in the development of the software, it became obvious that some key features required unit testing.\\
-Luckily Qt provides a way to easily and quickly create unit testing. All the tests of the projects are on the 'test' folder.\\
-The tests for this projects were created for two main purpose :
-\begin{enumerate}
-	\item ensure that the feature are working as expected
-	\item avoid compiling all the project for a single feature test
-\end{enumerate}
-Some test requires the GUI some does not. The hard part of the test was not to create them, it was to make the software testable. For example, a lots of features held on randomness. And it is not possible (or silly) to test randomness. This means, the less randomness, the more testable. Or pseudo-random features were testable.
-
-\chapter{GUI testing}
-GUI testing
-
-\part{Usability - Users tasks}
-Usability - Users tasks
-
-\chapter{What can the user do}
-What can the user do
-
-
-\chapter{Efficiency and response times}
-Efficiency and response times
-
-\chapter{Overall aesthetic}
-Overall aesthetic
-
-\part{Conclusion and further work}
-Conclusion and further work
-
-\chapter{Project result}
-Project result
-
-\chapter{Possible improvements}
-Possible improvements
-
-\chapter{Further work}
-Further work
-%------------------------------------%
-% Fin Partie Azarias					%
-%------------------------------------%
 
 %------------------------------------%
 % Début Partie commnune				%
@@ -275,8 +119,5 @@ Pierre Thubé
 \chapter{Azarias Boutin}
 Azarias Boutin
 
-
-\part*{Appendix}
-C++ code here ?
 
 \end{document}
