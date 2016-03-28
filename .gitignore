@@ -10,6 +10,10 @@
 #except the pdf documentation !
 !refman.pdf
 
+#And the latex report
+/docs/report/main.pdf
+!/docs/report/
+
 #Ignore the binary of the project
 #The binary at the root
 #But also the binaries created for the test
@@ -18,9 +22,10 @@ build/
 #Ignore all the files generated during compilling : 
 # - The object files
 # - The moc files
-#
+# - The compiled ressource file
 .obj/
 .moc/
+.rcc/
 *.pro.user
 *.pro.user.*
 
@@ -31,3 +36,28 @@ Makefile
 
 #Ignore the save files
 *.dat
+
+#Ignore latex temp files
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc*
+*.mtc1
+*.out
+*.synctex.gz

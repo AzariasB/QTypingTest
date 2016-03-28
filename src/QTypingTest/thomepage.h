@@ -18,6 +18,7 @@
 #include <QPushButton>
 #include <QDebug>
 #include <QHBoxLayout>
+#include <QMap>
 
 #include "Learn/learnpage.h"
 #include "Practice/practicepage.h"
@@ -29,12 +30,6 @@
 #include "ui/ui_homepage.h"
 #include "toptiondialog.h"
 
-
-struct button_stack {
-    QPushButton *triggerer;
-    QWidget *parent;
-    QWidget *child;
-};
 
 class THomePage : public QMainWindow {
     Q_OBJECT
@@ -49,6 +44,19 @@ public slots:
 
     void showOptionDialog();
 
+private slots:
+    /**
+     * @brief changeUser disonnect the current user
+     * redirect him to the homepage
+     */
+    void changeUser();
+
+    /**
+     * @brief goToHomePage set the current widget of the
+     * main stack to homepage
+     */
+    void goToHomePage();
+
 private:
     /**
      *  Connect the basics event for the main window,,
@@ -57,8 +65,7 @@ private:
      */
     void connectEvents();
     Ui_MainWindow ui;
-
-    QVector<button_stack> pagesButtons_;
+    QMap<QPushButton*,QWidget*> buttonsStacks_;
 
 };
 

@@ -8,6 +8,8 @@
 #include <QtTest/QtTest>
 #include <QDebug>
 #include <QApplication>
+#include <QLocale>
+#include <QInputMethod>
 
 #include "QTypingTest/Learn/tpresentation.h"
 
@@ -22,6 +24,7 @@ void TestVirtualKeyboard::testKeyboard()
 {
     TLayouts layTest = TLayouts::getInstance("azerty");
     TPresentation *pres = new TPresentation(layTest);
+    QInputMethod *meth =  QApplication::inputMethod();
     pres->show();
     QApplication::exec();
 }

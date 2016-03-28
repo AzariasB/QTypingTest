@@ -142,11 +142,11 @@ TVirtualKey *TVirtualKeyboard::createKey(QString attributes) {
     TVirtualKey *key = new TVirtualKey(attributes);
     switch (attributes.size()) {
         case 4:
-            keys_->insert(attributes[3], key);
+            keys_->insert(attributes[3], key);//no break
         case 3:
-            keys_->insert(attributes[2], key);
+            keys_->insert(attributes[2], key);//no break
         case 2:
-            keys_->insert(attributes[1], key);
+            keys_->insert(attributes[1], key);//STOP !
             break;
     }
     return key;

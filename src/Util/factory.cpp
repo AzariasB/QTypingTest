@@ -10,8 +10,6 @@
  */
 #include "factory.h"
 
-//The number of word that a single page can contain
-const int numberOfWords = 40;
 
 /**
  * A little helper to generate random position of space in text
@@ -87,7 +85,6 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
     if (!mainLetter.isEmpty())
         res += generateFromLetters(mainLetter);
 
-    // \todo : change here the language of the words to depend on the user configuration (Azarias)
     if (!allLetters.isEmpty()) {
         res += generateFromLetters(allLetters);
         QString wordsWMain = generateWords(allLetters,mainLetter);
@@ -114,13 +111,13 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
     return res;
 }
 
-QString factory::generatePractice(QString letters, bool onlyRealWords){
+QString factory::generatePractice(QString letters, bool onlyRealWords, int numberOfWords){
     QString res;
     if(!onlyRealWords)
-        res += generateFromLetters(letters);
+        res += generateFromLetters(letters,numberOfWords/2);
     
     if(!letters.isEmpty()){
-        res += generateWords(letters);
+        res += generateWords(letters,"",numberOfWords/2);
         QStringList words = res.split(" ",QString::SkipEmptyParts);
         std::random_shuffle(words.begin(),words.end());
         res = words.join(" ");
@@ -163,7 +160,7 @@ QStringList factory::findExistingWords(QString authorizedLetters, QString fileNa
     return res;
 }
 
-QString factory::generateWords(QString authorizedLetters, QString mainLetters) {
+QString factory::generateWords(QString authorizedLetters, QString mainLetters, int numberOfWords) {
     QString res = "";
     QStringList words = factory::findExistingWords(authorizedLetters, ":/words/words.txt", mainLetters);
     if (!words.isEmpty()) {

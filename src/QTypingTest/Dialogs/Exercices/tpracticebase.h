@@ -32,13 +32,6 @@ public:
         return generator_;
     }
     
-protected:
-    
-    void updateClock(){
-        topToolbar_.incrementTimer(1);
-    }
-
-    
 private:
 
     TExercice *generator_;

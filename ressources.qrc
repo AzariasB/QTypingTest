@@ -2,15 +2,19 @@
     <qresource prefix="/words">
         <file alias="words.txt">ressources/words.txt</file>
     </qresource>
-    <qresource lang="fr" prefix="/words">
+    <qresource prefix="/words" lang="fr">
         <file alias="words.txt">ressources/words_fr.txt</file>
     </qresource>
     <qresource prefix="/texts">
         <file alias="texts.txt">ressources/texts.txt</file>
     </qresource>
+    <qresource prefix="/texts" lang="fr">
+        <file alias="texts.txt">ressources/texts_fr.txt</file>
+    </qresource>
     <qresource prefix="/">
         <file alias="layouts.txt">ressources/layouts.txt</file>
         <file alias="style.qss">ressources/style.qss</file>
+        <file alias="layouts.json">ressources/layouts.json</file>
     </qresource>
     <qresource prefix="/icons">
         <file alias="play.png">ressources/play.png</file>

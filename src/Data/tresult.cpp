@@ -16,7 +16,6 @@ TResult::TResult() {
 }
 
 TResult::TResult(const TResult &base) {
-    qRegisterMetaType<TResult>("TResult");
     *this += base;
 }
 

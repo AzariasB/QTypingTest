@@ -25,6 +25,9 @@ void HomePage::setupWidgets() {
     updateUserDisplay();
     QPushButton *nwUser = new QPushButton("Create new user");
     connect(nwUser, SIGNAL(clicked()), this, SLOT(createUser()));
+    connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this,SLOT(updateUserDisplay()));
+
+
     mainLay->addLayout(usersList_);
     mainLay->addWidget(nwUser);
 }

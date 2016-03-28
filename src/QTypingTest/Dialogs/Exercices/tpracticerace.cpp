@@ -36,7 +36,6 @@ void TPracticeRace::createPage() {
 }
 
 void TPracticeRace::setupPage(int timeStart) {
-
     //HACK for testing => shortucut to end the exercice
     QShortcut *endShortcut = new QShortcut(this);
     endShortcut->setKey(Qt::CTRL + Qt::Key_E);
@@ -46,6 +45,11 @@ void TPracticeRace::setupPage(int timeStart) {
     });
     //end of hacks
 
+    TWindowTest::setTimeIncrement(-1);
+    TWindowTest::setTimerEnd(0.f);
+
+    connect(this,SIGNAL(timerEnded()),this,SLOT(stopRun()));
+
 
     topToolbar_.setLCDDisplayValue(timeStart);
     connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage()));
@@ -53,10 +57,8 @@ void TPracticeRace::setupPage(int timeStart) {
     pages_.addPage(ex, true);
 }
 
-void TPracticeRace::updateClock() {
-    double res = topToolbar_.incrementTimer(-1);
-    if(res <= 0.f){
-        addResult(pages_.currentPage()->getResult());
-        emit pages_.textFinished();
-    }
+void TPracticeRace::stopRun()
+{
+    addResult(pages_.currentPage()->getResult());
+    emit pages_.textFinished();
 }

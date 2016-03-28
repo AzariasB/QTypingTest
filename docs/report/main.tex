@@ -1,0 +1,123 @@
+
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}%english gestion
+\usepackage[bottom]{footmisc}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[newparttoc]{titlesec}
+\usepackage[export]{adjustbox}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{hyperref}
+
+
+%All the packages
+\usepackage{url,ragged2e,textcomp,lmodern}
+\usepackage{graphicx,xcolor,float,afterpage}
+\usepackage{chngcntr,csquotes,helvet,lastpage}
+\usepackage{subcaption,wrapfig,fancyhdr,blindtext}
+\usepackage{titletoc,transparent}
+%Nouvelles commandes
+\renewcommand{\familydefault}{\sfdefault} %default font
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\Mline}{\hrule \mbox{}\\[0.1cm]}
+\renewcommand{\thechapter}{\Roman{chapter}}
+
+%final page
+\newcommand\blankpage{%
+\null
+\thispagestyle{empty}%
+\addtocounter{page}{-1}%
+\newpage
+}
+
+%Format de part
+\titleclass{\part}{top}
+\titleformat{\part}[hang]
+	{}
+	{\Large \sffamily \bfseries \thepart. \hspace{0.1cm} }
+	{0pt}
+	{\Large \sffamily \bfseries }
+\titlespacing*{\part}{0pt}{0pt}{18pt}
+
+%FORMAT DU CHAPITRE
+\titleclass{\chapter}{straight}
+\titleformat{\chapter}[hang]
+  {}
+  {\normalfont \sffamily \bfseries \thechapter. \hspace{0.1cm} }
+  {0pt}
+  {\normalfont \sffamily \bfseries }
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+
+%FORMAT De section
+\renewcommand*\thesection{\arabic{section}}
+\titleclass{\section}{straight}
+\titleformat{\section}[hang]
+  {}
+  {\normalfont \sffamily \hspace{1cm} \bfseries \thesection . }
+  {0pt}
+  {\normalfont \sffamily \bfseries }
+  
+\titlespacing*{\chapter}{0pt}{50pt}{18pt}
+
+%Comptage des figures
+\renewcommand{\thefigure}{\arabic{figure}}
+
+%Ne pas reset le numéro des figures  à chaque chapitre
+\counterwithout{figure}{chapter}
+
+%Reset numéro des chapitres dans chaque parties
+\makeatletter
+\@addtoreset{chapter}{part}
+\makeatother  
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+
+% Title
+\Mline
+{ \LARGE QTypingTest \\[0.4cm] }
+\Mline
+% Author and supervisor
+
+\textsf{Supervisor : Mark Cummins}\\[3cm]
+
+\textsf{Thubé Pierre B00092354\\
+	Boutin Azarias B00092351\\[2cm]
+	BN013 BSC in Computing}
+
+\end{center}
+\end{titlepage}
+
+\setcounter{page}{2}
+
+\tableofcontents
+%'Page'
+\addtocontents{toc}{~\hfill\textbf{Page}\par}
+
+%Partie Pierre
+\input{pierre.tex}
+
+
+%Partie Azarias
+\input{azarias.tex}
+
+
+%------------------------------------%
+% Début Partie commnune				%
+%------------------------------------%
+\part{Personal reflections on project experiences}
+Personal reflections on project experiences
+
+\chapter{Pierre Thubé}
+Pierre Thubé
+
+\chapter{Azarias Boutin}
+Azarias Boutin
+
+
+\end{document}
