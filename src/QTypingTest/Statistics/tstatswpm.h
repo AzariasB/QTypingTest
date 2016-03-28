@@ -13,6 +13,7 @@ using namespace std;
 
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include <iostream>
 
 #include "Data/tuser.h"
@@ -35,29 +36,34 @@ protected:
     QRect getCurrRect(QMouseEvent * e);
     void calcMean();
 
-    //Temporaly => To be replaced with points of user
+    /* to delete later */
     int *createRandomPoints();
     void createRandomResult();
     void createFakeQHash();
+    /* ***** */
 
 private:
     TUser *user_;
     int mean_ = 0;
+    float height_ = 0;
+    float gapbetweeny_;
     QPoint currentpoint_;
     QRect currentrect_;
-
-    //Keep track of ther order of the points to draw
-    QList<QPoint> orderedPoints_;
-    QVector<TResult*> vectRes_;
-    QVector<int> listWPM;
-    QDateTime *mydate_;
     QHash<date_exercice_,TResult> historyresults_;
-    
-    //If wa use the keys to draw the polygon, the point are disordonned
-    QHash<QPoint,QRect> rectpoint_;
+    QHash<QPoint,QRect> rectpoint_;//If wa use the keys to draw the polygon, the point are disordonned
 
-    void initPoints();
-    void createRandomYPoints();
+    /* to delete later */
+    QList<QPoint> orderedPoints_; //Keep track of ther order of the points to draw
+    QVector<TResult*> vectRes_;
+    QVector<int> vectWPM;
+    QDateTime *mydate_;
+    /* ***** */
+
+//    void initPoints();
+    void createPointFromQHash();
+    float getMaxWPM(QVector<int> vect);
+    float getMinWPM(QVector<int> vect);
+    void initValues();
 
 };
 

@@ -15,6 +15,7 @@ TScrollWidget::TScrollWidget(QWidget *parent):
     twpm_->setMinimumSize(area_->size());
 
     area_->setWidget(twpm_); //add twpm_ into the scrollArea
+    area_->setStyleSheet("background-color:rgb(51,51,51)");
 
     layout_->addWidget(lw_); //add the tlayoutwidget into the main widget
     layout_->addWidget(area_); // add the scrollarea into the main widget

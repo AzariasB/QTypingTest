@@ -18,7 +18,6 @@
 #include <QString>
 
 #include "Util/htmlhelper.h"
-#include "tuser.h"
 
 /**
  * This class is here to calculate the results of an exercice
@@ -113,9 +112,9 @@ private:
         this->wrongWords_++;
     }
 
-    void setWrongWords(int wrongWords) {
-        this->wrongWords_ = wrongWords;
-    }
+//    void setWrongWords(int wrongWords) {
+//        this->wrongWords_ = wrongWords;
+//    }
 
     friend QDataStream &operator>>(QDataStream &in, TResult &result){
         in >> result.correctKeystrokes_ >> result.wrongKeystrokes_ >> result.wordsPerMinute_;
