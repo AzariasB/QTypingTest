@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.1.1">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>297</x>
+      <y>288</y>
+      <w>126</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>TUser
+--
+- pseudo : Qstring
+- layout : QString</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>405</x>
+      <y>279</y>
+      <w>216</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=[d_ex]-&gt;
+m2=*
+practice
+history</panel_attributes>
+    <additional_attributes>20.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>603</x>
+      <y>252</y>
+      <w>207</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>TResult
+--
+- correctKeyStrokes : int
+- wrongKeyStrokes : int
+- correctWords : int
+- wrongWord : int
+- wordsPerMinute : int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>72</x>
+      <y>297</y>
+      <w>153</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>TProgression
+--
+- int : lastExercise</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>279</x>
+      <y>162</y>
+      <w>153</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>TStats
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>279</x>
+      <y>99</y>
+      <w>153</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>/QHash&lt;QChar,int&gt;/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>117</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>351</x>
+      <y>234</y>
+      <w>27</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>216</x>
+      <y>333</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>441</x>
+      <y>162</y>
+      <w>171</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>d_ex
+--
++ dateResult : QDateTime
++ TExercice  : exercice</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -193,17 +193,174 @@ The documentation of Qt is available online, but also on QtCreator. It is really
 Moreover, when there is a problem with Qt and that the documentation cannot solve the problem, the community behind Qt is huge and really helpful.  
 
 \chapter{Functional Design}
-Functional Design
+This project is relatively simple an contains two main parts :
+\begin{description}
+	\item[The learning] : where the user learn each letters of the keyboard one by one
+	\item[The practising] : where the user can see the progress made by typing real words, and real texts
+\end{description}
+Since this software is quite simple, everyone with a computer can use it. This means the software is made for all ages. Anyone whether there are young, can use the software without a lot of explanation and learn, step by step how to correctly use his keyboard.\\
+Also, thanks to Qt robustness and features, the software is viable and is unlikely to crash during its usage.
 
 \section{Structure of the system}
-Structure of the system
+
+\begin{itemize}
+	\item The Data part. This part is where all the objects containing data are stored. e.g the users, his statistics ... 
+	\item The User interface part. This part contains all the files necessary to create the user interface. All the classes in this parts inherits at least of QWidget (which is the base element for the GUI).
+	\item The utils part. In this part, there are no classes, only namespaces. Theses class are here to facilitate the developer's life and provides useful functions to make the software work.  
+\end{itemize}
+
+Those three parts are separated in three different folders (namely "Data","QTypingpTest" and "Utils").\\
+
+This separation was creating a pseudo-pattern of MVC. The model being the data, the View being the GUI and the Utils being the controller. However, for programming reasons, the main parts of the controller was situated in the view itself. Because thanks to the signal slot (figure \ref{signal-slot-qt}) system, the function used as controller could be in the GUI itself.
+
+
 
 \section{Code walkthrough}
-Code walkthrough
+Begin with the beginning : the main.
+\begin{lstlisting}
+#include <QApplication>//The application
+#include <QDebug>//The logger
+#include <QDir>
+#include <time.h>//Random number 
+#include <QFile>
+#include <QTranslator>//Computer's locale
+#include <QLocale>
+#include <QLibraryInfo>
+
+#include "QTypingTest/thomepage.h"
+
+void init(){
+    srand(time(NULL)); //Random number generation
+
+    qRegisterMetaTypeStreamOperators<TUser>("TUser"); //Metatype declaration
+
+    //Set translator
+    QString locale = QLocale::system().name().section('_',0,0);
+    QTranslator translator;
+    translator.load(QString("qt_") + locale,QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    QApplication::installTranslator(&translator);
+}
+
+
+int main(int argc, char *argv[]) {
+    QApplication a(argc, argv);//Start Qt
+
+    init();   //Register the type to be able to create QVariant from them
+
+    THomePage hp;
+
+    //Set style
+    QFile file(":/style.qss");
+    if (file.exists()) {
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            qDebug() << "Could not open file, please check the permissions";
+        } else {
+            hp.setStyleSheet(QLatin1String(file.readAll()));
+        }
+        file.close();
+    } else {
+        qDebug() << "Could not load stylesheet";
+    }
+
+
+	//Show the main window
+    hp.show();
+
+	//enter qt's main loop
+    return a.exec();
+}
+\end{lstlisting}
+
+This code is very interesting since it shows a lot in a few lines of code. Here is step by step, what is happening :
+\begin{description}
+	\item[Creating the qt application object.] To run qt, an application must be created, otherwise, there is no main loop and no window to display
+	\item[init.]  This function contains a series of initialisation :
+	\begin{itemize}
+		\item initiate the random number generation
+		\item Register the TUser type to be able to read saves 
+		\item install the translator by detecting the computer language.
+	\end{itemize}
+	\item[Set the style.] Qt support a CSS format. This style can be applied to the elements of the GUI. Since almost all basics CSS directives are supported, it's easy customize the GUI.
+	\item[Show the main window.] The homepage was already created before. Now  it is time to display it since all the initialisation is done.
+	\item[Enter the main loop.] To let the window opened an really launch the software once for all. The last line does this for us.
+\end{description}
+
+\begin{lstlisting}
+void THomePage::connectEvents() {
+    TUserManager::getInstance().readUsers();
+    connect(ui.action_option,SIGNAL(triggered(bool)),this,SLOT(showOptionDialog()));
+    connect(ui.action_aboutQt,SIGNAL(triggered(bool)),qApp,SLOT(aboutQt()));
+    connect(&TUserManager::getInstance(),&TUserManager::usersSaved,this,[=](){
+        ui.statusbar->showMessage("Users saved !",4000);
+    });
+    connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this,SLOT(updateUI(TUser*)) );
+
+	//Associate 
+    buttonsStacks_[ui.button_home] = ui.page_home;
+    buttonsStacks_[ui.button_learn] = ui.page_learn;
+    buttonsStacks_[ui.button_games] = ui.page_games;
+    buttonsStacks_[ui.button_stats] = ui.page_stats;
+    buttonsStacks_[ui.button_practice] = ui.page_practice;
+
+    //Iterate over the buttons-page couple
+    for (auto it = buttonsStacks_.begin(); it != buttonsStacks_.end(); ++it) {
+        //If child is not nullptr create a simple layout with parent and add the child into it
+        if (!TUserManager::getInstance().getCurrentUser()) {
+            it.key()->setEnabled(false);
+        }
+
+        connect(it.key(), &QPushButton::clicked, [ = ](){
+            ui.stack_main->setCurrentWidget(it.value());
+        });
+    }
+    ui.stack_main->setCurrentWidget(ui.page_home);
+}
+\end{lstlisting}
+This function is called in the constructor of the the main window. What is intersting to see here is the signal-slot system of Qt.
+Here is the list of what this function does :
+\begin{description}
+	\item[Read the users.] Will load the QSettings saved from the previous session into the usermanager
+	\item[Connect the toolbar actions.] The toolbar contains actions, these are connected to several function of the main window
+	\item[Associate the buttons with the pages.] The main window contains differents buttons. Each one is changing the current page.
+	\item[Show the homepage.]
+\end{description}
+
+The signal-slot is used in this function. This line : 
+\begin{lstlisting}
+connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this,SLOT(updateUI(TUser*)) );
+\end{lstlisting}
+is an example of a connection. It means : on the instance of Usermanager, when the signal 'userChanged' is emitted, qt will trigger the function 'updateUI' of the main window.\\
+There are several ways to connect a signal to a slot. Another way used in the code above is the anonymous function. C++11 introduced the anonymous functions. It is possible to use it as so in qt :
+\begin{lstlisting}
+connect(it.key(), &QPushButton::clicked, [ = ](){// < start of anonymous function
+	ui.stack_main->setCurrentWidget(it.value());
+});//< end of anonymous function
+\end{lstlisting}
+
 
 
 \chapter{Data design}
-Data design
+All the data is stored in objects when the software is running. Which also mean it is stored in the RAM of the computer.
+The 'problem', is that when the software is not running, the objects are cleared, and not kept in the RAM. The solution the group used to overcome this problem is to use Qt's saving system called QSettings. Fortunately all the data to save, is the user statistics.\\
+This figure shows all the user's data :
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/diagram-data.png}
+	 \caption{The user's data}
+	 \label{diagram-data}
+\end{figure}
+
+All the objects represented contains two functions :
+\begin{itemize}
+	\item One to save the object itself (operator <<)
+	\item One to create the object from a save (operator >>)
+\end{itemize}
+
+So every time a user was saved, the first function of every object was called, and at the start of the software, all the objects were loaded from the ROM to the RAM by calling the second function. The QSettings class to save the users was voluntary chosen. Since the model is not complex and a very few object are in relationship, the group chose to use QSettings. \\
+However, Qt also supports the database operations and provide a support for sqlLite. As said above, there is also a support for XML and JSON. Those last two were not chosen two prevent easy cheating.
+
+
 \part{System implementation}
 
 \chapter{Building the software}
