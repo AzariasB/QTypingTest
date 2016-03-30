@@ -48,44 +48,149 @@ The learn page (figure \ref{page-learn}) the user can see all the exercises to c
 	 \label{page-practice}
 \end{figure}
 
-The practice page  (figure \ref{page-practice}) has four buttons. On for each differents type of practice. The final 'form' of each practice is always the same : a dialog with text to type. What's changing is the content of the dialog.\\
+The practice page  (figure \ref{page-practice}) has four buttons. One for each differents type of practice. The final 'form' of each practice is always the same : a dialog with text to type. What's changing is the content of the dialog.\\
 The differents rules for each types of practice are 
-\begin{enumerate}
+\begin{description}[align=left]
 	\item[Against time :] The user must type the most words in one minute. At the end of this time, his number of words per minute is shown.
 	\item[Normal :] The user has two 'pages' of random words to type. Thanks to the powerful language system of Qt, the displayed words may change depending on the user's computer language. For the moment, only english and french is supporter.
 	\item[Improve :] This practice will check what is the user's worst letters and create a special exercise containing these letters.
 	\item[Text :] In this practice, the user will have to type an existing text. The chosen text are the 'classical' authors such as George Orwell. Once again thanks to Qt, the language of the text may vary depending on the user's computer language. The default language being english. 
-\end{enumerate}
+\end{description}
 
 \textit{The statistics page was not made yet}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{images/page-game.png}
+	\includegraphics[width=0.7\textwidth]{images/page-games.png}
 	 \caption{Game page}
 	 \label{page-game}
 \end{figure}
 
-The game page contains a single button. This button launches a dialog where the user see what letters is associated with what finger on the keyboard.
+The game page contains a single button. This button launches a dialog where the user sees what letters is associated with what finger on the keyboard.
+
+\subsection{The differents dialogs}
+Here are the dialogs that can be opened with Qt :
 
 \begin{figure}[H]
-  \centering
-  \begin{minipage}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{images/homepage_logout.png}
-    \caption{Defaults homepage.}
-    \label{homepage-logout}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{images/homepage_login.png}
-    \caption{User connected.}
-    \label{homepage-login}
-  \end{minipage}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/dialog-before-learn.png}
+	 \caption{Before the learning dialog}
+	 \label{dialog-before-learn}
 \end{figure}
+
+Here is the dialog shown when the user starts an exercise to learn new letters.\\
+This dialog highlights in a certain color the finger and associated with the letter on the keyboard. This invites the user to do the same. Thus use the indicated finger to type on the indicated letter. When he does this, the next letter and the next finger highlights. When those two steps are completed, the user can start the real exercise.\\
+The pictures shows the configuration of an AZERTY keyboard, because the test are made on a french computer. But a configuration file is also made for QWERTY keyboard, and anyone who uses a non-french computer's configuration will automatically have the QWERTY configuration loaded.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/dialog-learn.png}
+	 \caption{The learning dialog}
+	 \label{dialog-learn}
+\end{figure}
+
+The figure \ref{dialog-learn} shows the dialog to learn new letters. In this case, the letters are \textit{S} and \textit{L}.\\
+There are two parts on the dialog : the toolbar and the center part.\\
+The toolbar contains :
+\begin{itemize}
+	\item The page indicators that tells on what page is located the user and how many remains.
+	\item The play/pause button as the check-box button. When it's toggled the game is paused and when it is not (the default) the game goes on.
+	\item The timer. This tells the user how much time was spent since the start of the exercise.
+\end{itemize}
+
+The center part contains the user's exercise. It displays a text on two pages with four color codes :
+\begin{itemize}
+	\item Black : a normal black letter is a letter to be typed in the future
+	\item Black underlined and bold : the current letter that the user has to type
+	\item Blue : a letter already typed by the user and correctly typed
+	\item Red  : a letter already typed by the user but incorrectly typed
+\end{itemize}
+
+The center part does not takes care of the words. It's only taking care of each letters.\\
+The user can rewind back to retype the letters. This will also work from one line to another. However this is voluntary not possible
+from one page to another.\\
+This dialog will always look the same for the trainings and the exercise. The only difference lives in the content of the main part.\\
+For the exercise dialog, the exercise is organized as so :
+\begin{enumerate}
+	\item For two lines, only the two letters that the user must learn.
+	\item For two lines all the letters previously learned in a random order
+	\item And the remain part is some random words with the letters previously learned. If no words can be made with the letters learned (especially true at the beginning) the second part will be repeated.
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/dialog-practice.png}
+	 \caption{The practice dialog}
+	 \label{dialog-practice}
+\end{figure}
+
+This dialog is very similar to the learning dialog. The toolbar is exactly the same and works the same way.\\
+The only difference is the content. This dialog contains only real words. In this case, it's only french words since there is a words file for french computers. There is also a file containing english words. And this file is the default one.\\
+This type of exercise contains only words placed in a random order, on two pages.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/dialog-race.png}
+	 \caption{The race dialog}
+	 \label{dialog-race}
+\end{figure}
+
+The race dialog is similar to the two previous one. However there is one difference in the toolbar. Instead of starting at 0, the timer starts at 1 minute, and decreases. This changes results in another change : the number of pages. Since the number of page depend on the speed of the user. It is 'unknown'. But instead of hiding this information, it will simply increase for each new page created.\\
+For this exercise, only one page is generated and if the user succeed to finish the page, another one is generated and displayed. Thanks to the speed of C++ and the algorithms, the user does not see the difference. This system allows the exercise to generate (in theory) an infinite number of pages and therefore change the start time.
+The content is the same as the practice dialog : it contains only words of french or english depending on the user's computer (in this case, french).\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/dialog-text.png}
+	 \caption{The text dialog}
+	 \label{dialog-text}
+\end{figure}
+
+The text dialog is exactly the same as the practice dialog. The only difference is the content. Instead of containing only random words, it contains a real text. The text is either in french or english, depending on the user's computer configuration.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/dialog-game.png}
+	 \caption{The game dialog}
+	 \label{dialog-game}
+\end{figure}
+
+The game dialog is the same as the one shown before the learning exercise. But instead of showing the user what letter he has to type, it will simply let him free to type whatever letters he wants, and shows what finger is associated with this letter. \\
+
+
 
 
 \section{Qt features}
-Qt features
+
+Qt is a really powerful framework full of features. There are so many of them that is sometimes possible to miss one and redo all the work. That's what happened for the group many times during the development of the software.\\
+Qt is first made to create user interfaces on great variety of OS. With the same source code, it is possible to have a interface for linux, windows and mac OS. But there are a lots of useful features to improve the life of the developer and some tools to improve the C++ language.\\
+The most powerful feature by far of Qt is it's SIGNAL-SLOT system.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/abstract-connections.png}
+	 \caption{The connection system in Qt}
+	 \label{signal-slot-qt}
+\end{figure}
+
+The figure \ref{signal-slot-qt} shows how it works.
+A signal can be emitted and a slot can be called whenever a signal is emitted. This is very useful to program interactive user interfaces.\\
+It would be too long to enumerates all the features that Qt provides, and a lots of them where not used in the project. However, here is a list of features used for the project provided by Qt.
+
+\begin{description}[align=left]
+	\item[Language detection] : Qt can easily detect the user's computer language. This was first used to select the files for the exercises.
+	\item[Resources files] : The group discovered later than Qt can actually automatically select the good file depending on the computer language. This is made thanks to a resource file (.qrc). This file is written in XML and tells Qt where to find the resource file, give them a language and give them an alias. Then, when needing a file in the code the alias of the file is given, and Qt will choose the good file depending on the computer's language.
+	\item[DataStream] : It is possible with Qt to open and read or write in a file. This 	was first used to save the users in binary files. The files can also be opened in text mode to read and write UTF8-only characters. This was used to read the keyboard configuration files.
+	\item[Qt Variant and metatypes] : as for the language detection, the group discovered later that Qt has a pre-made data-saving system. This provides a safer way to save the data on the computer. Instead of writing on a file in the folder of the project itself, Qt will choose a system folder depending on the OS of the computer to write down the data to save.
+	\item[Json] : Qt supports the JSON format. It can parse any valid json file and be used later on in the code. This is what's actually used to save the keyboard configurations. 
+	\item[XML] : As for the JSON, Qt also support XML. It can parse any XML file and return an object that can be manipulated easily. This features could have been used to save the texts.
+	\item[QString] : Last be not least. Qt provides a really powerful class : the QString. This class is really easy to use, and full of functions.
+\end{description}
+
+\subsection{Documentation}
+It is not a part of Qt itself, but without it, the development of the software would be impossible.\\
+The documentation of Qt is available online, but also on QtCreator. It is really well-made. Easy to read comprehensive, completed with examples and consistent.\\
+Moreover, when there is a problem with Qt and that the documentation cannot solve the problem, the community behind Qt is huge and really helpful.  
 
 \chapter{Functional Design}
 Functional Design
