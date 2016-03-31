@@ -58,7 +58,15 @@
   {0pt}
   {\normalfont \sffamily \bfseries }
   
-\titlespacing*{\chapter}{0pt}{50pt}{18pt}
+
+%FORMAT De subsection
+\titleclass{\subsection}{straight}
+\titleformat{\subsection}[hang]
+  {}
+  {\small \sffamily \hspace{2cm} \bfseries \thesubsection . }
+  {0pt}
+  {\small \sffamily \bfseries }
+  
 
 %Comptage des figures
 \renewcommand{\thefigure}{\arabic{figure}}

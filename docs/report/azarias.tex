@@ -216,6 +216,22 @@ This separation was creating a pseudo-pattern of MVC. The model being the data, 
 
 
 \section{Code walkthrough}
+
+\subsection{Style of code}
+To have an homogeneous code, no matter who was coding, the group decided to follow some rules for the style of code. The style chosen was the google C++ style guide. The website for this style guide is the following : \url{https://google.github.io/styleguide/cppguide.html}.
+The document is quite long and some rules are more obvious than others. Here is a reduced list of the notable rules that the group followed :
+\begin{itemize}
+	\item \href{https://google.github.io/styleguide/cppguide.html#Access_Control}{Access-control}. Make data member of a class private. 
+	\item \href{https://google.github.io/styleguide/cppguide.html#Write_Short_Functions}{Write short functions} No more than 40 lines if possible.
+	\item \href{https://google.github.io/styleguide/cppguide.html#Use_of_const}{Use const} whenever it makes sense.
+	\item \href{https://google.github.io/styleguide/cppguide.html#auto}{Use auto keyword}. C++11 introduced the auto keyword, allowing to reduce the long and cumbersome type names.
+	\item \href{https://google.github.io/styleguide/cppguide.html#Variable_Names}{Variable names}. Name of variable are lower case. With a trailing underscore at the end of the private data members.
+	\item \href{https://google.github.io/styleguide/cppguide.html#File_Names}{File names}. Name the file in lower case.
+\end{itemize}
+All these rules were not followed entirely. Because the rules enumerated above apply to the C++ in general. And in this case, the group was using Qt which is an environment different from the usual C++.\\
+
+
+\subsection{The main file}
 Begin with the beginning : the main.
 \begin{lstlisting}
 #include <QApplication>//The application
@@ -285,6 +301,8 @@ This code is very interesting since it shows a lot in a few lines of code. Here 
 	\item[Enter the main loop.] To let the window opened an really launch the software once for all. The last line does this for us.
 \end{description}
 
+
+\subsection{A widget class}
 \begin{lstlisting}
 void THomePage::connectEvents() {
     TUserManager::getInstance().readUsers();
@@ -337,7 +355,107 @@ connect(it.key(), &QPushButton::clicked, [ = ](){// < start of anonymous functio
 });//< end of anonymous function
 \end{lstlisting}
 
+This is what many of the widget looks like : connect the events to custom functions, and process the data in those functions.
 
+\subsection{A data class}
+
+The data classes are a bit different from the widget class. The code bellow is the content of the file tuser.h. The header file for the TUser class.
+\begin{lstlisting}
+#ifndef TUSER_H
+#define TUSER_H
+
+//includes [...]
+
+struct date_exercice_ {
+    QDateTime dateResult;
+    TExercice exercice;
+};
+
+class TUser : public QObject {
+
+    Q_OBJECT
+    
+\end{lstlisting}
+First, the class itself must inherit from QObject to be able to emit signals and have slots. There is also the Q\_OBJECT macro to add some attributes to the class.
+
+\begin{lstlisting}
+public:
+    TUser(QString pseudo = "", QObject *parent = 0) :
+        QObject(parent),
+        pseudo_(pseudo),
+        progress_(new TProgression()),
+        statistics_(TStats()){
+    }
+
+
+   //Getters, setters...
+
+    void setSettings(const TUser &user){
+        pseudo_ = user.getPseudo();
+        layout_ = user.getLayout();
+        emit settingsChanged(this);//< emit a signal
+    }
+\end{lstlisting}
+This part shows the one constructor of the class. The getters and setters are also present in this class but most of them are not interesting. However, the setter for the Settings has something different. It emit a signal once the settings were changed. This allows the developer to then connect a slot to this signal to be warned whenever the current user changed his settings. (And for example update the GUI in consequence).
+
+
+\begin{lstlisting}
+signals:
+	//Emitted when the statistics of the user changed
+    void statsChanged(TUser *);
+
+	//Emitted when the settings of the user changed
+    void settingsChanged(TUser *);
+\end{lstlisting}
+This part shows how the signal are declare. There is nothing more than this in the .cpp file. To declare a signal, the only thing to do is declare the function and inform the Qt of what argument will be emitted with this function.
+
+\begin{lstlisting}
+private:
+    QString pseudo_;
+    TProgression *progress_;
+    TStats statistics_;
+    QString layout_;
+	QHash<date_exercice_, TResult> practiceHistory_;
+\end{lstlisting}
+These are the attributes of the TUser class.
+
+\begin{lstlisting}
+    friend QDataStream &operator<<(QDataStream& out, const TUser& user){
+        out << user.pseudo_ << *user.progress_ << user.statistics_ << user.practiceHistory_ << user.layout_;
+        return out;
+    }
+
+    friend QDataStream &operator>>(QDataStream& in, TUser &user){
+        in >> user.pseudo_ >> *user.progress_ >> user.statistics_ >> user.practiceHistory_ >> user.layout_;
+        return in;
+    }
+};
+
+Q_DECLARE_METATYPE(TUser)
+/**
+ * Write a user in the DataStream
+ * 
+ * @param out the dataStream target (where to write the data)
+ * @param user the user that is to be written in the dataStream
+ * @return the modified dataStream
+ */
+QDataStream &operator<<(QDataStream& out, const TUser& user);
+
+
+/**
+ * Takes back all the user's informations
+ * from the DataStream
+ * 
+ * @param in the dataStream containing the user
+ * @param user the user to initialize from the datastream
+ * @return the datastream
+ */
+QDataStream &operator>>(QDataStream& in, TUser &user);
+
+#endif /* TUSER_H */
+
+\end{lstlisting}
+Last but not least, this part of the code show how the TUser class is saved in a file. The operators are declare outside of the class. And the are defined in the class. With the keyword \texttt{friend} to have access to the private attributes of the TUser passed in argument.
 
 \chapter{Data design}
 All the data is stored in objects when the software is running. Which also mean it is stored in the RAM of the computer.
@@ -401,10 +519,93 @@ The tests for this projects were created for two main purpose :
 	\item ensure that the feature are working as expected
 	\item avoid compiling all the project for a single feature test
 \end{enumerate}
-Some test requires the GUI some does not. The hard part of the test was not to create them, it was to make the software testable. For example, a lots of features held on randomness. And it is not possible (or silly) to test randomness. This means, the less randomness, the more testable. Or pseudo-random features were testable.
+Some test requires the GUI some does not. The hard part of the test was not to create them, it was to make the software testable. For example, a lots of features held on randomness. And it is not possible (or silly) to test randomness. This means, the less randomness, the more testable. Or pseudo-random features were testable.\\
+Here is an example of a test file :
+
+\begin{lstlisting}
+//includes [...]
+class TestUtils : public QObject {
+    Q_OBJECT
+private slots:
+    void testSurroundAll();
+    void testSurroundAt();
+    void testRemoveTags();
+    void testAbsolutePosition();
+};
+\end{lstlisting}
+First, the test class must be declared. The whole test can be written in a single .cpp file.\\
+To be able to run the test on the class, it must inherit from QObject. Then the Qt test framework will execute the test on all the
+private slots.\\
+In this case, the HTML helper is tested. Four functions are created to test it.
+
+\begin{lstlisting}
+void TestUtils::testAbsolutePosition() {
+    QString joel_0 = "joel";
+    QString joel_1 = "<p>j</p>oel";
+    QString joel_2 = "jo<p>e</p>l";
+    QString joel_3 = "joe<p>l</p>";
+    QString joel_4 = "<p>j</p>o<b>e</b><u>l</u>";
+    QString joel_5 = "<b><u>j</b></u>oel";
+
+    qDebug() << "Get the absolute position of a char in a String";
+    QCOMPARE(html::getAbsoluteCharPosition(joel_0, 0), 0);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_1, 0), 3);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_2, 2), 5);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_3, 3), 6);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_4, 3), 20);
+    QCOMPARE(html::getAbsoluteCharPosition(joel_5, 1), 15);
+}
+
+//Other functions...
+
+QTEST_MAIN(TestUtils)
+#include "testutils.moc"
+\end{lstlisting}
+Here is how a function test looks like. As a lot of other test framework, there is the initialization part, the action part and the test part. Qt provides functions as \texttt{QCOMPARE},\texttt{QVERIFY} and others to run the test. To run the test, the file must be compiled and run. In this case, there is no graphics, all is displayed in the console. Here is the output when the entire file is run.
+
+\begin{lstlisting}
+********* Start testing of TestUtils *********
+Config: Using QtTest library 5.2.1, Qt 5.2.1
+PASS   : TestUtils::initTestCase()
+QDEBUG : TestUtils::testHTML() Testing HTML 
+QDEBUG : TestUtils::testHTML() Adding a single tag 
+QDEBUG : TestUtils::testHTML() Adding multiples tags 
+QDEBUG : TestUtils::testHTML() Adding attributes 
+QDEBUG : TestUtils::testHTML() Remove all the tags 
+QDEBUG : TestUtils::testHTML() Remove only the asked tags 
+QDEBUG : TestUtils::testHTML() Remove all the tags (no second arguments) 
+QDEBUG : TestUtils::testHTML() Get the absolute position of a char in a String 
+PASS   : TestUtils::testHTML()
+QDEBUG : TestUtils::testFactory() Changing locale for test purpose 
+QDEBUG : TestUtils::testFactory() Testing factory (non-random functions) 
+QDEBUG : TestUtils::testFactory() ("of", "do", "off", "food") 
+QDEBUG : TestUtils::testFactory() ("be") 
+QDEBUG : TestUtils::testFactory() ("be", "we", "went", "been", "between", "new", "ten") 
+QDEBUG : TestUtils::testFactory() Testing practice generation 
+QWARN  : TestUtils::testFactory() Warning : no letters available to generate the practice 
+QDEBUG : TestUtils::testFactory() Must contain only real words 
+QDEBUG : TestUtils::testFactory() Must contain existing and random words 
+QDEBUG : TestUtils::testFactory() Testing that the generation is completely random 
+QDEBUG : TestUtils::testFactory() Testing the text generation 
+QDEBUG : TestUtils::testFactory() ("into", "a") 
+QDEBUG : TestUtils::testFactory() ("into", "one;", "and", "that,", "whilst", "this", "planet", "has", "gone", "cycling", "on", "according", "to", "the", "fixed", "law", "of", "gravity,", "from", "so") 
+PASS   : TestUtils::testFactory()
+PASS   : TestUtils::cleanupTestCase()
+Totals: 4 passed, 0 failed, 0 skipped
+********* Finished testing of TestUtils *********
+\end{lstlisting}
+The series of test is passing, to help the developer identify what part of the test is running, it is possible to output messages.
+At the end of the tests, the number of passed, failed an skipped is indicated.
 
 \chapter{GUI testing}
-GUI testing
+The GUI testing was create to avoid reproducing a big number of steps before being able to realize the real test. It allows the developer to :
+\begin{enumerate}
+	\item Test only the part wanted of the software
+	\item Avoid wasting time compiling the whole software when only a single part of it is necessary.
+\end{enumerate}
+
+A GUI testing file is consisting of a really few lines, where the window/widget is created, modified and shown. Then all the developer has to do is to directly use the interface to test what he wants.\\
+The group did set-up a lots of these test. Every single dialog has its own test file.
 
 \part{Usability - Users tasks}
 Usability - Users tasks
