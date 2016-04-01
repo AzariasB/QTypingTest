@@ -608,29 +608,82 @@ A GUI testing file is consisting of a really few lines, where the window/widget 
 The group did set-up a lots of these test. Every single dialog has its own test file.
 
 \part{Usability - Users tasks}
-Usability - Users tasks
 
 \chapter{What can the user do}
-What can the user do
+The finished software allows the user to do the following tasks:
+\begin{itemize}
+	\item Start the executable of the software.
+	\item Connect to its profile on the homepage of the software.
+	\item Create a new user on the homepage.
+	\item Delete his profile on the homepage.
+	\item Change his settings (alias,keyboard layout, software language)
+	\item Select a part of the software were to navigate to
+	\item Start a new training on the training page and learn new letters
+	\item Unlock the next training exercise if the user was fast enough at the previous one
+	\item Start a new practice exercise. The exercise can be one of the following 
+	\begin{itemize}
+		\item Race : type the most words before the time runs out
+		\item Classical : type the given words until the end
+		\item Text : type the given text until the end
+		\item Improve : type the given words specially chosen from the mistake made during a training
+	\end{itemize}
+	\item See his statistics at the end of a run :
+	\begin{itemize}
+		\item Number of words per minute
+		\item Number of correct keystrokes
+		\item Number of wrong keystrokes
+	\end{itemize}
+	\item Start the interactive keyboard and see what finger is used to type a certain letter
+	\item Disconnect and close the window without losing all his data
+\end{itemize}
 
-
-\chapter{Efficiency and response times}
-Efficiency and response times
 
 \chapter{Overall aesthetic}
-Overall aesthetic
+The software is not beautiful to look but its not ugly either. Because this was the first time the group ever used Qt, the main goal was not to create a fully user-friendly interface. But a usable, interactive and intuitive interface. Moreover, since the interface look-and-fell changes for each OS, it would have been hard to create a unified interface, not matter the OS. The biggest effort in therm of aesthetic were made for the look-and-feel of the exercise/training window. Where the user can instantly understand how the cursor is moving, when the answer given is correct an when it's wrong. This interface will not change, no matter what is the OS. Because all is wittingly chosen :
+\begin{itemize}
+	\item The color of the font
+	\item The size of the font
+	\item The font itself (monospace)
+\end{itemize}
+All the others part of the software will depend on the OS. For example the font of the button will be \textit{Ubuntu} for the Ubuntu OS, but it will be \textit{Verdana} for windows. Same thing for the button. They will look flatter on windows 10 than on ubuntu.
+
 
 \part{Conclusion and further work}
-Conclusion and further work
 
 \chapter{Project result}
-Project result
+In order to determine how successful the project was, it's important to look back at the goals which were set at the beginning of it. These goals are outlined in the project proposal.\\
+Here is the list of what these goals were :
+
+\begin{itemize}
+	\item Learn how to use Qt framework.
+	\item Create a free software with Qt.
+	\item Let the source code open and free for all on Github.
+	\item Create a software that can teach you how to improve your typing skills.
+	\item Allow different keyboard layouts.
+	\item Translate this software in different languages.
+\end{itemize}
+
+All these requirements has been met except the last one which was to translate the software into different languages.\\
+The group succeeded to create an adaptable software to will automatically change its configuration depending on the user's computer. Event if, for now, only two languages are available, anyone can create a file with the most common words of his language and insert it into the software without having to change anything in the code. The same goes for for the texts and the keyboard layouts. Only two languages are available but one can easily type new texts or create a new JSON file for the layout and insert them into the software without having to change anything in the code.\\
+Because the software is made for private usage and does not contain any sensible informations, there is no security in place, only a simple login system without password.\\
+The software is compiled in release mode en ready for distribution on Windows OS, Ubuntu and Mac OS.
+
 
 \chapter{Possible improvements}
-Possible improvements
+Here is a list of the possible improvements for the software :
+\begin{itemize}
+	\item Correct all the memory leaks. Even if the group made all its possible to correct the most of them, some remains and may slow down the software.
+	\item Improve the user interface. The minimum was made to make the interface usable. There is a lot of improvement possible.
+	\item Create more games to learn the funny way. The software is a bit to formal and not really appropriate for kids.
+	\item Allow the user to race with other people (on the same computer or online). Because playing all alone can be boring. When comparing the speed with someone else, this could motivate the user to train more and more to win at these races.
+	\item Add statistics. For now, the user has an history of the exercise made, but these are not displayed. This means the user can only see the result of the exercise at the end of it. But then, there is no way for him to know the improvements he made.
+	\item Create more practice mode. A strong a usable base was made for the practice exercise, and a lot more game mode can be created in a very few lines. For examples, a mode were at each wrong keystrokes the timer gain a certain number of seconds, this pushes the user to focus on the accuracy rather than the speed.
+\end{itemize}
+
 
 \chapter{Further work}
-Further work
-%------------------------------------%
-% Fin Partie Azarias					%
-%------------------------------------%
+If the group were to continue developing this software, then there are a few things to aim for.\\
+First of all, use Qt a better way. Even if a lot of features of Qt were used, the group may have missed a lots of them. Just for the user interface design for example where only the basic features were used. Qt is really powerful and during this project, the group only had the opportunity to brush the possibilities of Qt. This framework is almost a other language because of its magnitude.\\
+A better C++ code would be another aim of the group. The actual code is not perfect and can be improved to be more flexible and more maintainable. Furthermore, improving the C++ quality code would reduce the number of memory leaks of the software. This would improve the speed of the software.\\
+The documentation of the project is generated thanks to a program called Doxygen. Only the basics options are enabled on this program. Doxygen allows options that the group did not use and could make the documentation more readable.\\
+Lastly, a little website to distribute the software would be a great plus to the software. Since it is only available on github which is mainly for developers, the individuals won't be able to download it easily. The website would give an easy access to anyone who wants to use the software without having to pass by github.\\
