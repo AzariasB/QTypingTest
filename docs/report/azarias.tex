@@ -455,6 +455,287 @@ QDataStream &operator>>(QDataStream& in, TUser &user);
 \end{lstlisting}
 Last but not least, this part of the code show how the TUser class is saved in a file. The operators are declare outside of the class. And the are defined in the class. With the keyword \texttt{friend} to have access to the private attributes of the TUser passed in argument.
 
+\subsection{A 'util' class}
+
+\begin{lstlisting}
+#ifndef FACTORY_H
+#define FACTORY_H
+
+//includes[...]
+
+namespace factory {
+    
+    /**
+     * 
+     * 
+     * This function will read the texts files of the project
+     * corresponding to the language.
+     * And will keep a random part of the text by keeping 
+     * only the asked number of words
+     * 
+     * @param numbersOfWords the number of words for the text
+     * @return a part of a text containing n words, choosen from the file corresponding
+     * to the given language. If the file does not exists, english is chosen by default
+     */
+    QString generateText(int numbersOfWords);
+
+    //[other functions...]
+
+    /**
+     * Open and read all the content of a file
+     * returns an empty string if the file could not be
+     * open
+     *
+     * @param fileName
+     * @return the content of the file (empty if nothing found)
+     */
+    QString readFile(QString fileName);
+
+}
+
+
+
+#endif /* FACTORY_H */
+\end{lstlisting}
+This is an extract of the header of the factory namespace. All it contains is the namespace, and within this namespace, all the functions declaration. The bodies of the functions are in the .cpp file.\\
+The aim of these functions is to facilitate the developer life by providing flexible functions that can be used everywhere in the code. These function only depends of each others, and does not depend of the software itself. (However, the software depends on this functions).\\
+All the functions of this namespace are fully tested. There are actually the most easy to test since there is no GUI needed to test, only function with an input and an output.
+
+
+\section{The improved label}
+Here is an example of how the label of all the exercise are working. (figure \ref{improved-label} )
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/dialog-learn-1.png}
+	 \caption{The improved label}
+	 \label{improved-label}
+\end{figure}
+The labels of the exercises dialog uses those differents HTML tags:
+
+\begin{description}
+	\item[span] : a simple HTML tag to surround a single character and add style to it
+	\item[u] : a HTML tag to underline all its content
+	\item[b] : a HTML tag to bold all its content
+\end{description}
+
+In addition with these tags, the HTML tag \textit{style} is used. This tag changes the font-color of the characters inside it. This is used to set the font color to blue or red.\\
+Here is the code of the label when the user typed a letter :
+\begin{lstlisting}
+bool TLabel::nextChar(bool currendIsCorrect) {
+	//Remove all the tags on the current char
+    html::removeTag(splitedChars_[currentChar_]);
+    if (!currendIsCorrect) {//If not correct, underline and set color to red
+        html::addTags(splitedChars_[currentChar_], "u", "style='color : #FF5E58;'");
+    } else {//If correct, just set the color to blue
+        html::addTags(splitedChars_[currentChar_], "span", "style='color : #8E8EFF';");
+    }
+
+	//Go to the next char
+    currentChar_++;
+    //If some chars remain on the label
+    if (currentChar_ < stringToCopy_.size()) {
+    		//Underline and bold the current char
+        html::addTags(splitedChars_[currentChar_], "b,u");
+    }
+    this->setText(splitedChars_.join(""));
+
+	//return wether we're at the end of the label
+    return currentChar_ < stringToCopy_.size();
+}
+\end{lstlisting}
+This solution is very helpful and allowed the group to easily customize the interface.\\
+Then to rewind, the inverted process is used :
+\begin{lstlisting}
+bool TLabel::previousChar() {
+	//If at start, nothing to rewing
+    if (currentChar_ == 0)return false;
+
+    if (currentChar_ < splitedChars_.size())
+    		//Remove all the tags of the current chars
+        html::removeTag(splitedChars_[currentChar_]);
+
+	//Rewing the current char
+    currentChar_--;
+    //Remove the tags of the current char
+    html::removeTag(splitedChars_[currentChar_]);
+    //Underline and bold the current char
+    html::addTags(splitedChars_[currentChar_], "b,u");
+    this->setText(splitedChars_.join(""));
+    return true;
+}
+
+\end{lstlisting}
+Those two functions are relatively simple to understand and therefore easy to maintain. Behind the hood, on the HTML helper, the functions are way more complicated.
+Here is the function that surround a char with tags :
+\begin{lstlisting}
+QString html::addTags(QString &strToTag, QString tags, QString attributes) {
+    QStringList splited = tags.split(",", QString::SkipEmptyParts);
+
+    QString res = surroundOfTags(splited, attributes);
+    int position = getAbsoluteCharPosition(strToTag, 0);
+
+    QString regex;
+
+    if (position == 0)//If position is at the start
+        regex = "(^.)";
+    else if (position == strToTag.length() - 1)//If position is the last char
+        regex = "(.$)";
+    else
+        regex = QString("(.)(?=.{%1}$)").arg(strToTag.size() - 1 - position);
+
+    strToTag = strToTag.replace(QRegExp(regex), res);
+    return strToTag;
+}
+\end{lstlisting}
+
+This function is using regular expressions to replace the tag at a certain position. Since this function is much more complicated and a crucial function for the exercise, it was the first to be tested.\\
+
+\section{The interactive keyboard}
+Another interesting part to see in the code is how the interactive keyboard was implemented.\\
+The interactive keyboard contains two main parts :
+\begin{itemize}
+	\item The upper part, containing the keyboard itself with all the keys in it.
+	\item The lower part, containing a drawing of hands.
+\end{itemize}
+When the user type a letter on his keyboard, a finger will highlight as well as a key on the keyboard.\\
+The interactive keyboard can also support several keys pressed at once. The only limit is the keyboard itself. Therefore, a mechanic keyboard will be able to visualize more key pressed than a classical keyboard.\\
+Four classes are necessary to have the full interactive keyboard working :
+\begin{description}
+	\item[TFingerPosition : ] this class is the widget that will display the hands on the lower part of the interactive keyboard.
+	\item[TVirtualKey : ] this class represent a single key that can be activated.
+	\item[TVirtualKeyBoard :] this class is a widget that contains several virtual key representing all the keys the user can interact with.
+	\item[TPresentation : ] this class put together the finger position widget and the virtual keyboard widget. So every time a key is pressed, this class will know what finger to highlight and what key together with its key.
+\end{description}
+
+\begin{lstlisting}
+#ifndef TFINGERPOSITION_H
+#define TFINGERPOSITION_H
+
+//#include ...
+
+
+class TFingerPosition : public QWidget {
+    Q_OBJECT
+public:
+    TFingerPosition(QWidget *parent = 0);
+
+    virtual ~TFingerPosition() {
+    }
+
+    enum FINGER {
+        LEFT_PINKY, LEFT_RING, LEFT_MIDDLE, LEFT_INDEX, 
+        RIGHT_INDEX, RIGHT_MIDDLE, RIGHT_RING, RIGHT_PINKY,
+        NO_FINGER , TOTAL_FINGERS
+    };
+\end{lstlisting}
+This part of the class shows an enumeration. Each finger has its own id.
+
+\begin{lstlisting}
+public slots:
+    void enableFinger(FINGER id);
+    
+    void disableFinger(FINGER id);
+
+protected:
+
+    void paintEvent(QPaintEvent *);
+
+private:
+    /**
+     A list of list of point :
+     * list of point for each point of a single finger
+     * list of list for each fingers
+     * 
+     */
+    QList< QVector<QPoint> > fingersPoints_ =
+    {
+        {QPoint(44,251),QPoint(86,205),QPoint(18,102),QPoint(0,102),QPoint(0,158)},//44,251 86,205 18,102 0,102 0,158
+        {QPoint(93,201),QPoint(151,190),QPoint(92,31),QPoint(44,37)},//93,201 151,190 92,31 44,37
+        {QPoint(161,174),QPoint(222,174),QPoint(222,0),QPoint(161,0)},//161,174 222,174 222,0 161,0
+        {QPoint(222,185),QPoint(284,207),QPoint(322,50),QPoint(260,24)}//222,185 284,207 322,50 260,24
+    };
+
+	//This is the list of the fingers to fill
+    QList<int> activeFingers_;
+    
+    void initPoints();
+
+
+    /**
+     * Creates the points of the right hand
+     * by doing the symmetric of the left hand
+     * initLeftHand must be called before this function
+     */
+    void initRightHand();
+
+    /**
+     * Create a new point and set this point's
+     * x to the same as the origin, and the y
+     * to the symmetric of the origin
+     * 
+     * @param origin the original point
+     * @return the symmetric of this point based on the middle axis of the image
+     */
+    QPoint getSymmetric(const QPoint& origin) const;
+};
+
+#endif /* TFINGERPOSITION_H */
+\end{lstlisting}
+This other part of the class shows how the fingers are highlighted.\\
+The object contains a list of points. This list represent the polygons for each finger. Since the hand picture that was chosen is transparent inside the hand but opaque outside, the easiest way to draw inside a finger is to draw a polygon that roughly fits into it.\\
+This technique was used for all the left fingers. Since the right hand is the perfect symmetry of the left hand, there was no need to find all the points for the left hand, a simple calculation is necessary to find the points of the opposite finger.\\
+Here is the function that will find the point of the right hand from the point of the left hand and the size of the half of the picture :
+\begin{lstlisting}
+QPoint TFingerPosition::getSymmetric(const QPoint& origin) const {
+    int middleImage = 400;
+    QPoint point;
+    point.setX(origin.x() + ((middleImage - origin.x()) << 1));//Bit shifting <=> multiply by 2
+    point.setY(origin.y());
+    return point;
+}
+\end{lstlisting}
+
+To be able to fill several fingers at once, a simple list was used. This list contains the id of the fingers to highlight. So every time a function is called to fill or unfill a finger, all the drawing will update, paint the filled fingers, then paint the picture of the hand above.
+Here are the functions that add and remove fingers to fill :
+\begin{lstlisting}
+//Remove a finger from the list
+void TFingerPosition::disableFinger(FINGER id) {
+    if (activeFingers_.contains(id) && id < NO_FINGER ) {
+        activeFingers_.removeAll(id);
+    }
+    update();//redraw
+}
+
+//Add a finger to the list
+void TFingerPosition::enableFinger(FINGER id) {
+    if (!activeFingers_.contains(id) && id < NO_FINGER ) {
+        activeFingers_.append(id);
+    }
+    update();//redraw
+}
+
+\end{lstlisting}
+
+And here is the function called when the widget has to repaint :
+\begin{lstlisting}
+void TFingerPosition::paintEvent(QPaintEvent*) {
+    QPainter painter(this);
+    painter.scale(0.5, 0.5);
+
+    QPainterPath tmpPath;
+    for (auto elem : activeFingers_) {
+        QVector<QPoint> pol = fingersPoints_[elem];
+        QPolygon p(pol);
+        tmpPath.addPolygon(p);
+    }
+    painter.fillPath(tmpPath, QBrush(Qt::blue));
+
+    QImage image(":/images/hands.png");
+    painter.drawImage(image.rect(), image);
+}
+\end{lstlisting}
+
+
 \section{Memory leaks}
 The C++ language has a lot of advantages. Like the speed and the portability. However, there is one drawback that is embarrassing (particularly in security) which is the memory leak. This problem is only possible on languages where the developer manage himself the memory. Which is not the case in Java for example. A memory leak occurs when the developer create an object  in a function, and a pointer on this object. The object will be saved on the heap of the program. Then if the developer leaves the function without deleting the pointer, the object on the heap will not be deleted and will occupy space uselessly. \\
 Fortunately for the group, Qt is taking care of the majority of these pointers. This is especially true for the GUI. Every pointer created that inherits from QWidget, automatically belong to its parent. So, whenever a widget belongs to a dialog or an ephemeral widget, it will be deleted when its parent will be closed. This simplify a lot the programmers life. However, all the classes does not inherit from QWidget. Some pointer deletion had to be made by the group. All the data classes had to be deleted manually when unused.\\
