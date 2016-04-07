@@ -1,4 +1,3 @@
-
 \documentclass[12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -10,6 +9,22 @@
 \usepackage[margin=0.95in]{geometry}
 \usepackage{hyperref}
 
+%List de mot ordonné
+\newcommand{\sortitem}[1]{%
+  \DTLnewrow{list}% Create a new entry
+  \DTLnewdbentry{list}{description}{#1}% Add entry as description
+}
+\newenvironment{sortedlist}{%
+  \DTLifdbexists{list}{\DTLcleardb{list}}{\DTLnewdb{list}}% Create new/discard old list
+}{%
+  \DTLsort{description}{list}% Sort list
+  \begin{center}
+	  \begin{inparaitem}%
+    		\DTLforeach*{list}{\theDesc=description}{%
+         \item \theDesc \hspace{0.1cm} }% Print each item
+      \end{inparaitem}•%  
+  \end{center}
+}
 
 %All the packages
 \usepackage{url,ragged2e,textcomp,lmodern,color}
@@ -102,6 +117,7 @@
 	numberstyle=\color[rgb]{0.73, 0.142, 0.900}
  }
   
+
 \input{keywords.tex}
   
 \begin{document}
@@ -147,7 +163,8 @@
 Personal reflections on project experiences
 
 \chapter{Pierre Thubé}
-Pierre Thubé
+In view of the final software, I think we can say that principal goals has been reach. This project bring me knowledge in C++ and about the framework Qt. However, it also show me some of my weaknesses for example about how fast I am working. I would have like to be able to do more to learn more but with all works we had during the year and the gap of level between Azarias and me about C++ or way to learn new things, I had the feeling sometimes to be outworn by all the amount of work. However, I am still satisfied to have discovered Qt framework and this project confirm me that I prefer computer language like C++ or Java (object oriented language).\\
+I also discovered how was working git and even if we was just using the bases, it will be helpful for the next time I will need it. 
 
 \chapter{Azarias Boutin}
 I am quite satisfied with the software developed. When the group started the project, I was knowing nothing about Qt and wanted to learn as much as possible about this amazing framework. I knew the basics of C++ and felt this would be enough to build a good software. I also knew the basics of GUI thanks to the lessons with java swing. I really felt that this project bring me a lot of knowledge. During the implementation of the software, the several improvement steps proved this point.\\
