@@ -1,90 +1,112 @@
-%------------------------------------
-% Début Partie Pierre
-%------------------------------------
-\part{Introduction}
+\documentclass[12pt]{report}%??????autres?choix?:?book,?report
+\usepackage[utf8]{inputenc}%???????????gestion?des?accents?(source)
+\usepackage[T1]{fontenc}%??????????????gestion?des?accents?(PDF)
+\usepackage[english]{babel}%english gestion
+\usepackage{hyperref}
+\usepackage[bottom]{footmisc}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[newparttoc]{titlesec}
+\usepackage[nonumberlist,toc]{glossaries}
+\usepackage[export]{adjustbox}
+\usepackage[margin=0.95in]{geometry}
+\usepackage[square,sort,comma,numbers]{natbib}
 
-\chapter{System prototype report}
+%All the packages
+\usepackage{lmodern,url,ragged2e,textcomp,lmodern,paralist}
+\usepackage{graphicx,xcolor,float,afterpage}
+\usepackage{chngcntr,csquotes,helvet,lastpage}
+\usepackage{subcaption,wrapfig,fancyhdr,blindtext}
+\usepackage{titletoc,transparent,datatool}
 
-\section{Abstract}
-This project report will introduce you the group's third year major group project. It will present all parts of the project, from the beginning with the research of an idea to the final product through all steps. The final result is a computer's open source software called “QTypingTest“ usable on any platform (Window, Linux or Mac OS). The software is composed of different parts where users can learn how type on a keyboard, improve what they did learn and use all this in a “competition” part. Users has access to statistics to show the evolution of their learning. The software has been developed using Qt, a cross-platform application software framework which allow easily to develop software that can be run on various platform. 
+%List de mot ordonné
+\newcommand{\sortitem}[1]{%
+  \DTLnewrow{list}% Create a new entry
+  \DTLnewdbentry{list}{description}{#1}% Add entry as description
+}
+\newenvironment{sortedlist}{%
+  \DTLifdbexists{list}{\DTLcleardb{list}}{\DTLnewdb{list}}% Create new/discard old list
+}{%
+  \DTLsort{description}{list}% Sort list
+  \begin{center}
+	  \begin{inparaitem}%
+    		\DTLforeach*{list}{\theDesc=description}{%
+         \item \theDesc \hspace{0.1cm} }% Print each item
+      \end{inparaitem}•%  
+  \end{center}
+}
 
-\section{Introduction}
-The application developed is a learning and testing software which gives users the opportunity to learn how to type well on keyboard, to practice and to improve. When the software runs, the user is on the home page where he can create a new account and select or delete an existing one. Then, when an account is selected or created, the user has access to all different part of the software. Those part are “Home” which send the user back to the home page, “Learn” which send the user to the section where he can learn how type and see which letters are learned and which one need to be, “Practice” when the user has access to four different practice exercises, “Statistics” where he can see statistics about his different practice and “Game” where he can find an interactive keyboard. 
+%Nouvelles commandes
+\renewcommand{\familydefault}{\sfdefault} %default font
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\Mline}{\hrule \mbox{}\\[0.1cm]}
+\renewcommand{\thechapter}{\Roman{chapter}}
 
-\section{Brief walkthrough}
-Basically, it is very simple to run the application. Indeed, the user just need the executable (.exe) on his computer. When the software is running, the user can see the menu where he can select an existing user or create a new one and then navigate on the software. 
+%final last page
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
 
-\section{Technology}
-\begin{itemize}
-\item[•] C++ is the coding language for this software development.
-\item[•] Qt (pronounced as ‘Cute’ or ‘Q-T’) is a framework use to develop the software. It has been choose because it is very suitable with C++ and to develop cross-platform software. The user does not need Qt on is computer to run the application. 
-\item[•] Any software development platform (as NetBeans, Eclipse …) could we used to code as long it support Qt software. Qt company provides is own IDE, Qt Creator, which is very adapted because it include some tutorials and the full library documentation of the software. 
-\end{itemize}
 
-\section{Difficulties Faced}
-Difficulties faced was different related to each member of the group. The principal one was at the beginning for both of us and was to understand how was working Qt because it was new. For Pierre, he also has some difficulties with C++ because he was less familiar with this computer language than Azarias. 
+%FORMAT DU CHAPITRE
+\titleclass{\chapter}{straight}
+\titleformat{\chapter}[hang]
+  {}
+  {\normalfont \sffamily \bfseries \thechapter.}
+  {0pt}
+  {\normalfont \sffamily \bfseries}
+\titlespacing*{\chapter}{0pt}{50pt}{18pt}
 
-\section{Current Functionality}
-\begin{itemize}
-\item[•] Can create a new user, use or delete an old one.
-\item[•] Users can use the "Learn" section and see the evolution of his learning.
-\item[•] Practice against time works.
-\item[•] Normal practice works.
-\item[•] Improve practice works.
-\item[•] Text practice works.
-\item[•] Users can see their own statistics.
-\item[•] Interactive keyboard.
-\end{itemize}
+%FORMAT De section
+\renewcommand*\thesection{\arabic{section}}
+\titleclass{\section}{straight}
+\titleformat{\section}[hang]
+  {}
+  {\small \sffamily \bfseries \textit \thesection . }
+  {0pt}
+  {\small \bfseries \textit}
+  
+\titlespacing*{\chapter}{0pt}{50pt}{18pt}
 
-\section{Next Stage Features}
-\begin{itemize}
-\item[•] Traduce the software in other languages
-\item[•] Make a game
-\item[•] Allow competitions between users
-\end{itemize}
+%Comptage des figures
+\renewcommand{\thefigure}{\arabic{figure}}
 
-\section{Conclusion}
-The aim of this report is to covered all steps and to present all functionalities and choices we made. This project has in purpose to produce a simple but robust and complete computer software. The final product, as presented then, is fully working and totally match with our beginning ideas.  
+%Ne pas reset le numéro des figures  à chaque chapitre
+\counterwithout{figure}{chapter}
 
-\chapter{Computing Domain}
-As this project has in purpose to develop a software it was logic to use an adapted programming language for this. As we did C and Java in the first semester, we decide to use an other one in a way to learn or to improve our skills on an other language. That is why we choose C++.
-\\
-C++ is a general object-oriented programming language who provide facilities with low-level memory manipulation. It was well adapted for our project because as C++ is a language who need compilation, an executable is created and thereby can be used on user's computer to run the software. 
-\\
-There is different framework (libraries) available with C++ like Gtkmm, SFML or Qt for example. We decided to use Qt because it was new for us and thus the project would gave us a way to learn how use it. Furthermore, Qt is well adapted for this kind of software and the Qt company provides a good IDE (Qt Creator), which is fully working with the Qt library. This IDE provide a GUI builder and a documentation of the library is directly include inside the IDE. 
-\\
-To build the design of the window's software, as said before, we used the GUI builder provided buy Qt Creator.
+%Custom footer and header
+\pagestyle{fancy}
+\fancyhf{}
+%\lhead{Implement a Typing Speed Test With Qt}
+\rhead{B00092351 Azarias Boutin, B00092354 Pierre Thubé}
+\rfoot{Page \thepage}
 
-\chapter{The project group}
-The group is composed of two students. As we both know that a gap of level was existing and to be able to get a good final product, we decide to try to find a way to split the work as equitably as possible keeping in mind our objectives and personal skills.
-\\
-Azarias is working faster and get more competence in C++ so he did more coding than Pierre. 
-\\
-C++ was newest for Pierre so he had to adapt and get more time to learn basics but he finally provide code. 
-\\
-Our report writing skills was pretty equals but as Pierre coded less he tried to spend more time as Azarias on this. 
+\begin{document}
 
-\chapter{Project deliverables}
-The deliverables as specified in the project handbook are:
-\begin{itemize}
-\item[•]A working prototype.
-\item[•]An oral presentation and defence of the project.
-\item[•]System prototype documentation.
-\item[•]Full software.
-\item[•]A detailed project report.
-\end{itemize}
+\begin{titlepage}
+\begin{center}
 
-\chapter{Document outline}
-This report documentation present the entire project from the beginning with the research to the final software.
-All areas provided in this report are:
-\begin{itemize}
-\item[•]An introduction including a chapter containing a system prototype report, a chapter about the computing domain, a chapter about the project group, a chapter about project deliverables and an other with this document outline.
-\item[•]A complete literature review which cover the main research for the project. The different areas of research covered by this literature review are some historic researches related to the subject, different keyboard available on the market and typing ways.  
-\item[•]A system analysis part containing a chapter covering different aspect of the functional requirements. 
-\end{itemize}
 
-\part{Literature review}
-%\input{lit_review.tex}
+% Title
+\Mline
+{ \LARGE Implement a Typing Speed Test With Qt \\[0.4cm] }
+{ \LARGE Literature Review\\[0.4cm] }
+\Mline
+% Author and supervisor
+
+\textsf{}\\[3cm]
+
+\textsf{Boutin Azarias B00092351, B00092354 Pierre Thubé - Group 2\\[2cm]
+BN013 BSC in Computing}
+
+
+\end{center}
+\end{titlepage}
+\clearpage
+
+\tableofcontents
+\listoffigures
 \chapter*{Keywords}
 \begin{sortedlist}
   \sortitem{Keyboard}
@@ -229,35 +251,7 @@ For the general public, it they have a computer and a keyboard, they can learn h
 	\bibliography{lit_review.bib}
 \end{flushleft}
 
-\part{System analysis}
+\clearpage
+\afterpage{\blankpage}
 
-\chapter{Functional requirements}
-As C++ need to be compile, we can provide to users an executable which is the only thing they need to run the software on their computer.
-
-\section{What the software does}
-This application is a learning and testing software using Qt framework and develop with C++ language. The software provide a way for users to learn from the beginning how type fast and well on a keyboard.
-\\
-The learning part is divided in forty-eight sections ("Learn" part in the GUI), each one gives to the user a training for different couple of letter. At the beginning when the user account is new, only the first training is available. When a user select a training couple, a keyboard layout is display (related to the layout the user select in his parameters) explaining where the letters are on the keyboard and which finger use for both. The first couple is "fj". When the training for the couple is completed, the training for the next couple is unlocked. The second couple is "dk", so when the user will start this training, he will start to type on 'd' or 'k' letter on the keyboard. However as the user type, letters from the first training will appears and user will now have to type on 'd','k','f' or 'j'. This process is the same for all along of the forty-eight learning sections, each time the user will have to manage the new couple of letter as well as the old ones.
-\\
-The practice part is divided in four sections ("Practice" part in the GUI), each one gives to the user an exercise. The first type of exercise is "Against time". As his name say, users has to type most words as possible in two minutes. At the end the software display some information, especially the number of word per minute.\\
-The second type of exercise is "Normal", the software display a list of word, only in small letter, and the user has to type faster as possible and as before the application displays informations at the end.\\
-The third type of exercise is "Improve". This one is a bit similar to learning exercise. Indeed it is based on the principal of repetition of some couple of letter that you have to type faster as possible.\\
-The last type of exercise is "Text". This one is the most complete exercise because it regroups all you have learned before. Indeed, the text display contains small and capital letters, punctuation and word some words can be complex.
-\\
-The statistics part ("Statistics" part in the GUI) provides a way for users to get some statistics and is a good way for the user to get a rapid overview of his progression.
-\\
-The game part ("Game" part in the GUI) provides an interactive keyboard where user can see with which finger each letter on the keyboard may be type.
-          
-
-\section{Systems and subsystems}
-The application contain one main system which is the software itself. As C++ is a language which need to be compile, the compilation provide a executable which is the only thing users need to run the software.
-We do not need database to store any data, everything is stored in different files using datastream.  
-
-\section{Data requirements}
-As said before, data are stored in different files using datastream. \textit{ ??? }
-
-\subsection{Entity relationship diagrams}
-\emph{ ???? }
-%------------------------------------
-% Fin Partie Pierre
-%------------------------------------
+\end{document}
