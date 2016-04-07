@@ -735,8 +735,161 @@ void TFingerPosition::paintEvent(QPaintEvent*) {
 }
 \end{lstlisting}
 
+Here is two pictures showing the polygon drawn with and without the hands picture above it (figure \ref{polygons-with-hands}  and \ref{polygons-without-hands} )
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{images/with-hands.png}
+    \caption{The polygons with the hands image above.}
+    \label{polygons-with-hands}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{images/without-hands.png}
+    \caption{The polygons without the hands picture above.}
+    \label{polygons-without-hands}
+  \end{minipage}
+\end{figure}
 
-\section{Memory leaks}
+
+The second part of the interactive keyboard is the keyboard itself.\\
+Here is the header file of the tkeyboard class
+\begin{lstlisting}
+#ifndef TVIRTUALKEYBOARD_H
+#define TVIRTUALKEYBOARD_H
+
+//#includes ...
+
+class TVirtualKeyboard : public QWidget {
+    Q_OBJECT
+public:
+    TVirtualKeyboard(TLayouts &layout, QWidget *parent = 0);
+    TVirtualKeyboard(const TVirtualKeyboard& orig);
+
+    virtual ~TVirtualKeyboard() {
+    }
+
+
+    QHash<QChar, TVirtualKey*> *getKeys() const {
+        return keys_;
+    }
+
+    /**
+     * Will update the keyboard depending on the
+     *  key event (release or pressed)
+     * and return the key that was updated
+     * 
+     * @param ev the key event
+     * @return the virtualkey corresponding to the event
+     */
+    TVirtualKey *updateKeyboard(QKeyEvent *ev, QChar expected = '\0');
+    
+    
+    TVirtualKey *highlightKey(QChar keyChar);
+
+
+private:
+    /**
+     * Read the layout's file 
+     * and display the keyboard
+     * depending on the language
+     * 
+     * @param lan the language of the keyboard
+     * @param country the country code of the keyboard
+     */
+    void setupWidget(TLayouts &layout);
+
+
+    /**
+     * Will create and add to the layout the
+     * TVirtual key from the code of each String
+     * and add them to the corresponding line
+     * depending on their index in the list :
+     * 1 - Number line
+     * 2 - Upper line
+     * 3 - Baseline
+     * 4 - Bottom line
+     * 
+     * @param keyChars the list of list of key code
+     */
+    void createKeys(QList<QStringList> keyChars);
+
+
+    /* All the 'normal' keys that can change of position on the 
+     * keyboard
+     *  */
+    QHash<QChar, TVirtualKey*> *keys_;
+    
+    /*
+     All the 'special' keys that will always be on the same position
+     * on the keyboard (spacebar, shift, enter, ...)
+     */
+    QHash<int,TVirtualKey*> *modifiers_;
+};
+
+#endif /* TVIRTUALKEYBOARD_H */
+\end{lstlisting}
+The virtual keyboard contains a hash where the key is a char and the value is the key to highlight.\\
+The key is a simple object that represent a key in the keyboard, it can contains on or several characters to display. For example, all the letters key are containing only one character on the keyboard, whereas the number keys contain at least two chars :
+\begin{itemize}
+	\item One for the number.
+	\item A special character
+	\item (Not on all keyboards) Another special character
+\end{itemize}
+
+Here is the three differents possibilities of key display :
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.10\textwidth}
+    \includegraphics[width=\textwidth]{images/key-one-char.png}
+    \label{key-one-char}
+  \end{minipage}
+  \begin{minipage}[b]{0.10\textwidth}
+    \includegraphics[width=\textwidth]{images/key-two-chars.png}
+    \label{key-two-chars}
+  \end{minipage}
+    \begin{minipage}[b]{0.10\textwidth}
+    \includegraphics[width=\textwidth]{images/key-three-chars.png}
+    \label{key-three-chars}
+  \end{minipage}
+  \caption{The three different types of key}
+\end{figure}
+
+Every time the user type a key on his keyboard, the char typed is retrieved in the hash and highlighted.\\
+Depending on the exercise, the key can change its color. The actual possible colors are blue,cyan and red. Here is an example of two colors used on the keyboard : 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/wrong-key.png}
+	\label{wrong-key}
+	\caption{Different colors on the same keyboard}
+\end{figure}
+
+Then to link the keyboard and the hands, the class Tpresentation comes in. It contains a single virtual keyboard and the hands widget.
+It can be used in two ways :
+\begin{description}
+	 \item[Normally :] as it is in the interactive keyboard game. Where the user just type letters on its keyboard and see it highlighted along with the finger.
+	 \item[As an example :] as it is for the learning exercise. A key is already highlighted as well as the finger. And the user has to reproduce the example. Any other letter typed is highlighted in red.
+\end{description}
+
+To save all the characters to copy, the TPresentation object contains a String. This string is working is working as a queue. Every time the user type the correct letter, the first character of the string is removed and the new first character is highlighted on the keyboard. Here is the function that will take care of this.
+\begin{lstlisting}
+void TPresentation::nextCharToCopy() {
+    if (!toPress_.isEmpty()) {
+        currentExample_ = toPress_[0];//Take the first char
+        TVirtualKey* highlighted = keyboard_->highlightKey(currentExample_);//Highlight it
+        if (highlighted) {
+            positions_->enableFinger(highlighted->associatedFinger());
+            toPress_ = toPress_.remove(0,1);//Remove the first char of the string
+        }
+    } else {//String empty => nothing to copy
+        emit allCopied();
+    }
+}
+\end{lstlisting}
+
+This code walkthrough contains only the most interesting parts of the software but does no contain all the code. It is recommended to peruse the code as well as the comments to fully understand how the whole software works.
+
+\chapter{Memory leaks}
 The C++ language has a lot of advantages. Like the speed and the portability. However, there is one drawback that is embarrassing (particularly in security) which is the memory leak. This problem is only possible on languages where the developer manage himself the memory. Which is not the case in Java for example. A memory leak occurs when the developer create an object  in a function, and a pointer on this object. The object will be saved on the heap of the program. Then if the developer leaves the function without deleting the pointer, the object on the heap will not be deleted and will occupy space uselessly. \\
 Fortunately for the group, Qt is taking care of the majority of these pointers. This is especially true for the GUI. Every pointer created that inherits from QWidget, automatically belong to its parent. So, whenever a widget belongs to a dialog or an ephemeral widget, it will be deleted when its parent will be closed. This simplify a lot the programmers life. However, all the classes does not inherit from QWidget. Some pointer deletion had to be made by the group. All the data classes had to be deleted manually when unused.\\
 Because sometimes the memory leaks are hard to detect, the group used a very helpful tool compatible with QtCreator called Valgrind. This program could detect various types of memory leaks and problems such as the double deletion.
