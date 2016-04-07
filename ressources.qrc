@@ -28,6 +28,6 @@
         <file alias="bin.png">ressources/bin.png</file>
     </qresource>
     <qresource prefix="/images">
-        <file alias="hands.png">ressources/hands.png</file>
+       <file alias="hands.png">ressources/hands.png</file>
     </qresource>
 </RCC>
