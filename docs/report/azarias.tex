@@ -212,9 +212,7 @@ This separation was creating a pseudo-pattern of MVC. The model being the data, 
 
 
 
-\section{Code walkthrough}
-
-\subsection{Style of code}
+\section{Style of code}
 To have an homogeneous code, no matter who was coding, the group decided to follow some rules for the style of code. The style chosen was the google C++ style guide. The website for this style guide is the following : \url{https://google.github.io/styleguide/cppguide.html}.
 The document is quite long and some rules are more obvious than others. Here is a reduced list of the notable rules that the group followed :
 \begin{itemize}
@@ -226,6 +224,8 @@ The document is quite long and some rules are more obvious than others. Here is 
 	\item \href{https://google.github.io/styleguide/cppguide.html#File_Names}{File names}. Name the file in lower case.
 \end{itemize}
 All these rules were not followed entirely. Because the rules enumerated above apply to the C++ in general. And in this case, the group was using Qt which is an environment different from the usual C++. A simple example is for the variable name. The C++ style guide advise to give them a name with only lower-case letters, joined with underscore. But the Qt style guide prefers to call the variable camel-cased.
+
+\section{Code walkthrough}
 
 
 \subsection{The main file}
@@ -893,6 +893,46 @@ This code walkthrough contains only the most interesting parts of the software b
 The C++ language has a lot of advantages. Like the speed and the portability. However, there is one drawback that is embarrassing (particularly in security) which is the memory leak. This problem is only possible on languages where the developer manage himself the memory. Which is not the case in Java for example. A memory leak occurs when the developer create an object  in a function, and a pointer on this object. The object will be saved on the heap of the program. Then if the developer leaves the function without deleting the pointer, the object on the heap will not be deleted and will occupy space uselessly. \\
 Fortunately for the group, Qt is taking care of the majority of these pointers. This is especially true for the GUI. Every pointer created that inherits from QWidget, automatically belong to its parent. So, whenever a widget belongs to a dialog or an ephemeral widget, it will be deleted when its parent will be closed. This simplify a lot the programmers life. However, all the classes does not inherit from QWidget. Some pointer deletion had to be made by the group. All the data classes had to be deleted manually when unused.\\
 Because sometimes the memory leaks are hard to detect, the group used a very helpful tool compatible with QtCreator called Valgrind. This program could detect various types of memory leaks and problems such as the double deletion.
+
+
+\chapter{Git and Github integration}
+To be able to develop effectively, the group used git for the version control and github.com as a remote server to host the code.\\
+The group could choose to create a private repository or a public repository on github. Since the group accepted the Qt's license which state that the code must be open source, they created a public repository.\\
+The group member knew the basics of git and were able to develop together without too many problems.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/github-main.png}
+	\label{github-main}
+	\caption{The github page of the project.}
+\end{figure}
+
+
+However, to reduce the number of conflicts on git, the group created three branches :
+\begin{description}
+	\item[Master  :] the main branch. The software started to get bigger and could contain bug. The aim of this branch was to have only clean code and have a valid base.
+	\item[Dev : ] the branch used to develop the software. This was giving the project the possibility to correct bugs before merging with the branch master. This branch was one of the most used of the project. When the part of the software developed on this branch was finished, the group was running all the tests to see if everything was still working and if there were, then this branch was merged with the master branch.
+	\item[Stats : ] used only by Pierre while working on the statistics. The purpose of this branch was to work on the statistic page without changing anything else. Unfortunately the result was not successful enough to be integrated to the software and this branche was never merged with the master branch.
+\end{description}
+
+Here is the three branches as shown in github :
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/github-branches.png}
+	\label{github-branches}
+	\caption{The branches on github.}
+\end{figure}
+
+The website github as many advantages such as showing the number of line changed in the project over the time. Here is the chart showing how QTypingTest progressed :
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/github-progression.png}
+	\label{github-chart}
+	\caption{The number of line changed (added/deleted) over the time.}
+\end{figure}
+
+These two tools : git and github were really useful and accelerated the speed of development of the group.
+
 
 \chapter{Data design}
 All the data is stored in objects when the software is running. Which also mean it is stored in the RAM of the computer.
