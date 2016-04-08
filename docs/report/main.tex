@@ -9,29 +9,13 @@
 \usepackage[margin=0.95in]{geometry}
 \usepackage{hyperref}
 
-%List de mot ordonné
-\newcommand{\sortitem}[1]{%
-  \DTLnewrow{list}% Create a new entry
-  \DTLnewdbentry{list}{description}{#1}% Add entry as description
-}
-\newenvironment{sortedlist}{%
-  \DTLifdbexists{list}{\DTLcleardb{list}}{\DTLnewdb{list}}% Create new/discard old list
-}{%
-  \DTLsort{description}{list}% Sort list
-  \begin{center}
-	  \begin{inparaitem}%
-    		\DTLforeach*{list}{\theDesc=description}{%
-         \item \theDesc \hspace{0.1cm} }% Print each item
-      \end{inparaitem}•%  
-  \end{center}
-}
-
 %All the packages
 \usepackage{url,ragged2e,textcomp,lmodern,color}
-\usepackage{graphicx,xcolor,float,afterpage}
-\usepackage{chngcntr,csquotes,helvet,lastpage}
+\usepackage{graphicx,xcolor,float,afterpage,paralist}
+\usepackage{chngcntr,csquotes,helvet,lastpage,datatool}
 \usepackage{subcaption,wrapfig,fancyhdr,blindtext}
 \usepackage{titletoc,transparent,enumitem,listings}
+\usepackage{pgffor}
 
 %Nouvelles commandes
 \renewcommand{\familydefault}{\sfdefault} %default font
@@ -116,7 +100,23 @@
 	stringstyle=\color[rgb]{0.627,0.126,0.100},
 	numberstyle=\color[rgb]{0.73, 0.142, 0.900}
  }
-  
+ 
+ %List de mot ordonné
+\newcommand{\sortitem}[1]{%
+  \DTLnewrow{list}% Create a new entry
+  \DTLnewdbentry{list}{description}{#1}% Add entry as description
+}
+\newenvironment{sortedlist}{%
+  \DTLifdbexists{list}{\DTLcleardb{list}}{\DTLnewdb{list}}% Create new/discard old list
+}{%
+  \DTLsort{description}{list}% Sort list
+  \begin{center}
+	  \begin{inparaitem}%
+    		\DTLforeach*{list}{\theDesc=description}{%
+         \item \theDesc \hspace{0.1cm} }% Print each item
+      \end{inparaitem}•%  
+  \end{center}
+}
 
 \input{keywords.tex}
   
