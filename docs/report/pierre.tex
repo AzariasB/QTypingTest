@@ -257,68 +257,108 @@ We do not need database to store any data, everything is stored in different fil
 As said before, data are stored in different files using DataStream or a Qt class called QSettings. DataStrems is well support by Qt and is used to store informations in files. It is possible then to also read those files. QSettings is a class provide in the Qt library and can be used to store informations directly on the user desktop.
 
 \subsection{Diagrams}
-\begin{figure}[h]
+Next figures respectively shows the relationship diagram (figure \ref{Rhomepage}), the sequence diagram (figure \ref{Shomepage}) and the Use Case diagram (figure \ref{UChomepage}) (without details) for the home page. Basically, the home page works like this:
+\begin{itemize}
+\item The user start the software which is going to start the system and displaying the home page.
+\item The user will have the choice between select and delete an existing user or create a new one. Those action are going to call different functions.
+\end{itemize}
+
+\begin{figure}[H]
 	\centering
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/Rhomepage.png}
-      \caption{Relationship diagram for Home page}   
-	\end{minipage}
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/Shomepage.png}
-      \caption{Sequence diagram for Home page}
-	\end{minipage}
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/UChomepage.png}
-      \caption{User case diagram for Home page}
-	\end{minipage}
+	\includegraphics[width=12cm]{diagrams/Rhomepage.png}
+	\caption{Relationship diagram for Home page}
+	\label{Rhomepage} 
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm]{diagrams/Shomepage.png}
+	\caption{Sequence diagram for Home page}
+	\label{Shomepage}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm]{diagrams/UChomepage.png}
+	\caption{User case diagram for Home page}
+	\label{UChomepage}
 \end{figure}
 
-\begin{figure}
+Next figures respectively shows the relationship diagram (figure \ref{Rlearnpage}), the sequence diagram (figure \ref{Slearnpage}) and the Use Case diagram (figure \ref{UClearnpage}) (without details) for the learn page. Basically, the learn page works like this:
+\begin{itemize}
+\item The user has already start the software and selected a user.
+\item The system shows all learning exercise to the user (including already done and no done yet exercise).
+\item The user the exercise he want and the system display the corresponding one in a new window.
+\item When the exercise is done the system shows the results to the user.
+\end{itemize}
+
+\begin{figure}[H]
 	\centering
-	\begin{minipage}[b]{0.3\textwidth}
-		\includegraphics[width=5.2cm]{diagrams/Rlearnpage.png}
-		\caption{Relationship diagram for Learn page}	
-	\end{minipage}
-	\begin{minipage}[b]{0.3\textwidth}
-		\includegraphics[width=5.2cm]{diagrams/Slearnpage.png}
-		\caption{Sequence diagram for Learn page}
-	\end{minipage}
-	\begin{minipage}[b]{0.3\textwidth}
-		\includegraphics[width=5.2cm]{diagrams/UClearnpage.png}
-		\caption{User case diagram for Leran page}
-	\end{minipage}
+	\includegraphics[width=12cm]{diagrams/Rlearnpage.png}
+	\caption{Relationship diagram for Learn page}	
+	\label{Rlearnpage}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm]{diagrams/Slearnpage.png}
+	\caption{Sequence diagram for Learn page}
+	\label{Slearnpage}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm]{diagrams/UClearnpage.png}
+	\caption{User case diagram for Leran page}
+	\label{UClearnpage}
 \end{figure}
 
-\begin{figure}[h]
-	\centering 
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/Rpracticepage.png}
-      \caption{Relationship diagram for Practice page}   
-	\end{minipage}
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/Spracticepage.png}
-      \caption{Sequence diagram for Practice page}
-	\end{minipage}
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/UCpracticepage.png}
-      \caption{User case diagram for Practice page}
-	\end{minipage}
+Next figures respectively shows the relationship diagram (figure\ref{Rpracticepage}), the sequence diagram (figure\ref{Spracticepage}) and the Use Case diagram (without details) for the practice page. Basically, the practice page works like this:
+\begin{itemize}
+\item The user has already start the software and selected a user.
+\item The system shows all the four different exercise to the user.
+\item The user select the one he want and the system will display it in a new window.
+\item When the exercise is done the system shows the results to the user.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=12cm]{diagrams/Rpracticepage.png}
+    \caption{Relationship diagram for Practice page}  
+    \label{Rpracticepage} 
 \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=12cm]{diagrams/Spracticepage.png}
+    \caption{Sequence diagram for Practice page}
+    \label{Spracticepage}
+\end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=12cm]{diagrams/UCpracticepage.png}
+    \caption{User case diagram for Practice page}
+    \label{UCpracticepage}
+\end{figure}
+
+Next figures respectively shows the relationship diagram (figure\ref{Rgamepage}), the sequence diagram (figure\ref{Sgamepage}) and the Use Case diagram (without details) (figure\ref{UCgamepage}) for the game page. Basically, the game page works like this:
+\begin{itemize}
+\item The user has already start the software and selected a user.
+\item Actually there is just one button in the game page so when the user click on it(or on a future one), the system is starting the appropriate game in a new window.
+\end{itemize}
 
 \begin{figure}[h]
 	\centering
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/Rgamepage.png}
-      \caption{Relationship diagram for Game page}   
-	\end{minipage}
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/Sgamepage.png}
-      \caption{Sequence diagram for Game page}
-	\end{minipage}
-	\begin{minipage}[b]{0.3\textwidth}
-      \includegraphics[width=5.2cm]{diagrams/UCgamepage.png}
-      \caption{User case diagram for Game page}
-	\end{minipage}
+    \includegraphics[width=12cm]{diagrams/Rgamepage.png}
+    \caption{Relationship diagram for Game page}
+    \label{Rgamepage}   
+\end{figure}
+\begin{figure}[h]
+	\centering
+    \includegraphics[width=12cm]{diagrams/Sgamepage.png}
+    \caption{Sequence diagram for Game page}
+    \label{Sgamepage}
+\end{figure}
+\begin{figure}[h]
+	\centering
+    \includegraphics[width=12cm]{diagrams/UCgamepage.png}
+    \caption{User case diagram for Game page}
+    \label{UCgamepage}
 \end{figure}
 
 %------------------------------------
