@@ -1,4 +1,4 @@
-\documentclass[12pt]{report}
+\documentclass[11pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}%english gestion
@@ -10,15 +10,13 @@
 \usepackage{hyperref}
 
 %All the packages
-\usepackage{url,ragged2e,textcomp,lmodern,color}
+\usepackage{url,ragged2e,textcomp,color}
 \usepackage{graphicx,xcolor,float,afterpage,paralist}
-\usepackage{chngcntr,csquotes,helvet,lastpage,datatool}
+\usepackage{chngcntr,csquotes,mathptmx,lastpage,datatool}
 \usepackage{subcaption,wrapfig,fancyhdr,blindtext}
 \usepackage{titletoc,transparent,enumitem,listings}
-\usepackage{pgffor}
 
 %Nouvelles commandes
-\renewcommand{\familydefault}{\sfdefault} %default font
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \newcommand{\Mline}{\hrule \mbox{}\\[0.1cm]}
 \renewcommand{\thechapter}{\Roman{chapter}}
@@ -31,22 +29,39 @@
 \newpage
 }
 
+%Afficher seulement part > chapitre > section dans la toc
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{1}
+
+%Espacement des lignes
+\renewcommand{\baselinestretch}{1.5} 
+
+%Footer style
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}% Remove header rule
+\fancyhead{}
+\renewcommand{\footrulewidth}{0.4pt}% Add footer rule
+\fancyfoot{}
+\lfoot{Pierre THUBÉ \\ Azarias BOUTIN}
+\rfoot{\thepage}
+
 %Format de part
-\titleclass{\part}{top}
+\newcommand{\partbreak}{\clearpage}
+\titleclass{\part}{straight}
 \titleformat{\part}[hang]
 	{}
-	{\Large \sffamily \bfseries \thepart. \hspace{0.1cm} }
+	{\Large \bfseries \thepart. \hspace{0.1cm} }
 	{0pt}
-	{\Large \sffamily \bfseries }
+	{\Large \bfseries }
 \titlespacing*{\part}{0pt}{0pt}{18pt}
 
-%FORMAT DU CHAPITRE
+%FORMAT DU chapitre
 \titleclass{\chapter}{straight}
 \titleformat{\chapter}[hang]
   {}
-  {\normalfont \sffamily \bfseries \thechapter. \hspace{0.1cm} }
+  {\normalfont \bfseries \thechapter. \hspace{0.1cm} }
   {0pt}
-  {\normalfont \sffamily \bfseries }
+  {\normalfont \bfseries }
 \titlespacing*{\chapter}{0pt}{20pt}{15pt}
 
 %FORMAT De section
@@ -54,18 +69,18 @@
 \titleclass{\section}{straight}
 \titleformat{\section}[hang]
   {}
-  {\normalfont \sffamily \hspace{1cm} \bfseries \thesection . }
+  {\normalfont \hspace{1cm} \bfseries \thesection . }
   {0pt}
-  {\normalfont \sffamily \bfseries }
+  {\normalfont \bfseries }
 
 
 %FORMAT De subsection
 \titleclass{\subsection}{straight}
 \titleformat{\subsection}[hang]
   {}
-  {\small \sffamily \hspace{2cm} \bfseries \thesubsection . }
+  {\small \hspace{2cm} \bfseries \thesubsection . }
   {0pt}
-  {\small \sffamily \bfseries }
+  {\small \bfseries }
   
 
 %Comptage des figures
@@ -133,11 +148,11 @@
 \Mline
 % Author and supervisor
 
-\textsf{Supervisor : Mark Cummins}\\[3cm]
+Supervisor : Mark Cummins\\[3cm]
 
-\textsf{Thubé Pierre B00092354\\
-	Boutin Azarias B00092351\\[2cm]
-	BN013 BSC in Computing}
+Thubé Pierre B00092354\\
+Boutin Azarias B00092351\\[2cm]
+BN013 BSC in Computing
 
 \end{center}
 \end{titlepage}
