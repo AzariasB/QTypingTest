@@ -18,6 +18,7 @@
 #The binary at the root
 #But also the binaries created for the test
 build/
+build*/
 
 #Ignore all the files generated during compilling : 
 # - The object files
