@@ -1,0 +1,123 @@
+
+\chapter{Layout JSON format}
+
+\begin{lstlisting}[language=Python]
+{
+	"layouts": {
+		"qwerty": {
+			"locales": ["en"],
+			"rows": [
+			[{"finger": 0,"main": "1","shift": "!"},
+			 {"finger": 1,"main": "2","shift": "@"},
+			 {"finger": 2,"main": "3","shift": "#"},
+			 {"finger": 3,"main": "4","shift": "$"},
+			 {"finger": 3,"main": "5","shift": "%"},
+			 {"finger": 4,"main": "6","shift": "^"},
+			 {"finger": 4,"main": "7","shift": "&"},
+			 {"finger": 5,"main": "8","shift": "*"},
+			 {"finger": 6,"main": "9","shift": "("},
+			 {"finger": 7,"main": "0","shift": ")"},
+			 {"finger": 7,"main": "_","shift": "-"},
+			 {"finger": 7,"main": "=","shift": "+"}
+			],
+			[{"finger": 0,"main": "q"},
+			{"finger": 1,"main": "w"},
+			{"finger": 2,"main": "e"},
+			{"finger": 3,"main": "r"},
+			{"finger": 3,"main": "t"},
+			{"finger": 4,"main": "y"},
+			{"finger": 4,"main": "u"},
+			{"finger": 5,"main": "i"},
+			{"finger": 6,"main": "o"},
+			{"finger": 7,"main": "p"},
+			{"finger": 7,"main": "[","shift": "{"},
+			{"finger": 7,"main": "]","shift": "}"}
+			],
+			[{"finger": 0,"main": "a"},
+			{"finger": 1,"main": "s"},
+			{"finger": 2,"main": "d"},
+			{"finger": 3,"main": "f"},
+			{"finger": 3,"main": "g"},
+			{"finger": 4,"main": "h"},
+			{"finger": 4,"main": "j"},
+			{"finger": 5,"main": "k"},
+			{"finger": 6,"main": "l"},
+			{"finger": 7,"main": ";","shift": ":"},
+			{"finger": 7,"main": "\"","shift": "'"},
+			{"finger" : 7,"main" : "|","shift" : "\\"}
+			],
+			[{"finger": 0,"main": "`","shift": "~"},
+			{"finger": 0,"main": "z"},
+			{"finger": 1,"main": "x"},
+			{"finger": 2,"main": "c"},
+			{"finger": 3,"main": "v"},
+			{"finger": 3,"main": "b"},
+			{"finger": 4,"main": "n"},
+			{"finger": 4,"main": "m"},
+			{"finger": 5,"main": ",","shift": "<"},
+			{"finger": 6,"main": ".","shift": ">"},
+			{"finger": 7,"main": "/","shift": "?"}
+			]]
+		}
+	}
+}
+\end{lstlisting}
+
+\chapter{Qt resource files}
+\begin{lstlisting}[language=XML]
+<RCC>
+    <qresource prefix="/words">
+        <file alias="words.txt">ressources/words.txt</file>
+    </qresource>
+    <qresource prefix="/words" lang="fr">
+        <file alias="words.txt">ressources/words_fr.txt</file>
+    </qresource>
+    <qresource prefix="/texts">
+        <file alias="texts.txt">ressources/texts.txt</file>
+    </qresource>
+    <qresource prefix="/texts" lang="fr">
+        <file alias="texts.txt">ressources/texts_fr.txt</file>
+    </qresource>
+    <qresource prefix="/">
+        <file alias="layouts.txt">ressources/layouts.txt</file>
+        <file alias="style.qss">ressources/style.qss</file>
+        <file alias="layouts.json">ressources/layouts.json</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file alias="play.png">ressources/play.png</file>
+        <file alias="pen.png">ressources/pen.png</file>
+        <file alias="pause.png">ressources/pause.png</file>
+        <file alias="padlock_open.png">ressources/padlock_open.png</file>
+        <file alias="padlock_closed.png">ressources/padlock_closed.png</file>
+        <file alias="icon.png">ressources/icon.png</file>
+        <file>ressources/icon.ico</file>
+        <file>ressources/icon.icns</file>
+        <file alias="bin.png">ressources/bin.png</file>
+    </qresource>
+    <qresource prefix="/images">
+       <file alias="hands.png">ressources/hands.png</file>
+    </qresource>
+</RCC>
+\end{lstlisting}
+
+\chapter{Prototyped XML format}
+
+\begin{lstlisting}[language=XML]
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<text name="A Christmas Carol" author="Charles Dickens" difficulty="1" date="1843" >
+		External heat and cold had little influence on Scrooge ....
+	</text>
+	<text name="1984" author="George Orwell" difficulty="2" date="1949" >
+		It was a bright cold day in April, and the clocks were striking ...
+	</text>
+</library>
+\end{lstlisting}
+
+\chapter{Date saving format}
+\begin{lstlisting}
+[users]
+1\azarias=@Variant(\0\0\0\x7f\0\0\0\x6TUser\0\0\0\0\xe\0\x61\0z\0\x61\0r\0i\0\x61\0s\0\0\0\n\0\0\0\x5\0\x61\0\0\0\x2\0\x65\0\0\0\x4\0 \0\0\0\x2\0i\0\0\0\x1\0m\0\0\0\x1\0\0\0\0\0\0\0\f\0\x61\0z\0\x65\0r\0t\0y)
+2\Pierre=@Variant(\0\0\0\x7f\0\0\0\x6TUser\0\0\0\0\f\0P\0i\0\x65\0r\0r\0\x65\0\0\0\0\0\0\0\0\0\0\0\0\xff\xff\xff\xff)
+size=2
+\end{lstlisting}

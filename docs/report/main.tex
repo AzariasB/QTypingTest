@@ -10,7 +10,7 @@
 \usepackage{hyperref}
 
 %All the packages
-\usepackage{url,ragged2e,textcomp,color}
+\usepackage{url,ragged2e,textcomp,color,nameref}
 \usepackage{graphicx,xcolor,float,afterpage,paralist}
 \usepackage{chngcntr,csquotes,mathptmx,lastpage,datatool}
 \usepackage{subcaption,wrapfig,fancyhdr,blindtext}
@@ -19,7 +19,7 @@
 %Nouvelles commandes
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \newcommand{\Mline}{\hrule \mbox{}\\[0.1cm]}
-\renewcommand{\thechapter}{\Roman{chapter}}
+%\renewcommand{\thechapter}{\Roman{chapter}}
 
 %final page
 \newcommand\blankpage{%
@@ -160,8 +160,8 @@ BN013 BSC in Computing
 \setcounter{page}{2}
 
 \tableofcontents
-%'Page'
-\addtocontents{toc}{~\hfill\textbf{Page}\par}
+%'Page' dans la toc
+\addtocontents{toc}{~\hfill\textbf{Page}\par }
 
 %Partie Pierre
 \input{pierre.tex}
@@ -186,5 +186,7 @@ I am quite satisfied with the software developed. When the group started the pro
 However, I also feel like the project was not progressing fast enough. Maybe because of a lack of communication but also because of lack of knowledge from the other group member. Furthermore, since the group was only composed of two members, I felt like I was carried all the project from the beginning to the end.\\
 Overall I am satisfied with the result and the software developed. It was a rich experience, and I learned a lot about Qt. I also learned a lot about git and version management system.
 
+
+\input{appendix.tex}
 
 \end{document}
