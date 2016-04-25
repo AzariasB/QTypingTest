@@ -3,8 +3,8 @@
 %------------------------------------%
 \part{System design}
 \chapter{User interface design}
-Because the project was created with Qt, and Qt adapts its interface depending on the OS it's running on, there is no \textit{global} user interface. However, the layout is always the same and so is the content. The following screenshots will show the user interface as it is on Linux, more precisely Ubuntu. Currently, QTypingTest is available on Ubuntu, Windows and Mac OS.\\
-When the user starts the software, he is directly directed on the homepage, (figure \ref{homepage-logout}) where he can either create a new profile or connect himself to his own existing profile. The buttons allowing to go through the differents part of the software are disabled as long as no one is connected. A list of the existing user is displayed and the user just has to click on his alias to be considered as connected (figure \ref{homepage-login}). He can then go through the differents part of the user interface. 
+Because the project was created with Qt, and Qt it adapts its interface depending on the OS it is running on, there is no \textit{global} user interface. However, the layout is always the same and so is the content. The following screenshots will show the user interface as it is on Linux, more precisely Ubuntu. Currently, QTypingTest is available on Ubuntu, Windows and Mac OS.\\
+When the user starts the software, they are directed to the homepage, (figure \ref{homepage-logout}) where they can either create a new profile or connect to their own existing profile. The buttons to go through the different parts of the software are disabled as long as no one is connected. A list of the existing users is displayed and the user just has to click on their alias to connect (figure \ref{homepage-login}). They can then go through the different parts of the user interface. 
 \begin{figure}[H]
   \centering
   \begin{minipage}[b]{0.45\textwidth}
@@ -19,15 +19,15 @@ When the user starts the software, he is directly directed on the homepage, (fig
     \label{homepage-login}
   \end{minipage}
 \end{figure}
-A user can also delete his profile by clicking on the trash icon. \\
-The purpose of the login system was not to be secured. Since this software is made for private use, and that it does not contain any sensible informations, the group decided to focus on the software itself and to do not spend to much time on the login system. \\
+A user can also delete their profile by clicking on the trash icon. \\
+The login system does not need to be secured. Since this software is intended for private use, and because it does not contain any sensitive information, the group decided to focus on the software itself and to do not spend too much time on the login system. \\
 On the top of the window, there are five buttons.
 \begin{itemize}
 	\item Home. This button, when triggered, shows the homepage, but does not disconnect the user.
 	\item Learn. This shows the main part of the project. The page where the user sees a list of the different letters to learn in an certain order.
 	\item Practice. On this page, the user can choose different modes of practice.
-	\item Statistics. Here, the user can see his statistics.
-	\item Games. A simple game developed to learn the fun way to type.
+	\item Statistics. Here, the user can see their statistics.
+	\item Games. A simple game developed to learn fun ways to type.
 \end{itemize}
 
 
@@ -38,7 +38,7 @@ On the top of the window, there are five buttons.
 	\label{page-learn}
 \end{figure}
 
-In the learn page (figure \ref{page-learn}) the user can see all the exercises to come. He must succeed to them one by one. And should realize a minimum score the be able to unlock the next exercise. When clicking on a button, a dialog is shown and the user can start a new exercise.
+In the learn page (figure \ref{page-learn}) the user can see all the exercises to come. They must succeed through each stage one by one and reach a minimum score the be able to unlock the next exercise. When clicking on a button, a dialog is shown and the user can start a new exercise.
 
 \begin{figure}[H]
 	\centering
@@ -47,13 +47,13 @@ In the learn page (figure \ref{page-learn}) the user can see all the exercises t
 	 \label{page-practice}
 \end{figure}
 
-The practice page  (figure \ref{page-practice}) has four buttons. One for each differents type of practice. The overall appearance of each practice is always the same : a dialog with a text to type. What is changing is the content of the dialog.\\
-The differents rules for each types of practice are 
+The practice page  (figure \ref{page-practice}) has four buttons, one for each different type of practice exercises. The overall appearance of each practice exercise is always the same : a dialog with a text to type. What changes is the content of the dialog.\\
+The different rules for each type of practice are 
 \begin{description}[align=left]
-	\item[Against time/Race :] The user must type the most words in one minute. At the end of this time, his number of words per minute is shown.
+	\item[Against time/Race :] The user must type the most words in one minute. At the end of the minute, the number of words per minute is shown.
 	\item[Normal :] The user has two slides of random words to type. Thanks to the powerful language system of Qt, the displayed words may vary depending on the user's computer language. For the moment, only english and french are supported.
-	\item[Improve :] This practice will check what is the user's worst letters and create a special exercise containing these letters.
-	\item[Text :] In this practice, the user will have to type an existing text. The chosen text are from the classical authors such as George Orwell. Once again thanks to Qt, the language of the text may vary depending on the user's computer language. The default language being english. The available languages for now are english and french.
+	\item[Improve :] This practice will check what are the user's worst letters and create a special exercise containing these letters.
+	\item[Text :] In this practice, the user will have to type an existing text. The chosen text is from classical authors such as George Orwell. Once again thanks to Qt, the language of the text may vary depending on the user's computer language. The default language being english. Currently the languages available are english and french.
 \end{description}
 
 %\textit{The statistics page was not made yet}
@@ -65,7 +65,7 @@ The differents rules for each types of practice are
 	 \label{page-game}
 \end{figure}
 
-The game page (figure \ref{page-game}) contains a single button. This button launches a dialog where the user sees what letters is associated with what finger on the keyboard. He just have to type a letter on its keyboard. And the letter, on the virtual keyboard will highlight as well as its associated finger on the bottom of the dialog.
+The game page (figure \ref{page-game}) contains a single button. This button launches a dialog where the user sees what letters are associated with what finger on the keyboard. They just have to type a letter on the keyboard and the letter on the virtual keyboard will highlight as well as its associated finger on the bottom of the dialog.
 
 \subsection{The differents dialogs}
 Here are the dialogs that can be opened in QTypingTest :
@@ -78,8 +78,8 @@ Here are the dialogs that can be opened in QTypingTest :
 \end{figure}
 
 Here is the dialog shown when the user starts an exercise to learn new letters.\\
-This dialog highlights in a certain color the finger along with the letter on the keyboard. This invites the user to do the same. Thus use the indicated finger to type on the indicated letter. When he does this, the next letter and the next finger highlights. When those two steps are completed, the user can start the real exercise.\\
-The pictures shows the configuration of an AZERTY keyboard, because the test are made on a french computer. But a configuration file is also made for QWERTY keyboard, and anyone who uses a non-french computer's configuration will automatically have the QWERTY configuration loaded. Since this is the default configuration (and the most used worldwide).
+This dialog highlights in a certain color the finger along with the letter on the keyboard. This invites the user to do the same and thus using the indicated finger to type on the indicated letter. When they do this, the next letter and the next finger highlights. When those two steps are completed, the user can start the real exercise.\\
+The pictures show the configuration of an AZERTY keyboard, because the test are made on a french computer. But a configuration file is also made for QWERTY keyboard, and anyone who uses a non-french computer's configuration will automatically have the QWERTY configuration loaded. Since this is the default configuration (and the most used worldwide).
 
 \begin{figure}[H]
 	\centering
@@ -89,12 +89,12 @@ The pictures shows the configuration of an AZERTY keyboard, because the test are
 \end{figure}
 
 The figure \ref{dialog-learn} shows the dialog to learn new letters. In this case, the letters are \textit{S} and \textit{L}.\\
-There are two parts on the dialog : the toolbar and the center part.\\
+There are two parts in the dialog : the toolbar and the center part.\\
 The toolbar contains :
 \begin{itemize}
-	\item The page indicators that tells on what page is located the user and how many remains.
-	\item The play/pause button as the checkbox button. When it is toggled the game is paused and when it is not (the default) the game goes on.
-	\item The timer. This tells the user how much time was spent since the start of the exercise or how much time remain before the end of the exercise for the case of a practice against time.
+	\item The page indicators tells what page the user is located and how many pages remain.
+	\item The play/pause button is the checkbox button. When it is toggled the game is paused and when it is not (the default) the game goes on.
+	\item The timer. This tells the user how much time was spent since the start of the exercise or how much time remains before the end of the exercise when practising against time.
 \end{itemize}
 
 The center part contains the user's exercise. It displays a text on two pages with four color codes :
@@ -105,14 +105,14 @@ The center part contains the user's exercise. It displays a text on two pages wi
 	\item Red  : a letter already typed by the user but incorrectly typed
 \end{itemize}
 
-The center part does not takes care of the words. It is only taking care of each letters.\\
-The user can rewind back to retype the letters. This will also work from one line to another. However this is voluntary not possible from one slide to another.\\
+The center part does not take care of the words. It only takes care of each letter.\\
+The user can rewind back to retype the letters. This will also work from one line to another. However this is voluntary it is not possible from one slide to another.\\
 This dialog will always look the same for the trainings and the exercise. The only difference lives in the content of the main part.\\
 For the exercise dialog, the exercise is organized as so :
 \begin{enumerate}
 	\item For two lines, only the two letters that the user must learn.
 	\item For two lines all the letters previously learned in a random order
-	\item And the remaining part is some random words with the letters previously learned. If no words can be made with the letters learned (especially true at the beginning) the second part will be repeated.
+	\item And the remaining part one some random words with the letters previously learned. If no words can be made with the letters learned (especially true at the beginning) the second part will be repeated.
 \end{enumerate}
 
 \begin{figure}[H]
@@ -123,7 +123,7 @@ For the exercise dialog, the exercise is organized as so :
 \end{figure}
 
 This dialog is very similar to the learning dialog. The toolbar is exactly the same and works the same way.\\
-The only difference is the content. This dialog contains only real words. In this case, it is only french words since there is file containing french words for french computers. There is also a file containing english words. And this file is the default one.\\
+The only difference is the content. This dialog contains only real words. In this case, it is only french words since there is a file containing french words for french computers. There is also a file containing english words. And this file is the default one.\\
 This type of exercise contains only words placed in a random order, on two slides.
 
 \begin{figure}[H]
@@ -133,8 +133,8 @@ This type of exercise contains only words placed in a random order, on two slide
 	 \label{dialog-race}
 \end{figure}
 
-The race dialog is similar to the two previous one. However there is one difference in the toolbar. Instead of starting at 0, the timer starts at 1 minute, and decreases. This changes results in another change : the number of pages. Since the number of page depend on the speed of the user. It is 'unknown'. However, instead of hiding this information, it will simply increase for each new page created.\\
-For this exercise, only one page is generated and if the user succeed to finish the page, another one is generated and displayed. Thanks to the speed of C++ and the algorithms developed by the group, the user does not see the difference. This system allows the exercise to generate (in theory) an infinite number of pages and therefore change the start time.
+The race dialog is similar to the two previous ones. However there is one difference in the toolbar. Instead of starting at 0, the timer starts at 1 minute, and decreases. This will result in another change i.e the number of pages. The number of pages depends on the speed of the user. It is 'unknown'. However, instead of hiding this information, it will simply increase for each new page created.\\
+For this exercise, only one page is generated and if the user completes the page, another one is generated and displayed. Thanks to the speed of C++ and the algorithms developed by the group, the user does not see the difference. This system allows the exercise to generate (in theory) an infinite number of pages and therefore change the start time.
 The content is the same as the practice dialog : it contains only words in french or english depending on the user's computer (in this case, french).\\
 
 \begin{figure}[H]
@@ -144,7 +144,7 @@ The content is the same as the practice dialog : it contains only words in frenc
 	 \label{dialog-text}
 \end{figure}
 
-The text dialog is exactly the same as the practice dialog. The only difference is the content. Instead of containing only random words, it contains a real text. The text is either in french or english, depending on the user's computer configuration. The default language for the texts is english.
+The text dialog is exactly the same as the practice dialog. The only difference is the content. Instead of containing only random words, it contains real text. The text is either in french or english, depending on the user's computer configuration. The default language for the text is english.
 
 \begin{figure}[H]
 	\centering
@@ -153,12 +153,12 @@ The text dialog is exactly the same as the practice dialog. The only difference 
 	 \label{dialog-game}
 \end{figure}
 
-The game dialog is the same as the one shown before the learning exercise. But instead of showing the user what letter he has to type, it will simply let him free to type whatever letters he wants, and shows what finger is associated with this letter. \\
+The game dialog is the same as the one shown before the learning exercise. However instead of showing the user what letter they have to type, it will simply allow them to type whatever letters they want, and show what finger is associated with this letter. \\
 
 \section{Qt features}
 
-Qt is a really powerful framework full of features. There are so many of them that it is sometimes possible to miss one and recreate something pre-existing within Qt. That is what happened for the group many times during the development of the software.\\
-Qt is first made to create user interfaces on great variety of OS. With the same source code, it is possible to have a interface for linux, windows and mac OS. But there are a lots of useful features to improve the life of the developer and some tools to improve the C++ language.\\
+Qt is a really powerful framework packed full of features. There are so many of them that it is sometimes possible to miss one and recreate something pre-existing within Qt. That is what happened for the group many times during the development of the software.\\
+Qt is first made to create user interfaces on a variety of OS. With the same source code, it is possible to have a interface for linux, windows and mac OS. But there are lots of useful features to improve the life of the developer and some tools to improve the C++ language.\\
 The most powerful feature by far of Qt is it's SIGNAL-SLOT system.
 
 \begin{figure}[H]
@@ -168,47 +168,46 @@ The most powerful feature by far of Qt is it's SIGNAL-SLOT system.
 	 \label{signal-slot-qt}
 \end{figure}
 
-The figure \ref{signal-slot-qt} shows how it works.
-A signal can be emitted and a slot can be called whenever a signal is emitted. This is very useful to program interactive user interfaces.\\
-It would be too long to enumerates all the features that Qt provides, and a lots of them where not used in the project. However, here is a list of features used for the project provided by Qt.
+The figure \ref{signal-slot-qt} shows how it works. A signal can be emitted and a slot can be called whenever a signal is emitted. This is very useful to program interactive user interfaces.\\
+It would be too long to enumerate all the features that Qt provides, and a lots of them were not used in the project. However, here is a list of features used for the project provided by Qt.
 
 \begin{description}[align=left]
-	\item[Language detection] : Qt can easily detect the user's computer language. This was first used to select the files for the exercises. It is possible to get the language of the computer as a string an then choose what file to parse depending on this string.
-	\item[Resources files] : The group discovered later than Qt can actually automatically select the good file depending on the computer language. This is made thanks to a resource file (.qrc). This file is written in XML and tells Qt where to find the resource file, given them a language and an alias. Then, when needing a file in the code the alias of the file is given, and Qt will choose the good file depending on the computer's language.
+	\item[Language detection] : Qt can easily detect the user's computer language. This was first used to select the files for the exercises. It is possible to get the language of the computer as a string and then choose what file to parse depending on this string.
+	\item[Resources files] : The group discovered later than Qt can actually automatically select the good file depending on the computer language. This is thanks to a resource file (.qrc). This file is written in XML and tells Qt where to find the resource file, given them a language and an alias. Then, when needing a file in the code the alias of the file is given, and Qt will choose the good file depending on the computer's language.
 	\item[DataStream] : It is possible with Qt to open and read or write in a file. This was first used to save the users in binary files. The files can also be opened in text mode to read and write UTF8-only characters. This was first used to read the keyboard configuration files.
 	\item[QSettings] : As for the language detection, the group discovered later that Qt has a pre-made data-saving system. This provides a safer way to save the data on the computer. Instead of writing on a file in the folder of the project itself, Qt will choose a system folder depending on the OS of the computer to write down the data to save.
 	\item[Json] : Qt supports the JSON format. It can parse any valid JSON file and be used later on in the code. This is what is actually used to save the keyboard configurations. 
-	\item[XML] : As for the JSON, Qt also support XML. It can parse any XML file and return an object that can be manipulated easily. This features could have been used to save the texts.
+	\item[XML] : As for the JSON, Qt also supports XML. It can parse any XML file and return an object that can be manipulated easily. This features can be used to save the texts.
 	\item[QString] : Last be not least. Qt provides a really powerful class : the QString. This class is really easy to use, and full of functions. It is like the String class in Java : a string of characters.
 \end{description}
 
 \subsection{Documentation}
 It is not a part of Qt itself, but without it, the development of the software would be impossible.\\
-The documentation of Qt is available online, but also on QtCreator. It is really well-made. Easy to read, comprehensive, completed with examples and consistent. The documentation is always up-to-date and any deprecated feature is always replaced with something more convenient to use.\\
-Moreover, when there is a problem with Qt and that the documentation cannot solve the problem, the community behind Qt is huge and really helpful. Qt itself has a special forum to ask question about the framework. There is also the famous forum StackOverflow. Those two forums helped the group many times when having a problem with Qt.
+The documentation of Qt is available online, but also on QtCreator. It is really well-made, easy to read, comprehensive, completed with examples and consistent. The documentation is always up-to-date and any depreciated feature is always replaced with something more convenient to use.\\
+Moreover, when there is a problem with Qt and the documentation cannot solve the problem, the community behind Qt is huge and really helpful. Qt itself has a special forum to ask questions about the framework. There is also famous forum StackOverflow. Those two forums helped the group many times when having a problem with Qt.
 
 \chapter{Functional Design}
-This project is relatively simple an contains two main parts :
+This project is relatively simple and contains two main parts :
 \begin{description}
-	\item[The learning] : where the user learn each letters of the keyboard one by one
+	\item[The learning] : where the user learn each letter of the keyboard one by one
 	\item[The practising] : where the user can see the progress made by typing real words, and real texts
 \end{description}
-Since this software is quite simple, everyone with a computer can use it. This means the software is made for all ages. Anyone not matter how old they are, can use the software without a lot of explanation and learn, step by step how to correctly use his keyboard.\\
+Since this software is quite simple, everyone with a computer can use it. This means the software is made for all ages. Anyone no matter how old they are, can use the software without a lot of explanations and learn, step by step how to correctly use his keyboard.\\
 Also, thanks to Qt robustness and features, the software is viable and is unlikely to crash during use.
 
 \section{Structure of the system}
 
 \begin{itemize}
-	\item The Data part. This part is where all the class containing data are stored. e.g the users, his statistics. The Data part contains also the user manager. Used to manage the user's connection and disconnection.
-	\item The User interface part. This part contains all the files necessary to create the user interface. All the classes in this parts inherits at least of QWidget (which is the base element for the GUI).
-	\item The utils part. In this part, there are no classes, only namespaces. These class are here to facilitate the developer's life and provides useful functions to make the software work.  
+	\item The Data part. This part contains classes where data are stored. e.g the users, his statistics... Data part contains also the user manager, used to manage user's connection and disconnection.
+	\item The User interface part. This part contains all the files necessary to create the user interface. All classes in this parts inherits at least of QWidget (which is the base element for the GUI).
+	\item The utils part. This part only contains namespaces. These class facilitates developer's life and provides useful functions to make the software work.  
 \end{itemize}
 
 Those three parts are separated in three different folders (namely "Data","QTypingpTest" and "Utils").\\
-This separation was creating a pseudo-pattern of MVC. The model being the data, the View being the GUI and the Utils being the controller. However, for programming reasons, the main parts of the controller was situated in the view itself. Thanks to the signal slot (figure \ref{signal-slot-qt}) system, the function used as controller could be in the GUI itself.
+This separation was creating a pseudo-pattern of MVC. The model being the data, the View being the GUI and the Utils being the controller. However, for programming reasons, the main parts of the controller are in the view itself. Thanks to the signal slot (figure \ref{signal-slot-qt}) system, the function used as controller is in the GUI itself.
 
 \section{Style of code}
-To have an homogeneous code, no matter who was coding, the group decided to follow some rules for the style of code. The style chosen was the google C++ style guide. The website for this style guide is the following : \url{https://google.github.io/styleguide/cppguide.html}.
+To have an homogeneous code, the group decided to follow some rules for the style of code. The choose the google C++ style guide. The website for this style guide is the following : \url{https://google.github.io/styleguide/cppguide.html}.
 The document is quite long and some rules are more obvious than others. Here is a reduced list of the notable rules that the group followed :
 \begin{itemize}
 	\item \href{https://google.github.io/styleguide/cppguide.html#Access_Control}{Access-control}. Make data member of a class private. 
@@ -218,7 +217,7 @@ The document is quite long and some rules are more obvious than others. Here is 
 	\item \href{https://google.github.io/styleguide/cppguide.html#Variable_Names}{Variable names}. Name of variable are lower case. With a trailing underscore at the end of the private data members.
 	\item \href{https://google.github.io/styleguide/cppguide.html#File_Names}{File names}. Name the file in lower case.
 \end{itemize}
-All these rules were not followed entirely. Because the rules enumerated above apply to the C++ in general. And in this case, the group was using Qt which is an environment different from the usual C++. A simple example is for the variable name. The C++ style guide advise to give them a name with only lower-case letters, joined with underscore. But the Qt style guide prefers to call the variable camel-cased.
+All these rules were not followed entirely. Indeed the rules enumerated above apply to the C++ in general and in this case, the group used Qt which is a different environment from usual C++ one. A simple example is for the variable name. C++ style guide advises to use a name with only lower-case letters, joined with underscore. But the Qt style guide prefers to call the variable camel-cased.
 
 \section{Code walkthrough}
 
@@ -289,8 +288,8 @@ This code is very interesting since it shows a lot in a few lines of code. Here 
 		\item Detect the computer language
 		\item Install the translator of the detected language.
 	\end{itemize}
-	\item[Set the style.] Qt support the CSS format. This style can be applied to the elements of the GUI. Since almost all basics CSS directives are supported, it is easy customize the GUI.
-	\item[Show the main window.] The homepage was already created before. Now it is time to display it since all the initialisation is done.
+	\item[Set the style.] Qt support the CSS format. This style can be applied to the elements of the GUI. Since almost all basics CSS directives are supported, it was easy to customize the GUI.
+	\item[Show the main window.] The homepage was already created before. As all initialisations are done, it is possible now to display it.
 	\item[Enter the main loop.] To let the window open and really launch the software once for all. The last line does this for us.
 \end{description}
 
@@ -327,11 +326,11 @@ void THomePage::connectEvents() {
     ui.stack_main->setCurrentWidget(ui.page_home);
 }
 \end{lstlisting}
-This function is called in the constructor of the the main window. What is interesting to see here is the signal-slot system of Qt.
+This function is called in the constructor of the main window. The interesting thing here is the signal-slot system of Qt.
 Here is the list of what this function does :
 \begin{description}
-	\item[Read the users.] Will load the QSettings saved from the previous session into the usermanager
-	\item[Connect the toolbar actions.] The toolbar contains actions, these are connected to several function of the main window
+	\item[Read the users.] Loads the QSettings saved from the previous session into the usermanager
+	\item[Connect the toolbar actions.] The toolbar contains actions connected to several function of the main window
 	\item[Associate the buttons with the pages.] The main window contains differents buttons. Each one is changing the current page.
 	\item[Show the homepage.]
 \end{description}
@@ -340,15 +339,15 @@ The signal-slot is used in this function. This line :
 \begin{lstlisting}
 connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this,SLOT(updateUI(TUser*)) );
 \end{lstlisting}
-is an example of a connection. It means : on the instance of Usermanager, when the signal 'userChanged' is emitted, Qt will trigger the function 'updateUI' of the main window.\\
-There are several ways to connect a signal to a slot. Another way used in the code above is the anonymous function. C++11 introduced the anonymous functions. It is possible to use it as so in Qt :
+is a connection example. It means : on the instance of Usermanager, when the signal 'userChanged' is emitted, Qt will trigger the function 'updateUI' of the main window.\\
+There are several ways to connect a signal to a slot. Another way is shown in the above code with the anonymous function. C++11 introduced the anonymous functions. It is possible to use it as so in Qt :
 \begin{lstlisting}
 connect(it.key(), &QPushButton::clicked, [ = ](){// < start of anonymous function
 	ui.stack_main->setCurrentWidget(it.value());
 });//< end of anonymous function
 \end{lstlisting}
 
-This is what many of the widget looks like : connect the events to custom functions at the initialization , then process the data in those functions.
+Many of the widget looks like this : connect the events to custom functions at the initialization , then process the data in those functions.
 
 \subsection{A data class}
 
@@ -369,7 +368,7 @@ class TUser : public QObject {
     Q_OBJECT
     
 \end{lstlisting}
-First, the class itself must inherit from QObject to be able to emit signals and have slots. There is also the Q\_OBJECT macro to add some attributes to the class.
+First, the class must inherit from QObject to be able to emit signals and have slots. There is also the Q\_OBJECT macro to add some attributes to the class.
 
 \begin{lstlisting}
 public:
@@ -389,7 +388,7 @@ public:
         emit settingsChanged(this);//< emit a signal with the user in parameter
     }
 \end{lstlisting}
-This part shows one constructor of the class. The getters and setters are also present in this class but most of them are not interesting. However, the setter for the Settings has something different. It emits a signal when the settings are changed. This allows the developer to then connect a slot to this signal to be warned whenever the current user changed his settings. (And update the GUI in consequence).
+This part shows one constructor of the class. Getters and setters are also present in this class but most of them are not interesting. However, the setter for the Settings is different. It emits a signal when the settings changed. This allows the developer to connect a slot to this signal to be warned whenever the current user's settings changed. (And update the GUI in consequence).
 
 
 \begin{lstlisting}
@@ -448,7 +447,7 @@ QDataStream &operator>>(QDataStream& in, TUser &user);
 #endif /* TUSER_H */
 
 \end{lstlisting}
-Last but not least, this part of the code show how the TUser class is saved in a file. The operators are declared outside of the class. And the are defined in the class. With the keyword \texttt{friend} to have access to the private attributes of the TUser passed in argument.
+Last but not least, this part of shows how the TUser class is saved in a file. Operators are declared outside of the class and defined in the class with the keyword \texttt{friend} to have access to the private attributes of the TUser passed in argument.
 
 \subsection{A 'util' class}
 
@@ -492,10 +491,9 @@ namespace factory {
 
 #endif /* FACTORY_H */
 \end{lstlisting}
-This is an extract of the header of the factory namespace. All it contains is the namespace, and within this namespace, all the functions declaration. The bodies of the functions are in the .cpp file.\\
-The aim of these functions is to facilitate the developer life by providing flexible functions that can be used everywhere in the code. These functions only depends of each others, and does not depend of the software itself. (However, the software depends on this functions).\\
-All the functions of this namespace are fully tested. These was actually easy to test since there is no GUI needed to test, only function with an input and an output.
-
+This is an extract of the factory namespace header. It contains the namespace, and within it, all the functions declaration. The bodies of the functions are in the .cpp file.\\
+The aim of these functions is to facilitate developer's life by providing flexible functions which can be used everywhere in the code. These functions only depends of each others, and does not depend of the software itself. (However, the software depends of this functions).\\
+All functions of this namespace are fully tested. Tests for these functions was easy because no GUI was required, only functions with inputs and outputs. 
 
 \section{The improved label}
 Here is an example of how the label of all the exercise are working. (figure \ref{improved-label} )
@@ -513,7 +511,7 @@ The labels of the exercises dialog uses those differents HTML tags:
 	\item[b] : a HTML tag to bold all its content
 \end{description}
 
-In addition with these tags, the HTML tag \textit{style} is used. This tag changes the font-color of the characters inside it. This is used to set the font color to blue or red.\\
+In addition with these tags, the HTML tag \textit{style} is used. Characters surrounded by this tag are changing depending of it. This is used to set the font color to blue or red.\\
 Here is the code of the label when the user typed a letter :
 \begin{lstlisting}
 bool TLabel::nextChar(bool currendIsCorrect) {
@@ -583,7 +581,7 @@ QString html::addTags(QString &strToTag, QString tags, QString attributes) {
 }
 \end{lstlisting}
 
-This function is using regular expressions to replace the tag at a certain position. Since this function is much more complicated and a crucial function for the exercise, it was the first to be tested.\\
+This function is using regular expressions to replace the tag at a certain position. Since this function is much more complicated and crucial for the exercise, it is the first which has been tested.\\
 
 \section{The interactive keyboard}
 Another interesting part to see in the code is how the interactive keyboard was implemented.\\
@@ -592,7 +590,7 @@ The interactive keyboard contains two main parts :
 	\item The upper part, containing the keyboard itself with all the keys in it.
 	\item The lower part, containing a drawing of hands.
 \end{itemize}
-When the user type a letter on his keyboard, a finger will highlight as well as a key on the keyboard.\\
+When the user type a letter on his keyboard, a finger will be highlighted as well as a key on the keyboard.\\
 The interactive keyboard can also support several keys pressed at once. The only limit is the keyboard itself. Therefore, a mechanic keyboard will be able to visualize more key pressed than a classical keyboard.\\
 Four classes are necessary to have the full interactive keyboard working :
 \begin{description}
@@ -676,7 +674,7 @@ private:
 #endif /* TFINGERPOSITION_H */
 \end{lstlisting}
 This other part of the class shows how the fingers are highlighted.\\
-The object contains a list of points. This list represent the polygons for each finger. Since the hand picture that was chosen is transparent inside the hand but opaque outside, the easiest way to draw inside a finger is to draw a polygon that roughly fits into it.\\
+The object contains a list of points. This list represents the polygons for each finger. Since the hand picture that was chosen is transparent inside the hand but opaque outside, the easiest way to draw inside a finger is to draw a polygon that roughly fits into it.\\
 This technique was used for all the left fingers. Since the right hand is the perfect symmetry of the left hand, there was no need to find all the points for the left hand, a simple calculation is necessary to find the points of the opposite finger.\\
 Here is the function that will find the point of the right hand from the point of the left hand and the size of the half of the picture :
 \begin{lstlisting}
@@ -689,7 +687,7 @@ QPoint TFingerPosition::getSymmetric(const QPoint& origin) const {
 }
 \end{lstlisting}
 
-To be able to fill several fingers at once, a simple list was used. This list contains the id of the fingers to highlight. So every time a function is called to fill or unfill a finger, all the drawing will update, paint the filled fingers, then paint the picture of the hand above.
+To be able to fill several fingers at once, a simple list was used. This list contains the id of the fingers to highlight. So every time a function is called to fill or unfill a finger, all the drawing will be update, paint the filled fingers, then paint the picture of the hand above.
 Here are the functions that add and remove fingers to fill :
 \begin{lstlisting}
 //Remove a finger from the list
@@ -956,10 +954,10 @@ However, Qt also supports the database operations and provide a support for sqlL
 The first prototype that the group presented to the first demo was giving an idea of the project. It was really fast to build and was containing only one window, on which the user could write down a text. It was a sort of 'proof of concept'. The purpose of this prototype was to demonstrate the main feature of the software and it was also a starting point for the group.\\
 The first prototype was containing only two C++ classes. One for the whole window, and one for each row. Even if the prototype was working well, the interface was not very user-friendly and an offset could easily appear when the user was making too many mistakes.
 Meaning that even if the prototype was working, a lot of work would be necessary to improve the user interface. \\
-This prototype was also a sort of training for the group, it was the first window ever made with Qt. Because the group members didn't know anything about this framework, it was understandable to have such a poor interface.
+This prototype was also a sort of training for the group, it was the first window ever made with Qt. Because the group members did not know anything about this framework, it was understandable to have such a poor interface.
 
 \section{Second prototype}
-The second an actual prototype is a lot more evolved than the first prototype. There are more features, it is working better and is more user-friendly. Of course, there is some improvements that remains possible.\\
+The second and actual prototype is a lot more evolved than the first prototype. There are more features, it is working better and is more user-friendly. Of course, there is some improvements that remains possible.\\
 However, the software is ready for production and can be used by anyone who wants to.\\
 The second prototype started with a big improvement of the first prototype. The two lines : one for the text, and one for the text-field where the user can type, were merged into a single one. So, as the user types the text, the current character is displayed in a certain color, the future characters are also displayed as done. Therefore, the offset problem was solved. Thanks to the support of HTML in the label with Qt, the task was quite easy.\\
 Now that the group had a functional and user-friendly base, they could start to work on the other parts of the project and use this base for differents features.\\
@@ -970,25 +968,25 @@ Here are the list of features that were developed on this base, by order of deve
 	\item text typing. Were the user has to type an existing text (written by great authors such as George Orwell)
 	\item improvement. This exercise is using the user's statistics to know what mistake is the more frequent
 \end{enumerate}
-All these differents exercise has its own class. They also all inherit from the same base class to have access to the same resources such as a timer, a play/pause button, and a score a the end.\\
+All these different exercises has their own class. They also all inherit from the same base class to have access to the same resources such as a timer, a play/pause button, and a score a the end.\\
 Then the group worked on different aspects of the software, such as an interactive keyboard, the user's statistics and a homepage where a user can create and delete his account, connect and disconnect.
 
 
 \chapter{Current state of the software}
 The current state of the software is complete. The software is available on \url{github.com/AzariasB/QTypingTest} and can be downloaded for Linux or Windows. Anyone with a computer can download the software and start to learn how to type !\\
-Even if the system is working well, the GUI is improvable. However, since the group is not design students, they did as they could to create a usable software that does not hurt the eyes. And because the software is made up in C++, it is a bit harder than the web to stylize the interface. Even though Qt provides a CSS-like feature to change the style of every elements in a window.
+Even if the system is working well, the GUI is improvable. However, since the group is not design students, they did as they could to create a usable software that does not hurt eyes. Furthermore, because the software is made up in C++, it is a bit harder than the web to stylize the interface. Even though Qt provides a CSS-like feature to change the style of every elements in a window.
 
 
 \part{Testing}
 \chapter{Unit testing}
-Really early in the development of the software, it became obvious that some key features required unit testing.\\
+Really early in software development, it became obvious that some key features required unit testing.\\
 Luckily Qt provides a way to easily and quickly create unit testing. All the tests of the projects are on the 'test' folder.\\
 The tests for this projects were created for two main purpose :
 \begin{enumerate}
-	\item ensure that the feature are working as expected
+	\item ensure that features was working as expected
 	\item avoid compiling all the project to test a single feature
 \end{enumerate}
-Some test requires the GUI some does not. The hard part of the test was not to create them, it was to make the software testable. For example, a lots of features held on randomness. And it is not possible (or silly) to test randomness. This means, the less randomness, the more testable. Or pseudo-random features were testable.\\
+Some test requires the GUI some does not. The hardest part of the test was not to create them but was to make the software testable. For example, a lots of features held on randomness, and it is not possible (or silly) to test randomness. This means, the less randomness, the more testable. Or pseudo-random features were testable.\\
 Here is an example of a test file :
 
 \begin{lstlisting}
@@ -1031,7 +1029,7 @@ void TestUtils::testAbsolutePosition() {
 QTEST_MAIN(TestUtils)
 #include "testutils.moc"
 \end{lstlisting}
-Here is how a function test looks like. As a lot of other test framework, there is the initialization part, the action part and the test part. Qt provides functions such as \texttt{QCOMPARE},\texttt{QVERIFY} and others to run the test. To run the test, the file must be compiled and run. In this case, there is no graphics, all is displayed in the console. Here is the output when the entire file is run.
+Here is how a test function looks like. As a lot of other test framework, there is the initialization part, the action part and the test part. Qt provides functions such as \texttt{QCOMPARE},\texttt{QVERIFY} and others to run the test. To run the test, the file must be compiled and run. In this case, there is no graphics, all is displayed in the console. Here is the output when the entire file is run.
 
 \begin{lstlisting}
 ********* Start testing of TestUtils *********
@@ -1110,13 +1108,13 @@ The finished software allows the user to do the following tasks:
 
 
 \chapter{Overall aesthetic}
-The software is neither beautiful nor ugly to look. Because this was the first time the group ever used Qt, the main goal was not to create a fully user-friendly interface but a usable, interactive and intuitive interface. Moreover, since the interface look-and-fell changes for each OS, it would have been hard to create a unified interface for all the OS. The biggest effort in therm of aesthetic were made for the look-and-feel of the exercise/training window. Where the user can instantly understand how the cursor is moving, when the answer given is correct an when it is wrong. This particular interface will not change, no matter what is the OS. Because all is wittingly chosen :
+The software is neither beautiful nor ugly to look. Because this was the first time the group ever used Qt, the main goal was not to create a fully user-friendly interface but a usable, interactive and intuitive interface. Moreover, since the interface look-and-fell changes for each OS, it would have been hard to create a unified interface for all the OS. Biggest effort in therm of aesthetic were made for the look-and-feel of the exercise/training window thus the user can instantly understand how the cursor is moving and when the given answer is correct or wrong. This particular interface will not change, no matter what is the OS, because it has been wittingly chosen to appears like this:
 \begin{itemize}
 	\item The color of the font
 	\item The size of the font
 	\item The font itself (monospace)
 \end{itemize}
-All the others part of the software will depend on the OS. For example the font of the button will be \textit{Ubuntu} for the Ubuntu OS, but it will be \textit{Verdana} for windows. Same thing for the button. They will look flatter on windows 10 than on Ubuntu.
+All others part of the software will depend on the OS. For example the font of the button will be \textit{Ubuntu} for the Ubuntu OS, but it will be \textit{Verdana} for windows. Same thing for the button. They will look flatter on windows 10 than on Ubuntu.
 
 
 \part{Conclusion and further work}
@@ -1134,25 +1132,25 @@ Here is the list of what these goals were :
 \end{itemize}
 
 All these requirements has been met except the last one which was to translate the software into different languages.\\
-The group succeeded to create an adaptable software who will automatically change its configuration depending on the user's computer. Event if, for now, only two languages are available, anyone can create a file with the most common words of his language and insert it into the software without having to change anything in the code. The same goes for the texts and the keyboard layouts. Only two languages are available but one can easily type new texts or create a new JSON file for the layout and insert them into the software without having to change anything in the code.\\
-Because the software is made for private and does not contain any sensible informations, there is no security, only a simple login system without password.\\
+The group succeeded to create an adaptable software who will automatically change its configuration depending on the user's computer. Event if, for now, only two languages are available, anyone can create a file with the most common words of his language and insert it into the software without having to change anything in the code. The same goes for the texts and the keyboard layouts. Only two languages are available but anyone can easily type new texts or create a new JSON file for the layout and insert them into the software without having to change anything in the code.\\
+Because the software is made for private use and does not contain any sensible informations, there is no security, only a simple login system without password.\\
 The software is compiled in release mode en ready for distribution on Windows OS, Ubuntu and Mac OS.
 
 \chapter{Possible improvements}
 Here is a list of the possible improvements for the software :
 \begin{itemize}
-	\item Correct all the memory leaks. Even if the group made all its possible to correct the most of them, some remains and may slow down the software.
-	\item Improve the user interface. The minimum was made to make the interface usable. There is a lot of improvement possible.
-	\item Create more games to learn the funny way. The software is a bit to formal and not really appropriate for kids.
+	\item Correct all memory leaks. Even if the group made all its possible to correct the most of them, some remains and may slow down the software.
+	\item Improve the user interface. Minimum was made to make the interface usable but a lot of improvement are possible.
+	\item Create more games to get funny way to learn. The software is a bit to formal and not really appropriate for kids.
 	\item Allow the user to race with other people (on the same computer or online) because playing all alone can be boring. When comparing the speed with someone else, this could motivate the user to train more and more to win at these races.
-	\item Add statistics. For now, the user has an history of the exercise made, but these are not displayed. This means the user can only see the result of the exercise at the end of it. But then, there is no way for him to know the improvements made.
-	\item Create more practice mode. A strong and usable base was made for the practice exercise, and a lot more game modes can be created in a very few lines. For examples, a mode were at each wrong keystrokes the timer gain a certain number of seconds, this pushes the user to focus on the accuracy rather than the speed.
+	\item Add statistics. For now, a user has an history of exercises made, but these are not displayed. This means the user can only see result of the exercise at the end of it and then does not have any way to know improvements made.
+	\item Create more practice mode. A strong and usable base was made for practice exercise, and a lot more game modes could be created with a very few lines of code. For examples, a mode where at each wrong keystrokes typed, the final time would be increased. This would push the user to focus on the accuracy rather than the speed.
 \end{itemize}
 
 
 \chapter{Further work}
 If the group were to continue developing this software, then there are a few things to aim for.\\
-First of all, use Qt a better way. Even if a lot of features of Qt were used, the group may have missed a lots of them. Just for the user interface design for example where only the basic features were used. Qt is really powerful and during this project, the group only had the opportunity to brush the possibilities of Qt. This framework is almost a other language because of its magnitude.\\
-A better C++ code would be another aim of the group. The actual code is not perfect and can be improved to be more flexible and more maintainable. Furthermore, improving the C++ quality code would reduce the number of memory leaks of the software. This would improve the speed of the software.\\
+First of all, use Qt a better way. Even if a lot of features of Qt were used, the group may have missed a lots of them. A simple example is user's interface design where only the basic features were used. Qt is really powerful and during this project, the group only had the opportunity to brush the possibilities of Qt. This framework is almost a other language because of its magnitude.\\
+A better C++ code would be another aim of the group. The actual code is not perfect and could be improved to be more flexible and more maintainable. Furthermore, improving the C++ quality code would reduce the number of memory leaks of the software and so improve the speed of the software.\\
 The documentation of the project is generated thanks to a program called Doxygen. Only the basics options are enabled on this program. Doxygen allows options that the group did not use and could make the documentation more readable.\\
 Lastly, a little website to distribute the software would be a great plus to the software. Since it is only available on github which is mainly for developers, the individuals won't be able to download it easily. The website would give an easy access to anyone who wants to use the software without having to go through Github.\\
