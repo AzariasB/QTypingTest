@@ -117,6 +117,7 @@ bool TPage::isValidKey(QKeyEvent* ev) {
 }
 
 void TPage::update(QKeyEvent* ev) {
+    qDebug() << ev->key();
     if (isValidKey(ev)) {
         typingAnswer(ev->text());
     } else if (ev->key() == Qt::Key_Backspace) {

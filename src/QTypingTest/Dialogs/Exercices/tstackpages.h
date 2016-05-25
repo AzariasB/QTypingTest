@@ -32,7 +32,7 @@ public:
 
     QString getText() const {
         return toCopy_.join(" ");
-    };
+    }
 
     int numberOfPages() const {
         return count();
@@ -48,10 +48,10 @@ public:
     bool setFollowingPage();
 
     virtual ~TStackPages() {
-    };
+    }
 
     /**
-     * allocate the givent text
+     * allocate the given text
      * on the different pages
      * 
      * @param wholeText the text to allocate to the pages
