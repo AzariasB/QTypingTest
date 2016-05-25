@@ -17,14 +17,13 @@
 #include <QDebug>
 #include <algorithm>
 #include <QFile>
+#include <QDomDocument>
 
 namespace factory {
     
     
     /**
      * 
-     *  \todo : instead of passing lang in argument, get the 
-     * language from the user's computer (Azarias)
      * 
      * This function will read the texts files of the project
      * corresponding to the language.
@@ -153,6 +152,21 @@ namespace factory {
      * @return the content of the file (empty if nothing found)
      */
     QString readFile(QString fileName);
+
+    /**
+     * @brief readXMLFile parse an XML file and return the WXmlInputSource
+     * @param fileName the name of the file to parse
+     * @return the parsed file (if it exists) an empty object otherwise
+     */
+    QDomDocument readXMLFile(QString fileName);
+
+    /**
+     * @brief getFile get the file with the given fileName, check wether the file exist
+     * or not
+     * @param fileName the name of the file to open
+     * @return the file (not opened) if it exists, nothing otherwise
+     */
+    QFile getFile(QString fileName);
 
 }
 

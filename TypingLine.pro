@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT              += designer uitools core gui
+QT              += designer uitools core gui xml
 CONFIG          += -std=c++11 debug
 QMAKE_CXXFLAGS  += -std=c++11
 

@@ -6,10 +6,10 @@
         <file alias="words.txt">ressources/words_fr.txt</file>
     </qresource>
     <qresource prefix="/texts">
-        <file alias="texts.txt">ressources/texts.txt</file>
+        <file alias="texts.xml">ressources/texts.xml</file>
     </qresource>
     <qresource prefix="/texts" lang="fr">
-        <file alias="texts.txt">ressources/texts_fr.txt</file>
+        <file alias="texts.xml">ressources/texts_fr.xml</file>
     </qresource>
     <qresource prefix="/">
         <file alias="layouts.txt">ressources/layouts.txt</file>

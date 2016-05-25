@@ -74,10 +74,28 @@ bool isValidWord(QString word, QString availableLetters) {
 
 
 QString factory::generateText(int numbersOfWords){
-    QStringList content = readFile(":/texts/texts.txt").split("\n");
-    QStringList text = selectRandomString(content).split(" ",QString::SkipEmptyParts);
-    int start = randInt(0,text.size() - numbersOfWords);
-    return QStringList(text.mid(start,numbersOfWords)).join(" ");
+    QDomDocument doc = readXMLFile(":/texts/texts.xml");
+    QDomElement root = doc.documentElement();
+    if(root.tagName() != "texts"){
+        qDebug() << "XML not correctly formatted : should be 'texts' at the root, found :" << root.tagName();
+        return QString("");
+    }else{
+        QDomNodeList choices = root.childNodes();
+        int randomNode = randInt(0,choices.length()-1);
+        QDomNode node = choices.item(randomNode);
+        if(node.isElement()){
+            QDomElement chosen = node.toElement();
+            if(chosen.hasAttribute("title")){
+                qDebug() << "Found the title : " <<  chosen.attribute("title");
+            }
+            if(chosen.hasAttribute("author")){
+                qDebug() << "Found the author :  " << chosen.attribute("author");
+            }
+            return chosen.text();
+        }else{
+            return QString("");
+        }
+    }
 }
 
 QString factory::generateLearning(QString mainLetter, QString allLetters) {
@@ -195,7 +213,8 @@ int factory::findClosestSpace(const QString& search, int indexStart) {
     return toIncr; //End of the string
 }
 
-QStringList factory::splitText(QString toSplit, int numberOfSplit) {
+QStringList factory::splitText(QString toSplit, int numberOfSplit)
+{
     int charPerPages = toSplit.size() / numberOfSplit;
 
     QStringList models;
@@ -212,16 +231,32 @@ QStringList factory::splitText(QString toSplit, int numberOfSplit) {
 }
 
 
-QString factory::readFile(QString fileName) {
+QString factory::readFile(QString fileName)
+{
     QFile model(fileName);
-    if (model.exists() && model.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    if (model.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString res(model.readAll());
         return res;
     } else {//File not found
-        if (!model.exists())
-            qDebug() << "File does not exists : " + fileName + " \n Please, be sure to run the programm from its root folder";
-        else
-            qDebug() << "Could not open file";
+        qDebug() << "Could not open file";
         return QString("");
     }
 }
+
+
+QDomDocument factory::readXMLFile(QString fileName)
+{
+    QFile f(fileName);
+    QDomDocument doc("texts");
+    if(!f.open(QIODevice::ReadOnly)){
+        qDebug() << "Could not open xml file";
+        return QDomDocument();
+    }
+    if(!doc.setContent(&f)){
+        qDebug() << "Could not set content of domDocument";
+        return QDomDocument();
+    }
+    f.close();
+    return doc;
+}
+
