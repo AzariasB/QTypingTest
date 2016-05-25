@@ -10,7 +10,6 @@
  * Created on 10 janvier 2016, 11:40
  */
 
-
 #include "twindowlearn.h"
 
 TWindowLearn::TWindowLearn(TExercice* ex, QWidget* parent) :

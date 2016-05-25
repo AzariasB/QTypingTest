@@ -7,7 +7,6 @@ QMAKE_CXXFLAGS  += -std=c++11
 SRC = $$PWD/../../../src/
 
 INCLUDEPATH += $$SRC
-message($$INCLUDEPATH)
 
 HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
             $$SRC/QTypingTest/Dialogs/Exercices/tpracticetext.h \
@@ -59,4 +58,7 @@ TARGET = testPracticeText
 OBJECTS_DIR = .obj
 MOC_DIR = .moc
 RCC_DIR = .rcc
+
+RESOURCES += \
+    ../../../ressources.qrc
 

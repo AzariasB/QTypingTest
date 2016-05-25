@@ -10,7 +10,6 @@
  * Created on 24 novembre 2015, 11:27
  */
 
-
 #include "tresult.h"
 
 TResult::TResult() {

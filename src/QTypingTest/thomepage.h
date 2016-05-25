@@ -18,6 +18,7 @@
 #include <QPushButton>
 #include <QDebug>
 #include <QHBoxLayout>
+#include <QMap>
 
 #include "Learn/learnpage.h"
 #include "Practice/practicepage.h"
@@ -29,11 +30,6 @@
 #include "ui/ui_homepage.h"
 #include "toptiondialog.h"
 
-
-struct button_stack {
-    QPushButton *triggerer;
-    QWidget *container;
-};
 
 class THomePage : public QMainWindow {
     Q_OBJECT
@@ -69,8 +65,7 @@ private:
      */
     void connectEvents();
     Ui_MainWindow ui;
-
-    QVector<button_stack> pagesButtons_;
+    QMap<QPushButton*,QWidget*> buttonsStacks_;
 
 };
 

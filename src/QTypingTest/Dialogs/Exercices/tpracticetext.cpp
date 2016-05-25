@@ -16,13 +16,15 @@ TPracticeText::TPracticeText(QWidget *parent):
 TWindowTest(parent){
     TExercice *ex = new TExercice(TExercice::PRACTICING_TEXT,true);
     pages_.setupPages(ex->buildExercice());
+    updateToolbarProgression();
 }
 
 TPracticeText::TPracticeText(const TPracticeText& orig) :
 TWindowTest(orig.pages_.getText(),orig.parentWidget()){
+    updateToolbarProgression();
 }
 
 TPracticeText::TPracticeText(QString text, QWidget* parent):
 TWindowTest(text,parent){
-
+    updateToolbarProgression();
 }

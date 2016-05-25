@@ -13,6 +13,8 @@
 #ifndef TRESULT_H
 #define TRESULT_H
 
+#include <qdatastream.h>
+
 #include <QString>
 
 #include "Util/htmlhelper.h"
@@ -68,6 +70,16 @@ public:
         this->correctKeystrokes_ += incrementation;
     }
 
+    /* modif code de base from private to public */
+    void setCorrectWords(int correctWords) {
+        this->correctWords_ = correctWords;
+    }
+
+    void setWrongWords(int wrongWords) {
+        this->wrongWords_ = wrongWords;
+    }
+    /* ************* */
+
     /**
      * Return a QString with all the values of the object
      * Helper to show results at the end of an exercice
@@ -100,13 +112,9 @@ private:
         this->wrongWords_++;
     }
 
-    void setCorrectWords(int correctWords) {
-        this->correctWords_ = correctWords;
-    }
-
-    void setWrongWords(int wrongWords) {
-        this->wrongWords_ = wrongWords;
-    }
+//    void setWrongWords(int wrongWords) {
+//        this->wrongWords_ = wrongWords;
+//    }
 
     friend QDataStream &operator>>(QDataStream &in, TResult &result){
         in >> result.correctKeystrokes_ >> result.wrongKeystrokes_ >> result.wordsPerMinute_;

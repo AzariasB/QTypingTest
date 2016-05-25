@@ -18,17 +18,17 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 #Change config depending on the build configuration
 CONFIG(debug, debug|release) {
-    TARGET = QTypingTest
-    DESTDIR = build/Debug
-    OBJECTS_DIR = build/Debug/.obj
-    MOC_DIR = build/Debug/.moc
-    RCC_DIR = build/Debug/.rcc
+	TARGET = QTypingTest
+	DESTDIR = build/Debug
+	OBJECTS_DIR = build/Debug/.obj
+	MOC_DIR = build/Debug/.moc
+	RCC_DIR = build/Debug/.rcc
 } else {
-    TARGET = QTypingTest
-    DESTDIR = build/release
-    OBJECTS_DIR = build/release/.obj
-    MOC_DIR = build/release/.moc
-    RCC_DIR = build/release/.rcc
+	TARGET = QTypingTest
+	DESTDIR = build/release
+	OBJECTS_DIR = build/release/.obj
+	MOC_DIR = build/release/.moc
+	RCC_DIR = build/release/.rcc
 }
 
 UI_DIR = src/ui

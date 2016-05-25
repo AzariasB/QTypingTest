@@ -5,12 +5,12 @@
  * Created on 18 décembre 2015, 20:00
  */
 
-
 #include <QtTest/QtTest>
 #include <QApplication>
 #include <time.h>
 
 #include "QTypingTest/Dialogs/Exercices/twindowlearn.h"
+
 
 class TestLearnDialog : public QObject {
     Q_OBJECT

@@ -1,8 +1,12 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2016-01-25T12:43:50
+#
+#-------------------------------------------------
 
-QT += widgets testlib
+QT       += testlib
 
-CONFIG          += -std=c++11
-QMAKE_CXXFLAGS  += -std=c++11
+QT       -= gui
 
 SRC = $$PWD/../../src/
 
@@ -38,4 +42,3 @@ TARGET = testUser
 OBJECTS_DIR = .obj
 MOC_DIR = .moc
 RCC_DIR = .rcc
-
