@@ -18,12 +18,15 @@
 #include <algorithm>
 #include <QFile>
 #include <QDomDocument>
+#include <Data/ttext.h>
 
 namespace factory {
     
     
     /**
      * 
+     * \todo: improve the generation algorithm to start at a point
+     * and finish at a point
      * 
      * This function will read the texts files of the project
      * corresponding to the language.
@@ -34,7 +37,17 @@ namespace factory {
      * @return a part of a text containing n words, choosen from the file corresponding
      * to the given language. If the file does not exists, english is chosen by default
      */
-    QString generateText(int numbersOfWords);
+    TText generateText(int minNumberOfWords,int maxNumberOfWords = 50);
+
+    /**
+     * @brief selectTextChunk this function will search for an entire sentence starting at the end
+     * of another sentence and ending with a '.'
+     * @param wholeText the entire text where to find a chunk
+     * @param numberOfWords the minimum number of words to have
+     * @return the selected chunk
+     */
+    QString selectTextChunk(QString wholeText, int minNumberOfWords, int maxNumberOfWords);
+
     /**
      * This function generate the practice exercice from the given letters.
      * The result is devided into three parts :

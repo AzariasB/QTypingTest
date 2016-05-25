@@ -73,12 +73,14 @@ bool isValidWord(QString word, QString availableLetters) {
 }
 
 
-QString factory::generateText(int numbersOfWords){
+TText factory::generateText(int minNumberOfWords, int maxNumberOfWords)
+{
     QDomDocument doc = readXMLFile(":/texts/texts.xml");
+    TText t;
     QDomElement root = doc.documentElement();
     if(root.tagName() != "texts"){
         qDebug() << "XML not correctly formatted : should be 'texts' at the root, found :" << root.tagName();
-        return QString("");
+        return t;
     }else{
         QDomNodeList choices = root.childNodes();
         int randomNode = randInt(0,choices.length()-1);
@@ -86,16 +88,46 @@ QString factory::generateText(int numbersOfWords){
         if(node.isElement()){
             QDomElement chosen = node.toElement();
             if(chosen.hasAttribute("title")){
-                qDebug() << "Found the title : " <<  chosen.attribute("title");
+                QString title = chosen.attribute("title");
+                qDebug() << "Found the title : " <<  title;
+                t.setTitle(title);
             }
             if(chosen.hasAttribute("author")){
-                qDebug() << "Found the author :  " << chosen.attribute("author");
+                QString author = chosen.attribute("author");
+                qDebug() << "Found the author :  " << author;
+                t.setAuthor(author);
             }
-            return chosen.text();
+            QString text = chosen.text();
+            t.setText(selectTextChunk(chosen.text(),minNumberOfWords,maxNumberOfWords));
+            return t;
         }else{
-            return QString("");
+            return t;
         }
     }
+}
+
+QString factory::selectTextChunk(QString wholeText, int minNumberOfWords,int maxNumberOfWords)
+{
+    int absoluteNumberOfWords = minNumberOfWords * 5;
+    int maxAbs = maxNumberOfWords * 5;
+    QString maxLength = wholeText.mid(0,wholeText.size() - absoluteNumberOfWords);
+    int numberOfDots = maxLength.count('.');
+    int randStartPos = randInt(0,numberOfDots);
+    //Starting at the very begining of a sentence
+    for(int i = 0 ; i < randStartPos;i++){
+        wholeText = wholeText.mid(0,wholeText.indexOf('.'));
+    }
+    //Chunk that starts with at the end of a sentence.
+    QString firstChunk = wholeText.mid(0,absoluteNumberOfWords);
+    wholeText = wholeText.mid(absoluteNumberOfWords);
+    //Chunk that ends with a '.' at the end
+    QString secondChunk = wholeText.mid(0,wholeText.indexOf('.'));
+
+    //If too much words, just end the current word
+    if((firstChunk + secondChunk).size() > maxAbs )
+        return firstChunk + secondChunk.mid(0,secondChunk.indexOf(' ')) ;
+    return firstChunk + secondChunk;
+
 }
 
 QString factory::generateLearning(QString mainLetter, QString allLetters) {
@@ -105,7 +137,6 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
     if (!mainLetter.isEmpty())
         res += generateFromLetters(mainLetter);
 
-    // \todo : change here the language of the words to depend on the user configuration (Azarias)
     if (!allLetters.isEmpty()) {
         res += generateFromLetters(allLetters);
         QString wordsWMain = generateWords(allLetters,mainLetter);

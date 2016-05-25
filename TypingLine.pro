@@ -82,7 +82,8 @@ SOURCES += src/main.cpp \
         src/Data/tprogression.cpp \
         src/Data/tuser.cpp \
         src/Data/tusermanager.cpp \
-        src/Data/tstats.cpp
+        src/Data/tstats.cpp \
+        src/Data/ttext.cpp
 #------------
 #Core classes
 #------------
@@ -122,7 +123,8 @@ HEADERS += \
             src/Data/tlayouts.h \
             src/Data/tuser.h \
             src/Data/tusermanager.h \
-            src/Data/tstats.h  
+            src/Data/tstats.h \  
+            src/Data/ttext.h
 
 DISTFILES += \
     ressources/layouts.txt \
