@@ -89,10 +89,6 @@ public:
         return timerEnd_;
     }
 
-    /**
-     * 
-     * @return a pointer to the list of restuls
-     */
     void addResult(TResult* nwResult) {
         results_.append(nwResult);
     }
@@ -145,6 +141,12 @@ public slots:
         topToolbar_.setProgression(getPageProgression());
     }
 
+    /**
+     * @brief answerTyped called whenever the user type an answer
+     * @param nwAnswer the answer typed
+     */
+    void answerTyped(QString nwAnswer);
+
 signals:
     /**
      * Triggerred when the exercice is 'officialy' finished
@@ -167,13 +169,6 @@ signals:
     void timerEnded();
 
 protected:
-    /**
-     * Instead of having to focus on each of the lines
-     * this function handle the keypress event for the whole dialog
-     * 
-     * @param ev the keyevent event
-     */
-    void keyPressEvent(QKeyEvent* ev);
 
     /**
      * Dialog keeps moving when changin the text of the label ...
@@ -248,6 +243,8 @@ protected:
 
     /* The pages */
     TStackPages pages_;
+
+    QLineEdit edit_;
 
 private:
     /* The results of each pages */

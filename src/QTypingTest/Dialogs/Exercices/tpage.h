@@ -43,18 +43,21 @@ public:
      */
     void update(QKeyEvent* ev);
 
+    void updateLine(QString answer);
+
     void updateAsFirst() {
         this->toCopy_[currentTLabel_]->setFirst();
     }
 
     TResult *getResult() {
-        updateResult();
         return lineRes_;
     }
     
     QString text(){
         return globalAnswer_;
     }
+
+    ~TPage();
 
     //##############################
     //  Signals
@@ -79,7 +82,7 @@ signals:
 
 public slots:
     
-    void typingAnswer(QString answer);
+    bool typingAnswer(QString answer);
     
     
     void eraseAnswer();
@@ -98,14 +101,6 @@ private:
      */
     bool isValidKey(QKeyEvent *ev);
 
-    /**
-     * Function to calculate the total score realised by the user at the end of his line
-     * It is calculated from the differences between the solution and 
-     * the user given by the user
-     * 
-     * Both the answer and the solution must have the same length
-     */
-    void updateResult();
 
     /**
      * Function to update the necessary models (staistics)
@@ -116,7 +111,7 @@ private:
      * 
      * @param userAnswer the character typed by the user wich is the wrong answer
      */
-    void handleMistype(QChar userAnswer);
+    void handleMistype(QChar userAnswer, bool previousWasRight = false);
 
     /**
      * 
@@ -142,6 +137,8 @@ private:
     const int numberOfLines_ = 4;
 
     int currentTLabel_ = 0;
+
+    int cursorPosition_ = 0;
 };
 
 #endif // TPAGE_H

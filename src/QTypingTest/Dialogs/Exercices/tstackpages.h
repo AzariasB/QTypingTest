@@ -103,13 +103,9 @@ public slots:
      */
     void beginExercice();
 
-    /**
-     * Called whenever the user type on the keybaord and 
-     * the game is not paused
-     * 
-     * @param ev the key event triggered by the user
-     */
-    void keyPressed(QKeyEvent *ev);
+    /* Answer typed */
+    bool answerTyped(QString answer);
+
 
 private:
     int numberOfPages_ = 1;

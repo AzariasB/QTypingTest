@@ -61,12 +61,12 @@ public:
         wordsPerMinute_ = nwWPM;
     }
     
-    void incrWrongKeyStrokes(int incrementation) {
+    void incrWrongKeyStrokes(int incrementation = 1) {
         this->wrongKeystrokes_ += incrementation;
     } 
    
 
-    void incrCorrectKeystrokes(int incrementation) {
+    void incrCorrectKeystrokes(int incrementation = 1) {
         this->correctKeystrokes_ += incrementation;
     }
 

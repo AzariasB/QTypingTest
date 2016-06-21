@@ -36,12 +36,11 @@ void TPage::setupPage() {
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     //Devide the model into equals parts and create n Tlabels
-
     QStringList lines = factory::splitText(globalAnswer_, numberOfLines_);
 
-
-    for (int i = 0; i < lines.size(); i++) {
-        TLabel *label = new TLabel(lines[i] + " ");
+    for (int i = 0; i < lines.size(); i++) {;
+        QString endSpace = (i == lines.size() -1 ? "" : " ");
+        TLabel *label = new TLabel(lines[i]+ endSpace);
         tLineLayout_->addWidget(label);
         if (i > 0) {
             label->setEnabled(false); //Disable all to preventLine -> user to switch of lineEdit
@@ -54,26 +53,41 @@ void TPage::setupPage() {
 
 }
 
-void TPage::typingAnswer(QString answer) {
+bool TPage::typingAnswer(QString answer)
+{
     if (!started_) {
         started_ = true;
         emit startedPage();
     }
 
+    bool nextChar = true;
+
     TLabel *curLabel = toCopy_[currentTLabel_];
-    lastAnswer_ += answer;
 
-    bool sameChar = answer[answer.size() - 1] == globalAnswer_[lastAnswer_.size() - 1];
-
-    if (!sameChar) {
-        handleMistype(answer[answer.size() - 1]);
+    bool sameChar = answer.size() == 1 && answer[0] == globalAnswer_[lastAnswer_.size()];
+    if (!sameChar)
+    {
+        if(answer.size() == 1)
+        {
+            handleMistype(answer[answer.size() - 1]);
+            lineRes_->incrWrongKeyStrokes();
+        }
+    }
+    else
+    {
+        lastAnswer_ += answer;
+        cursorPosition_++;
+        lineRes_->incrCorrectKeystrokes();
     }
 
-    bool nextChar = curLabel->nextChar(sameChar);
+    if(answer.size() == 1) //When a single char is typed
+    {//Try to move the cursor
+        nextChar = curLabel->nextChar(sameChar);
+    }
 
-    if (!nextChar) {//Next line
+     if (cursorPosition_ == curLabel->text().size() ) {//Next line
+         cursorPosition_ = 0;
         if (currentTLabel_ == toCopy_.size() - 1) {
-            this->updateResult();
             emit endedPage(this->lineRes_);
         } else {
             curLabel->setEnabled(false);
@@ -82,11 +96,10 @@ void TPage::typingAnswer(QString answer) {
             toCopy_[currentTLabel_]->setFirst();
         }
     }
-
+    return sameChar;
 }
 
-void TPage::handleMistype(QChar userAns) {
-    bool previousWasRight = true;
+void TPage::handleMistype(QChar userAns, bool previousWasRight) {
     if (lastAnswer_.size() > 1) {
         previousWasRight = globalAnswer_[lastAnswer_.size() - 2] == lastAnswer_[lastAnswer_.size() - 2];
     }
@@ -111,29 +124,19 @@ void TPage::eraseAnswer() {
     }
 }
 
-bool TPage::isValidKey(QKeyEvent* ev) {
-
+bool TPage::isValidKey(QKeyEvent* ev)
+{
     return !ev->text().isEmpty() && !ev->text().isNull() && ev->key() != Qt::Key_Backspace ;
 }
 
-void TPage::update(QKeyEvent* ev) {
-    qDebug() << ev->key();
-    if (isValidKey(ev)) {
-        typingAnswer(ev->text());
-    } else if (ev->key() == Qt::Key_Backspace) {
-        eraseAnswer();
+void TPage::updateLine(QString answer)
+{
+    if(!answer.isEmpty()){
+        typingAnswer(answer);
     }
 }
 
-void TPage::updateResult() {
-    int correctKeyStrokes = 0;
-    int wrongKeyStrokes = 0;
-    for (int i = 0; i < lastAnswer_.size() && i < globalAnswer_.size(); i++) {
-        if (lastAnswer_[i] != globalAnswer_[i])
-            wrongKeyStrokes++;
-        else
-            correctKeyStrokes++;
-    }
-    lineRes_->setCorrectKeysStrokes(correctKeyStrokes);
-    lineRes_->setWrongKeysStrokes(wrongKeyStrokes);
+TPage::~TPage()
+{
+    delete lineRes_;
 }

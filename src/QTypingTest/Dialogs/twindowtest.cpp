@@ -28,8 +28,13 @@ void TWindowTest::setupWidget() {
 
     topToolbar_.setProgression(getPageProgression());
 
+    QFont lineEditFont = edit_.font();
+    lineEditFont.setPointSize(16);
+    lineEditFont.setFamily("Monospace");
+    edit_.setFont(lineEditFont);
     centralLayout->addWidget(&topToolbar_);
     centralLayout->addWidget(&pages_);
+    centralLayout->addWidget(&edit_);
 
     //Setup window
     this->setModal(true);
@@ -46,14 +51,6 @@ void TWindowTest::setupWidget() {
 }
 
 //Protected
-
-void TWindowTest::keyPressEvent(QKeyEvent* ev) {
-    if (!paused_) {
-        pages_.keyPressed(ev);
-    }
-
-}
-
 /**
  * Please dialog, stop moving
  * when the text is changing !
@@ -78,7 +75,8 @@ void TWindowTest::setupTimer() {
 
 //Slots
 
-void TWindowTest::saveResult(TResult* previousScore) {
+void TWindowTest::saveResult(TResult* previousScore)
+{
     this->results_ << previousScore;
 
 }
@@ -158,8 +156,16 @@ void TWindowTest::connectEvents() {
     connect(&pages_, &TStackPages::currentChanged, this, &TWindowTest::updateToolbarProgression);
     connect(&pages_, SIGNAL(exerciceStarted()), this, SLOT(beginExercice()));
     connect(&topToolbar_, SIGNAL(pauseClicked()), this, SLOT(pauseContinueExercice()));
+    connect(&edit_,SIGNAL(textEdited(QString)),this,SLOT(answerTyped(QString)));
 }
 
+void TWindowTest::answerTyped(QString nwAnswer)
+{
+    if(pages_.answerTyped(nwAnswer))
+    {
+        edit_.setText("");
+    }
+}
 
 //Destructor
 

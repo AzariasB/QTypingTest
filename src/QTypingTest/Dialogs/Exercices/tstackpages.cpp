@@ -39,16 +39,16 @@ toCopy_(QStringList()) {
 
 void TStackPages::setupPages(QString wholeText) {
     QStringList model = factory::splitText(wholeText, numberOfPages_);
-
     for (int i = 0; i < model.size(); i++) {
-        addPage(model[i], i == 0);
+        addPage(model[i] + " ", i == 0);
     }
     //Set index to first
     if (!model.isEmpty())
         setCurrentIndex(0);
 }
 
-void TStackPages::nextPage(TResult* previousScore) {
+void TStackPages::nextPage(TResult* previousScore)
+{
     emit pageEnded(previousScore);
     if (!setFollowingPage()) {
         emit textFinished();
@@ -57,7 +57,8 @@ void TStackPages::nextPage(TResult* previousScore) {
     }
 }
 
-bool TStackPages::setFollowingPage() {
+bool TStackPages::setFollowingPage()
+{
     if (currentIndex() + 1 >= count()) {
         return false;
     } else {
@@ -66,7 +67,7 @@ bool TStackPages::setFollowingPage() {
         TPage *nwPage = currentPage();
 
         nwPage->setEnabled(true);
-        nwPage->setFocus();
+       // nwPage->setFocus();
         nwPage->updateAsFirst();
         return true;
     }
@@ -76,8 +77,17 @@ void TStackPages::beginExercice() {
     emit exerciceStarted();
 }
 
-void TStackPages::keyPressed(QKeyEvent *ev) {
-    currentPage()->update(ev);
+//void TStackPages::keyPressed(QKeyEvent *ev) {
+    //currentPage()->update(ev);
+//}
+
+bool TStackPages::answerTyped(QString answer)
+{
+    if(answer.size() > 0)
+    {
+        return currentPage()->typingAnswer(answer);
+    }
+    return false;
 }
 
 void TStackPages::addPage(QString pageText, bool isFirst) {

@@ -26,6 +26,10 @@ public:
     TLabel(QString text, QWidget *parent = 0);
     virtual ~TLabel();
 
+    QString text() const
+    {
+        return stringToCopy_;
+    }
 
     /**
      * Update the current char color depending on the answer given by the user

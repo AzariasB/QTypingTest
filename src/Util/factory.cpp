@@ -95,8 +95,8 @@ TText factory::generateText(int minNumberOfWords, int maxNumberOfWords)
                 qDebug() << "Found the author :  " << author;
                 t.setAuthor(author);
             }
-            QString text = chosen.text();
-            t.setText(selectTextChunk(chosen.text(),minNumberOfWords,maxNumberOfWords));
+            QString text = selectTextChunk(chosen.text(),minNumberOfWords,maxNumberOfWords);
+            t.setText(text.simplified());
             return t;
         }else{
             return t;

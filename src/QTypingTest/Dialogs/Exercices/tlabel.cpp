@@ -35,9 +35,9 @@ bool TLabel::nextChar(bool currendIsCorrect) {
         html::addTags(splitedChars_[currentChar_], "u", "style='color : #FF5E58;'");
     } else {
         html::addTags(splitedChars_[currentChar_], "span", "style='color : #8E8EFF';");
+        currentChar_++;
     }
 
-    currentChar_++;
     if (currentChar_ < stringToCopy_.size()) {
         html::addTags(splitedChars_[currentChar_], "b,u");
     }
