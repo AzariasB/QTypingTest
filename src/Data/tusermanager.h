@@ -67,13 +67,14 @@ public:
         return rmed;
     }
 
+
+#ifdef QT_DEBUG
     /**
      * ONLY FOR TESTING
      *
      * The aim of this function is to start with no users
      * this function must not be called in production
      *
-     * \todo : add preprocessor for DEBUG only
      *
      * @brief removeAllUsers
      */
@@ -83,6 +84,7 @@ public:
         saveTarget_.clear();
         saveTarget_.endGroup();
     }
+#endif
 
     //Respect singleton patter, prevent assigning values by any mean
     TUserManager(const TUserManager& orig) = delete;

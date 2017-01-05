@@ -37,21 +37,28 @@ TExercice* TExercice::generateExercice(EXERCICE_TYPE type, QString mainLetters, 
     switch(type){
         case LEARNING:
             return new TExercice(type, mainLetters, availableLetters);
-        default:    // \todo : get computer's layout
+        default:
             return new TExercice(type, "", TLayouts::getInstance().getAllAvailableLetters() );
     }
 }
 
-QString TExercice::buildExercice() const {
+QString TExercice::buildExercice() {
+    QString exo;
     switch (exerciceType_) {
         case LEARNING:
-            return factory::generateLearning(learningLetters_, availableLetters_);
+            exo = factory::generateLearning(learningLetters_, availableLetters_);
+            break;
         case PRACTICING:
         case PRACTICING_RACE:
-            return factory::generatePractice(availableLetters_);
+            exo = factory::generatePractice(availableLetters_);
+            break;
         case PRACTICING_TEXT:
-            return factory::generateText().text();
+            exo = factory::generateText().text();
+            break;
         default:
-            return factory::generateLearning(availableLetters_, availableLetters_);
+            exo =  factory::generateLearning(availableLetters_, availableLetters_);
+            break;
     }
+    numberOfWords_ = exo.split(" ").size();
+    return exo;
 }

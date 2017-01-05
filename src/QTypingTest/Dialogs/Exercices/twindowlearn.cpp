@@ -14,13 +14,13 @@
 
 TWindowLearn::TWindowLearn(TExercice* ex, QWidget* parent) :
 TWindowTest(ex->buildExercice(), parent),
-instructions_(new TPresentation(TLayouts::getInstance("azerty"),ex->getLearningLetters())) {
+instructions_(new TPresentation(TLayouts::getInstance(),ex->getLearningLetters())) {
     addInstructions();
 }
 
 TWindowLearn::TWindowLearn(QString content, QWidget* parent) :
 TWindowTest(content, 1, parent),
-instructions_(new TPresentation(TLayouts::getInstance("azerty"))) {
+instructions_(new TPresentation(TLayouts::getInstance())) {
     addInstructions();
 }
 

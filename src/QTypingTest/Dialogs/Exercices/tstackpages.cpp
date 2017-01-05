@@ -50,14 +50,14 @@ void TStackPages::setupPages(QString wholeText) {
 void TStackPages::nextPage(TResult* previousScore)
 {
     emit pageEnded(previousScore);
-    if (!setFollowingPage()) {
+    if (!nextPage()) {
         emit textFinished();
     } else {
 
     }
 }
 
-bool TStackPages::setFollowingPage()
+bool TStackPages::nextPage()
 {
     if (currentIndex() + 1 >= count()) {
         return false;

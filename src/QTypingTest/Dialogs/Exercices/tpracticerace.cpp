@@ -14,7 +14,7 @@
 
 TPracticeRace::TPracticeRace(int timeStart,QWidget *parent) :
 TWindowTest(parent),
-generator_(TExercice(TExercice::PRACTICING_RACE, true)) {
+generator_(*TExercice::generateExercice(TExercice::PRACTICING_RACE)) {
     setupPage(timeStart);
 }
 

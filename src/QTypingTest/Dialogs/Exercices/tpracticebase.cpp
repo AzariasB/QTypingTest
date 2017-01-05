@@ -14,7 +14,7 @@
 
 TPracticeBase::TPracticeBase(QWidget* parent)
 : TWindowTest(parent),
-generator_(new TExercice(TExercice::PRACTICING, true)) {
+generator_(TExercice::generateExercice(TExercice::PRACTICING)) {
     setupText();
 }
 

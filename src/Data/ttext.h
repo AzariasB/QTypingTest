@@ -68,7 +68,7 @@ private:
     /* The text itself */
     QString text_;
 
-    /* The difficulty of the text (todo : Azarias) */
+    /* The difficulty of the text */
     int difficulty_;
 };
 

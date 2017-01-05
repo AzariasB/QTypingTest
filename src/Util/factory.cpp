@@ -160,9 +160,9 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
     return res;
 }
 
-QString factory::generatePractice(QString letters, bool onlyRealWords, int numberOfWords){
+QString factory::generatePractice(QString letters, bool realWordsOnly, int numberOfWords){
     QString res;
-    if(!onlyRealWords)
+    if(!realWordsOnly)
         res += generateFromLetters(letters,numberOfWords/2);
     
     if(!letters.isEmpty()){
@@ -172,6 +172,8 @@ QString factory::generatePractice(QString letters, bool onlyRealWords, int numbe
         res = words.join(" ");
     }else{
         qWarning() << "Warning : no letters available to generate the practice";
+        //Generate with all the letters
+        return generatePractice(QString("abcdefghijklmnopqrstuvwxyz"), realWordsOnly, numberOfWords);
     }
     
     return res;

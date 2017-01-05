@@ -96,7 +96,7 @@ void LearnPage::lauchExercice() {
             currentProgression_ = lastLetterIndex;
             QString lastLetter = practice_.getLettersAt(lastLetterIndex);
             QString allLetters = practice_.getAllLettersTo(lastLetterIndex + 1);
-            TExercice *ex = new TExercice(TExercice::LEARNING, lastLetter, allLetters);
+            TExercice *ex = TExercice::generateExercice(TExercice::LEARNING, lastLetter, allLetters);
 
 
             testWindow_ = new TWindowLearn(ex, this);
@@ -111,10 +111,10 @@ void LearnPage::lauchExercice() {
 }
 
 void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
-    // \todo : check if the result is good enought to set the advance in the progression (Azarias)
     testWindow_->hide();
 
-    if ((timeEx.msecsSinceStartOfDay() / 1000.f) > 120) {
+    // Min time and min wpm may change depending on overall difficulty
+    if ((timeEx.msecsSinceStartOfDay() / 1000.f) > 120 || exerciceResult->getWPM() < 30) {
         QMessageBox::information(this, "Too long", "You didn't made in time.");
     } else {
         TProgression *curProgr = TUserManager::getInstance().getCurrentUser()->getProgression();

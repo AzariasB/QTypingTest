@@ -77,7 +77,7 @@ namespace factory {
      * @param onlyRealWords if it must generates only words existing in a language, or if it can generate random words
      * @return the generated text
      */
-    QString generatePractice(QString letters,bool onlyRealWords = true, int numberOfWords = 40);
+    QString generatePractice(QString letters, bool realWordsOnly = true, int numberOfWords = 40);
     
     
     /**

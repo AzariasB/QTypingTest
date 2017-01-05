@@ -39,7 +39,7 @@ public:
     TExercice(const TExercice& orig);
 
 
-    QString buildExercice() const;
+    QString buildExercice();
 
     virtual ~TExercice() {}
 

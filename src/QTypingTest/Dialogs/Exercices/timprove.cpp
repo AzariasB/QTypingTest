@@ -18,10 +18,10 @@ TWindowTest(parent){
     QList<QChar> chars =  TUserManager::getInstance().getCurrentUser()->getStatistics().keys();
     QString training = listToString(chars);
     
-    // \todo : create a longer string and split up in two parts for the two pages
     QString page1 = factory::generatePractice(training,false);
     pages_.setNumberOfPages(2);
-    pages_.setupPages(page1);
+    QString page2 = factory::generatePractice(training, true);
+    pages_.setupPages(page1 + page2);
     updateToolbarProgression();
 }
 
