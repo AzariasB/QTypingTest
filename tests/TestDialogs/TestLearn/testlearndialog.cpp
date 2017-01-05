@@ -30,7 +30,7 @@ void TestLearnDialog::testOpen() {
     TWindowLearn learn(ex,w);
     learn.show();
     connect(&learn,&TWindowLearn::endOfExercice,this, [&learn,this](TResult *res, QTime time){
-        qDebug() << "End of the exerice";
+        qDebug() << "End of the exercice";
         qDebug() << res->getResume();
         learn.close();
     });

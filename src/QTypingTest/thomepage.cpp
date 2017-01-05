@@ -20,6 +20,12 @@ QMainWindow(parent)
     ui.setupUi(this);
 //    TUserManager::getInstance().setCurrentUser(new TUser("timmy"));
     connectEvents();
+    this->setGeometry(QStyle::alignedRect(
+                            Qt::LeftToRight,
+                            Qt::AlignCenter,
+                            this->size(),
+                            qApp->desktop()->availableGeometry()
+                          ));
 }
 
 THomePage::~THomePage() {
@@ -65,8 +71,8 @@ void THomePage::connectEvents() {
         if (!TUserManager::getInstance().getCurrentUser()) {
             it.key()->setEnabled(false);
         }
-
         connect(it.key(), &QPushButton::clicked, [ = ](){
+            qDebug() << it.value();
             ui.stack_main->setCurrentWidget(it.value());
         });
     }

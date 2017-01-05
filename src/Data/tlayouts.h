@@ -9,6 +9,25 @@
  * Created on 17 décembre 2015, 11:35
  */
 
+/*
+ * Finger explanation :
+ *
+ *   0 1 2 3 4    5 6 7 8 9
+       _.-._        _.-._
+     _| | | |      | | | |_
+    | | | | |      | | | | |
+    | | | | |      | | | | |
+    | _.-'  | _  _ |  '-._ |
+    ;_.-'.-'/`/  \`\`-.'-._;
+    |   '    /    \    '   |
+     \  '.  /      \  .`  /
+      |    |        |    |
+
+ The fingers are numbered from 0 to 9 when you look
+ at the back of each hand
+ *
+ */
+
 #ifndef TLAYOUTS_H
 #define TLAYOUTS_H
 
@@ -122,6 +141,15 @@ private:
     QStringList lettersList_;
     QList<QStringList> *layoutLines_;
 
+    /**
+      * @brief Ordre to learn the keyboard keys
+      * @abstract The list contains 21 entry, for the 21 couple of key to learn,
+      *             each entry contains three values :
+      *                 - The Line index ( 0 = number line, 1 = upperline, 2 = baseline, 3 = lower line)
+      *                 - The index on the line couple's left char
+      *                 - The index of the lines couple's right char
+      *
+      */
     int listOrder_[21][3] = {
         {2, 3, 6},
         {2, 2, 7},

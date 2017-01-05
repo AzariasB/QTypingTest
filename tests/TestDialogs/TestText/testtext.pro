@@ -51,14 +51,11 @@ RESOURCES += \
     $$PWD/../../../ressources.qrc
 
 
-target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/testPracticeText
+target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/testtext
 
 DESTDIR = build
-TARGET = testPracticeText
+TARGET = testtext
 OBJECTS_DIR = .obj
 MOC_DIR = .moc
 RCC_DIR = .rcc
-
-RESOURCES += \
-    ../../../ressources.qrc
 

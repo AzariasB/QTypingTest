@@ -22,7 +22,16 @@
 
 #include "twindowtest.h"
 
+
 void TWindowTest::setupWidget() {
+
+    this->setGeometry(QStyle::alignedRect(
+                            Qt::LeftToRight,
+                            Qt::AlignCenter,
+                            this->size(),
+                            qApp->desktop()->availableGeometry()
+                          ));
+
     QWidget *mainWidget = new QWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();
 

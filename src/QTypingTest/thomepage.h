@@ -19,6 +19,7 @@
 #include <QDebug>
 #include <QHBoxLayout>
 #include <QMap>
+#include <QDesktopWidget>
 
 #include "Learn/learnpage.h"
 #include "Practice/practicepage.h"

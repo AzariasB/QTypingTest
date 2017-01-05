@@ -13,6 +13,10 @@
 
 #include "gamepage.h"
 
+GamePage::~GamePage(){
+
+}
+
 GamePage::GamePage(QWidget* parent):
 QWidget(parent),
 interactiveKeyboard_(new QPushButton("Interactive keyboard")){
@@ -45,4 +49,5 @@ void GamePage::showInteractiveKeyboard() {
     dial->show();
     p->setFocus();//Focus on THE widget for the keyevents
 }
+
 

@@ -8,6 +8,7 @@
 #include <QTranslator>
 #include <QLocale>
 #include <QLibraryInfo>
+#include <QDesktopWidget>
 
 #include "QTypingTest/thomepage.h"
 
@@ -30,6 +31,7 @@ int main(int argc, char *argv[]) {
     init();   //Register the type to be able to create QVariant from them
 
     THomePage hp;
+
 
     //Set style
     QFile file(":/style.qss");

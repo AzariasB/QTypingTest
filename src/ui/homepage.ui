@@ -136,7 +136,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>3</number>
           </property>
           <widget class="LearnPage" name="page_learn">
            <property name="sizePolicy">
@@ -168,7 +168,7 @@
             </sizepolicy>
            </property>
           </widget>
-          <widget class="QWidget" name="page_stats">
+          <widget class="TStatsWPM" name="page_stats">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -199,7 +199,7 @@
      <x>0</x>
      <y>0</y>
      <width>629</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuUser">
@@ -313,6 +313,12 @@
    <class>GamePage</class>
    <extends>QWidget</extends>
    <header>QTypingTest/Games/gamepage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TStatsWPM</class>
+   <extends>QWidget</extends>
+   <header>QTypingTest/Statistics/tstatswpm.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -22,6 +22,7 @@ const QString allLetters = QString("abcdefghijklmnopqrstuvwxyz");
 class TestUtils : public QObject {
     Q_OBJECT
 private slots:
+    void testCore();
     void testHTML();
     void testFactory();
 private:
@@ -36,12 +37,33 @@ private:
     void testSurroundAt();
     void testRemoveTags();
     void testAbsolutePosition();
+
+    //Functions to test other 'utils' function (core functions)
+    void testSelectChunk();
 };
+
+
+void TestUtils::testCore()
+{
+    qDebug() << "Testing select chunk";
+    testSelectChunk();
+}
+
+void TestUtils::testSelectChunk()
+{
+    QString text("mot.");
+    QString chunk = factory::selectTextChunk(text,1,1);
+    qDebug() << "Chunk : " << chunk;
+
+    QVERIFY(chunk.split(" ").size() == 1);
+
+}
+
 
 //test if the files are found and the text correct
 void TestUtils::testText() {
-    QStringList twoWords = factory::generateText(2).split(" ",QString::SkipEmptyParts);
-    QStringList realText = factory::generateText(20).split(" ",QString::SkipEmptyParts);
+    QStringList twoWords = factory::generateText(2).text().split(" ",QString::SkipEmptyParts);
+    QStringList realText = factory::generateText(20).text().split(" ",QString::SkipEmptyParts);
     
     qDebug() << twoWords;
     qDebug() << realText;
@@ -199,6 +221,7 @@ void TestUtils::testFactory() {
     QLocale::setDefault(QLocale::English);
     
     srand(time(NULL)); //Random number generation
+
     
     qDebug() << "Testing factory (non-random functions)";
     //Not any "non random-functions' at the moment

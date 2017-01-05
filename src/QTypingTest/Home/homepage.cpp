@@ -14,6 +14,9 @@
 
 #include "homepage.h"
 
+HomePage::~HomePage(){
+}
+
 HomePage::HomePage(QWidget* parent) :
 QWidget(parent),
 usersList_(new QVBoxLayout()) {

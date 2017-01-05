@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += widgets testlib
-QT       += core
+QT       += widgets testlib xml core
 QT       -= gui
 
 CONFIG          += -std=c++11
@@ -26,6 +25,7 @@ HEADERS = $$SRC/QTypingTest/Statistics/tstatswpm.h \
             $$SRC/Data/tuser.h \
             $$SRC/Data/tstats.h \
             $$SRC/Data/tlayouts.h \
+            $$SRC/Data/ttext.h \
             $$SRC/Util/htmlhelper.h \
             $$SRC/Util/factory.h \
             $$SRC/QTypingTest/Statistics/tscrollwidget.h \
@@ -38,6 +38,7 @@ SOURCES = $$SRC/QTypingTest/Statistics/tstatswpm.cpp \
             $$SRC/Data/tuser.cpp \
             $$SRC/Data/tstats.cpp \
             $$SRC/Data/tlayouts.cpp \
+            $$SRC/Data/ttext.cpp \
             $$SRC/Util/htmlhelper.cpp \
             $$SRC/Util/factory.cpp \           
             $$SRC/QTypingTest/Statistics/tscrollwidget.cpp \

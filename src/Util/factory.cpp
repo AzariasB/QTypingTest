@@ -71,7 +71,7 @@ bool isValidWord(QString word, QString availableLetters) {
 }
 
 
-TText factory::generateText(int minNumberOfWords, int maxNumberOfWords)
+TText factory::generateText()
 {
     QDomDocument doc = readXMLFile(":/texts/texts.xml");
     TText t;
@@ -95,8 +95,7 @@ TText factory::generateText(int minNumberOfWords, int maxNumberOfWords)
                 qDebug() << "Found the author :  " << author;
                 t.setAuthor(author);
             }
-            QString text = selectTextChunk(chosen.text(),minNumberOfWords,maxNumberOfWords);
-            t.setText(text.simplified());
+            t.setText(chosen.text().simplified());
             return t;
         }else{
             return t;

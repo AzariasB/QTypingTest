@@ -25,9 +25,7 @@ class GamePage : public QWidget {
 public:
     GamePage(QWidget *parent = 0);
 
-    virtual ~GamePage() {
-
-    }
+    ~GamePage();
 
 public slots:
     void showInteractiveKeyboard();

@@ -24,13 +24,13 @@ void TLayouts::initLetters(QString layout, QString country) {
     QJsonObject jsonLays = doc.object();
     findAvailableLangs(jsonLays["layouts"]);//Get all the keys !
 
-    QString firstLang = availableLangs_[0];//take first. \todo : qt will take the good file to parse for us !
+    QString firstLang = availableLangs_[0];//take first. \todo : qt will take the good file to parse for us ! (Azarias)
 
     if (firstLang.isEmpty()) {
         layoutLines_ = new QList<QStringList>;
         qDebug() << "No correct config found";
     } else {
-        // \todo : check to avoir parsing twice the same file
+        // \todo : check to avoid parsing twice the same file
         lettersList_ = QStringList(); // reset the lettersList
         TLayouts::allAvailableLetters_ = "";
         layoutLines_ = decomposeLayout(jsonLays["layouts"].toObject()[firstLang].toObject());
@@ -101,12 +101,12 @@ QStringList TLayouts::getLetterList() {
             {
                 int *elem = listOrder_[i];
                 QStringList curLine = layoutLines_->at(elem[0]);
-                QString wordLeft = curLine[elem[1]];
-                QString wordRight = curLine[elem[2]];
-                wordLeft = j < wordLeft.size() ? QString(wordLeft[j]) : "";
-                wordRight = j < wordRight.size() ? QString(wordRight[j]) : "";
-                if (!(wordLeft + wordRight).isEmpty()) {
-                    lettersList_ << wordLeft + wordRight;
+                QString charLeft = curLine[elem[1]];
+                QString charRight = curLine[elem[2]];
+                charLeft = j < charLeft.size() ? QString(charLeft[j]) : "";
+                charRight = j < charRight.size() ? QString(charRight[j]) : "";
+                if (!(charLeft + charRight).isEmpty()) {
+                    lettersList_ << charLeft + charRight;
                 }
             }
         }

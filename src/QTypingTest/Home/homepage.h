@@ -32,8 +32,7 @@ public:
 
     HomePage(QWidget *parent = 0);
 
-    virtual ~HomePage() {
-    }
+    ~HomePage();
 
 public slots:
     void createUser();

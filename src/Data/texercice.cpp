@@ -48,7 +48,7 @@ QString TExercice::buildExercice() const {
         case PRACTICING_RACE:// \todo : change the number of words to generate
             return factory::generatePractice(TLayouts::getInstance("qwerty").getAllAvailableLetters());
         case PRACTICING_TEXT:
-            return factory::generateText(40).text();
+            return factory::generateText().text();
         default:
             return factory::generateLearning(availableLetters_, availableLetters_);
     }

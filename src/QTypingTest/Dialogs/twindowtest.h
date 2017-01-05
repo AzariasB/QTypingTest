@@ -21,6 +21,8 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QStackedLayout>
+#include <QStyle>
+#include <QDesktopWidget>
 
 #include "Exercices/tstackpages.h"
 #include "Exercices/ttoolbar.h"
@@ -32,8 +34,7 @@ class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-    TWindowTest(QWidget* parent = 0) :
-    QDialog(parent),
+    TWindowTest(QWidget* parent = 0) :QDialog(parent),
     topToolbar_(TToolbar()),
     pages_(TStackPages(2)),
     results_(QList<TResult*>()),

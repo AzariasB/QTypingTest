@@ -15,6 +15,12 @@
 TPracticeText::TPracticeText(QWidget *parent):
 TWindowTest(parent){
     TExercice *ex = new TExercice(TExercice::PRACTICING_TEXT,true);
+    QString text = ex->buildExercice();
+    //Set the number of page depending on the text's length
+    // \todo : (Azarias) have an exercice object to have the number of words ready
+    QStringList words = text.split(" ");
+    //40 words per page
+    pages_.setNumberOfPages(words.size() / 40);
     pages_.setupPages(ex->buildExercice());
     updateToolbarProgression();
 }
