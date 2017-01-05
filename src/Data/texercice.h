@@ -22,7 +22,8 @@
 
 /**
  * A model class to define the type of exercice the user is about to do
- * There are differents types of exercices and depending of these, differents parameters
+ * There are differents types of exercices and depending on these, differents parameters
+ * This class is a factory : it generates the exercice depending on the given parameter
  */
 class TExercice {
 public:
@@ -31,20 +32,18 @@ public:
         LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT
     };
 
+    //No difficulty because : why would it be necessary ?
+    static TExercice *generateExercice(EXERCICE_TYPE type, QString mainLetters = "", QString availableLetters = "");
+
     TExercice();
-    TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
-    TExercice(EXERCICE_TYPE exType, bool allLetters);
     TExercice(const TExercice& orig);
+
 
     QString buildExercice() const;
 
     virtual ~TExercice() {}
 
     QString learningLetters() const;
-
-    bool getAllLetters() const {
-        return allLetters_;
-    }
 
     const QString &getLearningLetters() const {
         return learningLetters_;
@@ -54,29 +53,32 @@ public:
         return availableLetters_;
     }
 
-    const EXERCICE_TYPE& getExerciceType() const {
+    const EXERCICE_TYPE getExerciceType() const {
         return exerciceType_;
     }
 
-    void setAllLetters(bool allLetters) {
-        allLetters_ = allLetters;
+    const int getNumberOfWords() const{
+        return numberOfWords_;
     }
 
 private:
-    bool allLetters_ = false;
+    TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
+
     QString learningLetters_;
     QString availableLetters_;
     EXERCICE_TYPE exerciceType_;
+    int numberOfWords_;
 
     friend QDataStream &operator>>(QDataStream &in, TExercice &ex){
         qint16 type;
-        in >> ex.allLetters_ >> ex.availableLetters_ >> type >> ex.learningLetters_;
+        in >> ex.availableLetters_ >> type >> ex.learningLetters_  >> ex.numberOfWords_;
         ex.exerciceType_ = static_cast<EXERCICE_TYPE>(type);
         return in;
     }
 
     friend QDataStream &operator<<(QDataStream &out, const TExercice &ex){
-        out << ex.allLetters_ << ex.availableLetters_ << static_cast<qint16>(ex.exerciceType_) << ex.learningLetters_;
+        out << ex.availableLetters_ << static_cast<qint16>(ex.exerciceType_) <<
+               ex.learningLetters_ << ex.numberOfWords_;
         return out;
     }
 };

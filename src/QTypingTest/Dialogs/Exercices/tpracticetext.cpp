@@ -14,7 +14,7 @@
 
 TPracticeText::TPracticeText(QWidget *parent):
 TWindowTest(parent){
-    TExercice *ex = new TExercice(TExercice::PRACTICING_TEXT,true);
+    TExercice *ex = TExercice::generateExercice(TExercice::PRACTICING_RACE);
     QString text = ex->buildExercice();
     //Set the number of page depending on the text's length
     // \todo : (Azarias) have an exercice object to have the number of words ready

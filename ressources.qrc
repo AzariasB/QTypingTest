@@ -14,7 +14,10 @@
     <qresource prefix="/">
         <file alias="layouts.txt">ressources/layouts.txt</file>
         <file alias="style.qss">ressources/style.qss</file>
-        <file alias="layouts.json">ressources/layouts.json</file>
+        <file alias="layouts.json">ressources/layout.json</file>
+    </qresource>
+    <qresource prefix="/" lang="fr" >
+        <file alias="layout.json">ressources/layout_fr.json</file>
     </qresource>
     <qresource prefix="/icons">
         <file alias="play.png">ressources/play.png</file>

@@ -34,7 +34,8 @@ class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-    TWindowTest(QWidget* parent = 0) :QDialog(parent),
+    TWindowTest(QWidget* parent = 0) :
+    QDialog(parent),
     topToolbar_(TToolbar()),
     pages_(TStackPages(2)),
     results_(QList<TResult*>()),

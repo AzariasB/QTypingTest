@@ -13,47 +13,24 @@
 #include "tlayouts.h"
 
 
-void TLayouts::initLetters(QString layout, QString country) {
-    QString layouts = factory::readFile(":/layouts.json");// \todo : create multiple json files for multiples locales
+void TLayouts::initLetters() {
+    //Reads the file depending on the user's computers locale
+    QString layouts = factory::readFile(":/layouts.json");
     QJsonDocument doc = QJsonDocument::fromJson(layouts.toUtf8());
     if(doc.isNull()){
         qDebug() << "File not found or not valid json";
-        return;// \todo : less brutal end (Azarias)
+        return;// \todo : less brutal end, and explain the exact error (Azarias)
     }
 
     QJsonObject jsonLays = doc.object();
-    findAvailableLangs(jsonLays["layouts"]);//Get all the keys !
 
-    QString firstLang = availableLangs_[0];//take first. \todo : qt will take the good file to parse for us ! (Azarias)
-
-    if (firstLang.isEmpty()) {
-        layoutLines_ = new QList<QStringList>;
-        qDebug() << "No correct config found";
-    } else {
-        // \todo : check to avoid parsing twice the same file
-        lettersList_ = QStringList(); // reset the lettersList
-        TLayouts::allAvailableLetters_ = "";
-        layoutLines_ = decomposeLayout(jsonLays["layouts"].toObject()[firstLang].toObject());
-    }
+    lettersList_ = QStringList(); // reset the lettersList
+    TLayouts::allAvailableLetters_ = "";
+    layoutLines_ = decomposeLayout(jsonLays["rows"]);
 }
 
-void TLayouts::findAvailableLangs(const QJsonValue& doc){
-    QStringList langs;
-    if(doc.isNull() || !doc.isObject() )
-    {
-        qDebug() << "Json not well configured";
-    }else
-    {
-        QJsonObject obj = doc.toObject();
-        for(auto it = obj.begin();it != obj.end(); ++it){
-            langs << it.key();
-        }
-    }
-    setAvailableLangs(langs);
-}
-
-QList<QStringList> *TLayouts::decomposeLayout(const QJsonObject &layout) {
-    QJsonArray arr = layout["rows"].toArray();
+QList<QStringList> *TLayouts::decomposeLayout(const QJsonValue &rows) {
+    QJsonArray arr = rows.toArray();
 
     if (arr.size() != 4) {
         qDebug() << "Incorrect config, the keyboard must have 4 lines of config";

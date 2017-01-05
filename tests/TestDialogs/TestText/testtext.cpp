@@ -32,7 +32,6 @@ private slots:
 
 void TestText::testWithoutExercice() {
     //Test if the dialogs shows up with text
-
     TPracticeText text;
     connect(&text,&TPracticeText::endOfExercice,this,[&text,this](TResult* res,QTime time){
         QMessageBox::information(&text,"Exercice finished",res->getResume());

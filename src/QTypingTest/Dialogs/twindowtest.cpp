@@ -24,14 +24,6 @@
 
 
 void TWindowTest::setupWidget() {
-
-    this->setGeometry(QStyle::alignedRect(
-                            Qt::LeftToRight,
-                            Qt::AlignCenter,
-                            this->size(),
-                            qApp->desktop()->availableGeometry()
-                          ));
-
     QWidget *mainWidget = new QWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();
 
@@ -49,7 +41,6 @@ void TWindowTest::setupWidget() {
     this->setModal(true);
     this->setFocusPolicy(Qt::StrongFocus);
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    this->move(0, 0);
 
     mainWidget->setLayout(centralLayout);
     mainLayout_->insertWidget(0,mainWidget);
@@ -57,6 +48,10 @@ void TWindowTest::setupWidget() {
     setupShortcuts();
     connectEvents();
     setupTimer();
+
+    //Center on screen
+    QRect src = QApplication::desktop()->screenGeometry();
+    move(src.center() - rect().center());
 }
 
 //Protected

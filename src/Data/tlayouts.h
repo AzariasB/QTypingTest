@@ -47,20 +47,9 @@
 class TLayouts {
 public:
 
-    static TLayouts &getInstance(QString layout , QString country = "") {
-        static TLayouts instance(layout,country);
-        if (instance.getCurrentLang() != layout || instance.getCurrentCountry() != country) {
-            instance = TLayouts(layout,country);
-        }
+    static TLayouts &getInstance() {
+        static TLayouts instance;
         return instance;
-    }
-
-    QString getCurrentLang() const {
-        return currentLayout_;
-    }
-
-    QString getCurrentCountry() const{
-        return currentCountry_;
     }
 
     QList<QStringList> getLayouLines() const {
@@ -95,8 +84,8 @@ private:
 
     QStringList availableLangs_;
 
-    TLayouts(QString layout,QString lang = "") {
-        this->initLetters(layout,lang);
+    TLayouts() {
+        this->initLetters();
     }
 
     void setAvailableLangs(const QStringList &ori){
@@ -113,30 +102,16 @@ private:
      * @param country the country code of the layout
      * (FR for France, SW for Sweden ...)
      */
-    void initLetters(QString layout, QString country = "");
+    void initLetters();
 
 
     /**
-     * Takes a single layout in parameter and split in
-     * into a QList for each line of the keyboard.
-     * This list contain a QStringlist containing the key
-     * combination for each key of the line (e.g. "aA" for the key A)
+     *
      * 
      * @param layout the layout data of a single keyboard type
      * @return al list contating a list of the key for each line
      */
-    QList<QStringList> *decomposeLayout(const QJsonObject &layout);
-
-
-
-    /**
-     * @brief findAvailableLangs will find the available language in the layout file
-     * @param fileContent the content of layouts.txt (or the file containg the layouts)
-     */
-    void findAvailableLangs(const QJsonValue &doc);
-
-    QString currentLayout_;
-    QString currentCountry_;
+    QList<QStringList> *decomposeLayout(const QJsonValue &rows);
 
     QStringList lettersList_;
     QList<QStringList> *layoutLines_;

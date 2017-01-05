@@ -243,6 +243,7 @@ int factory::findClosestSpace(const QString& search, int indexStart) {
 
 QStringList factory::splitText(QString toSplit, int numberOfSplit)
 {
+    numberOfSplit = numberOfSplit <= 0 ? 1 : numberOfSplit;
     int charPerPages = toSplit.size() / numberOfSplit;
 
     QStringList models;
