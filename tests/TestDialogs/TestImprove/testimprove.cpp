@@ -10,7 +10,6 @@
 #include <QApplication>
 #include <time.h>
 #include <QHash>
-#include <qt5/QtCore/qchar.h>
 #include <stdlib.h>
 
 #include "QTypingTest/Dialogs/Exercices/timprove.h"

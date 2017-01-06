@@ -73,7 +73,7 @@ bool isValidWord(QString word, QString availableLetters) {
 
 QDomElement factory::getRandomText()
 {
-    QDomDocument doc = readXMLFile(":/texts/texts.xml");
+    QDomDocument doc = readXMLFile(":/texts.xml");
     QDomElement root = doc.documentElement();
     if(root.tagName() != "texts"){
         qDebug() << "XML not correctly formatted : should be 'texts' at the root, found :" << root.tagName();
@@ -195,7 +195,7 @@ QStringList factory::findExistingWords(QString authorizedLetters, QString fileNa
 
 QString factory::generateWords(QString authorizedLetters, QString mainLetters, int numberOfWords) {
     QString res = "";
-    QStringList words = factory::findExistingWords(authorizedLetters, ":/words/words.txt", mainLetters);
+    QStringList words = factory::findExistingWords(authorizedLetters, ":/words.txt", mainLetters);
     if (!words.isEmpty()) {
         for (int i = 0; i < numberOfWords; i++) {
             res += selectRandomString(words);

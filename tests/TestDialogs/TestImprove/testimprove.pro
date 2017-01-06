@@ -1,5 +1,5 @@
 
-QT += widgets testlib core
+QT += widgets testlib core xml
 
 CONFIG          += -std=c++11
 QMAKE_CXXFLAGS  += -std=c++11
@@ -25,8 +25,9 @@ HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
             $$SRC/Data/texercice.h \
             $$SRC/Data/tuser.h \
             $$SRC/Data/tusermanager.h \
+            $$SRC/Data/ttext.h \
             $$SRC/Data/tstats.h \
-            $$SRC/Data/tlayouts.h \
+            $$SRC/Data/tlayout.h \
             $$SRC/Util/htmlhelper.h \
             $$SRC/Util/factory.h 
           
@@ -47,7 +48,8 @@ SOURCES = $$SRC/QTypingTest/Dialogs/twindowtest.cpp \
             $$SRC/Data/tuser.cpp \
             $$SRC/Data/tusermanager.cpp \
             $$SRC/Data/tstats.cpp \
-            $$SRC/Data/tlayouts.cpp \
+            $$SRC/Data/ttext.cpp \
+            $$SRC/Data/tlayout.cpp \
             $$SRC/Util/htmlhelper.cpp \
             $$SRC/Util/factory.cpp \
             testimprove.cpp
