@@ -26,7 +26,7 @@
 #include "Games/gamepage.h"
 #include "Home/homepage.h"
 
-#include "Data/tlayouts.h"
+#include "Data/tlayout.h"
 #include "Data/tusermanager.h"
 #include "ui/ui_homepage.h"
 #include "toptiondialog.h"

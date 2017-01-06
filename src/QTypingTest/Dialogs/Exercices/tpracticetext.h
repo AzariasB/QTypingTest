@@ -26,9 +26,13 @@ public:
     TPracticeText(QString text, QWidget *parent = 0);
     TPracticeText(const TPracticeText& orig);
 
+
     virtual ~TPracticeText() {
 
     }
+
+private:
+    QString findTitleAndAuthor(TExercice* exo);
     
 };
 

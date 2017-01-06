@@ -18,9 +18,11 @@ TWindowTest(parent){
     //Set the number of page depending on the text's length
     //40 words per page
     QString exo = ex->buildExercice();
-    qDebug() << ex->getNumberOfWords();
-    pages_.setNumberOfPages(ex->getNumberOfWords() / 30);
+    int wordsPerPage = 30;
+    pages_.setNumberOfPages(ex->getNumberOfWords() / wordsPerPage);
     pages_.setupPages(exo);
+
+    topToolbar_.setAdditionnalText(findTitleAndAuthor(ex));
     updateToolbarProgression();
 }
 
@@ -32,4 +34,14 @@ TWindowTest(orig.pages_.getText(),orig.parentWidget()){
 TPracticeText::TPracticeText(QString text, QWidget* parent):
 TWindowTest(text,parent){
     updateToolbarProgression();
+}
+
+
+QString TPracticeText::findTitleAndAuthor(TExercice *exo)
+{
+    QString author = exo->hasAttribute("author") ? exo->findAttribute("author") : "";
+    QString title = exo->hasAttribute("title") ? exo->findAttribute("title") : "";
+    QString authorPres = author.isEmpty() ? "" : "<b>Author : </b> " + author;
+    QString titlePres = title.isEmpty() ? "" : "<b>Title : </b> " + title;
+    return authorPres + (titlePres.isEmpty() ? "" : "<br/>" + titlePres);
 }

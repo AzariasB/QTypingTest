@@ -18,7 +18,7 @@
 
 #include "tresult.h"
 #include "Util/factory.h"
-#include "Data/tlayouts.h"
+#include "Data/tlayout.h"
 
 /**
  * A model class to define the type of exercice the user is about to do
@@ -40,6 +40,12 @@ public:
 
 
     QString buildExercice();
+
+    void addAttribute(QString key, QString value);
+
+    QString findAttribute(QString key);
+
+    bool hasAttribute(const QString &key);
 
     virtual ~TExercice() {}
 
@@ -67,18 +73,19 @@ private:
     QString learningLetters_;
     QString availableLetters_;
     EXERCICE_TYPE exerciceType_;
+    QHash<QString, QString> attributes_;
     int numberOfWords_;
 
     friend QDataStream &operator>>(QDataStream &in, TExercice &ex){
         qint16 type;
-        in >> ex.availableLetters_ >> type >> ex.learningLetters_  >> ex.numberOfWords_;
+        in >> ex.availableLetters_ >> type >> ex.learningLetters_  >> ex.attributes_ >> ex.numberOfWords_;
         ex.exerciceType_ = static_cast<EXERCICE_TYPE>(type);
         return in;
     }
 
     friend QDataStream &operator<<(QDataStream &out, const TExercice &ex){
         out << ex.availableLetters_ << static_cast<qint16>(ex.exerciceType_) <<
-               ex.learningLetters_ << ex.numberOfWords_;
+               ex.learningLetters_ << ex.attributes_ << ex.numberOfWords_;
         return out;
     }
 };

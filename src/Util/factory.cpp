@@ -71,7 +71,7 @@ bool isValidWord(QString word, QString availableLetters) {
 }
 
 
-QDomElement factory::getRandomTextt()
+QDomElement factory::getRandomText()
 {
     QDomDocument doc = readXMLFile(":/texts/texts.xml");
     QDomElement root = doc.documentElement();

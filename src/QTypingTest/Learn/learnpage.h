@@ -23,7 +23,7 @@
 #include <QVector>
 #include <QScrollArea>
 
-#include "Data/tlayouts.h"
+#include "Data/tlayout.h"
 #include "Data/texercice.h"
 #include "Data/tresult.h"
 #include "Data/tusermanager.h"

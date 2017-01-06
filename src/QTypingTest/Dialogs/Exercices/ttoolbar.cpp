@@ -15,21 +15,18 @@
 #include "ttoolbar.h"
 
 TToolbar::TToolbar(QWidget *parent) :
-QWidget(parent){
+QWidget(parent),
+pageProgression_(new QLabel("")),
+additionnalInfos_(new QLabel("")),
+pauseButton_(new QPushButton("Pause") ),
+LCDtimer_(new QLCDNumber() ){
     setupToolbar();
 }
 
-TToolbar::TToolbar(const TToolbar& orig) :
-QWidget(orig.parentWidget()) {
-    setupToolbar();
-}
 
 void TToolbar::setupToolbar() {
     QHBoxLayout *toolbarLayout = new QHBoxLayout();
 
-    pageProgression_ = new QLabel("");
-
-    pauseButton_ = new QCheckBox(); //Change with an icon
     pauseButton_->setCheckable(true);
     pauseButton_->setIcon(QIcon("etc/pause.png"));
     pauseButton_->setFocusPolicy(Qt::NoFocus);
@@ -37,27 +34,31 @@ void TToolbar::setupToolbar() {
 
     connect(pauseButton_, SIGNAL(clicked()), this, SLOT(pauseTimer()));
 
-    LCDtimer_ = new QLCDNumber();
     LCDtimer_->setSegmentStyle(QLCDNumber::Outline);
     LCDtimer_->setFrameStyle(QFrame::NoFrame);
     LCDtimer_->setPalette(Qt::black);
     QTime t(0,0,0);
     incrementTimer(0);
 
-    QSpacerItem *space = new QSpacerItem(300, 0);
+    QSpacerItem *space = new QSpacerItem(500, 0);
 
     toolbarLayout->addWidget(pageProgression_);
     toolbarLayout->addWidget(pauseButton_);
     toolbarLayout->addWidget(LCDtimer_);
+    toolbarLayout->addWidget(additionnalInfos_);
     toolbarLayout->addItem(space);
 
     this->setLayout(toolbarLayout);
 
 }
 
+void TToolbar::setAdditionnalText(const QString &text)
+{
+    additionnalInfos_->setText(text);
+}
+
 void TToolbar::pauseTimer() {    
     bool pause = pauseButton_->isChecked();
-    qDebug() << pause;
     if (!pause) {
         pauseButton_->setIcon(QIcon("etc/pause.png"));
     } else {

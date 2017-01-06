@@ -40,7 +40,6 @@ void TWindowTest::setupWidget() {
     //Setup window
     this->setModal(true);
     this->setFocusPolicy(Qt::StrongFocus);
-    this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     mainWidget->setLayout(centralLayout);
     mainLayout_->insertWidget(0,mainWidget);
@@ -52,6 +51,13 @@ void TWindowTest::setupWidget() {
     //Center on screen
     QRect src = QApplication::desktop()->screenGeometry();
     move(src.center() - rect().center());
+
+    //Prevent size changes
+    setAttribute(Qt::WA_DontShowOnScreen);
+    show();
+    setFixedSize(size());
+    hide();
+    setAttribute(Qt::WA_DontShowOnScreen,false);
 }
 
 //Protected
@@ -86,6 +92,7 @@ void TWindowTest::saveResult(TResult* previousScore)
 }
 
 void TWindowTest::beginExercice() {
+    started_ = true;
     timeStart_.start();
     updateTimer_->start();
 }
@@ -109,12 +116,16 @@ TResult* TWindowTest::exerciceResult() {
 
 void TWindowTest::pauseContinueExercice() {
     paused_ = !paused_;
+    edit_.setEnabled(!paused_);
     if (paused_) {
         updateTimer_->stop();
         timeStart_.restart();
-    } else {
-        updateTimer_->start();
-        elapsedMS_ += timeStart_.elapsed();
+    } else  {
+        edit_.setFocus();
+        if(started_){
+            updateTimer_->start();
+            elapsedMS_ += timeStart_.elapsed();
+        }
     }
 }
 

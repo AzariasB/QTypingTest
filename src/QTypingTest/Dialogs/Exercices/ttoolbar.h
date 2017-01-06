@@ -19,6 +19,7 @@
 #include <QLabel>
 #include <QTimer>
 #include <QTime>
+#include <QPushButton>
 #include <QSpacerItem>
 #include <QHBoxLayout>
 #include <qnamespace.h>
@@ -28,12 +29,11 @@
 class TToolbar : public QWidget {
     Q_OBJECT
 public:
-    TToolbar(QWidget *parent = 0);
-    TToolbar(const TToolbar& orig);
+    explicit TToolbar(QWidget *parent = 0);
 
     virtual ~TToolbar() {
         ;
-    };
+    }
 
     void setProgression(QString text) {
         pageProgression_->setText(text);
@@ -58,7 +58,11 @@ public slots:
      */
     double incrementTimer(int increment);
 
-
+    /**
+     * @brief setAdditionnalText changes the current additionnal text of the toolbard
+     * @param text the text to add
+     */
+    void setAdditionnalText(const QString &text);
 
 signals:
     /**
@@ -77,13 +81,16 @@ private:
     void setupToolbar();
 
     /* Allow the player to pause the game */
-    QCheckBox *pauseButton_;
+    QPushButton *pauseButton_;
 
     /* Display the time */
     QLCDNumber *LCDtimer_;
 
     /* Display the progression of the user */
     QLabel *pageProgression_;
+
+    /* If needed (for example for test training) */
+    QLabel *additionnalInfos_;
     
     int secondsValue_ = 0;
 };

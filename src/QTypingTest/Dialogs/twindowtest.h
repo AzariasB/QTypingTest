@@ -36,7 +36,6 @@ class TWindowTest : public QDialog {
 public:
     TWindowTest(QWidget* parent = 0) :
     QDialog(parent),
-    topToolbar_(TToolbar()),
     pages_(TStackPages(2)),
     results_(QList<TResult*>()),
     timeStart_(QTime(0, 0)),
@@ -47,7 +46,6 @@ public:
 
     TWindowTest(QString text, QWidget *parent = 0) :
     QDialog(parent),
-    topToolbar_(TToolbar()),
     pages_(TStackPages(text, 2)),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
@@ -58,7 +56,6 @@ public:
 
     TWindowTest(QString text, int numberOfPages, QWidget *parent = 0) :
     QDialog(parent),
-    topToolbar_(TToolbar()),
     pages_(TStackPages(text, numberOfPages)),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
@@ -67,8 +64,8 @@ public:
         setupWidget();
     }
 
-    TToolbar toolBar() const {
-        return topToolbar_;
+    TToolbar *toolBar() {
+        return &topToolbar_;
     }
 
     TStackPages stackPages() const {
@@ -269,6 +266,9 @@ private:
 
     /* The current state of the game */
     bool paused_ = false;
+
+    /* Wether the exercice started */
+    bool started_ = false;
 
     /**
      * Connect all the events 

@@ -15,7 +15,7 @@
 
 TExercice::TExercice() :
 learningLetters_(""),
-availableLetters_(TLayout:getInstance().getAllAvailableLetters()),
+availableLetters_(TLayout::getInstance().getAllAvailableLetters()),
 exerciceType_(PRACTICING){
 }
 
@@ -38,8 +38,23 @@ TExercice* TExercice::generateExercice(EXERCICE_TYPE type, QString mainLetters, 
         case LEARNING:
             return new TExercice(type, mainLetters, availableLetters);
         default:
-            return new TExercice(type, "", TLayout:getInstance().getAllAvailableLetters() );
+            return new TExercice(type, "", TLayout::getInstance().getAllAvailableLetters() );
     }
+}
+
+void TExercice::addAttribute(QString key, QString value)
+{
+    attributes_[key] = value;
+}
+
+QString TExercice::findAttribute(QString key)
+{
+    return attributes_[key];
+}
+
+bool TExercice::hasAttribute(const QString &key)
+{
+    return attributes_.contains(key);
 }
 
 QString TExercice::buildExercice() {
@@ -47,13 +62,20 @@ QString TExercice::buildExercice() {
     switch (exerciceType_) {
         case LEARNING:
             exo = factory::generateLearning(learningLetters_, availableLetters_);
+            addAttribute("learning",learningLetters_);
             break;
         case PRACTICING:
         case PRACTICING_RACE:
+            //For practicing race : add time attribute
             exo = factory::generatePractice(availableLetters_);
             break;
         case PRACTICING_TEXT:
-            exo = factory::getRandomTextt().text();
+            {
+                TText text(factory::getRandomText());
+                addAttribute("author",text.author());
+                addAttribute("title",text.title());
+                exo = text.text();
+            }
             break;
         default:
             exo =  factory::generateLearning(availableLetters_, availableLetters_);
