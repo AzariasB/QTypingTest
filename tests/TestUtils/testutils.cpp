@@ -62,8 +62,8 @@ void TestUtils::testSelectChunk()
 
 //test if the files are found and the text correct
 void TestUtils::testText() {
-    QStringList twoWords = factory::generateText(2).text().split(" ",QString::SkipEmptyParts);
-    QStringList realText = factory::generateText(20).text().split(" ",QString::SkipEmptyParts);
+    QStringList twoWords = factory::getRandomText(2).text().split(" ",QString::SkipEmptyParts);
+    QStringList realText = factory::getRandomText(20).text().split(" ",QString::SkipEmptyParts);
     
     qDebug() << twoWords;
     qDebug() << realText;

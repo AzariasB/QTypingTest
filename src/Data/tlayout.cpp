@@ -10,12 +10,12 @@
  */
 
 
-#include "tlayouts.h"
+#include "tlayout.h"
 
 
-void TLayouts::initLetters() {
+void TLayout::initLetters() {
     //Reads the file depending on the user's computers locale
-    QString layouts = factory::readFile(":/layouts.json");
+    QString layouts = factory::readFile(":/layout.json");
     QJsonDocument doc = QJsonDocument::fromJson(layouts.toUtf8());
     if(doc.isNull()){
         qDebug() << "File not found or not valid json";
@@ -25,11 +25,11 @@ void TLayouts::initLetters() {
     QJsonObject jsonLays = doc.object();
 
     lettersList_ = QStringList(); // reset the lettersList
-    TLayouts::allAvailableLetters_ = "";
+    TLayout:allAvailableLetters_ = "";
     layoutLines_ = decomposeLayout(jsonLays["rows"]);
 }
 
-QList<QStringList> *TLayouts::decomposeLayout(const QJsonValue &rows) {
+QList<QStringList> *TLayout::decomposeLayout(const QJsonValue &rows) {
     QJsonArray arr = rows.toArray();
 
     if (arr.size() != 4) {
@@ -57,7 +57,7 @@ QList<QStringList> *TLayouts::decomposeLayout(const QJsonValue &rows) {
             //but an indication to tell the corresponding finger
             //And join all the rest
             parts->append(splitedLine);
-            TLayouts::allAvailableLetters_ += total;
+            TLayout:allAvailableLetters_ += total;
         }
         return parts;
     }
@@ -65,7 +65,7 @@ QList<QStringList> *TLayouts::decomposeLayout(const QJsonValue &rows) {
 }
 
 
-QStringList TLayouts::getLetterList() {
+QStringList TLayout::getLetterList() {
     if(layoutLines_->isEmpty())
         return QStringList();
     if (lettersList_.isEmpty()) {

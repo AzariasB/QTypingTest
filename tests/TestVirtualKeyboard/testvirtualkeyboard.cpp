@@ -22,9 +22,8 @@ private slots:
 
 void TestVirtualKeyboard::testKeyboard()
 {
-    TLayouts layTest = TLayouts::getInstance("azerty");
+    TLayout layTest = TLayout::getInstance();
     TPresentation *pres = new TPresentation(layTest);
-    QInputMethod *meth =  QApplication::inputMethod();
     pres->show();
     QApplication::exec();
 }

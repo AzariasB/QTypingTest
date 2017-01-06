@@ -2,6 +2,7 @@
 #define TTEXT_H
 
 #include <QString>
+#include <QDomElement>
 
 /**
  * @brief The TText class
@@ -13,6 +14,8 @@ class TText
 {
 public:
     TText();
+
+    TText(QDomElement textElem);
 
     QString author()
     {

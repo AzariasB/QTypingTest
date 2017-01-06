@@ -37,7 +37,7 @@ namespace factory {
      * @return a part of a text containing n words, choosen from the file corresponding
      * to the given language. If the file does not exists, english is chosen by default
      */
-    TText generateText();
+    QDomElement getRandomTextt();
 
     /**
      * @brief selectTextChunk this function will search for an entire sentence starting at the end

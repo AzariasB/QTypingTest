@@ -71,35 +71,17 @@ bool isValidWord(QString word, QString availableLetters) {
 }
 
 
-TText factory::generateText()
+QDomElement factory::getRandomTextt()
 {
     QDomDocument doc = readXMLFile(":/texts/texts.xml");
-    TText t;
     QDomElement root = doc.documentElement();
     if(root.tagName() != "texts"){
         qDebug() << "XML not correctly formatted : should be 'texts' at the root, found :" << root.tagName();
-        return t;
+        return QDomElement();
     }else{
         QDomNodeList choices = root.childNodes();
         int randomNode = randInt(0,choices.length()-1);
-        QDomNode node = choices.item(randomNode);
-        if(node.isElement()){
-            QDomElement chosen = node.toElement();
-            if(chosen.hasAttribute("title")){
-                QString title = chosen.attribute("title");
-                qDebug() << "Found the title : " <<  title;
-                t.setTitle(title);
-            }
-            if(chosen.hasAttribute("author")){
-                QString author = chosen.attribute("author");
-                qDebug() << "Found the author :  " << author;
-                t.setAuthor(author);
-            }
-            t.setText(chosen.text().simplified());
-            return t;
-        }else{
-            return t;
-        }
+        return choices.item(randomNode).toElement();
     }
 }
 

@@ -80,7 +80,7 @@ private:
 
 
     //Save the tpractice instead of instanciate it over and over
-    TLayouts practice_ = TLayouts::getInstance();
+    TLayout practice_ = TLayout::getInstance();
 
     //Have a unique window for the exercice that will change depending on the exercices
     TWindowLearn *testWindow_;

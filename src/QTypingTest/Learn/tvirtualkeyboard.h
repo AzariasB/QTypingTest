@@ -26,12 +26,12 @@
 #include <QTimer>
 
 #include "tvirtualkey.h"
-#include "Data/tlayouts.h"
+#include "Data/tlayout.h"
 
 class TVirtualKeyboard : public QWidget {
     Q_OBJECT
 public:
-    TVirtualKeyboard(TLayouts &layout, QWidget *parent = 0);
+    TVirtualKeyboard(TLayout&layout, QWidget *parent = 0);
     TVirtualKeyboard(const TVirtualKeyboard& orig);
 
     virtual ~TVirtualKeyboard() {
@@ -65,7 +65,7 @@ private:
      * @param lan the language of the keyboard
      * @param country the country code of the keyboard
      */
-    void setupWidget(TLayouts &layout);
+    void setupWidget(TLayout&layout);
 
 
     /**

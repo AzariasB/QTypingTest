@@ -44,11 +44,11 @@
  * This class is here to have a way to create the exercices
  * on a certain order based on the keyboard layout
  */
-class TLayouts {
+class TLayout{
 public:
 
-    static TLayouts &getInstance() {
-        static TLayouts instance;
+    static TLayout&getInstance() {
+        static TLayout instance;
         return instance;
     }
 
@@ -75,7 +75,7 @@ public:
     }
 
 
-    virtual ~TLayouts() {
+    virtual ~TLayout() {
     }
 
 private:
@@ -84,12 +84,12 @@ private:
 
     QStringList availableLangs_;
 
-    TLayouts() {
+    TLayout() {
         this->initLetters();
     }
 
     void setAvailableLangs(const QStringList &ori){
-        TLayouts::availableLangs_ =  ori;
+        TLayout:availableLangs_ =  ori;
     }
 
     /**

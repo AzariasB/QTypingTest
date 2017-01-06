@@ -15,7 +15,7 @@
 TOptionDialog::TOptionDialog(const TUser &user,QWidget *parent):
  QDialog(parent)
 {
-    QStringList layouts = TLayouts::getInstance().getAvailablLayoutLangs();
+    QStringList layouts = TLayout::getInstance().getAvailablLayoutLangs();
     ui_option.setupUi(this);
     ui_option.comboBox_layout->addItems(layouts);
     showUserOptions(user);

@@ -1,4 +1,5 @@
 {
+    "layout" : "azerty",
 	"rows": [
 	[{
 		"finger": 0,"main": "&","shift": "1"

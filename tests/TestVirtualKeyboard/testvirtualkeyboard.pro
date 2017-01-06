@@ -1,5 +1,5 @@
 
-QT += widgets testlib
+QT += widgets testlib xml
 
 CONFIG          += -std=c++11
 QMAKE_CXXFLAGS  += -std=c++11
@@ -13,13 +13,13 @@ HEADERS = $$SRC/QTypingTest/Learn/tvirtualkey.h \
           $$SRC/QTypingTest/Learn/tfingerposition.h \
           $$SRC/QTypingTest/Learn/tpresentation.h \
           $$SRC/Util/factory.h \
-          $$SRC/Data/tlayouts.h
+          $$SRC/Data/tlayout.h
 
 SOURCES = $$SRC/QTypingTest/Learn/tvirtualkey.cpp \
           $$SRC/QTypingTest/Learn/tvirtualkeyboard.cpp \
           $$SRC/QTypingTest/Learn/tfingerposition.cpp \
           $$SRC/QTypingTest/Learn/tpresentation.cpp \
-          $$SRC/Data/tlayouts.cpp \
+          $$SRC/Data/tlayout.cpp \
           $$SRC/Util/factory.cpp \
           testvirtualkeyboard.cpp
 

@@ -15,7 +15,7 @@
 
 TExercice::TExercice() :
 learningLetters_(""),
-availableLetters_(TLayouts::getInstance().getAllAvailableLetters()),
+availableLetters_(TLayout:getInstance().getAllAvailableLetters()),
 exerciceType_(PRACTICING){
 }
 
@@ -38,7 +38,7 @@ TExercice* TExercice::generateExercice(EXERCICE_TYPE type, QString mainLetters, 
         case LEARNING:
             return new TExercice(type, mainLetters, availableLetters);
         default:
-            return new TExercice(type, "", TLayouts::getInstance().getAllAvailableLetters() );
+            return new TExercice(type, "", TLayout:getInstance().getAllAvailableLetters() );
     }
 }
 
@@ -53,7 +53,7 @@ QString TExercice::buildExercice() {
             exo = factory::generatePractice(availableLetters_);
             break;
         case PRACTICING_TEXT:
-            exo = factory::generateText().text();
+            exo = factory::getRandomTextt().text();
             break;
         default:
             exo =  factory::generateLearning(availableLetters_, availableLetters_);

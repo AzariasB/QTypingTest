@@ -20,14 +20,14 @@ modifiers_(new QHash<int, TVirtualKey*>()) {
 
 }
 
-TVirtualKeyboard::TVirtualKeyboard(TLayouts &layout, QWidget* parent) :
+TVirtualKeyboard::TVirtualKeyboard(TLayout&layout, QWidget* parent) :
 QWidget(parent),
 keys_(new QHash<QChar, TVirtualKey*>()),
 modifiers_(new QHash<int, TVirtualKey*>()) {
     setupWidget(layout);
 }
 
-void TVirtualKeyboard::setupWidget(TLayouts &layout) {
+void TVirtualKeyboard::setupWidget(TLayout&layout) {
     leftShift_ = new TVirtualKey(55, "Shift");
     rightShift_ = new TVirtualKey(155, "Shift");
     qDebug() << layout.getLayouLines().size();

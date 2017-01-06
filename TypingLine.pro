@@ -100,13 +100,13 @@ SOURCES +=\
     #------------------------- \
     src/Data/texercice.cpp \
     src/Data/tprogression.cpp \
-    src/Data/tlayouts.cpp \
     src/Data/tpractical.cpp \
     src/Data/tstats.cpp \
     src/Data/tusermanager.cpp \
     src/Data/tuser.cpp \
     src/Data/ttext.cpp \
-    src/Data/tresult.cpp
+    src/Data/tresult.cpp \
+    src/Data/tlayout.cpp
 
 HEADERS +=\
     #-------------------------
@@ -167,11 +167,11 @@ HEADERS +=\
     src/Data/tusermanager.h \
     src/Data/tpractical.h \
     src/Data/texercice.h \
-    src/Data/tlayouts.h \
     src/Data/tprogression.h \
     src/Data/tuser.h \
     src/Data/ttext.h \
-    src/Data/tstats.h
+    src/Data/tstats.h \
+    src/Data/tlayout.h
 
 DISTFILES += \
     ressources/layouts.txt \

@@ -1,9 +1,10 @@
 {
+    "layout" : "qwerty",
 	"rows": [
 	[{
 		"finger": 0,"main": "1","shift": "!"
 	},{
-		"finger": 1,"main": "2","shift": "@"
+        "finger": 1,"main": "2","shift": "@"
 	},{
 		"finger": 2,"main": "3","shift": "#"
 	},{

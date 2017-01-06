@@ -12,14 +12,14 @@
 
 #include "tpresentation.h"
 
-TPresentation::TPresentation(TLayouts &layout, QWidget* parent) :
+TPresentation::TPresentation(TLayout&layout, QWidget* parent) :
 QWidget(parent),
 keyboard_(new TVirtualKeyboard(layout)),
 positions_(new TFingerPosition()) {
     setupWidgets();
 }
 
-TPresentation::TPresentation(TLayouts &layout, QString charsToCopy, QWidget* parent) :
+TPresentation::TPresentation(TLayout&layout, QString charsToCopy, QWidget* parent) :
 QWidget(parent),
 keyboard_(new TVirtualKeyboard(layout)),
 positions_(new TFingerPosition()),
