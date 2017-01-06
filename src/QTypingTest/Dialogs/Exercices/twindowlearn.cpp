@@ -15,7 +15,7 @@
 TWindowLearn::TWindowLearn(TExercice* ex, QWidget* parent) :
 TWindowTest(ex->buildExercice(), parent),
 instructions_(new TPresentation(TLayout::getInstance(),ex->getLearningLetters())) {
-    addInstructions();
+    addInstructions(ex);
 }
 
 TWindowLearn::TWindowLearn(QString content, QWidget* parent) :
@@ -28,16 +28,19 @@ TWindowLearn::TWindowLearn(TExercice* ex, int numberOfPages, QWidget* parent) :
 TWindowTest(ex->buildExercice(), numberOfPages, parent) {
 }
 
-void TWindowLearn::addInstructions() {
+void TWindowLearn::addInstructions(TExercice *exo) {
     QStackedLayout *mainLayout = layout();
     mainLayout->insertWidget(0, instructions_);
     mainLayout->setCurrentIndex(0);
     instructions_->setFocus();
+    if(exo){
+        topToolbar_.setAdditionnalText("<b>Learning letters :</b>" + exo->getLearningLetters() );
+    }
     connect(instructions_,SIGNAL(allCopied()),this,SLOT(endOfTraining()));
 }
 
 void TWindowLearn::endOfTraining() {
     layout()->removeWidget(instructions_);
-    layout()->currentWidget()->setFocus();
+    edit_.setFocus();
     adjustSize();
 }

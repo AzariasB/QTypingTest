@@ -37,7 +37,7 @@ public slots:
 private:
     TPresentation *instructions_;
 
-    void addInstructions();
+    void addInstructions(TExercice *exo = 0);
 };
 
 #endif /* TWINDOWLEARN_H */

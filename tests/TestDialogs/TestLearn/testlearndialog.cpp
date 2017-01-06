@@ -24,8 +24,8 @@ private slots:
 void TestLearnDialog::testOpen() {
     //Test if the dialogs shows up with text
     QWidget *w = new QWidget();
-    TLayouts frLayout = TLayouts::getInstance("fr");
-    TExercice *ex = new TExercice(TExercice::LEARNING,frLayout.getLettersAt(10),frLayout.getAllLettersTo(10));
+    TLayout frLayout = TLayout::getInstance();
+    TExercice *ex = TExercice::generateExercice(TExercice::LEARNING,frLayout.getLettersAt(10), frLayout.getAllLettersTo(10));
     
     TWindowLearn learn(ex,w);
     learn.show();
