@@ -165,8 +165,8 @@ HEADERS +=\
     #-------------------------
     # ui
     #------------------------- \
-    src/ui/ui_homepage.h \
     src/ui/ui_options.h \
+    src/ui/ui_homepage.h \
     #-------------------------
     # Data
     #------------------------- \
@@ -178,11 +178,9 @@ HEADERS +=\
     src/Data/tuser.h \
     src/Data/ttext.h \
     src/Data/tstats.h \
-    src/Data/tlayout.h \
-    src/QTypingTest/tstatistics.h
+    src/Data/tlayout.h
 
 DISTFILES += \
-    ressources/layouts.txt \
     ressources/syle.qss
 
 RESOURCES += \

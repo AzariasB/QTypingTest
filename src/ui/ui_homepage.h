@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'homepage.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.1
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -28,6 +28,7 @@
 #include "QTypingTest/Home/homepage.h"
 #include "QTypingTest/Learn/learnpage.h"
 #include "QTypingTest/Practice/practicepage.h"
+#include "QTypingTest/Statistics/tstatistics.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -60,7 +61,7 @@ public:
     LearnPage *page_learn;
     HomePage *page_home;
     PracticePage *page_practice;
-    QWidget *page_stats;
+    TStatistics *page_stats;
     GamePage *page_games;
     QStatusBar *statusbar;
     QMenuBar *menubar;
@@ -190,7 +191,7 @@ public:
         sizePolicy.setHeightForWidth(page_practice->sizePolicy().hasHeightForWidth());
         page_practice->setSizePolicy(sizePolicy);
         stack_main->addWidget(page_practice);
-        page_stats = new QWidget();
+        page_stats = new TStatistics();
         page_stats->setObjectName(QStringLiteral("page_stats"));
         sizePolicy.setHeightForWidth(page_stats->sizePolicy().hasHeightForWidth());
         page_stats->setSizePolicy(sizePolicy);
@@ -215,7 +216,7 @@ public:
         MainWindow->setStatusBar(statusbar);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 629, 22));
+        menubar->setGeometry(QRect(0, 0, 629, 19));
         menuUser = new QMenu(menubar);
         menuUser->setObjectName(QStringLiteral("menuUser"));
         menuHelp = new QMenu(menubar);
@@ -236,7 +237,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stack_main->setCurrentIndex(0);
+        stack_main->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

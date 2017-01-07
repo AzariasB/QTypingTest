@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'options.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.1
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QFormLayout>
@@ -31,15 +30,13 @@ public:
     QFormLayout *formLayout;
     QLabel *label_2;
     QLineEdit *line_pseudo;
-    QLabel *label_3;
-    QComboBox *comboBox_layout;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *Dialog)
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(405, 124);
+        Dialog->resize(405, 88);
         gridLayout = new QGridLayout(Dialog);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         formLayout = new QFormLayout();
@@ -53,16 +50,6 @@ public:
         line_pseudo->setObjectName(QStringLiteral("line_pseudo"));
 
         formLayout->setWidget(1, QFormLayout::FieldRole, line_pseudo);
-
-        label_3 = new QLabel(Dialog);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        formLayout->setWidget(2, QFormLayout::LabelRole, label_3);
-
-        comboBox_layout = new QComboBox(Dialog);
-        comboBox_layout->setObjectName(QStringLiteral("comboBox_layout"));
-
-        formLayout->setWidget(2, QFormLayout::FieldRole, comboBox_layout);
 
 
         gridLayout->addLayout(formLayout, 0, 0, 1, 1);
@@ -86,7 +73,6 @@ public:
     {
         Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", 0));
         label_2->setText(QApplication::translate("Dialog", "Pseudo", 0));
-        label_3->setText(QApplication::translate("Dialog", "Layout", 0));
     } // retranslateUi
 
 };

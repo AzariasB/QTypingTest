@@ -168,7 +168,7 @@
             </sizepolicy>
            </property>
           </widget>
-          <widget class="TStatsWPM" name="page_stats">
+          <widget class="TStatistics" name="page_stats">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -316,9 +316,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>TStatsWPM</class>
+   <class>TStatistics</class>
    <extends>QWidget</extends>
-   <header>QTypingTest/Statistics/tstatswpm.h</header>
+   <header>QTypingTest/Statistics/tstatistics.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

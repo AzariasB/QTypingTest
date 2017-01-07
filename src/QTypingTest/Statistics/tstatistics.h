@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 
 #include "Data/tuser.h"
+#include "Data/tusermanager.h"
 #include <stdlib.h>
 
 class TStatistics : public QWidget
@@ -25,6 +26,7 @@ protected:
 signals:
 
 public slots:
+    void updateStats(TUser *user);
 
 private:
 

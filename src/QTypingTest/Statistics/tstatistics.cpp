@@ -16,13 +16,23 @@ void TStatistics::init()
 {
     if(user_){
         userResults_ = user_->getPracticeHistory().values();
+    }else if(TUserManager::getInstance().getCurrentUser()){
+        userResults_ = user_->getPracticeHistory().values();
+        connect(TUserManager::getInstance().getCurrentUser(),SIGNAL(statsChanged(TUser*)),this, SLOT(updateStats(TUser*)) );
     }
     setMouseTracking(true);
 }
 
+void TStatistics::updateStats(TUser *user)
+{
+    if(user){
+        userResults_ = user_->getPracticeHistory().values();
+    }
+}
+
 void TStatistics::paintEvent(QPaintEvent *ev)
 {
-    if(user_){
+    if(userResults_.size() > 0){
         QPainter painter(this);
         QList<QPoint> graph = resultToPoint(userResults_);
         higlights_ = higlightsFromPoints(graph);
@@ -33,6 +43,8 @@ void TStatistics::paintEvent(QPaintEvent *ev)
         painter.fillPath(tmpPath, QBrush(Qt::gray));
         painter.drawEllipse(rectAroundPoint(currentHilight_.second));
         QWidget::paintEvent(ev);
+    }else{
+        qDebug() << "Not enought stats";
     }
 }
 
@@ -64,11 +76,9 @@ QHash<QRect, QPoint> TStatistics::higlightsFromPoints(const QList<QPoint> &point
     if(points.size() > 1){
         step = points[1].x() - points[0].x();
     }
-    qDebug() << points;
     for(auto it = points.begin(); it != points.end(); ++it){
         int left = (*it).x() - (step >> 1);
         QRect rect(left,0,step, height());
-        qDebug() << rect;
         higlights[rect] = *it;
     }
     return higlights;
