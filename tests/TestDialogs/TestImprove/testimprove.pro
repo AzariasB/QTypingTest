@@ -59,6 +59,9 @@ INSTALLS += target
 
 target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/testImprove
 
+RESOURCES += \
+    $$PWD/../../../ressources.qrc
+
 DESTDIR = build
 TARGET = testImprove
 OBJECTS_DIR = .obj

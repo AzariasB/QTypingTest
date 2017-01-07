@@ -38,16 +38,20 @@ void TestImprove::testOpen() {
     connect(&improve, &TImprove::endOfExercice, this, [&improve, this](TResult *res, QTime time) {
         qDebug() << "End of the exerice";
         qDebug() << res->getResume();
-                improve.close();
+        improve.close();
     });
     QApplication::exec();
 }
 
 void TestImprove::generateRandomChars(TStats &chars) {
-    int numbersOfRandomChars = rand() % 26;
+    int numbersOfRandomChars = rand() % 200 + 50;
+    qDebug() << "Generating " << numbersOfRandomChars << " random chars";
+    QString possibilities = TLayout::getInstance().getAllAvailableLetters();
+    qDebug() << possibilities;
     for(int i = 0; i < numbersOfRandomChars;i++){
-        QChar theRand((rand()%57) + 65);
-        chars[theRand] += (rand()%10) + 1;
+        //Always the same letter
+        chars['a'] += (rand()%10) + 1;
+        chars['b']++;
     }
 }
 
