@@ -7,9 +7,7 @@
 #include "time.h"
 #include "Data/tuser.h"
 #include "Data/texercice.h"
-#include "QTypingTest/Statistics/tstatswpm.h"
-#include "QTypingTest/Statistics/tlayoutwidget.h"
-#include "QTypingTest/Statistics/tscrollwidget.h"
+#include "QTypingTest/Statistics/tstatistics.h"
 
 class TestStatsTest : public QObject
 {
@@ -21,16 +19,58 @@ private slots:
     }
 
     void testCase1();
+
+
+private:
+    void genHistory(TUser &user);
+    TResult * genRandTResult();
+    TExercice *genRandExercice();
+    QDateTime genRandDate();
 };
 
 
 void TestStatsTest::testCase1()
 {
     TUser user;
-    TScrollWidget sw;
+    genHistory(user);
+    TStatistics stats(&user);
 
-    sw.show();
+    stats.show();
     QApplication::exec();
+}
+
+void TestStatsTest::genHistory(TUser &user)
+{
+    int numberOfResults = 10;
+    for(int i = 0; i < numberOfResults; i++){
+        TResult *res = genRandTResult();
+        TExercice *exo = genRandExercice();
+        QDateTime time = genRandDate();
+        user.addResult(exo,res, time);
+    }
+}
+
+TResult *TestStatsTest::genRandTResult()
+{
+    TResult *res = new TResult();
+    int randWpM = rand() % 80 + 10;
+    res->setWPM(randWpM);
+    res->setCorrectKeysStrokes(rand() % 200 + 100);
+    res->setWrongKeysStrokes(rand() % 40 + 1);
+    return res;
+}
+
+TExercice *TestStatsTest::genRandExercice()
+{
+    //Add randomness later
+    TExercice *exo = TExercice::generateExercice(TExercice::PRACTICING);
+    return exo;
+}
+
+QDateTime TestStatsTest::genRandDate()
+{
+    QDateTime time = QDateTime::currentDateTime();
+    return time.addDays(rand() % 100);
 }
 
 QTEST_MAIN(TestStatsTest)

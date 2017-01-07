@@ -13,9 +13,9 @@
 #include "tuser.h"
 
 
-QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes) {
+QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes, QDateTime date) {
     date_exercice_ key;
-    key.dateResult = QDateTime::currentDateTime();
+    key.dateResult = date;
     key.exercice = *exTyp;
     practiceHistory_[key] = *exRes;
     return key.dateResult;

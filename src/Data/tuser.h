@@ -108,7 +108,7 @@ public:
      * @param exRes the result of the exercice
      * @return the time when this result was saved
      */
-    QDateTime addResult(TExercice *exTyp, TResult *exRes);
+    QDateTime addResult(TExercice *exTyp, TResult *exRes, QDateTime date = QDateTime::currentDateTime());
 
     void operator=(const TUser &orig) {
         setParent(orig.parent());

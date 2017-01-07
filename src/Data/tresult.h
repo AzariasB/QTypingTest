@@ -91,11 +91,23 @@ public:
 
     int updateWPM(float deltaTime/*in minutes*/);
     int getTotalWords() const;
-    int getTotalKeysStokres() const;
+    int getTotalKeysStrokes() const;
 
     TResult* operator+(const TResult &otherRes);
 
     TResult& operator+=(const TResult &otherRes);
+
+    bool operator<(const TResult &otherRes) const;
+
+    bool operator>(const TResult &otherRes) const;
+
+    operator QString() const {
+        return QString("wpm : %1, keystrokes : %2, correct key strokes : %3, wrong key strokes : %4")
+                        .arg(wordsPerMinute_)
+                        .arg(getTotalKeysStrokes())
+                        .arg(correctKeystrokes_)
+                        .arg(wrongKeystrokes_);
+    }
 
 private:
     int correctKeystrokes_ = 0;
@@ -125,6 +137,7 @@ private:
         out << result.correctKeystrokes_ << result.wrongKeystrokes_ << result.wordsPerMinute_;
         return out;
     }
+
 };
 
 QDataStream &operator>>(QDataStream &in, TResult &result);

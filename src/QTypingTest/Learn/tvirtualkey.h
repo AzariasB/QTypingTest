@@ -52,7 +52,7 @@ public:
 
     QChar getAlt() const {
         return altgred_;
-    };
+    }
 
     QChar getDefault() const {
         return default_;
@@ -60,7 +60,7 @@ public:
 
     QChar getShift() const {
         return shifted_;
-    };
+    }
     
     TFingerPosition::FINGER associatedFinger() const{
         return associateFinger_;

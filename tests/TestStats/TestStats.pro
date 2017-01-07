@@ -18,31 +18,27 @@ message($$INCLUDEPATH)
 SRC = $$PWD/../../src/
 
 
-HEADERS = $$SRC/QTypingTest/Statistics/tstatswpm.h \
-            $$SRC/Data/tprogression.h \
+HEADERS = $$SRC/Data/tprogression.h \
             $$SRC/Data/tresult.h \
             $$SRC/Data/texercice.h \
             $$SRC/Data/tuser.h \
             $$SRC/Data/tstats.h \
-            $$SRC/Data/tlayouts.h \
+            $$SRC/Data/tlayout.h \
             $$SRC/Data/ttext.h \
             $$SRC/Util/htmlhelper.h \
             $$SRC/Util/factory.h \
-            $$SRC/QTypingTest/Statistics/tscrollwidget.h \
-            $$SRC/QTypingTest/Statistics/tlayoutwidget.h
+            $$SRC/QTypingTest/Statistics/tstatistics.h
 
-SOURCES = $$SRC/QTypingTest/Statistics/tstatswpm.cpp \
-            $$SRC/Data/tprogression.cpp \
+SOURCES = $$SRC/Data/tprogression.cpp \
             $$SRC/Data/tresult.cpp \
             $$SRC/Data/texercice.cpp \
             $$SRC/Data/tuser.cpp \
             $$SRC/Data/tstats.cpp \
-            $$SRC/Data/tlayouts.cpp \
+            $$SRC/Data/tlayout.cpp \
             $$SRC/Data/ttext.cpp \
             $$SRC/Util/htmlhelper.cpp \
             $$SRC/Util/factory.cpp \           
-            $$SRC/QTypingTest/Statistics/tscrollwidget.cpp \
-            $$SRC/QTypingTest/Statistics/tlayoutwidget.cpp \
+            $$SRC/QTypingTest/Statistics/tstatistics.cpp \
             tst_teststatstest.cpp
 
 TARGET = tst_teststatstest
@@ -57,5 +53,7 @@ MOC_DIR = .moc
 RCC_DIR = .rcc
 
 
+RESOURCES += \
+    ../../ressources.qrc
 
 #DEFINES += SRCDIR=\\\"$$PWD/\\\"

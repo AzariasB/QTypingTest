@@ -88,6 +88,10 @@ SOURCES +=\
     #------------------------- \
     src/QTypingTest/Games/gamepage.cpp \
     #-------------------------
+    # Statistics
+    #-------------------------
+    src/QTypingTest/Statistics/tstatistics.cpp \
+    #-------------------------
     # Util
     #------------------------- \
     src/Util/htmlhelper.cpp \
@@ -107,7 +111,6 @@ SOURCES +=\
     src/Data/ttext.cpp \
     src/Data/tresult.cpp \
     src/Data/tlayout.cpp
-
 HEADERS +=\
     #-------------------------
     # QTypingTest
@@ -151,6 +154,10 @@ HEADERS +=\
     #------------------------- \
     src/QTypingTest/Games/gamepage.h \
     #-------------------------
+    # Statistics
+    #-------------------------
+    src/QTypingTest/Statistics/tstatistics.h \
+    #-------------------------
     # Util
     #------------------------- \
     src/Util/htmlhelper.h \
@@ -171,7 +178,8 @@ HEADERS +=\
     src/Data/tuser.h \
     src/Data/ttext.h \
     src/Data/tstats.h \
-    src/Data/tlayout.h
+    src/Data/tlayout.h \
+    src/QTypingTest/tstatistics.h
 
 DISTFILES += \
     ressources/layouts.txt \

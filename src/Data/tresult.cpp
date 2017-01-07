@@ -15,11 +15,14 @@
 TResult::TResult() {
 }
 
-TResult::TResult(const TResult &base) {
-    *this += base;
+TResult::TResult(const TResult &base):
+wordsPerMinute_(base.getWPM()),
+correctKeystrokes_(base.getCorrectKeysStrokes()),
+wrongKeystrokes_(base.getWrongKeysStrokes()),
+correctWords_(base.getCorrectWords()){
 }
 
-int TResult::getTotalKeysStokres() const {
+int TResult::getTotalKeysStrokes() const {
     return getCorrectKeysStrokes() + getWrongKeysStrokes();
 }
 
@@ -53,11 +56,19 @@ TResult* TResult::operator+(const TResult& otherRes) {
     return res;
 }
 
+bool TResult::operator <(const TResult &otherRes) const{
+    return getWPM() < otherRes.getWPM();
+}
+
+bool TResult::operator >(const TResult &otherRes) const{
+    return getWPM() > otherRes.getWPM();
+}
+
 QString TResult::getResume() {
     QString wpm = QString::number(this->getWPM());
     QString corrects = QString::number(correctKeystrokes_);
     QString wrongs = QString::number(wrongKeystrokes_);
-    QString tot = QString::number(getTotalKeysStokres());
+    QString tot = QString::number(getTotalKeysStrokes());
 
     return QString("WPM : %1<br/>Correct keyStrokes : %2<br/>"
             "Wrong keystrokes : %3<br/>Total keystrokes : %4")
