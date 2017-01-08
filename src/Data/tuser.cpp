@@ -13,17 +13,18 @@
 #include "tuser.h"
 
 
-QDateTime TUser::addResult(TExercice* exTyp, TResult* exRes, QDateTime date) {
+QDateTime TUser::addResult(TExercice* exo, TResult* exRes, QDateTime date) {
     date_exercice_ key;
     key.dateResult = date;
-    key.exercice = *exTyp;
+    key.exercice = *exo;
     practiceHistory_[key] = *exRes;
+    emit statsChanged(this);
     return key.dateResult;
 }
 
 void TUser::oneMoreMistake(const QChar& mistaken) {
     this->statistics_[mistaken]++;
-    emit statsChanged(this);
+    //emit statsChanged(this);
 }
 
 

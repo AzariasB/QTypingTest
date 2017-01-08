@@ -13,26 +13,25 @@
 #include "tpracticetext.h"
 
 TPracticeText::TPracticeText(QWidget *parent):
-TWindowTest(parent){
-    TExercice *ex = TExercice::generateExercice(TExercice::PRACTICING_TEXT);
+TWindowTest(TExercice::generateExercice(TExercice::PRACTICING_TEXT), parent){
     //Set the number of page depending on the text's length
     //40 words per page
-    QString exo = ex->buildExercice();
+    QString exo = exercice()->buildExercice();
     int wordsPerPage = 30;
-    pages_.setNumberOfPages(ex->getNumberOfWords() / wordsPerPage);
+    pages_.setNumberOfPages(exercice()->getNumberOfWords() / wordsPerPage);
     pages_.setupPages(exo);
 
-    topToolbar_.setAdditionnalText(findTitleAndAuthor(ex));
+    topToolbar_.setAdditionnalText(findTitleAndAuthor(exercice()));
     updateToolbarProgression();
 }
 
 TPracticeText::TPracticeText(const TPracticeText& orig) :
-TWindowTest(orig.pages_.getText(),orig.parentWidget()){
+TWindowTest(orig.pages_.getText(), TExercice::generateExercice(TExercice::PRACTICING_TEXT), orig.parentWidget()){
     updateToolbarProgression();
 }
 
 TPracticeText::TPracticeText(QString text, QWidget* parent):
-TWindowTest(text,parent){
+TWindowTest(text, TExercice::generateExercice(TExercice::PRACTICING_TEXT), parent){
     updateToolbarProgression();
 }
 

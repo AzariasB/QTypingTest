@@ -33,7 +33,13 @@ public:
     }
 
     void setCurrentUser(TUser *nwUser = 0) {
-        currentUser_ = nwUser;
+        //Can only set an existing user
+        if(!nwUser ||  users_.contains(nwUser)){
+            currentUser_ = nwUser;
+        }else{
+            qWarning() << "Trying to set a non-existing user";
+        }
+
         if(currentUser_){
             connect(currentUser_,SIGNAL(settingsChanged(TUser*)),this,SLOT(saveUsers()));
             connect(currentUser_,SIGNAL(statsChanged(TUser*)),this,SLOT(saveUsers()));
@@ -41,7 +47,7 @@ public:
         emit userChanged(currentUser_);
     }
 
-    TUser *getCurrentUser() const {
+    TUser *getCurrentUser() {
         return currentUser_;
     }
 

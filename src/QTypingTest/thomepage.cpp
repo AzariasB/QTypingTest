@@ -65,8 +65,6 @@ void THomePage::connectEvents() {
     buttonsStacks_[ui.button_stats] = ui.page_stats;
     buttonsStacks_[ui.button_practice] = ui.page_practice;
 
-    qDebug() << ui.page_stats;
-
     //Iterate over the buttons-page couple
     for (auto it = buttonsStacks_.begin(); it != buttonsStacks_.end(); ++it) {
         //If child is not nullptr create a simple layout with parent and add the child into it

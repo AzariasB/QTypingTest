@@ -22,6 +22,8 @@
 #include "texercice.h"
 #include "tresult.h"
 #include "tstats.h"
+#include "tjsonobject.h"
+
 
 struct date_exercice_ {
     QDateTime dateResult;
@@ -34,17 +36,20 @@ class TUser : public QObject {
 public:
     TUser(QString pseudo = "", QObject *parent = 0) :
         QObject(parent),
+        id_(factory::nexUId()),
         pseudo_(pseudo),
         progress_(new TProgression()),
+        practiceHistory_(),
         statistics_(TStats()){
     }
 
     TUser(const TUser &orig) :
     QObject(orig.parent()),
+    id_(orig.id()),
     pseudo_(orig.pseudo_),
     progress_(orig.progress_),
     statistics_(orig.statistics_),
-    layout_(orig.layout_){
+    practiceHistory_(orig.practiceHistory_){
     }
 
     virtual ~TUser();
@@ -57,22 +62,13 @@ public:
         this->pseudo_ = pseudo;
     }
 
-    QHash<date_exercice_, TResult> getPracticeHistory() const {
-        return practiceHistory_;
+    QHash<date_exercice_, TResult> *getPracticeHistory() {
+        return &practiceHistory_;
     }
 
     TProgression* getProgression() const {
         return progress_;
     }
-
-    QString getLayout() const{
-        return layout_;
-    }
-
-    void setLayout(const QString &nwLayou){
-        layout_ = nwLayou;
-    }
-
 
     const TStats &getStatistics() const {
         return statistics_;
@@ -80,7 +76,6 @@ public:
 
     void setSettings(const TUser &user){
         pseudo_ = user.getPseudo();
-        layout_ = user.getLayout();
         emit settingsChanged(this);
     }
 
@@ -97,7 +92,19 @@ public:
         practiceHistory_ = history;
     }
 
+    void read(const QJsonObject &json);
+
+    void write(QJsonObject &json);
+
     void oneMoreMistake(const QChar &mistaken);
+
+    void setId(int id){
+        id_ = id;
+    }
+
+    int id() const{
+        return id_;
+    }
 
     /**
      * Add result to the history of user practice.
@@ -108,14 +115,22 @@ public:
      * @param exRes the result of the exercice
      * @return the time when this result was saved
      */
-    QDateTime addResult(TExercice *exTyp, TResult *exRes, QDateTime date = QDateTime::currentDateTime());
+    QDateTime addResult(TExercice *exo, TResult *exRes, QDateTime date = QDateTime::currentDateTime());
 
     void operator=(const TUser &orig) {
+        qDebug() << "equ operator";
         setParent(orig.parent());
+        id_ = orig.id_;
         pseudo_ = orig.pseudo_;
         progress_ = orig.progress_;
         statistics_ = orig.statistics_;
         practiceHistory_ = orig.practiceHistory_;
+    }
+
+    operator QString() const{
+        return QString("id : %1, pseudo : %2")
+                .arg(id_)
+                .arg(pseudo_);
     }
 
 signals:
@@ -124,21 +139,20 @@ signals:
     void settingsChanged(TUser *);
 
 private:
+    int id_;
     QString pseudo_;
     TProgression *progress_;
     TStats statistics_;
-    QString layout_;
-
     QHash<date_exercice_, TResult> practiceHistory_;
 
 
     friend QDataStream &operator<<(QDataStream& out, const TUser& user){
-        out << user.pseudo_ << *user.progress_ << user.statistics_ << user.practiceHistory_ << user.layout_;
+        out << user.id_ << user.pseudo_ << *user.progress_ << user.statistics_ << user.practiceHistory_;
         return out;
     }
 
     friend QDataStream &operator>>(QDataStream& in, TUser &user){
-        in >> user.pseudo_ >> *user.progress_ >> user.statistics_ >> user.practiceHistory_ >> user.layout_;
+        in >> user.id_ >> user.pseudo_ >> *user.progress_ >> user.statistics_ >> user.practiceHistory_;
         return in;
     }
 };
@@ -164,8 +178,6 @@ QDataStream &operator<<(QDataStream& out, const TUser& user);
  */
 QDataStream &operator>>(QDataStream& in, TUser &user);
 
-
-
 inline QDataStream &operator>>(QDataStream& in, date_exercice_& dateEx){
     in >> dateEx.dateResult >> dateEx.exercice;
     return in;
@@ -184,9 +196,7 @@ inline QDataStream &operator<<(QDataStream& out, const date_exercice_& dateEx){
 }
 
 inline bool operator==(const TUser& user1, const TUser& user2) {
-    // This means pseuo are UNIQUES !
-    return user1.getPseudo() == user2.getPseudo() &&
-            user1.getProgression() == user1.getProgression();
+    return user1.id() == user2.id();
 }
 
 inline bool operator==(const date_exercice_& date1, const date_exercice_& date2) {
@@ -194,8 +204,13 @@ inline bool operator==(const date_exercice_& date1, const date_exercice_& date2)
             date1.exercice == date2.exercice;
 }
 
+inline QDebug operator<<(QDebug debug, const date_exercice_ date){
+    debug << QString("date : %1").arg(date.dateResult.toString());
+    return debug;
+}
+
 inline uint qHash(const date_exercice_ & key) {
-    return qHash(static_cast<qint64> (key.dateResult.currentMSecsSinceEpoch()));
+    return qHash(static_cast<qint64>(key.dateResult.currentMSecsSinceEpoch()));
 }
 
 #endif /* TUSER_H */

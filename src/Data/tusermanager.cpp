@@ -16,8 +16,7 @@
 
 TUserManager::TUserManager() :
     QObject(),
-    saveTarget_("QTypingTest")
-{
+    saveTarget_("QTypingTest"){
     currentUser_ = 0;
     readUsers();
 }
@@ -35,8 +34,13 @@ QList<TUser*> TUserManager::readUsers()
         QString key = saveTarget_.childKeys()[0];
         QVariant v = saveTarget_.value(key);
         allValid = allValid && v.isValid();
-        if(v.isValid())
-            usersTemp << new TUser(v.value<TUser>());
+
+        if(v.isValid()){
+            TUser *u = new TUser(v.value<TUser>());
+            usersTemp << u;
+        }else{
+            qWarning() << "Found invalid user";
+        }
     }
     saveTarget_.endArray();
 
@@ -56,7 +60,7 @@ void TUserManager::saveUsers()
         if(uVariant.isValid())
             saveTarget_.setValue(u->getPseudo(),uVariant);
         else
-            qDebug() << "Tried to save an invalid user";
+            qWarning() << "Tried to save an invalid user";
     }
     saveTarget_.endArray();
     emit usersSaved();

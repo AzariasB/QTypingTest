@@ -29,7 +29,7 @@ class TExercice {
 public:
 
     enum EXERCICE_TYPE {
-        LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT
+        LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT, IMPROVING, UNKNOWN
     };
 
     //No difficulty because : why would it be necessary ?
@@ -59,11 +59,11 @@ public:
         return availableLetters_;
     }
 
-    const EXERCICE_TYPE getExerciceType() const {
+    EXERCICE_TYPE getExerciceType() const {
         return exerciceType_;
     }
 
-    const int getNumberOfWords() const{
+    int getNumberOfWords() const{
         return numberOfWords_;
     }
 

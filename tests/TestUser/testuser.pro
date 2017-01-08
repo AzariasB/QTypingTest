@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += testlib
+QT       += testlib xml
 
 QT       -= gui
 
@@ -17,8 +17,9 @@ HEADERS = $$SRC/Data/tuser.h \
          $$SRC/Data/texercice.h \
          $$SRC/Data/tstats.h \
          $$SRC/Data/tresult.h \
-         $$SRC/Data/tlayouts.h \
+         $$SRC/Data/tlayout.h \
          $$SRC/Data/tprogression.h \
+         $$SRC/Data/ttext.h \
          $$SRC/Util/factory.h \
          $$SRC/Util/htmlhelper.h
 
@@ -27,8 +28,9 @@ SOURCES = $$SRC/Data/tuser.cpp \
          $$SRC/Data/texercice.cpp \
          $$SRC/Data/tstats.cpp \
          $$SRC/Data/tresult.cpp \
-         $$SRC/Data/tlayouts.cpp \
+         $$SRC/Data/tlayout.cpp \
          $$SRC/Data/tprogression.cpp \
+         $$SRC/Data/ttext.cpp \
          $$SRC/Util/factory.cpp \
          $$SRC/Util/htmlhelper.cpp \
         testuser.cpp
@@ -36,6 +38,9 @@ SOURCES = $$SRC/Data/tuser.cpp \
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/testUser
 INSTALLS += target
+
+RESOURCES += \
+    ../../ressources.qrc
 
 DESTDIR = build
 TARGET = testUser

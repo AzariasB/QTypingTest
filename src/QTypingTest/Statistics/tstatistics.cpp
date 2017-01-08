@@ -1,11 +1,5 @@
 #include "tstatistics.h"
 
-TStatistics::TStatistics(QWidget *parent) : QWidget(parent),
-user_(nullptr)
-{
-    init();
-}
-
 TStatistics::TStatistics(TUser *user, QWidget *parent):QWidget(parent),
     user_(user)
 {
@@ -15,18 +9,37 @@ TStatistics::TStatistics(TUser *user, QWidget *parent):QWidget(parent),
 void TStatistics::init()
 {
     if(user_){
-        userResults_ = user_->getPracticeHistory().values();
+        userResults_ = user_->getPracticeHistory()->values();
     }else if(TUserManager::getInstance().getCurrentUser()){
-        userResults_ = user_->getPracticeHistory().values();
-        connect(TUserManager::getInstance().getCurrentUser(),SIGNAL(statsChanged(TUser*)),this, SLOT(updateStats(TUser*)) );
+        user_ = TUserManager::getInstance().getCurrentUser();
+        auto hash = user_->getPracticeHistory();
+        if(hash){
+            userResults_ = hash->values();
+        }
     }
+    if(user_){
+        connect(user_ ,SIGNAL(statsChanged(TUser*)),this, SLOT(updateStats(TUser*)) );
+    }
+
+    connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(userChanged(TUser*)) );
     setMouseTracking(true);
+}
+
+void TStatistics::userChanged(TUser *nwUser)
+{
+    user_ = nwUser;
+    if(user_){
+        updateStats(user_);
+        connect(user_ ,SIGNAL(statsChanged(TUser*)),this, SLOT(updateStats(TUser*)) );
+    }
 }
 
 void TStatistics::updateStats(TUser *user)
 {
     if(user){
-        userResults_ = user_->getPracticeHistory().values();
+        qDebug() << "Stats update";
+        userResults_ = user->getPracticeHistory()->values();
+        update();
     }
 }
 
@@ -44,7 +57,7 @@ void TStatistics::paintEvent(QPaintEvent *ev)
         painter.drawEllipse(rectAroundPoint(currentHilight_.second));
         QWidget::paintEvent(ev);
     }else{
-        qDebug() << "Not enought stats";
+        qWarning() << "Not enought stats : " << userResults_.size();
     }
 }
 

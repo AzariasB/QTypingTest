@@ -70,11 +70,6 @@ public:
         return allAvailableLetters_;
     }
 
-    QStringList getAvailablLayoutLangs(){
-        return availableLangs_;
-    }
-
-
     virtual ~TLayout() {
     }
 
@@ -82,14 +77,8 @@ private:
 
     QString allAvailableLetters_;
 
-    QStringList availableLangs_;
-
     TLayout() {
         this->initLetters();
-    }
-
-    void setAvailableLangs(const QStringList &ori){
-        TLayout:availableLangs_ =  ori;
     }
 
     /**

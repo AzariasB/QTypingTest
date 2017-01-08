@@ -135,6 +135,11 @@ void TWindowTest::pauseContinueExercice() {
 void TWindowTest::exerciceFinished(bool forced) {
     if (!forced) {
         TResult *tot = exerciceResult();
+        TUser *user = TUserManager::getInstance().getCurrentUser();
+        if(user){
+            user->addResult(exercice_, tot);
+        }
+
         emit endOfExercice(tot, timeStart_);
     } else {
         emit closed();

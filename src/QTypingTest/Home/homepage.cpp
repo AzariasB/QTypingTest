@@ -47,23 +47,23 @@ void HomePage::createUser() {
 
 void HomePage::updateUserDisplay() {
     clearLayout(usersList_);
-    for (auto elem : TUserManager::getInstance().users() ) {
+    for (TUser *user : TUserManager::getInstance().users() ) {
         QHBoxLayout *userLine = new QHBoxLayout();
-        QPushButton *userButton = new QPushButton(elem->getPseudo());
+        QPushButton *userButton = new QPushButton(user->getPseudo());
         TUser *currentUser = TUserManager::getInstance().getCurrentUser();
-        if (currentUser && elem == currentUser){
+        if (currentUser && (*user) == (*currentUser)){
             userButton->setEnabled(false);
         }
         
-        connect(userButton, &QPushButton::clicked, this, [this, elem]() {
-            TUserManager::getInstance().setCurrentUser(elem);
+        connect(userButton, &QPushButton::clicked, this, [this, user]() {
+            TUserManager::getInstance().setCurrentUser(user);
             updateUserDisplay();
         });
         userLine->addWidget(userButton, 1);
 
         QPushButton *deleteUser = new QPushButton(QIcon(":/icons/bin.png"), "");
-        connect(deleteUser, &QPushButton::clicked, this, [this, elem]() {
-            this->deleteUser(elem);
+        connect(deleteUser, &QPushButton::clicked, this, [this, user]() {
+            this->deleteUser(user);
         });
         userLine->addWidget(deleteUser, 0);
 

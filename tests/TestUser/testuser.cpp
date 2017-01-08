@@ -22,7 +22,16 @@ class TestTUser : public QObject {
 private slots:
     void initTestCase(){
         qRegisterMetaTypeStreamOperators<TUser>("TUser");
+        beforeTesting = TUserManager::getInstance().readUsers();
+        TUserManager::getInstance().removeAllUsers();
         srand(time(NULL));
+    }
+
+    void cleanup(){
+        TUserManager::getInstance().removeAllUsers();
+        for(TUser *u: beforeTesting){
+            TUserManager::getInstance() << u;
+        }
     }
 
     void testSettings();
@@ -34,21 +43,35 @@ private slots:
 
 private:
     QString randomName();
+
+    QList<TUser*> beforeTesting;
 };
 
 void TestTUser::testSettings()
 {
     TUserManager::getInstance().removeAllUsers();
     QCOMPARE(TUserManager::getInstance().users().size(),0);
-    for(int i = 0; i < 10;i++)
-        TUserManager::getInstance() << new TUser(randomName());
+    QList<QString> pseudos;
+    for(int i = 0; i < 10;i++){
+        QString name = randomName();
+        pseudos << name;
+        qDebug() << "Assigning : " << name;
+        TUserManager::getInstance() << new TUser(name);
+    }
     TUserManager::getInstance().saveUsers();
-    QCOMPARE(TUserManager::getInstance().readUsers().size(),10);
+    QList<TUser*> users = TUserManager::getInstance().readUsers();
+
+    QCOMPARE(users.size(),10);
+    foreach(TUser *u , users){
+        QVERIFY(pseudos.contains(u->getPseudo()));
+        bool removed = TUserManager::getInstance() - u;
+        qDebug() << "Found :" << u->getPseudo() << " " << removed;
+    }
 }
 
 void TestTUser::testMetaTypes()
 {
-    TUser t;
+    TUser t("pedro");
     QVariant v = QVariant::fromValue(t);
     QVERIFY(v.isValid());
     TUser tV = v.value<TUser>();
@@ -75,13 +98,15 @@ void TestTUser::testUserManager()
     QCOMPARE(TUserManager::getInstance().users().size(),10);
     TUserManager::getInstance() << other;
     QCOMPARE(TUserManager::getInstance().users().size(),11);
-    TUserManager::getInstance() - other;
-    QCOMPARE(TUserManager::getInstance().users().size(),10);
-    QVERIFY(!TUserManager::getInstance().users().contains(other));
 
     //Signal testing
     for(int i = 0; i < 10;i++)
         TUserManager::getInstance().setCurrentUser(other);
+
+    TUserManager::getInstance() - other;
+    QCOMPARE(TUserManager::getInstance().users().size(),10);
+    QVERIFY(!TUserManager::getInstance().users().contains(other));
+
 
     QVERIFY(numberOfChanges == 10);
 }
@@ -107,7 +132,7 @@ QString TestTUser::randomName() {
     QString randomString;
     for(int i=0; i<randomStringLength; ++i)
     {
-        int index = qrand() % possibleCharacters.length();
+        int index = rand() % possibleCharacters.length();
         QChar nextChar = possibleCharacters.at(index);
         randomString.append(nextChar);
     }
@@ -127,13 +152,13 @@ void TestTUser::testConstructor() {
 }
 
 void TestTUser::testProgression() {
-    TExercice *ex = new TExercice(TExercice::LEARNING, "d", "d");
+    TExercice *ex = TExercice::generateExercice(TExercice::LEARNING,"d","d");
     TResult *res = new TResult();
 
     TUser t("Dupont");
 
     t.addResult(ex, res);
-    QVERIFY(t.getPracticeHistory().size() >= 1);
+    QVERIFY(t.getPracticeHistory()->size() >= 1);
 }
 
 

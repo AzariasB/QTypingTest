@@ -110,7 +110,8 @@ SOURCES +=\
     src/Data/tuser.cpp \
     src/Data/ttext.cpp \
     src/Data/tresult.cpp \
-    src/Data/tlayout.cpp
+    src/Data/tlayout.cpp \
+    src/Data/tjsonobject.cpp
 HEADERS +=\
     #-------------------------
     # QTypingTest
@@ -178,7 +179,8 @@ HEADERS +=\
     src/Data/tuser.h \
     src/Data/ttext.h \
     src/Data/tstats.h \
-    src/Data/tlayout.h
+    src/Data/tlayout.h \
+    src/Data/tjsonobject.h
 
 DISTFILES += \
     ressources/syle.qss

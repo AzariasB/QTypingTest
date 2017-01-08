@@ -13,25 +13,22 @@
 #include "tpracticerace.h"
 
 TPracticeRace::TPracticeRace(int timeStart,QWidget *parent) :
-TWindowTest(parent),
-generator_(*TExercice::generateExercice(TExercice::PRACTICING_RACE)) {
+TWindowTest(TExercice::generateExercice(TExercice::PRACTICING_RACE), parent) {
     setupPage(timeStart);
 }
 
 TPracticeRace::TPracticeRace(TExercice* exercice,int timeStart, QWidget* parent) :
-TWindowTest(parent),
-generator_(*exercice) {
+TWindowTest(exercice, parent){
     setupPage(timeStart);
 }
 
 TPracticeRace::TPracticeRace(const TPracticeRace& orig) :
-TWindowTest(orig.parentWidget()),
-generator_(orig.exerciceGenerator()) {
+TWindowTest(orig.cExercice() , orig.parentWidget()) {
     setupPage();
 }
 
 void TPracticeRace::createPage() {
-    QString ex = generator_.buildExercice();
+    QString ex = exercice()->buildExercice();
     pages_.addPage(ex);
 }
 
@@ -53,7 +50,7 @@ void TPracticeRace::setupPage(int timeStart) {
 
     topToolbar_.setLCDDisplayValue(timeStart);
     connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage()));
-    QString ex = generator_.buildExercice();
+    QString ex = exercice()->buildExercice();
     pages_.addPage(ex, true);
 }
 

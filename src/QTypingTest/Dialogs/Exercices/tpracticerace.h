@@ -33,10 +33,6 @@ public:
     virtual ~TPracticeRace() {
     }
 
-    TExercice exerciceGenerator() const {
-        return generator_;
-    }
-
 public slots:
 
     /**
@@ -52,10 +48,6 @@ public slots:
     void createPage();
 
 private:
-    /**
-     * The exercice that will generate the pages
-     */
-    TExercice generator_;
 
 
     /**

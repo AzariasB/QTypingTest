@@ -13,25 +13,22 @@
 #include "tpracticebase.h"
 
 TPracticeBase::TPracticeBase(QWidget* parent)
-: TWindowTest(parent),
-generator_(TExercice::generateExercice(TExercice::PRACTICING)) {
+: TWindowTest(TExercice::generateExercice(TExercice::PRACTICING), parent){
     setupText();
 }
 
 TPracticeBase::TPracticeBase(TExercice* generator, QWidget* parent) :
-TWindowTest(parent),
-generator_(generator) {
+TWindowTest(generator, parent){
     setupText();
 }
 
 TPracticeBase::TPracticeBase(const TPracticeBase& orig) :
-TWindowTest(orig.parentWidget()),
-generator_(orig.getGenerator()) {
+TWindowTest(orig.cExercice(), orig.parentWidget()){
     setupText();
 }
 
 void TPracticeBase::setupText() {
     pages_.setNumberOfPages(2);
-    pages_.setupPages(generator_->buildExercice());
+    pages_.setupPages(exercice()->buildExercice());
     updateToolbarProgression();
 }

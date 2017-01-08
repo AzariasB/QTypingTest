@@ -25,9 +25,6 @@ namespace factory {
     
     /**
      * 
-     * \todo: improve the generation algorithm to start at a point
-     * and finish at a point
-     * 
      * This function will read the texts files of the project
      * corresponding to the language.
      * And will keep a random part of the text by keeping 
@@ -38,6 +35,24 @@ namespace factory {
      * to the given language. If the file does not exists, english is chosen by default
      */
     QDomElement getRandomText();
+
+    /**
+     * @brief nexUId generates from 0 to infinity a unique ID, used mostyl for user identification
+     * @return the next UId
+     */
+    int nexUId();
+
+    /**
+     * @brief currentUId returns the current uId without incrementing the value
+     * @return the current uId
+     */
+    int currentUId();
+
+    /**
+     * @brief setUId changes the current uId to a new one
+     * @param nwId the id from where to start
+     */
+    void setUId(int nwId);
 
     /**
      * @brief selectTextChunk this function will search for an entire sentence starting at the end

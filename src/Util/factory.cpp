@@ -70,6 +70,22 @@ bool isValidWord(QString word, QString availableLetters) {
     return word.isEmpty();
 }
 
+int uId = 0;
+
+int factory::nexUId()
+{
+    return uId++;
+}
+
+int factory::currentUId()
+{
+    return uId;
+}
+
+void factory::setUId(int nwId)
+{
+    uId = nwId;
+}
 
 QDomElement factory::getRandomText()
 {

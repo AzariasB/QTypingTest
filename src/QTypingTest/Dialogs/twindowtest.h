@@ -34,33 +34,36 @@ class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-    TWindowTest(QWidget* parent = 0) :
+    TWindowTest(TExercice *exercice = nullptr, QWidget* parent = 0) :
     QDialog(parent),
     pages_(TStackPages(2)),
     results_(QList<TResult*>()),
     timeStart_(QTime(0, 0)),
     updateTimer_(new QTimer()),
-    mainLayout_(new QStackedLayout()) {
+    mainLayout_(new QStackedLayout()),
+    exercice_(exercice){
         setupWidget();
     }
 
-    TWindowTest(QString text, QWidget *parent = 0) :
+    TWindowTest(QString text, TExercice *exercice = nullptr, QWidget *parent = 0) :
     QDialog(parent),
     pages_(TStackPages(text, 2)),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
     updateTimer_(new QTimer()),
-    mainLayout_(new QStackedLayout()) {
+    mainLayout_(new QStackedLayout()),
+    exercice_(exercice){
         setupWidget();
     }
 
-    TWindowTest(QString text, int numberOfPages, QWidget *parent = 0) :
+    TWindowTest(QString text, int numberOfPages,TExercice *exercice = nullptr,  QWidget *parent = 0) :
     QDialog(parent),
     pages_(TStackPages(text, numberOfPages)),
     results_(QList<TResult*>()),
     timeStart_(QTime()),
     updateTimer_(new QTimer()),
-    mainLayout_(new QStackedLayout()) {
+    mainLayout_(new QStackedLayout()),
+    exercice_(exercice){
         setupWidget();
     }
 
@@ -70,6 +73,14 @@ public:
 
     TStackPages stackPages() const {
         return pages_;
+    }
+
+    TExercice *exercice(){
+        return exercice_;
+    }
+
+    TExercice *cExercice() const{
+        return exercice_;
     }
 
     void setTimeIncrement(int timeInc){
@@ -246,6 +257,9 @@ protected:
     QLineEdit edit_;
 
 private:
+    /* Type of exercice */
+    TExercice *exercice_;
+
     /* The results of each pages */
     QList<TResult*> results_;
 

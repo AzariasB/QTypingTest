@@ -22,7 +22,7 @@ private slots:
 
 
 private:
-    void genHistory(TUser &user);
+    void genHistory(TUser *user);
     TResult * genRandTResult();
     TExercice *genRandExercice();
     QDateTime genRandDate();
@@ -31,22 +31,25 @@ private:
 
 void TestStatsTest::testCase1()
 {
-    TUser user;
+
+    TUser *user = new TUser("Brian");
     genHistory(user);
-    TStatistics stats(&user);
+    TUserManager::getInstance() << user;
+    TUserManager::getInstance().setCurrentUser(user);
+    TStatistics stats;
 
     stats.show();
     QApplication::exec();
 }
 
-void TestStatsTest::genHistory(TUser &user)
+void TestStatsTest::genHistory(TUser *user)
 {
     int numberOfResults = 10;
     for(int i = 0; i < numberOfResults; i++){
         TResult *res = genRandTResult();
         TExercice *exo = genRandExercice();
         QDateTime time = genRandDate();
-        user.addResult(exo,res, time);
+        user->addResult(exo, res, time);
     }
 }
 

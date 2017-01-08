@@ -13,9 +13,7 @@ class TStatistics : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TStatistics(QWidget *parent = 0);
-
-    TStatistics(TUser *user, QWidget *parent = 0);
+    explicit TStatistics(TUser *user = 0, QWidget *parent = 0);
 
 
 protected:
@@ -27,6 +25,8 @@ signals:
 
 public slots:
     void updateStats(TUser *user);
+
+    void userChanged(TUser *nwUser);
 
 private:
 

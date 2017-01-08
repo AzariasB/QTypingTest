@@ -13,19 +13,19 @@
 #include "twindowlearn.h"
 
 TWindowLearn::TWindowLearn(TExercice* ex, QWidget* parent) :
-TWindowTest(ex->buildExercice(), parent),
+TWindowTest(ex->buildExercice(),ex, parent),
 instructions_(new TPresentation(TLayout::getInstance(),ex->getLearningLetters())) {
     addInstructions(ex);
 }
 
 TWindowLearn::TWindowLearn(QString content, QWidget* parent) :
-TWindowTest(content, 1, parent),
+TWindowTest(content, 1, TExercice::generateExercice(TExercice::LEARNING), parent),
 instructions_(new TPresentation(TLayout::getInstance())) {
     addInstructions();
 }
 
 TWindowLearn::TWindowLearn(TExercice* ex, int numberOfPages, QWidget* parent) :
-TWindowTest(ex->buildExercice(), numberOfPages, parent) {
+TWindowTest(ex->buildExercice(), numberOfPages,TExercice::generateExercice(TExercice::LEARNING),  parent) {
 }
 
 void TWindowLearn::addInstructions(TExercice *exo) {

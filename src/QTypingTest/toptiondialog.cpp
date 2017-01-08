@@ -15,14 +15,12 @@
 TOptionDialog::TOptionDialog(const TUser &user,QWidget *parent):
  QDialog(parent)
 {
-    QStringList layouts = TLayout::getInstance().getAvailablLayoutLangs();
     ui_option.setupUi(this);
     showUserOptions(user);
 }
 
 void TOptionDialog::showUserOptions(const TUser &settingsReference){
     ui_option.line_pseudo->setText(settingsReference.getPseudo());
-    QString lay  = settingsReference.getLayout();
 }
 
 

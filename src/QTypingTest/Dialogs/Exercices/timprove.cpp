@@ -14,7 +14,7 @@
 #include "timprove.h"
 
 TImprove::TImprove(QWidget* parent):
-TWindowTest(parent){
+TWindowTest(TExercice::generateExercice(TExercice::IMPROVING), parent){
     QList<QChar> chars =  TUserManager::getInstance().getCurrentUser()->getStatistics().keys();
     QString training = listToString(chars);
     
