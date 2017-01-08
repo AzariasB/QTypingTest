@@ -55,14 +55,6 @@ namespace factory {
     void setUId(int nwId);
 
     /**
-     * @brief selectTextChunk this function will search for an entire sentence starting at the end
-     * of another sentence and ending with a '.'
-     * @param wholeText the entire text where to find a chunk
-     * @param numberOfWords the minimum number of words to have
-     * @return the selected chunk
-     */
-    QString selectTextChunk(QString wholeText, int minNumberOfWords, int maxNumberOfWords);
-    /**
      * This function generate the practice exercice from the given letters.
      * The result is devided into three parts :
      * <ul>
@@ -123,7 +115,7 @@ namespace factory {
      * @param mustContain a Qstring of letters that MUST be in the word
      * @return a list of word that can be created with the given letters
      */
-    QStringList findExistingWords(QString authorizedLetters,QString filename,QString mustContain="");
+    QStringList findExistingWords(QString authorizedLetters, QString mustContain="");
 
     /**
      * Select one random char in the availables elements of the String

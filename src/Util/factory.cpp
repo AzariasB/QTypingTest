@@ -45,7 +45,7 @@ int randInt(int min,int max){
 bool wordsContains(QStringList words, QString contains) {
     QStringList letters = contains.split("", QString::SkipEmptyParts);
     for (auto it = words.begin(); it != words.end(); ++it) {
-        QStringList copy = letters;
+        QStringList copy(letters);
         for (auto letter = letters.begin(); letter != letters.end(); ++letter) {
             if ((*it).contains(*letter)) {
                 copy.removeAll(*letter);
@@ -63,6 +63,8 @@ bool wordsContains(QStringList words, QString contains) {
 
 
 bool isValidWord(QString word, QString availableLetters) {
+    if(word.isEmpty())
+        return false;
     for (auto it = availableLetters.begin();
             !word.isEmpty() && it != availableLetters.end();
             ++it)
@@ -92,37 +94,13 @@ QDomElement factory::getRandomText()
     QDomDocument doc = readXMLFile(":/texts.xml");
     QDomElement root = doc.documentElement();
     if(root.tagName() != "texts"){
-        qDebug() << "XML not correctly formatted : should be 'texts' at the root, found :" << root.tagName();
+        qWarning() << "XML not correctly formatted : should be 'texts' at the root, found :" << root.tagName();
         return QDomElement();
     }else{
         QDomNodeList choices = root.childNodes();
         int randomNode = randInt(0,choices.length()-1);
         return choices.item(randomNode).toElement();
     }
-}
-
-QString factory::selectTextChunk(QString wholeText, int minNumberOfWords,int maxNumberOfWords)
-{
-    int absoluteNumberOfWords = minNumberOfWords * 5;
-    int maxAbs = maxNumberOfWords * 5;
-    QString maxLength = wholeText.mid(0,wholeText.size() - absoluteNumberOfWords);
-    int numberOfDots = maxLength.count('.');
-    int randStartPos = randInt(0,numberOfDots);
-    //Starting at the very begining of a sentence
-    for(int i = 0 ; i < randStartPos;i++){
-        wholeText = wholeText.mid(0,wholeText.indexOf('.'));
-    }
-    //Chunk that starts with at the end of a sentence.
-    QString firstChunk = wholeText.mid(0,absoluteNumberOfWords);
-    wholeText = wholeText.mid(absoluteNumberOfWords);
-    //Chunk that ends with a '.' at the end
-    QString secondChunk = wholeText.mid(0,wholeText.indexOf('.'));
-
-    //If too much words, just end the current word
-    if((firstChunk + secondChunk).size() > maxAbs )
-        return firstChunk + secondChunk.mid(0,secondChunk.indexOf(' ')) ;
-    return firstChunk + secondChunk;
-
 }
 
 QString factory::generateLearning(QString mainLetter, QString allLetters) {
@@ -152,9 +130,9 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
         } else {
             res += wordsWMain;
         }
-    } else
+    } else{
         qWarning() << "Warning : no letters available to generate the exercice";
-
+    }
     return res;
 }
 
@@ -190,8 +168,8 @@ QString factory::generateFromLetters(QString letters, int length) {
     return res;
 }
 
-QStringList factory::findExistingWords(QString authorizedLetters, QString fileName, QString mustContain) {
-    QStringList words = readFile(fileName).split("\n");
+QStringList factory::findExistingWords(QString authorizedLetters,QString mustContain) {
+    QStringList words = readFile(":/words.txt").split("\n");
     QStringList res;
 
     foreach(QString word, words) {
@@ -211,7 +189,7 @@ QStringList factory::findExistingWords(QString authorizedLetters, QString fileNa
 
 QString factory::generateWords(QString authorizedLetters, QString mainLetters, int numberOfWords) {
     QString res = "";
-    QStringList words = factory::findExistingWords(authorizedLetters, ":/words.txt", mainLetters);
+    QStringList words = factory::findExistingWords(authorizedLetters, mainLetters);
     if (!words.isEmpty()) {
         for (int i = 0; i < numberOfWords; i++) {
             res += selectRandomString(words);
@@ -267,7 +245,7 @@ QString factory::readFile(QString fileName)
         QString res(model.readAll());
         return res;
     } else {//File not found
-        qDebug() << "Could not open file";
+        qWarning () << "Could not open file";
         return QString("");
     }
 }
@@ -278,11 +256,11 @@ QDomDocument factory::readXMLFile(QString fileName)
     QFile f(fileName);
     QDomDocument doc("texts");
     if(!f.open(QIODevice::ReadOnly)){
-        qDebug() << "Could not open xml file";
+        qWarning() << "Could not open xml file";
         return QDomDocument();
     }
     if(!doc.setContent(&f)){
-        qDebug() << "Could not set content of domDocument";
+        qWarning() << "Could not set content of domDocument";
         return QDomDocument();
     }
     f.close();

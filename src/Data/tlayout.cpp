@@ -18,7 +18,7 @@ void TLayout::initLetters() {
     QString layouts = factory::readFile(":/layout.json");
     QJsonDocument doc = QJsonDocument::fromJson(layouts.toUtf8());
     if(doc.isNull()){
-        qDebug() << "File not found or not valid json";
+        qWarning() << "Invalid json";
         return;// \todo : less brutal end, and explain the exact error (Azarias)
     }
 
@@ -33,7 +33,7 @@ QList<QStringList> *TLayout::decomposeLayout(const QJsonValue &rows) {
     QJsonArray arr = rows.toArray();
 
     if (arr.size() != 4) {
-        qDebug() << "Incorrect config, the keyboard must have 4 lines of config";
+        qWarning() << "Incorrect config, the keyboard must have 4 lines of config";
         return new QList<QStringList>();
     } else {
         QRegExp isLetter("[a-z]");

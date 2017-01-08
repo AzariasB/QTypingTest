@@ -415,7 +415,6 @@ inquiète
 instant
 intérieur
 ira
-jack
 jamais
 jeu
 jeune
@@ -909,4 +908,4 @@ yeux
 était
 état
 étiez
-être"
+être

@@ -70,7 +70,7 @@ void PracticePage::connectEvents() {
 
 void PracticePage::startExercice(TWindowTest *exercice) {
     if (currentDialog_ != nullptr) {
-        qDebug() << "Already running another exercice";
+        qWarning() << "Already running another exercice";
         //Already running
     } else {
         currentDialog_ = exercice;

@@ -118,7 +118,6 @@ public:
     QDateTime addResult(TExercice *exo, TResult *exRes, QDateTime date = QDateTime::currentDateTime());
 
     void operator=(const TUser &orig) {
-        qDebug() << "equ operator";
         setParent(orig.parent());
         id_ = orig.id_;
         pseudo_ = orig.pseudo_;

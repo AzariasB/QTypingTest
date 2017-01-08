@@ -25,7 +25,7 @@ void TestLearnDialog::testOpen() {
     //Test if the dialogs shows up with text
     QWidget *w = new QWidget();
     TLayout frLayout = TLayout::getInstance();
-    TExercice *ex = TExercice::generateExercice(TExercice::LEARNING,frLayout.getLettersAt(10), frLayout.getAllLettersTo(10));
+    TExercice *ex = TExercice::generateExercice(TExercice::LEARNING,"fj", "fj");
     
     TWindowLearn learn(ex,w);
     learn.show();

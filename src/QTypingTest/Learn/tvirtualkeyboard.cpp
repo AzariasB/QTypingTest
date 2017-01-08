@@ -30,7 +30,6 @@ modifiers_(new QHash<int, TVirtualKey*>()) {
 void TVirtualKeyboard::setupWidget(TLayout&layout) {
     leftShift_ = new TVirtualKey(55, "Shift");
     rightShift_ = new TVirtualKey(155, "Shift");
-    qDebug() << layout.getLayouLines().size();
     createKeys(layout.getLayouLines());
 }
 

@@ -37,13 +37,13 @@ int main(int argc, char *argv[]) {
     QFile file(":/style.qss");
     if (file.exists()) {
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            qDebug() << "Could not open file, please check the permissions";
+            qWarning() << "Could not open file, please check the permissions";
         } else {
             hp.setStyleSheet(QLatin1String(file.readAll()));
         }
         file.close();
     } else {
-        qDebug() << "Could not load stylesheet";
+        qWarning() << "Could not load stylesheet";
     }
 
 
