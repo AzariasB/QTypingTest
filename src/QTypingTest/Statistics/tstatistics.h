@@ -4,14 +4,23 @@
 #include <QWidget>
 #include <QPainter>
 #include <QMouseEvent>
+#include <QStaticText>
+#include <QTextDocument>
 
 #include "Data/tuser.h"
 #include "Data/tusermanager.h"
 #include <stdlib.h>
 
+struct point_result {
+    QPoint point;
+    TResult res;
+};
+
 class TStatistics : public QWidget
 {
     Q_OBJECT
+
+
 public:
     explicit TStatistics(TUser *user = 0, QWidget *parent = 0);
 
@@ -34,7 +43,11 @@ private:
 
     void init();
 
-    QList<QPoint> resultToPoint(const QList<TResult> &results);
+    void drawMainPolygon(QPainter &painter);
+
+    void drawResult(QPainter &painter);
+
+    QList<point_result> resultToPoint(const QList<TResult> &results);
 
     int getMinWPM(const QList<TResult> &results);
 
@@ -46,9 +59,11 @@ private:
 
     QRect rectAroundPoint(const QPoint &point);
 
-    QPair<QRect, QPoint> findContainer(const QPoint &point);
+    QPair<QRect, point_result> findContainer(const QPoint &point);
 
-    QHash<QRect, QPoint> higlightsFromPoints(const QList<QPoint> &points);
+    QHash<QRect, point_result> higlightsFromPoints(const QList<point_result> &points);
+
+    QPolygon polyFromPointResult(const QList<point_result> &points);
 
     //attributes
     int maxWPM_;
@@ -62,10 +77,10 @@ private:
     QList<TResult> userResults_;
 
     /* Positions where the mouse has to be to higlith a point */
-    QHash<QRect, QPoint> higlights_;
+    QHash<QRect, point_result> higlights_;
 
     /* Save the current pos of mouse to avoir expensive calculations */
-    QPair<QRect, QPoint> currentHilight_;
+    QPair<QRect,point_result> currentHilight_;
 };
 
 inline uint qHash(const QRect & key) {

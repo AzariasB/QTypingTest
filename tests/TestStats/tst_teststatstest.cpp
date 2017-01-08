@@ -44,7 +44,7 @@ void TestStatsTest::testCase1()
 
 void TestStatsTest::genHistory(TUser *user)
 {
-    int numberOfResults = 10;
+    int numberOfResults = 50;
     for(int i = 0; i < numberOfResults; i++){
         TResult *res = genRandTResult();
         TExercice *exo = genRandExercice();
