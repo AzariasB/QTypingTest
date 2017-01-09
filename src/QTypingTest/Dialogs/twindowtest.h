@@ -195,6 +195,8 @@ protected:
      */
     void closeEvent(QCloseEvent* ev);
 
+    void keyPressEvent(QKeyEvent *ev);
+
 
     /**
      * Init function called as soon as the dialog is created

@@ -76,6 +76,16 @@ void TWindowTest::closeEvent(QCloseEvent* ev) {
         exerciceFinished(true);
 }
 
+void TWindowTest::keyPressEvent(QKeyEvent *ev)
+{
+    if(ev->key() != Qt::Key_Escape){
+        QDialog::keyPressEvent(ev);
+    }else{
+        ev->setAccepted(false);
+        this->pauseContinueExercice();
+    }
+}
+
 void TWindowTest::setupTimer() {
     updateTimer_->setSingleShot(false);
     updateTimer_->setInterval(1000);
