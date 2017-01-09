@@ -38,6 +38,15 @@ public slots:
     void createUser();
 
     void updateUserDisplay();
+
+
+    /**
+     * Competely erase a user, in the list
+     * and in the files
+     * A message of confirmation is asked before
+     * to confirm the deletion
+     */
+    void deleteUser(TUser *user );
     
 private:
     /**
@@ -58,14 +67,6 @@ private:
     void setupWidgets();
     
     void clearLayout(QLayout *layout);
-    
-    /**
-     * Competely erase a user, in the list
-     * and in the files
-     * A message of confirmation is asked before
-     * to confirm the deletion
-     */
-    void deleteUser(TUser *user );
 };
 
 #endif /* HOMEPAGE_H */

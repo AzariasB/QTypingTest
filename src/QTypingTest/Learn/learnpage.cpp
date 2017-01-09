@@ -112,17 +112,18 @@ void LearnPage::lauchExercice() {
 
 void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
     testWindow_->hide();
+    QString time = QString("Made in : %1").arg(timeEx.toString("mm:ss"));
 
     // Min time and min wpm may change depending on overall difficulty
-    if ((timeEx.msecsSinceStartOfDay() / 1000.f) > 120 || exerciceResult->getWPM() < 30) {
-        QMessageBox::information(this, "Too long", "You didn't made in time.");
+    if (exerciceResult->getWPM() < 30) {
+        QMessageBox::information(this, "Too long", "You didn't made in time.<br/>" + exerciceResult->getResume() +"<br/>" + time);
     } else {
         TProgression *curProgr = TUserManager::getInstance().getCurrentUser()->getProgression();
         if (currentProgression_ == curProgr->getLastExericeIndex())
             curProgr->avdvanceExIndex();
 
         QString text = QString("Congratulations, you finished the exercice !<br/>"
-                "Results are :<br/>") + exerciceResult->getResume();
+                "Results are :<br/>") + exerciceResult->getResume() + "<br/>" + time;
 
         QMessageBox::information(this, "End of exercice", text);
         //Unlock the last button if exercice succeeded

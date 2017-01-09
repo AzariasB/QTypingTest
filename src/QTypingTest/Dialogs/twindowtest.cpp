@@ -149,6 +149,7 @@ void TWindowTest::exerciceFinished(bool forced) {
 void TWindowTest::setupShortcuts() {
     //Hacks
 
+#ifdef QDEBUG_H
     //Hack for testing => shortucut to end the exercice
     QShortcut *endShortcut = new QShortcut(this);
     endShortcut->setKey(Qt::CTRL + Qt::Key_F);
@@ -161,6 +162,15 @@ void TWindowTest::setupShortcuts() {
         exerciceFinished();
     });
     //end of hacks
+
+    QShortcut *allShortcut = new QShortcut(this);
+    allShortcut->setKey(Qt::CTRL + Qt::Key_A);
+
+    connect(allShortcut, &QShortcut::activated, [=] (){
+        qWarning() << "Unlocking the learning";
+        TUserManager::getInstance().getCurrentUser()->getProgression()->avdvanceExIndex();
+    });
+#endif
 
     QShortcut *pauseSh = new QShortcut(this);
     pauseSh->setKey(Qt::CTRL + Qt::Key_P);

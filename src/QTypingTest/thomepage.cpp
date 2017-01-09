@@ -48,7 +48,6 @@ void THomePage::showOptionDialog(){
 }
 
 void THomePage::connectEvents() {
-    TUserManager::getInstance().readUsers();
     connect(ui.action_about,SIGNAL(triggered(bool)),this,SLOT(showAboutDialogs()));
     connect(ui.action_option,SIGNAL(triggered(bool)),this,SLOT(showOptionDialog()));
     connect(ui.action_change_user,SIGNAL(triggered(bool)),this,SLOT(changeUser()));

@@ -68,6 +68,9 @@ public:
 
     bool operator -(TUser *userLess)
     {
+        if((*userLess) == (*currentUser_)){
+            setCurrentUser(nullptr);
+        }
         bool rmed = users_.removeOne(userLess);
         saveUsers();
         return rmed;
