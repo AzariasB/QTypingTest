@@ -35,7 +35,7 @@ void LearnPage::createPractice() {
 }
 
 void LearnPage::createButtons(QGridLayout *lay) {
-    QStringList l = practice_.getLetterList();
+    QStringList l = practice_.getLearningCouples();
 
     int buttonWidth = 100;
 

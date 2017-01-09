@@ -27,6 +27,8 @@ void TLayout::initLetters() {
     lettersList_ = QStringList(); // reset the lettersList
     TLayout:allAvailableLetters_ = "";
     layoutLines_ = decomposeLayout(jsonLays["rows"]);
+    initLearningCouples();
+    initKeyCombination();
 }
 
 QList<QStringList> *TLayout::decomposeLayout(const QJsonValue &rows) {
@@ -57,18 +59,42 @@ QList<QStringList> *TLayout::decomposeLayout(const QJsonValue &rows) {
             //but an indication to tell the corresponding finger
             //And join all the rest
             parts->append(splitedLine);
-            TLayout:allAvailableLetters_ += total;
+            this->allAvailableLetters_ += total;
+           // TLayout::allAvailableLetters_ += total;
         }
         return parts;
     }
 
 }
 
+QStringList TLayout::getLearningCouples()
+{
+    return lettersList_;
+}
 
-QStringList TLayout::getLetterList() {
-    if(layoutLines_->isEmpty())
-        return QStringList();
-    if (lettersList_.isEmpty()) {
+void TLayout::initKeyCombination()
+{
+    qFill(std::begin(keyCombinations_),std::end(keyCombinations_), "");
+
+    if(!layoutLines_->isEmpty()){
+        for(QStringList strList : *layoutLines_)
+        {
+            for(QString str: strList)
+            {
+                str = str.mid(1);
+                for(int i = 0; i < KEY_COMBINATIONS; i++)
+                {
+                    if(str.size() > i){
+                        keyCombinations_[i] += str[i];
+                    }
+                }
+            }
+        }
+    }
+}
+
+void TLayout::initLearningCouples() {
+    if(!layoutLines_->isEmpty()){
         //Adding the 'basics' letters (if any)
         //then the 'shifted' letters (if any)
         //and finally the 'altgred' letters (if any)
@@ -88,5 +114,4 @@ QStringList TLayout::getLetterList() {
             }
         }
     }
-    return lettersList_;
 }

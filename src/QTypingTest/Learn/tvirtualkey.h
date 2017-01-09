@@ -41,7 +41,7 @@ public:
     TVirtualKey(QString content, QWidget *parent = 0);
 
     //Create an 'empty' widget with the given width and the default height
-    TVirtualKey(int w, QString text, QWidget *parent = 0);
+    TVirtualKey(int w, QString text, TFingerPosition::FINGER associatedFinger = TFingerPosition::NO_FINGER, QWidget *parent = 0);
 
 
     TVirtualKey(const TVirtualKey& orig);
@@ -66,6 +66,10 @@ public:
         return associateFinger_;
     }
 
+    bool possibleToType(QChar chr){
+        return  !chr.isNull() && (chr  == default_ || chr == shifted_ || chr == altgred_);
+    }
+
 public slots:
 
     /**
@@ -87,7 +91,9 @@ public slots:
     }
     
     /**
-     * 
+     * Prompt the user to press the key,
+     * painting in darkCyan
+     * (used when learning new letters)
      */
     void example(){
         paintBackground(Qt::darkCyan);

@@ -26,10 +26,11 @@ QWidget(orig.parentWidget()) {
 
 }
 
-TVirtualKey::TVirtualKey(int w, QString text, QWidget *parent) :
+TVirtualKey::TVirtualKey(int w, QString text,TFingerPosition::FINGER associatedFinger, QWidget *parent) :
 QWidget(parent) {
     setAutoFillBackground(true);
     setFixedSize(w, 50);
+    associateFinger_ = associatedFinger;
     QLabel *lab = new QLabel(text);
     QGridLayout *center = new QGridLayout();
     center->addWidget(lab, 0, 0, Qt::AlignHCenter);
@@ -103,6 +104,7 @@ void TVirtualKey::constructLetters(QString letters) {
     switch (letters.size()) {
         case 4:
             altgred_ = letters[3];
+            //Voluntary no break
         case 3:
             shifted_ = letters[2];
         case 2:

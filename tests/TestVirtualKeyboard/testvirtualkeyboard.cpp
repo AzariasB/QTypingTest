@@ -23,7 +23,8 @@ private slots:
 void TestVirtualKeyboard::testKeyboard()
 {
     TLayout layTest = TLayout::getInstance();
-    TPresentation *pres = new TPresentation(layTest);
+    layTest.getLearningCouples();
+    TPresentation *pres = new TPresentation(layTest,"{ABCDEF");
     pres->show();
     QApplication::exec();
 }

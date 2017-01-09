@@ -52,8 +52,16 @@ public:
      */
     TVirtualKey *updateKeyboard(QKeyEvent *ev, QChar expected = '\0');
     
-    
+    /**
+     * @brief highlightKey
+     * Hilights a key from the given char
+     *
+     * @param keyChar the char of the key to higlight
+     * @return the highlighted key (if found) else nullptr
+     */
     TVirtualKey *highlightKey(QChar keyChar);
+
+    TVirtualKey *highlightModifier(int modId);
 
 
 private:
@@ -81,6 +89,25 @@ private:
      * @param keyChars the list of list of key code
      */
     void createKeys(QList<QStringList> keyChars);
+
+    /**
+     * @brief setOriginalState
+     * Changes the state of the key back to its original,
+     * the original state can be one these two :
+     *  - example, if the key is a modifier (shift or altgr)
+     *  and the expected char actually needs a modifier or
+     * if the char typed is typed on the good key, but not
+     * with the good modifier
+     *  - reset otherwise (not the good key, or not the good
+     * modifier)
+     *
+     *
+     * @param key the key that will have its state changed back to its original state
+     * @param ev the event (key released)
+     * @param expected the char expected to be pressed (to know wether or not the
+     * virtualkey must be reset or set as example)
+     */
+    void setOriginalState(TVirtualKey *key, QKeyEvent *ev, QChar expected);
 
     /**
      * Create the line containin the number in the

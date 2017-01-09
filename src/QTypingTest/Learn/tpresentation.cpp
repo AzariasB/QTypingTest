@@ -37,6 +37,20 @@ void TPresentation::nextCharToCopy() {
             positions_->enableFinger(hilighted->associatedFinger());
             toPress_ = toPress_.remove(0,1);
         }
+        if(TLayout::getInstance().needsShiftModifier(currentExample_)){
+            //Change depending on occupied letter
+            TVirtualKey *shift = keyboard_->highlightModifier(Qt::Key_Shift);
+            if(shift){
+                positions_->enableFinger(shift->associatedFinger() );
+            }
+        }
+        if(TLayout::getInstance().needsAltgrModifier(currentExample_)){
+            TVirtualKey *altGr = keyboard_->highlightModifier(Qt::Key_AltGr);
+            if(altGr){
+                positions_->enableFinger(altGr->associatedFinger() );
+            }
+        }
+
     } else {
         emit allCopied();
     }

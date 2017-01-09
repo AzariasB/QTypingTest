@@ -56,18 +56,30 @@ public:
         return *layoutLines_;
     }
 
-    QStringList getLetterList();
+    QStringList getLearningCouples();
 
     QString getLettersAt(int index) {
-        return getLetterList()[index];
+        return getLearningCouples()[index];
     }
 
     QString getAllLettersTo(int length) {
-        return QStringList(getLetterList().mid(0, length)).join("");
+        return QStringList(getLearningCouples().mid(0, length)).join("");
     }
 
     QString getAllAvailableLetters() {
         return allAvailableLetters_;
+    }
+
+    bool needsNoModifier(QChar chr){
+        return keyCombinations_[0].contains(chr);
+    }
+
+    bool needsShiftModifier(QChar chr){
+        return keyCombinations_[1].contains(chr);
+    }
+
+    bool needsAltgrModifier(QChar chr){
+        return keyCombinations_[2].contains(chr);
     }
 
     virtual ~TLayout() {
@@ -77,7 +89,7 @@ private:
 
     QString allAvailableLetters_;
 
-    TLayout() {
+    TLayout(){
         this->initLetters();
     }
 
@@ -93,6 +105,24 @@ private:
      */
     void initLetters();
 
+    /**
+     * @brief initLearningCouples
+     * Will create the learning couple of letters from the layout
+     * available letters, the functions uses the listOrder array
+     * to determine the order of the list to create
+     *
+     */
+    void initLearningCouples();
+
+    /**
+     * @brief initKeyCombination
+     * init the keyCombinations array :
+     *  -find all the normal letters
+     *  -find all the 'shifted' letters
+     *  -find all the 'altgred' letters
+     */
+    void initKeyCombination();
+
 
     /**
      *
@@ -104,6 +134,18 @@ private:
 
     QStringList lettersList_;
     QList<QStringList> *layoutLines_;
+
+    /**
+     * @brief keyCombinations_
+     *
+     * list of size 3 :
+     *  - first string  = all the "lowercase", or "shiftless" keys
+     *  - second string = all the "shifted" keys
+     *  - third string = all the "altgred" keys
+     */
+    static const int KEY_COMBINATIONS = 3;
+
+    QString keyCombinations_[KEY_COMBINATIONS];
 
     /**
       * @brief Ordre to learn the keyboard keys

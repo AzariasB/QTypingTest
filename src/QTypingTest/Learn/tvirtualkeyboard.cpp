@@ -28,8 +28,10 @@ modifiers_(new QHash<int, TVirtualKey*>()) {
 }
 
 void TVirtualKeyboard::setupWidget(TLayout&layout) {
-    leftShift_ = new TVirtualKey(55, "Shift");
-    rightShift_ = new TVirtualKey(155, "Shift");
+    leftShift_ = new TVirtualKey(55, "Shift", TFingerPosition::LEFT_PINKY );
+    rightShift_ = new TVirtualKey(155, "Shift", TFingerPosition::RIGHT_PINKY );
+    modifiers_->insert(Qt::Key_Shift,leftShift_);
+    //Insert right shift
     createKeys(layout.getLayouLines());
 }
 
@@ -64,7 +66,7 @@ QWidget *TVirtualKeyboard::numberLine(QStringList keys) {
         lay->addWidget(createKey(elem));
     }
     //The 'backspace' key
-    TVirtualKey *backspace = new TVirtualKey(130, "Backspace");
+    TVirtualKey *backspace = new TVirtualKey(130, "Backspace", TFingerPosition::RIGHT_PINKY);
     lay->addWidget(backspace);
     modifiers_->insert(Key_Backspace, backspace);
     lay->setContentsMargins(0, 0, 0, 0);
@@ -76,7 +78,7 @@ QWidget *TVirtualKeyboard::upperLine(QStringList keys) {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
     //The 'tab' key
-    TVirtualKey *tab = new TVirtualKey(70, "Tab");
+    TVirtualKey *tab = new TVirtualKey(70, "Tab", TFingerPosition::LEFT_PINKY );
     lay->addWidget(tab);
     modifiers_->insert(Key_Tab, tab);
     modifiers_->insert(Key_Backtab, tab);
@@ -85,7 +87,7 @@ QWidget *TVirtualKeyboard::upperLine(QStringList keys) {
         lay->addWidget(createKey(elem));
     }
     //The upper part of the 'enter' key
-    lay->addWidget(new TVirtualKey(80, "Enter"));
+    lay->addWidget(new TVirtualKey(80, "Enter", TFingerPosition::RIGHT_PINKY));
     lay->setContentsMargins(0, 0, 0, 0);
     line->setLayout(lay);
     return line;
@@ -95,7 +97,7 @@ QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
     //The 'caps lock' key
-    TVirtualKey *capsLock = new TVirtualKey(80, "Caps lock");
+    TVirtualKey *capsLock = new TVirtualKey(80, "Caps lock", TFingerPosition::RIGHT_PINKY);
     lay->addWidget(capsLock);
     modifiers_->insert(Key_CapsLock, capsLock);
 
@@ -111,7 +113,7 @@ QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
         index++;
     }
     //The lower part of the 'enter' key
-    TVirtualKey *lowerEnter = new TVirtualKey(70, "Enter");
+    TVirtualKey *lowerEnter = new TVirtualKey(70, "Enter", TFingerPosition::RIGHT_PINKY);
     lay->addWidget(lowerEnter);
     lay->setContentsMargins(0, 0, 0, 0);
     modifiers_->insert(Key_Return, lowerEnter);
@@ -155,17 +157,17 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
 
-    TVirtualKey *ctrl = new TVirtualKey(55, "Ctrl");
+    TVirtualKey *ctrl = new TVirtualKey(55, "Ctrl", TFingerPosition::LEFT_PINKY);
     lay->addWidget(ctrl);
     modifiers_->insert(Key_Control, ctrl);
 
     lay->addWidget(new TVirtualKey(50, "Fn")); //Change from laptop to computer
 
-    TVirtualKey *home = new TVirtualKey(50, "Win");
+    TVirtualKey *home = new TVirtualKey(50, "Win", TFingerPosition::LEFT_PINKY);
     lay->addWidget(home);
     modifiers_->insert(Key_Meta, home);
 
-    TVirtualKey *alt = new TVirtualKey(50, "Alt");
+    TVirtualKey *alt = new TVirtualKey(50, "Alt", TFingerPosition::LEFT_RING);
     lay->addWidget(alt);
     modifiers_->insert(Key_Alt, alt);
 
@@ -173,7 +175,7 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
     lay->addWidget(space);
     modifiers_->insert(Key_Space, space);
 
-    TVirtualKey *altGr = new TVirtualKey(55, "AltGr");
+    TVirtualKey *altGr = new TVirtualKey(55, "AltGr", TFingerPosition::RIGHT_MIDDLE);
     lay->addWidget(altGr);
     modifiers_->insert(Key_AltGr, altGr);
 
@@ -188,7 +190,8 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
 
 TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
     TVirtualKey *target = 0;
-    bool wrongKey = !expected.isNull();
+    bool needsModifier = !TLayout::getInstance().needsNoModifier(expected);
+    bool wrongKey = !expected.isNull() && !needsModifier;
     if (ev->key() == Key_Shift) {
         // \todo : is that working on other machines ?
         target = ev->nativeScanCode() == 62 ? rightShift_ : leftShift_;
@@ -207,22 +210,56 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
                 target->wrong();
                 return 0;
             } else {
-                target->right();
+                if(needsModifier && ev->text().isNull()){
+                    if(TLayout::getInstance().needsShiftModifier(expected) && ev->key() == Qt::Key_Shift ||
+                            TLayout::getInstance().needsAltgrModifier(expected) && ev->key() == Qt::Key_AltGr){
+                        target->right();
+                    }else{
+                        target->wrong();
+                    }
+
+                }else{
+                    target->right();
+                }
             }
         } else if (ev->type() == QEvent::KeyRelease) {
-            target->reset();
-            if (wrongKey) return 0;
+            setOriginalState(target,ev, expected);
+            if (wrongKey || ev->nativeModifiers() > 0 ) return 0;
         }
     }
     return target;
 }
+
+void TVirtualKeyboard::setOriginalState(TVirtualKey *key, QKeyEvent *ev, QChar expected)
+{
+    if(ev->type() == QEvent::KeyRelease){
+        if(ev->key() == Qt::Key_AltGr && TLayout::getInstance().needsAltgrModifier(expected) ||
+                ev->key() == Qt::Key_Shift && TLayout::getInstance().needsShiftModifier(expected) ||
+                ev->text().size() > 0 && key->possibleToType(expected) && ev->text() != expected){
+            key->example();
+        }else{
+            key->reset();
+        }
+    }
+}
+
 
 TVirtualKey* TVirtualKeyboard::highlightKey(QChar keyChar) {
     if (keys_->contains(keyChar)) {
         TVirtualKey *target = keys_->value(keyChar);
         target->example();
         return target;
-    } else {
-        return 0;
     }
+    return 0;
+}
+
+
+TVirtualKey *TVirtualKeyboard::highlightModifier(int modId)
+{
+    if(modifiers_->contains(modId)){
+        TVirtualKey *target = modifiers_->value(modId);
+        target->example();
+        return target;
+    }
+    return 0;
 }
