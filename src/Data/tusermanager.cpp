@@ -27,6 +27,8 @@ TUserManager::~TUserManager() {
 QList<TUser*> TUserManager::readUsers()
 {
     bool allValid = true;
+    int nextUid = saveTarget_.value("nextUid").toInt();
+    factory::setUId(nextUid);
     int arrSize = saveTarget_.beginReadArray("users");
     QList<TUser*> usersTemp;
     for(int i =0; i < arrSize;i++){
@@ -51,8 +53,10 @@ QList<TUser*> TUserManager::readUsers()
 
 void TUserManager::saveUsers()
 {
-    saveTarget_.beginWriteArray("users");
+    QVariant nextUid(factory::currentUId());
     saveTarget_.clear();
+    saveTarget_.setValue("nextUid",nextUid);
+    saveTarget_.beginWriteArray("users");
     for(int i = 0; i< users_.size();i++){
         saveTarget_.setArrayIndex(i);
         TUser *u = users_[i];

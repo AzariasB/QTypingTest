@@ -47,7 +47,6 @@ void HomePage::createUser() {
 
 void HomePage::updateUserDisplay() {
     clearLayout(usersList_);
-    qDebug() << TUserManager::getInstance().users();
     for (TUser *user : TUserManager::getInstance().users() ) {
         QHBoxLayout *userLine = new QHBoxLayout();
         QPushButton *userButton = new QPushButton(user->getPseudo());
@@ -55,7 +54,6 @@ void HomePage::updateUserDisplay() {
         if (currentUser && (*user) == (*currentUser)){
             userButton->setEnabled(false);
         }
-        qDebug() << "One user";
         connect(userButton, &QPushButton::clicked, this, [this, user]() {
             TUserManager::getInstance().setCurrentUser(user);
             updateUserDisplay();
