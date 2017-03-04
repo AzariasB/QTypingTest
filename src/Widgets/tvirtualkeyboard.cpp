@@ -242,7 +242,8 @@ void TVirtualKeyboard::setOriginalState(TVirtualKey *key, QKeyEvent *ev, QChar e
 		bool textReset = ev->text().size() > 0 && key->possibleToType(expected) && ev->text() != expected;
 
 		bool shiftReset = false;
-		if(ev->key() == Qt::Key_Shift){
+		if(ev->key() == Qt::Key_Shift && TLayout::getInstance().needsShiftModifier(expected)){
+			qDebug() << expected;
 			TVirtualKey *needed = keys_->value(getKeyCode(expected));
 			shiftReset = (TFingerPosition::isLeftHand(needed->associatedFinger()) && key == rightShift_) ||
 						(TFingerPosition::isRightHand(needed->associatedFinger()) && key == leftShift_);
