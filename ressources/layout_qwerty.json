@@ -12,19 +12,19 @@
 	},{
 		"finger": 3,"main": "5","shift": "%"
 	},{
-		"finger": 4,"main": "6","shift": "^"
+        "finger": 6,"main": "6","shift": "^"
 	},{
-		"finger": 4,"main": "7","shift": "&"
+        "finger": 6,"main": "7","shift": "&"
 	},{
-		"finger": 5,"main": "8","shift": "*"
+        "finger": 7,"main": "8","shift": "*"
 	},{
-		"finger": 6,"main": "9","shift": "("
+        "finger": 8,"main": "9","shift": "("
 	},{
-		"finger": 7,"main": "0","shift": ")"
+        "finger": 9,"main": "0","shift": ")"
 	},{
-		"finger": 7,"main": "_","shift": "-"
+        "finger": 9,"main": "_","shift": "-"
 	},{
-		"finger": 7,"main": "=","shift": "+"
+        "finger": 9,"main": "=","shift": "+"
 	}],[{
 		"finger": 0,"main": "q"
 	},{
@@ -36,19 +36,19 @@
 	},{
 		"finger": 3,"main": "t"
 	},{
-		"finger": 4,"main": "y"
+        "finger": 6,"main": "y"
 	},{
-		"finger": 4,"main": "u"
+        "finger": 6,"main": "u"
 	},{
-		"finger": 5,"main": "i"
+        "finger": 7,"main": "i"
 	},{
-		"finger": 6,"main": "o"
+        "finger": 8,"main": "o"
 	},{
-		"finger": 7,"main": "p"
+        "finger": 9,"main": "p"
 	},{
-		"finger": 7,"main": "[","shift": "{"
+        "finger": 9,"main": "[","shift": "{"
 	},{
-		"finger": 7,"main": "]","shift": "}"
+        "finger": 9,"main": "]","shift": "}"
 	}],[{
 		"finger": 0,"main": "a"
 	},{
@@ -60,19 +60,19 @@
 	},{
 		"finger": 3,"main": "g"
 	},{
-		"finger": 4,"main": "h"
+        "finger": 6,"main": "h"
 	},{
-		"finger": 4,"main": "j"
+        "finger": 6,"main": "j"
 	},{
-		"finger": 5,"main": "k"
+        "finger": 7,"main": "k"
 	},{
-		"finger": 6,"main": "l"
+        "finger": 8,"main": "l"
 	},{
-		"finger": 7,"main": ";","shift": ":"
+        "finger": 9,"main": ";","shift": ":"
 	},{
-		"finger": 7,"main": "\"","shift": "'"
+        "finger": 9,"main": "\"","shift": "'"
 	},{
-		"finger" : 7,"main" : "|","shift" : "\\"
+        "finger" : 9,"main" : "|","shift" : "\\"
 	}],[{
 		"finger": 0,"main": "`","shift": "~"
 	},{
@@ -86,15 +86,15 @@
 	},{
 		"finger": 3,"main": "b"
 	},{
-		"finger": 4,"main": "n"
+        "finger": 6,"main": "n"
 	},{
-		"finger": 4,"main": "m"
+        "finger": 6,"main": "m"
 	},{
-		"finger": 5,"main": ",","shift": "<"
+        "finger": 7,"main": ",","shift": "<"
 	},{
-		"finger": 6,"main": ".","shift": ">"
+        "finger": 8,"main": ".","shift": ">"
 	},{
-		"finger": 7,"main": "/","shift": "?"
+        "finger": 9,"main": "/","shift": "?"
 	}]
 	]
 }

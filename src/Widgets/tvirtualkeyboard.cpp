@@ -229,7 +229,8 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
             }
         } else if (ev->type() == QEvent::KeyRelease) {
 			setOriginalState(target, ev, expected);
-			if (wrongKey || ev->nativeModifiers() > 0 ) return 0;
+			if(expected.isNull()) return target;
+			if (wrongKey || !TLayout::getInstance().needsNoModifier(expected)) return 0;
         }
     }
     return target;
@@ -237,25 +238,29 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
 
 void TVirtualKeyboard::setOriginalState(TVirtualKey *key, QKeyEvent *ev, QChar expected)
 {
-    if(ev->type() == QEvent::KeyRelease){
-		bool altgrReset = ev->key() == Qt::Key_AltGr && TLayout::getInstance().needsAltgrModifier(expected);
-		bool textReset = ev->text().size() > 0 && key->possibleToType(expected) && ev->text() != expected;
+	if(expected.isNull()){
+		key->reset();
+		return;
+	}
 
-		bool shiftReset = false;
-		if(ev->key() == Qt::Key_Shift && TLayout::getInstance().needsShiftModifier(expected)){
-			qDebug() << expected;
-			TVirtualKey *needed = keys_->value(getKeyCode(expected));
-			shiftReset = (TFingerPosition::isLeftHand(needed->associatedFinger()) && key == rightShift_) ||
-						(TFingerPosition::isRightHand(needed->associatedFinger()) && key == leftShift_);
-		}
 
-		if(altgrReset || textReset || shiftReset){
-			// Typed right key, but not the good content
-            key->example();
-        }else{
-            key->reset();
-        }
-    }
+	bool altgrReset = ev->key() == Qt::Key_AltGr && TLayout::getInstance().needsAltgrModifier(expected);
+	bool textReset = ev->text().size() > 0 && key->possibleToType(expected) && ev->text() != expected;
+
+	bool shiftReset = false;
+	if(ev->key() == Qt::Key_Shift && TLayout::getInstance().needsShiftModifier(expected)){
+		qDebug() << expected;
+		TVirtualKey *needed = keys_->value(getKeyCode(expected));
+		shiftReset = (TFingerPosition::isLeftHand(needed->associatedFinger()) && key == rightShift_) ||
+					(TFingerPosition::isRightHand(needed->associatedFinger()) && key == leftShift_);
+	}
+
+	if(altgrReset || textReset || shiftReset){
+		// Typed right key, but not the good content
+		key->example();
+	}else{
+		key->reset();
+	}
 }
 
 

@@ -1,20 +1,19 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="layouts.txt">ressources/layouts.txt</file>
         <file alias="style.qss">ressources/style.qss</file>
         <file alias="layout.json">ressources/layout_qwerty.json</file>
         <file alias="texts.xml">ressources/texts.xml</file>
         <file alias="words.txt">ressources/words.txt</file>
     </qresource>
-    <qresource prefix="/" lang="fr" >
+    <qresource prefix="/" lang="fr">
         <file alias="layout.json">ressources/layout_azerty.json</file>
         <file alias="texts.xml">ressources/texts_fr.xml</file>
         <file alias="words.txt">ressources/words_fr.txt</file>
     </qresource>
-    <qresource prefix="/" lang="es" >
+    <qresource prefix="/" lang="es">
         <file alias="words.txt">ressources/words_es.txt</file>
     </qresource>
-    <qresource prefix="/" lang="de" >
+    <qresource prefix="/" lang="de">
         <file alias="layout.json">ressources/layout_qwertz.json</file>
     </qresource>
     <qresource prefix="/icons">
@@ -29,6 +28,6 @@
         <file alias="bin.png">ressources/bin.png</file>
     </qresource>
     <qresource prefix="/images">
-       <file alias="hands.png">ressources/hands.png</file>
+        <file alias="hands.png">ressources/hands.png</file>
     </qresource>
 </RCC>

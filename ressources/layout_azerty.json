@@ -12,19 +12,19 @@
 	},{
 		"finger": 3,"main": "(","shift": "5","altgr": "["
 	},{
-		"finger": 4,"main": "-","shift": "6","altgr": "|"
+        "finger": 6,"main": "-","shift": "6","altgr": "|"
 	},{
-		"finger": 4,"main": "è","shift": "7","altgr": "`"
+        "finger": 6,"main": "è","shift": "7","altgr": "`"
 	},{
-		"finger": 5,"main": "_","shift": "8","altgr": "\\"
+        "finger": 7,"main": "_","shift": "8","altgr": "\\"
 	},{
-		"finger": 6,"main": "ç","shift": "9","altgr": "^"
+        "finger": 8,"main": "ç","shift": "9","altgr": "^"
 	},{
-		"finger": 7,"main": "à","shift": "0","altgr": "@"
+        "finger": 9,"main": "à","shift": "0","altgr": "@"
 	},{
-		"finger": 7,"main": ")","shift": "°","altgr": "]"
+        "finger": 9,"main": ")","shift": "°","altgr": "]"
 	},{
-		"finger": 7,"main": "=","shift": "+","altgr": "}"
+        "finger": 9,"main": "=","shift": "+","altgr": "}"
 	}],[{
 		"finger": 0,"main": "a"
 	},{
@@ -36,19 +36,19 @@
 	},{
 		"finger": 3,"main": "t"
 	},{
-		"finger": 4,"main": "y"
+        "finger": 6,"main": "y"
 	},{
-		"finger": 4,"main": "u"
+        "finger": 6,"main": "u"
 	},{
-		"finger": 5,"main": "i"
+        "finger": 7,"main": "i"
 	},{
-		"finger": 6,"main": "o"
+        "finger": 8,"main": "o"
 	},{
-		"finger": 7,"main": "p"
+        "finger": 9,"main": "p"
 	},{
-		"finger": 7,"main": "^","shift": "¨"
+        "finger": 9,"main": "^","shift": "¨"
 	},{
-		"finger": 7,"main": "$","shift": "£","altgr": "¤"
+        "finger": 9,"main": "$","shift": "£","altgr": "¤"
 	}],[{
 		"finger": 0,"main": "q"
 	},{
@@ -60,19 +60,19 @@
 	},{
 		"finger": 3,"main": "g"
 	},{
-		"finger": 4,"main": "h"
+        "finger": 6,"main": "h"
 	},{
-		"finger": 4,"main": "j"
+        "finger": 6,"main": "j"
 	},{
-		"finger": 5,"main": "k"
+        "finger": 7,"main": "k"
 	},{
-		"finger": 6,"main": "l"
+        "finger": 8,"main": "l"
 	},{
-		"finger": 7,"main": "m"
+        "finger": 9,"main": "m"
 	},{
-		"finger": 7,"main": "ù","shift": "%"
+        "finger": 9,"main": "ù","shift": "%"
 	},{
-		"finger": 7,"main": "*","shift": "µ"
+        "finger": 9,"main": "*","shift": "µ"
 	}],[{
 		"finger": 0,"main": "<","shift": ">"
 	},{
@@ -86,15 +86,15 @@
 	},{
 		"finger": 3,"main": "b"
 	},{
-		"finger": 4,"main": "n"
+        "finger": 6,"main": "n"
 	},{
-		"finger": 4,"main": ",","shift" : "?"
+        "finger": 6,"main": ",","shift" : "?"
 	},{
-		"finger": 5,"main": ";","shift": "."
+        "finger": 7,"main": ";","shift": "."
 	},{
-		"finger": 6,"main": ":","shift": "/"
+        "finger": 8,"main": ":","shift": "/"
 	},{
-		"finger": 7,"main": "!","shift": "§"
+        "finger": 9,"main": "!","shift": "§"
 	}]
 	]
 }
