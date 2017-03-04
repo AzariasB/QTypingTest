@@ -5,15 +5,15 @@
  * Created on 18 décembre 2015, 20:00
  */
 
-
-#include "QTypingTest/Dialogs/Exercices/tpracticebase.h"
-#include "Data/tresult.h"
-
 #include <QtTest/QtTest>
 #include <QApplication>
 #include <QTime>
 #include <QMessageBox>
 #include <time.h>
+
+#include "Dialogs/tpracticebase.h"
+#include "Data/tresult.h"
+
 
 class TestPracticeBase : public QObject {
     Q_OBJECT

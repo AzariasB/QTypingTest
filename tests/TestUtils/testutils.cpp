@@ -22,7 +22,6 @@ const QString allLetters = QString("abcdefghijklmnopqrstuvwxyz");
 class TestUtils : public QObject {
     Q_OBJECT
 private slots:
-    void testCore();
     void testHTML();
     void testFactory();
 private:
@@ -37,38 +36,17 @@ private:
     void testSurroundAt();
     void testRemoveTags();
     void testAbsolutePosition();
-
-    //Functions to test other 'utils' function (core functions)
-    void testSelectChunk();
 };
-
-
-void TestUtils::testCore()
-{
-    qDebug() << "Testing select chunk";
-    testSelectChunk();
-}
-
-void TestUtils::testSelectChunk()
-{
-    QString text("mot.");
-    QString chunk = factory::selectTextChunk(text,1,1);
-    qDebug() << "Chunk : " << chunk;
-
-    QVERIFY(chunk.split(" ").size() == 1);
-
-}
-
 
 //test if the files are found and the text correct
 void TestUtils::testText() {
-    QStringList twoWords = factory::getRandomText(2).text().split(" ",QString::SkipEmptyParts);
-    QStringList realText = factory::getRandomText(20).text().split(" ",QString::SkipEmptyParts);
+	QString twoWords = factory::getRandomText().text();
+	QString realText = factory::getRandomText().text();
     
     qDebug() << twoWords;
     qDebug() << realText;
-    QVERIFY(twoWords.size() == 2);
-    QVERIFY(realText.size() == 20);
+	QVERIFY(!twoWords.isEmpty());
+	QVERIFY(!realText.isEmpty());
 }
 
 
@@ -94,8 +72,8 @@ void TestUtils::testPracticeGeneration() {
     QVERIFY(words.size() > 0);
     qDebug() << "Must contain only real words";
     QVERIFY(randW.size() > 0);
-    qDebug() << "Must contain existing and random words";
-    QVERIFY(empt.size() == 0);
+	qDebug() << "Must generate even if no string given";
+	QVERIFY(empt.size() != 0);
 }
 
 void TestUtils::testAbsolutePosition() {
@@ -116,27 +94,23 @@ void TestUtils::testAbsolutePosition() {
 }
 
 void TestUtils::testWordsFinding() {
-    QString letters = "fod";
-    QStringList found = factory::findExistingWords(letters,":/words/words.txt");
+	QString authorized = "anglisver";
+	QString needed = "an";
+	QStringList found = factory::findExistingWords(authorized, needed);
     qDebug() << found;
-    QVERIFY(found.contains("food"));
-    QVERIFY(found.contains("off"));
+	QVERIFY(found.contains("are"));
+	QVERIFY(found.contains("an"));
+	QVERIFY(found.contains("an"));
+	QVERIFY(found.contains("ran"));
 
-    letters = "be";
-    found = factory::findExistingWords(letters, ":/words/words.txt");
+	authorized = "beaulsonpc";
+	needed = "be";
+	found = factory::findExistingWords(authorized, needed);
     qDebug() << found;
-    QVERIFY(found.contains("be"));
-
-    letters = "betwn";
-    found = factory::findExistingWords(letters, ":/words/words.txt");
-    qDebug() << found;
-    QVERIFY(found.contains("be"));
-    QVERIFY(found.contains("between"));
-    QVERIFY(found.contains("ten"));
-    QVERIFY(found.contains("new"));
-    QVERIFY(found.contains("been"));
-    QVERIFY(found.contains("went"));
-    QVERIFY(found.contains("we"));
+	QVERIFY(found.contains("be"));
+	QVERIFY(found.contains("been"));
+	QVERIFY(found.contains("people"));
+	QVERIFY(found.contains("usual"));
 }
 
 void TestUtils::testSurroundAll() {

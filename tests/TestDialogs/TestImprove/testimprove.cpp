@@ -12,7 +12,8 @@
 #include <QHash>
 #include <stdlib.h>
 
-#include "QTypingTest/Dialogs/Exercices/timprove.h"
+#include "Dialogs/timprove.h"
+#include "Data/tlayout.h"
 
 class TestImprove : public QObject {
 
@@ -29,6 +30,8 @@ private:
 void TestImprove::testOpen() {
     TUser *timmy = new TUser("Timmy");
     TStats stats = timmy->getStatistics();
+
+	TUserManager::getInstance() << timmy;
     generateRandomChars(stats);
     timmy->setStatistics(stats);
     TUserManager::getInstance().setCurrentUser(timmy);

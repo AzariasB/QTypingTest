@@ -8,7 +8,7 @@ SRC = $$PWD/../../src/
 
 INCLUDEPATH += $$SRC
 
-HEADERS = $$SRC/Util/htmlhelp.h \
+HEADERS = $$SRC/Util/htmlhelper.h \
     $$SRC/Data/ttext.h \
     $$SRC/Util/factory.h
 

@@ -9,7 +9,7 @@
 #include <QDebug>
 #include <QApplication>
 
-#include "QTypingTest/Home/homepage.h"
+#include "Pages/homepage.h"
 
 class TestHomePage : public QObject {
     Q_OBJECT

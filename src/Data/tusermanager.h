@@ -37,7 +37,7 @@ public:
         if(!nwUser ||  users_.contains(nwUser)){
             currentUser_ = nwUser;
         }else{
-            qWarning() << "Trying to set a non-existing user";
+			qWarning() <<  "Trying to set a non-existing user";
         }
 
         if(currentUser_){
@@ -68,7 +68,7 @@ public:
 
     bool operator -(TUser *userLess)
     {
-        if((*userLess) == (*currentUser_)){
+		if(currentUser_ != nullptr && (*userLess) == (*currentUser_)){
             setCurrentUser(nullptr);
         }
         bool rmed = users_.removeOne(userLess);

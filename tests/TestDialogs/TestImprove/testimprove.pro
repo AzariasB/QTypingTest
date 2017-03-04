@@ -10,16 +10,16 @@ INCLUDEPATH += $$SRC
 message($$INCLUDEPATH)
 
 
-HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/timprove.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/tstackpages.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/ttoolbar.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/tlabel.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/tpage.h \
-            $$SRC/QTypingTest/Learn/tfingerposition.h \
-            $$SRC/QTypingTest/Learn/tpresentation.h \
-            $$SRC/QTypingTest/Learn/tvirtualkey.h \
-            $$SRC/QTypingTest/Learn/tvirtualkeyboard.h \
+HEADERS = $$SRC/Dialogs/twindowtest.h \
+            $$SRC/Dialogs/timprove.h \
+            $$SRC/Widgets/tstackpages.h \
+            $$SRC/Widgets/ttoolbar.h \
+            $$SRC/Widgets/tlabel.h \
+            $$SRC/Widgets/tpage.h \
+            $$SRC/Widgets/tfingerposition.h \
+            $$SRC/Widgets/tpresentation.h \
+            $$SRC/Widgets/tvirtualkey.h \
+            $$SRC/Widgets/tvirtualkeyboard.h \
             $$SRC/Data/tprogression.h \
             $$SRC/Data/tresult.h \
             $$SRC/Data/texercice.h \
@@ -32,16 +32,16 @@ HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
             $$SRC/Util/factory.h 
           
 
-SOURCES = $$SRC/QTypingTest/Dialogs/twindowtest.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/timprove.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/tstackpages.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/ttoolbar.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/tlabel.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/tpage.cpp \
-            $$SRC/QTypingTest/Learn/tfingerposition.cpp \
-            $$SRC/QTypingTest/Learn/tpresentation.cpp \
-            $$SRC/QTypingTest/Learn/tvirtualkey.cpp \
-            $$SRC/QTypingTest/Learn/tvirtualkeyboard.cpp \
+SOURCES = $$SRC/Dialogs/twindowtest.cpp \
+            $$SRC/Dialogs/timprove.cpp \
+            $$SRC/Widgets/tstackpages.cpp \
+            $$SRC/Widgets/ttoolbar.cpp \
+            $$SRC/Widgets/tlabel.cpp \
+            $$SRC/Widgets/tpage.cpp \
+            $$SRC/Widgets/tfingerposition.cpp \
+            $$SRC/Widgets/tpresentation.cpp \
+            $$SRC/Widgets/tvirtualkey.cpp \
+            $$SRC/Widgets/tvirtualkeyboard.cpp \
             $$SRC/Data/tprogression.cpp \
             $$SRC/Data/tresult.cpp \
             $$SRC/Data/texercice.cpp \

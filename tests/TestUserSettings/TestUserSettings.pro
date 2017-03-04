@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += widgets testlib
+QT       += widgets testlib xml
 
 QT       -= gui
 
@@ -37,13 +37,14 @@ TEMPLATE = app
 
 SOURCES += tst_testusersettingstest.cpp \
     ../../src/Data/texercice.cpp \
-    ../../src/Data/tlayouts.cpp \
+    ../../src/Data/tlayout.cpp \
     ../../src/Data/tprogression.cpp \
     ../../src/Data/tresult.cpp \
     ../../src/Data/tstats.cpp \
     ../../src/Data/tuser.cpp \
+    ../../src/Data/ttext.cpp \
     ../../src/Data/tusermanager.cpp \
-    ../../src/QTypingTest/toptiondialog.cpp \
+    ../../src/Dialogs/toptiondialog.cpp \
     ../../src/Util/factory.cpp \
     ../../src/Util/htmlhelper.cpp
 
@@ -51,20 +52,21 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
     ../../src/Data/texercice.h \
-    ../../src/Data/tlayouts.h \
+    ../../src/Data/tlayout.h \
     ../../src/Data/tprogression.h \
     ../../src/Data/tresult.h \
     ../../src/Data/tstats.h \
     ../../src/Data/tuser.h \
     ../../src/Data/tusermanager.h \
-    ../../src/QTypingTest/toptiondialog.h \
+    ../../src/Data/ttext.h \
+    ../../src/Dialogs/toptiondialog.h \
     ../../src/Util/factory.h \
     ../../src/Util/htmlhelper.h
 
 FORMS += \
-    ../../src/ui/options.ui
+    ../../src/UI/options.ui
 
-UI_DIR = ../../src/ui
+UI_DIR = ../../src/UI
 
 
 RESOURCES += \

@@ -8,17 +8,17 @@ SRC = $$PWD/../../src/
 
 INCLUDEPATH += $$SRC
 
-HEADERS = $$SRC/QTypingTest/Learn/tvirtualkey.h \
-          $$SRC/QTypingTest/Learn/tvirtualkeyboard.h \
-          $$SRC/QTypingTest/Learn/tfingerposition.h \
-          $$SRC/QTypingTest/Learn/tpresentation.h \
+HEADERS = $$SRC/Widgets/tvirtualkey.h \
+          $$SRC/Widgets/tvirtualkeyboard.h \
+          $$SRC/Widgets/tfingerposition.h \
+          $$SRC/Widgets/tpresentation.h \
           $$SRC/Util/factory.h \
           $$SRC/Data/tlayout.h
 
-SOURCES = $$SRC/QTypingTest/Learn/tvirtualkey.cpp \
-          $$SRC/QTypingTest/Learn/tvirtualkeyboard.cpp \
-          $$SRC/QTypingTest/Learn/tfingerposition.cpp \
-          $$SRC/QTypingTest/Learn/tpresentation.cpp \
+SOURCES = $$SRC/Widgets/tvirtualkey.cpp \
+          $$SRC/Widgets/tvirtualkeyboard.cpp \
+          $$SRC/Widgets/tfingerposition.cpp \
+          $$SRC/Widgets/tpresentation.cpp \
           $$SRC/Data/tlayout.cpp \
           $$SRC/Util/factory.cpp \
           testvirtualkeyboard.cpp

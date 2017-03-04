@@ -27,66 +27,66 @@ class TResult;
 class TExercice {
 public:
 
-    enum EXERCICE_TYPE {
-        LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT, IMPROVING, UNKNOWN
-    };
+	enum EXERCICE_TYPE {
+		LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT, IMPROVING, UNKNOWN
+	};
 
-    //No difficulty because : why would it be necessary ?
-    static TExercice *generateExercice(EXERCICE_TYPE type, QString mainLetters = "", QString availableLetters = "");
+	//No difficulty because : why would it be necessary ?
+	static TExercice *generateExercice(EXERCICE_TYPE type, QString mainLetters = "", QString availableLetters = "");
 
-    TExercice();
-    TExercice(const TExercice& orig);
+	TExercice();
+	TExercice(const TExercice& orig);
 
 
-    QString buildExercice();
+	QString buildExercice();
 
-    void addAttribute(QString key, QString value);
+	void addAttribute(QString key, QString value);
 
-    QString findAttribute(QString key);
+	QString findAttribute(QString key);
 
-    bool hasAttribute(const QString &key);
+	bool hasAttribute(const QString &key);
 
-    virtual ~TExercice() {}
+	virtual ~TExercice() {}
 
-    QString learningLetters() const;
+	QString learningLetters() const;
 
-    const QString &getLearningLetters() const {
-        return learningLetters_;
-    }
+	const QString &getLearningLetters() const {
+		return learningLetters_;
+	}
 
-    const QString &getAvailableLetters() const {
-        return availableLetters_;
-    }
+	const QString &getAvailableLetters() const {
+		return availableLetters_;
+	}
 
-    EXERCICE_TYPE getExerciceType() const {
-        return exerciceType_;
-    }
+	EXERCICE_TYPE getExerciceType() const {
+		return exerciceType_;
+	}
 
-    int getNumberOfWords() const{
-        return numberOfWords_;
-    }
+	int getNumberOfWords() const{
+		return numberOfWords_;
+	}
 
 private:
-    TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
+	TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
 
-    QString learningLetters_;
-    QString availableLetters_;
-    EXERCICE_TYPE exerciceType_;
-    QHash<QString, QString> attributes_;
-    int numberOfWords_;
+	QString learningLetters_;
+	QString availableLetters_;
+	EXERCICE_TYPE exerciceType_;
+	QHash<QString, QString> attributes_;
+	int numberOfWords_;
 
-    friend QDataStream &operator>>(QDataStream &in, TExercice &ex){
-        qint16 type;
-        in >> ex.availableLetters_ >> type >> ex.learningLetters_  >> ex.attributes_ >> ex.numberOfWords_;
-        ex.exerciceType_ = static_cast<EXERCICE_TYPE>(type);
-        return in;
-    }
+	friend QDataStream &operator>>(QDataStream &in, TExercice &ex){
+		qint16 type;
+		in >> ex.availableLetters_ >> type >> ex.learningLetters_  >> ex.attributes_ >> ex.numberOfWords_;
+		ex.exerciceType_ = static_cast<EXERCICE_TYPE>(type);
+		return in;
+	}
 
-    friend QDataStream &operator<<(QDataStream &out, const TExercice &ex){
-        out << ex.availableLetters_ << static_cast<qint16>(ex.exerciceType_) <<
-               ex.learningLetters_ << ex.attributes_ << ex.numberOfWords_;
-        return out;
-    }
+	friend QDataStream &operator<<(QDataStream &out, const TExercice &ex){
+		out << ex.availableLetters_ << static_cast<qint16>(ex.exerciceType_) <<
+			   ex.learningLetters_ << ex.attributes_ << ex.numberOfWords_;
+		return out;
+	}
 };
 
 QDataStream &operator>>(QDataStream &in, TExercice &ex);
@@ -94,9 +94,9 @@ QDataStream &operator>>(QDataStream &in, TExercice &ex);
 QDataStream &operator<<(QDataStream &out, const TExercice &ex);
 
 inline bool operator==(const TExercice& exo1, const TExercice& exo2) {
-    return exo1.getAvailableLetters() == exo2.getAvailableLetters() &&
-            exo1.getExerciceType() == exo2.getExerciceType() &&
-            exo1.getLearningLetters() == exo2.getLearningLetters();
+	return exo1.getAvailableLetters() == exo2.getAvailableLetters() &&
+			exo1.getExerciceType() == exo2.getExerciceType() &&
+			exo1.getLearningLetters() == exo2.getLearningLetters();
 }
 
 #endif /* TEXERCICE_H */

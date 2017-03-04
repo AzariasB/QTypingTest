@@ -15,6 +15,7 @@
 
 #include <QString>
 
+
 class TPractical {
 public:
     TPractical();

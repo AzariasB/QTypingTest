@@ -11,14 +11,14 @@
  */
 
 
-#include "QTypingTest/Dialogs/Exercices/tpracticetext.h"
-#include "Data/tresult.h"
-
 #include <QtTest/QtTest>
 #include <QApplication>
 #include <QTime>
 #include <QMessageBox>
 #include <time.h>
+
+#include "Dialogs/tpracticetext.h"
+#include "Data/tresult.h"
 
 class TestText : public QObject {
     Q_OBJECT

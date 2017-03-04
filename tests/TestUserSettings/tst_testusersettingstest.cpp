@@ -2,7 +2,7 @@
 #include <QtTest/qtest.h>
 #include <QCoreApplication>
 
-#include "QTypingTest/toptiondialog.h"
+#include "Dialogs/toptiondialog.h"
 #include "Data/tuser.h"
 #include "Data/tusermanager.h"
 
@@ -38,6 +38,6 @@ void TestUserSettingsTest::testCase1()
     QApplication::exec();
 }
 
-QTEST_MAIN(TestUserSettingsTest);
+QTEST_MAIN(TestUserSettingsTest)
 
 #include "tst_testusersettingstest.moc"

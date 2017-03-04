@@ -38,9 +38,11 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
+
 /**
  * This class is here to have a way to create the exercices
  * on a certain order based on the keyboard layout
+ *
  */
 class TLayout{
 public:
@@ -178,6 +180,7 @@ private:
         {0, 0, 11}//numbers line
     };
 };
+
 
 #endif /* TLAYOUTS_H */
 

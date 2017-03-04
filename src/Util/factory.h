@@ -108,7 +108,8 @@ namespace factory {
     
     /**
      * Will look into a file (depending on the chosen langage)
-     * and will find all the words that can be created with the given letters
+	 * and will find all the words that can be created with at least
+	 * one of the given letter
      * 
      * @param authorizedLetters the letters that can compose the words 
      * @param fileName the path to the file containing all the words

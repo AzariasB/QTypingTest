@@ -28,7 +28,7 @@ HEADERS = $$SRC/Data/tprogression.h \
             $$SRC/Data/ttext.h \
             $$SRC/Util/htmlhelper.h \
             $$SRC/Util/factory.h \
-            $$SRC/QTypingTest/Statistics/tstatistics.h
+            $$SRC/Pages/tstatistics.h
 
 SOURCES = $$SRC/Data/tprogression.cpp \
             $$SRC/Data/tresult.cpp \
@@ -40,7 +40,7 @@ SOURCES = $$SRC/Data/tprogression.cpp \
             $$SRC/Data/ttext.cpp \
             $$SRC/Util/htmlhelper.cpp \
             $$SRC/Util/factory.cpp \           
-            $$SRC/QTypingTest/Statistics/tstatistics.cpp \
+            $$SRC/Pages/tstatistics.cpp \
             tst_teststatstest.cpp
 
 TARGET = tst_teststatstest

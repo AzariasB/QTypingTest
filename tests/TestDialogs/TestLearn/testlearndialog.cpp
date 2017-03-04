@@ -9,7 +9,8 @@
 #include <QApplication>
 #include <time.h>
 
-#include "QTypingTest/Dialogs/Exercices/twindowlearn.h"
+#include "Dialogs/twindowlearn.h"
+#include "Data/tlayout.h"
 
 
 class TestLearnDialog : public QObject {

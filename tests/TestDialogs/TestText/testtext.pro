@@ -8,12 +8,12 @@ SRC = $$PWD/../../../src/
 
 INCLUDEPATH += $$SRC
 
-HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/tpracticetext.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/tstackpages.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/ttoolbar.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/tlabel.h \
-            $$SRC/QTypingTest/Dialogs/Exercices/tpage.h \
+HEADERS = $$SRC/Dialogs/twindowtest.h \
+            $$SRC/Dialogs/tpracticetext.h \
+            $$SRC/Widgets/tstackpages.h \
+            $$SRC/Widgets/ttoolbar.h \
+            $$SRC/Widgets/tlabel.h \
+            $$SRC/Widgets/tpage.h \
             $$SRC/Data/tprogression.h \
             $$SRC/Data/tresult.h \
             $$SRC/Data/texercice.h \
@@ -26,12 +26,12 @@ HEADERS = $$SRC/QTypingTest/Dialogs/twindowtest.h \
             $$SRC/Util/factory.h 
           
 
-SOURCES = $$SRC/QTypingTest/Dialogs/twindowtest.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/tpracticetext.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/tstackpages.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/ttoolbar.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/tlabel.cpp \
-            $$SRC/QTypingTest/Dialogs/Exercices/tpage.cpp \
+SOURCES = $$SRC/Dialogs/twindowtest.cpp \
+            $$SRC/Dialogs/tpracticetext.cpp \
+            $$SRC/Widgets/tstackpages.cpp \
+            $$SRC/Widgets/ttoolbar.cpp \
+            $$SRC/Widgets/tlabel.cpp \
+            $$SRC/Widgets/tpage.cpp \
             $$SRC/Data/tprogression.cpp \
             $$SRC/Data/tresult.cpp \
             $$SRC/Data/texercice.cpp \

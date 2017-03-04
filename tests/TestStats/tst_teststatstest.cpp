@@ -7,7 +7,8 @@
 #include "time.h"
 #include "Data/tuser.h"
 #include "Data/texercice.h"
-#include "QTypingTest/Statistics/tstatistics.h"
+#include "Pages/tstatistics.h"
+#include "Data/tusermanager.h"
 
 class TestStatsTest : public QObject
 {

@@ -38,7 +38,6 @@ private slots:
     void testMetaTypes();
     void testConstructor();
     void testProgression();
-    void testSignals();
     void testUserManager();
 
 private:
@@ -58,7 +57,8 @@ void TestTUser::testSettings()
         qDebug() << "Assigning : " << name;
         TUserManager::getInstance() << new TUser(name);
     }
-    TUserManager::getInstance().saveUsers();
+
+	TUserManager::getInstance().saveUsers();
     QList<TUser*> users = TUserManager::getInstance().readUsers();
 
     QCOMPARE(users.size(),10);
@@ -103,26 +103,12 @@ void TestTUser::testUserManager()
     for(int i = 0; i < 10;i++)
         TUserManager::getInstance().setCurrentUser(other);
 
+	qDebug() << numberOfChanges;
+	QVERIFY(numberOfChanges == 10);
+
     TUserManager::getInstance() - other;
     QCOMPARE(TUserManager::getInstance().users().size(),10);
     QVERIFY(!TUserManager::getInstance().users().contains(other));
-
-
-    QVERIFY(numberOfChanges == 10);
-}
-
-void TestTUser::testSignals() {
-    bool signalEmited  = false;
-    
-    TUser timmy("timmy");
-    
-    connect(&timmy,&TUser::statsChanged,this,[this,&signalEmited](){
-        signalEmited = true;
-    });
-    
-    timmy.oneMoreMistake('o');
-    
-    QVERIFY(signalEmited);
 }
 
 
