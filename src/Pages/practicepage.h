@@ -20,11 +20,14 @@
 #include <QDebug>
 #include <QTime>
 
-#include "Dialogs/twindowtest.h"
-#include "Dialogs/tpracticerace.h"
-#include "Dialogs/tpracticebase.h"
-#include "Dialogs/tpracticetext.h"
-#include "Dialogs/timprove.h"
+
+class TWindowTest;
+class TPracticeBase;
+class TPracticeRace;
+class TPracticeText;
+class TImprove;
+class TResult;
+class TUser;
 
 class PracticePage : public QWidget {
     Q_OBJECT

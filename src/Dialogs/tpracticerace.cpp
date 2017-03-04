@@ -12,6 +12,9 @@
 
 #include "tpracticerace.h"
 
+#include "Data/texercice.h"
+#include "Data/tresult.h"
+
 TPracticeRace::TPracticeRace(int timeStart,QWidget *parent) :
 TWindowTest(TExercice::generateExercice(TExercice::PRACTICING_RACE), parent) {
     setupPage(timeStart);

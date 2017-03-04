@@ -13,6 +13,17 @@
 
 #include "thomepage.h"
 
+#include "Dialogs/toptiondialog.h"
+
+#include "learnpage.h"
+#include "practicepage.h"
+#include "gamepage.h"
+#include "homepage.h"
+
+#include "Data/tlayout.h"
+#include "Data/tusermanager.h"
+
+
 
 THomePage::THomePage(QWidget *parent) :
 QMainWindow(parent)
@@ -99,4 +110,3 @@ void THomePage::goToHomePage()
 {
     ui.stack_main->setCurrentWidget(ui.page_home);
 }
-

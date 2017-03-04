@@ -11,6 +11,13 @@
 
 #include "learnpage.h"
 
+#include "Data/tlayout.h"
+#include "Data/texercice.h"
+#include "Data/tresult.h"
+#include "Data/tusermanager.h"
+#include "Util/htmlhelper.h"
+#include "Dialogs/twindowlearn.h"
+
 LearnPage::LearnPage(QWidget* parent) :
 QWidget(parent),
 learnButtons_(QVector<QPushButton*>()) {

@@ -12,6 +12,10 @@
 
 #include "twindowlearn.h"
 
+#include "Dialogs/twindowtest.h"
+#include "Widgets/tpresentation.h"
+#include "Data/texercice.h"
+
 TWindowLearn::TWindowLearn(TExercice* ex, QWidget* parent) :
 TWindowTest(ex->buildExercice(),ex, parent),
 instructions_(new TPresentation(TLayout::getInstance(),ex->getLearningLetters())) {

@@ -22,6 +22,9 @@
 
 #include "twindowtest.h"
 
+#include "Data/tresult.h"
+#include "Data/texercice.h"
+#include "Util/factory.h"
 
 void TWindowTest::setupWidget() {
     QWidget *mainWidget = new QWidget();

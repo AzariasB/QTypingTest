@@ -12,6 +12,9 @@
 
 #include "tpracticetext.h"
 
+#include "Data/texercice.h"
+
+
 TPracticeText::TPracticeText(QWidget *parent):
 TWindowTest(TExercice::generateExercice(TExercice::PRACTICING_TEXT), parent){
     //Set the number of page depending on the text's length

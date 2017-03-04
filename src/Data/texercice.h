@@ -16,9 +16,8 @@
 #include <QDebug>
 #include <QDataStream>
 
-#include "tresult.h"
-#include "Util/factory.h"
-#include "Data/tlayout.h"
+class TLayout;
+class TResult;
 
 /**
  * A model class to define the type of exercice the user is about to do

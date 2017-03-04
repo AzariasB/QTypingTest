@@ -18,10 +18,10 @@
 #include <QWidget>
 #include <QDebug>
 
+#include "twindowtest.h"
 
-#include "Dialogs/twindowtest.h"
-#include "Data/texercice.h"
-#include "Data/tresult.h"
+class TExercice;
+class TResult;
 
 class TPracticeRace : public TWindowTest {
     Q_OBJECT

@@ -14,6 +14,9 @@
 
 #include "homepage.h"
 
+#include "Data/tusermanager.h"
+
+
 HomePage::~HomePage(){
 }
 

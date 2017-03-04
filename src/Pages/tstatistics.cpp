@@ -1,5 +1,11 @@
 #include "tstatistics.h"
 
+
+#include "Data/tuser.h"
+#include "Data/tusermanager.h"
+
+
+
 TStatistics::TStatistics(TUser *user, QWidget *parent):QWidget(parent),
     user_(user)
 {

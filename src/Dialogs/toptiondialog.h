@@ -16,7 +16,9 @@
 #include <QDebug>
 
 #include "UI/ui_options.h"
-#include "Data/tusermanager.h"
+
+class TUserManager;
+class TUser;
 
 class TOptionDialog : public QDialog
 {

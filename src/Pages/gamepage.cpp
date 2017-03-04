@@ -13,6 +13,9 @@
 
 #include "gamepage.h"
 
+#include "Widgets/tpresentation.h"
+
+
 GamePage::~GamePage(){
 
 }

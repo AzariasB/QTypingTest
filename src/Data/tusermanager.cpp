@@ -13,7 +13,6 @@
 
 #include "tusermanager.h"
 
-
 TUserManager::TUserManager() :
     QObject(),
     saveTarget_("QTypingTest"){

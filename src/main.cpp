@@ -11,6 +11,7 @@
 #include <QDesktopWidget>
 
 #include "Pages/thomepage.h"
+#include "Data/tuser.h"
 
 void init(){
     srand(time(NULL)); //Random number generation

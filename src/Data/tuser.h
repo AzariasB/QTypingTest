@@ -18,12 +18,13 @@
 #include <QHash>
 #include <QDataStream>
 
-#include "tprogression.h"
-#include "texercice.h"
-#include "tresult.h"
+#include "Data/texercice.h"
 #include "tstats.h"
-#include "tjsonobject.h"
+#include "Util/factory.h"
+#include "tprogression.h"
+#include "tresult.h"
 
+class TJsonObject;
 
 struct date_exercice_ {
     QDateTime dateResult;

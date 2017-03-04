@@ -12,6 +12,8 @@
 
 #include "tpracticebase.h"
 
+#include "Data/texercice.h"
+
 TPracticeBase::TPracticeBase(QWidget* parent)
 : TWindowTest(TExercice::generateExercice(TExercice::PRACTICING), parent){
     setupText();

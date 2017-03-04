@@ -12,6 +12,7 @@
 
 #include "tuser.h"
 
+#include "tjsonobject.h"
 
 QDateTime TUser::addResult(TExercice* exo, TResult* exRes, QDateTime date) {
     date_exercice_ key;

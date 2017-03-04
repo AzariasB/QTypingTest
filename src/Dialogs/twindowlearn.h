@@ -14,10 +14,10 @@
 #define TWINDOWLEARN_H
 
 #include <QWidget>
+#include "twindowtest.h"
 
-#include "Dialogs/twindowtest.h"
-#include "Widgets/tpresentation.h"
-#include "Data/texercice.h"
+class TExercice;
+class TPresentation;
 
 class TWindowLearn : public TWindowTest {
     Q_OBJECT

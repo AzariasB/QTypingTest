@@ -21,15 +21,18 @@
 #include <QMap>
 #include <QDesktopWidget>
 
-#include "learnpage.h"
-#include "practicepage.h"
-#include "gamepage.h"
-#include "homepage.h"
 
-#include "Data/tlayout.h"
-#include "Data/tusermanager.h"
 #include "UI/ui_homepage.h"
-#include "Dialogs/toptiondialog.h"
+
+class TOptionDialog;
+class TUserManager;
+class TLayout;
+
+class LearnPage;
+class PracticePage;
+class GamePage;
+class HomePage;
+
 
 
 

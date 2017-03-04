@@ -38,8 +38,6 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
-#include "Util/factory.h"
-
 /**
  * This class is here to have a way to create the exercices
  * on a certain order based on the keyboard layout
@@ -148,7 +146,7 @@ private:
     QString keyCombinations_[KEY_COMBINATIONS];
 
     /**
-      * @brief Ordre to learn the keyboard keys
+	  * @brief Order to learn the keyboard keys
       * @abstract The list contains 21 entry, for the 21 couple of key to learn,
       *             each entry contains three values :
       *                 - The Line index ( 0 = number line, 1 = upperline, 2 = baseline, 3 = lower line)

@@ -17,7 +17,6 @@
 
 #include <QString>
 
-#include "Util/htmlhelper.h"
 
 /**
  * This class is here to calculate the results of an exercice

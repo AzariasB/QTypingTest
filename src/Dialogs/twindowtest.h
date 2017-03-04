@@ -26,9 +26,9 @@
 
 #include "Widgets/tstackpages.h"
 #include "Widgets/ttoolbar.h"
-#include "Data/tresult.h"
-#include "Data/texercice.h"
-#include "Util/factory.h"
+
+class TResult;
+class TExercice;
 
 class TWindowTest : public QDialog {
 

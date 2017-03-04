@@ -16,8 +16,9 @@
 
 #include <QWidget>
 
-#include "Data/texercice.h"
-#include "Dialogs/twindowtest.h"
+#include "twindowtest.h"
+
+class TExercice;
 
 class TPracticeText : public TWindowTest {
     Q_OBJECT

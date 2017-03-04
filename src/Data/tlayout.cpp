@@ -12,6 +12,8 @@
 
 #include "tlayout.h"
 
+#include "Util/factory.h"
+
 
 void TLayout::initLetters() {
     //Reads the file depending on the user's computers locale

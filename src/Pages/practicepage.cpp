@@ -14,6 +14,12 @@
 
 #include "practicepage.h"
 
+#include "Dialogs/twindowtest.h"
+#include "Dialogs/tpracticerace.h"
+#include "Dialogs/tpracticebase.h"
+#include "Dialogs/tpracticetext.h"
+#include "Dialogs/timprove.h"
+
 PracticePage::PracticePage(QWidget *parent) : QWidget(parent),
 practiceAgainstTime_(tr("Against time")),
 practiceDefault_(tr("Normal")),

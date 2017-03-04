@@ -12,6 +12,9 @@
 
 #include "tresult.h"
 
+#include "Util/htmlhelper.h"
+
+
 TResult::TResult() {
 }
 

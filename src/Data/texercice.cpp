@@ -10,8 +10,12 @@
  */
 
 
-
 #include "texercice.h"
+
+#include "tresult.h"
+#include "Util/factory.h"
+#include "Data/tlayout.h"
+
 
 TExercice::TExercice() :
 learningLetters_(""),

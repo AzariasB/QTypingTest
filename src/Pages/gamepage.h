@@ -18,7 +18,7 @@
 #include <QGridLayout>
 #include <QDialog>
 
-#include "Widgets/tpresentation.h"
+class TPresentation;
 
 class GamePage : public QWidget {
     Q_OBJECT

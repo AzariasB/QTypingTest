@@ -6,14 +6,17 @@
 #include <QMouseEvent>
 #include <QStaticText>
 #include <QTextDocument>
-
-#include "Data/tuser.h"
-#include "Data/tusermanager.h"
 #include <stdlib.h>
 
+#include "Data/tresult.h"
+
+class TUser;
+class TUserManager;
+class TResult;
+
 struct point_result {
-    QPoint point;
-    TResult res;
+	QPoint point;
+	TResult res;
 };
 
 class TStatistics : public QWidget

@@ -22,14 +22,15 @@
 #include <QDebug>
 #include <QVector>
 #include <QScrollArea>
+#include <QTime>
 
 #include "Data/tlayout.h"
-#include "Data/texercice.h"
-#include "Data/tresult.h"
-#include "Data/tusermanager.h"
-#include "Util/htmlhelper.h"
-#include "Dialogs/twindowlearn.h"
 
+class TExercice;
+class TResult;
+class TUserManager;
+class TWindowLearn;
+class TUser;
 
 class LearnPage : public QWidget {
     Q_OBJECT

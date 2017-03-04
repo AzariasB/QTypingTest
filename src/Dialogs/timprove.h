@@ -14,7 +14,8 @@
 
 #include <QWidget>
 #include <QChar>
-#include "Dialogs/twindowtest.h"
+
+#include "twindowtest.h"
 
 class TImprove : public TWindowTest {
 public:
