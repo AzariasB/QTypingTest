@@ -238,9 +238,17 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
 void TVirtualKeyboard::setOriginalState(TVirtualKey *key, QKeyEvent *ev, QChar expected)
 {
     if(ev->type() == QEvent::KeyRelease){
-        if(ev->key() == Qt::Key_AltGr && TLayout::getInstance().needsAltgrModifier(expected) ||
-                ev->key() == Qt::Key_Shift && TLayout::getInstance().needsShiftModifier(expected) ||
-				ev->text().size() > 0 && key->possibleToType(expected) && ev->text() != expected){
+		bool altgrReset = ev->key() == Qt::Key_AltGr && TLayout::getInstance().needsAltgrModifier(expected);
+		bool textReset = ev->text().size() > 0 && key->possibleToType(expected) && ev->text() != expected;
+
+		bool shiftReset = false;
+		if(ev->key() == Qt::Key_Shift){
+			TVirtualKey *needed = keys_->value(getKeyCode(expected));
+			shiftReset = (TFingerPosition::isLeftHand(needed->associatedFinger()) && key == rightShift_) ||
+						(TFingerPosition::isRightHand(needed->associatedFinger()) && key == leftShift_);
+		}
+
+		if(altgrReset || textReset || shiftReset){
 			// Typed right key, but not the good content
             key->example();
         }else{
@@ -269,4 +277,26 @@ TVirtualKey *TVirtualKeyboard::highlightModifier(int modId)
         return target;
     }
     return 0;
+}
+
+
+void TVirtualKeyboard::reset(){
+	leftShift_->reset();
+	rightShift_->reset();
+	for(auto it = keys_->begin(); it != keys_->end();++it){
+		it.value()->reset();
+	}
+	for(auto it = modifiers_->begin(); it != modifiers_->end(); ++it){
+		it.value()->reset();
+	}
+}
+
+TVirtualKey *TVirtualKeyboard::highlightShift(short index){
+	if(index == 0){
+		leftShift_->example();
+		return leftShift_;
+	}else if(index == 1){
+		rightShift_->example();
+		return rightShift_;
+	}
 }

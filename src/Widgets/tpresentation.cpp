@@ -42,8 +42,9 @@ void TPresentation::nextCharToCopy() {
             positions_->enableFinger(hilighted->associatedFinger());
         }
 		if(TLayout::getInstance().needsShiftModifier(current)){
-            //Change depending on occupied letter
-            TVirtualKey *shift = keyboard_->highlightModifier(Qt::Key_Shift);
+			//If left hand needed for character => right shift, else, left shift
+			short shiftSide = TFingerPosition::isLeftHand(hilighted->associatedFinger()) ? 1 : 0;
+			TVirtualKey *shift = keyboard_->highlightShift(shiftSide);
             if(shift){
                 positions_->enableFinger(shift->associatedFinger() );
             }
@@ -77,6 +78,7 @@ void TPresentation::keyPressEvent(QKeyEvent *ev) {
 		QString txt = ev->text();
 		if(!txt.isEmpty() && toPress_.head() == txt[0] ){
 			toPress_.dequeue();
+			keyboard_->reset();
 			positions_->reset();
 			nextCharToCopy();
 		}

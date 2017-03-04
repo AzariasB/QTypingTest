@@ -61,7 +61,33 @@ public:
      */
     TVirtualKey *highlightKey(QChar keyChar);
 
+	/**
+	 * @brief highlightModifier
+	 * Highlight the modifier with the given id
+	 * The problem is : for shift key, there is only
+	 * one key code in Qt
+	 *
+	 * @param modId
+	 * @return
+	 */
     TVirtualKey *highlightModifier(int modId);
+
+	/**
+	 * @brief highlightShift
+	 * Highlights the shift with the given index :
+	 *  0 = left shift
+	 *  1 = right shift
+	 *
+	 * @param index
+	 * @return
+	 */
+	TVirtualKey *highlightShift(short index);
+
+	/**
+	 * @brief reset
+	 * Remove all the higlithed keys
+	 */
+	void reset();
 
 
 private:

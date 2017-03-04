@@ -24,6 +24,13 @@ void TFingerPosition::initPoints() {
 	initRightHand();
 }
 
+bool TFingerPosition::isLeftHand(FINGER id){
+	return id >= LEFT_PINKY && id <= LEFT_INCH;
+}
+
+bool TFingerPosition::isRightHand(FINGER id){
+	return id >= RIGHT_INCH && id <= RIGHT_PINKY;
+}
 
 void TFingerPosition::initRightHand() {
 	//Size of image/2 = 800/2 = 400

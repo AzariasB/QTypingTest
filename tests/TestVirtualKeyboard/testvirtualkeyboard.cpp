@@ -24,7 +24,7 @@ void TestVirtualKeyboard::testKeyboard()
 {
     TLayout layTest = TLayout::getInstance();
     layTest.getLearningCouples();
-    TPresentation *pres = new TPresentation(layTest,"{ABCDEF");
+	TPresentation *pres = new TPresentation(layTest,"{AP}(ap)");
 	connect(pres, &TPresentation::allCopied, [pres](){
 		qDebug() << "all copied";
 		pres->close();

@@ -39,6 +39,10 @@ public:
         NO_FINGER , TOTAL_FINGERS
     };
 
+	static bool isLeftHand(FINGER id);
+
+	static bool isRightHand(FINGER id);
+
 public slots:
     void enableFinger(FINGER id);
     
