@@ -38,7 +38,7 @@ public:
     }
 
 
-    QHash<QChar, TVirtualKey*> *getKeys() const {
+	QHash<uint, TVirtualKey*> *getKeys() const {
         return keys_;
     }
 
@@ -165,7 +165,16 @@ private:
     /* All the 'normal' keys that can change of position on the 
      * keyboard
      *  */
-    QHash<QChar, TVirtualKey*> *keys_;
+	QHash<uint, TVirtualKey*> *keys_;
+
+	/**
+	 * @brief getKeyCode
+	 * Gets the Qt key code from the character
+	 *
+	 * @param c the character to convert
+	 * @return the converted keycode
+	 */
+	uint getKeyCode(QChar c);
     
     /*
      All the 'special' keys that will always be on the same position

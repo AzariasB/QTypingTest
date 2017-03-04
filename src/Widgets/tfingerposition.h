@@ -34,8 +34,8 @@ public:
     }
 
     enum FINGER {
-        LEFT_PINKY, LEFT_RING, LEFT_MIDDLE, LEFT_INDEX, 
-        RIGHT_INDEX, RIGHT_MIDDLE, RIGHT_RING, RIGHT_PINKY,
+		LEFT_PINKY, LEFT_RING, LEFT_MIDDLE, LEFT_INDEX, LEFT_INCH,
+		RIGHT_INCH, RIGHT_INDEX, RIGHT_MIDDLE, RIGHT_RING, RIGHT_PINKY,
         NO_FINGER , TOTAL_FINGERS
     };
 
@@ -43,6 +43,8 @@ public slots:
     void enableFinger(FINGER id);
     
     void disableFinger(FINGER id);
+
+	void reset();
 
 protected:
 
@@ -60,7 +62,8 @@ private:
         {QPoint(44,251),QPoint(86,205),QPoint(18,102),QPoint(0,102),QPoint(0,158)},//44,251 86,205 18,102 0,102 0,158
         {QPoint(93,201),QPoint(151,190),QPoint(92,31),QPoint(44,37)},//93,201 151,190 92,31 44,37
         {QPoint(161,174),QPoint(222,174),QPoint(222,0),QPoint(161,0)},//161,174 222,174 222,0 161,0
-        {QPoint(222,185),QPoint(284,207),QPoint(322,50),QPoint(260,24)}//222,185 284,207 322,50 260,24
+		{QPoint(222,185),QPoint(284,207),QPoint(322,50),QPoint(260,24)},//222,185 284,207 322,50 260,24
+		{QPoint(285, 292), QPoint(336,336), QPoint(395, 234), QPoint(326, 204)}
     };
 
     QList<int> activeFingers_;

@@ -22,35 +22,38 @@ positions_(new TFingerPosition()) {
 TPresentation::TPresentation(TLayout&layout, QString charsToCopy, QWidget* parent) :
 QWidget(parent),
 keyboard_(new TVirtualKeyboard(layout)),
-positions_(new TFingerPosition()),
-toPress_(charsToCopy) {
+positions_(new TFingerPosition()){
+
+	foreach (QChar c, charsToCopy) {
+		toPress_.enqueue(c);
+	}
+
+
     setupWidgets();
     nextCharToCopy();
 
 }
 
 void TPresentation::nextCharToCopy() {
-    if (!toPress_.isEmpty()) {
-        currentExample_ = toPress_[0];
-        TVirtualKey* hilighted = keyboard_->highlightKey(currentExample_);
+	if (!toPress_.isEmpty()) {
+		QChar current = toPress_.head();
+		TVirtualKey* hilighted = keyboard_->highlightKey(current);
         if (hilighted) {
             positions_->enableFinger(hilighted->associatedFinger());
-            toPress_ = toPress_.remove(0,1);
         }
-        if(TLayout::getInstance().needsShiftModifier(currentExample_)){
+		if(TLayout::getInstance().needsShiftModifier(current)){
             //Change depending on occupied letter
             TVirtualKey *shift = keyboard_->highlightModifier(Qt::Key_Shift);
             if(shift){
                 positions_->enableFinger(shift->associatedFinger() );
             }
         }
-        if(TLayout::getInstance().needsAltgrModifier(currentExample_)){
+		if(TLayout::getInstance().needsAltgrModifier(current)){
             TVirtualKey *altGr = keyboard_->highlightModifier(Qt::Key_AltGr);
             if(altGr){
                 positions_->enableFinger(altGr->associatedFinger() );
             }
         }
-
     } else {
         emit allCopied();
     }
@@ -64,28 +67,33 @@ void TPresentation::setupWidgets() {
 }
 
 void TPresentation::keyPressEvent(QKeyEvent *ev) {
-    if (currentExample_.isNull()) {
+	if (toPress_.isEmpty()) {
         TVirtualKey *updated = keyboard_->updateKeyboard(ev);
         if (updated) {
             positions_->enableFinger(updated->associatedFinger());
         }
     } else {
-        keyboard_->updateKeyboard(ev, currentExample_);
+		keyboard_->updateKeyboard(ev, toPress_.head());
+		QString txt = ev->text();
+		if(!txt.isEmpty() && toPress_.head() == txt[0] ){
+			toPress_.dequeue();
+			positions_->reset();
+			nextCharToCopy();
+		}
     }
 }
 
 void TPresentation::keyReleaseEvent(QKeyEvent *ev) {
-    
-    if (currentExample_.isNull()) {
-        TVirtualKey *updated = keyboard_->updateKeyboard(ev);
-        if (updated) {
-            positions_->disableFinger(updated->associatedFinger());
-        }
-    } else {
-        TVirtualKey *rightKey = keyboard_->updateKeyboard(ev,currentExample_);
-        if(rightKey){
-            positions_->disableFinger(rightKey->associatedFinger());
-            nextCharToCopy();
-        }
-    }
+
+	if (toPress_.isEmpty()) {
+		TVirtualKey *updated = keyboard_->updateKeyboard(ev);
+		if (updated) {
+			positions_->disableFinger(updated->associatedFinger());
+		}
+	} else {
+		TVirtualKey *rightKey = keyboard_->updateKeyboard(ev,toPress_.head());
+		if(rightKey){
+			positions_->disableFinger(rightKey->associatedFinger());
+		}
+	}
 }

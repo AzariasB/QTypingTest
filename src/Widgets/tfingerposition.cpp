@@ -60,6 +60,10 @@ void TFingerPosition::enableFinger(FINGER id) {
 	update();
 }
 
+void TFingerPosition::reset(){
+	activeFingers_.clear();
+}
+
 void TFingerPosition::paintEvent(QPaintEvent*) {
 	QPainter painter(this);
 	painter.scale(0.5, 0.5);

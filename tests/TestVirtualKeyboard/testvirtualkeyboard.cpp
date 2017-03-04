@@ -11,7 +11,7 @@
 #include <QLocale>
 #include <QInputMethod>
 
-#include "QTypingTest/Learn/tpresentation.h"
+#include "Widgets/tpresentation.h"
 
 class TestVirtualKeyboard : public QObject {
     Q_OBJECT
@@ -25,6 +25,11 @@ void TestVirtualKeyboard::testKeyboard()
     TLayout layTest = TLayout::getInstance();
     layTest.getLearningCouples();
     TPresentation *pres = new TPresentation(layTest,"{ABCDEF");
+	connect(pres, &TPresentation::allCopied, [pres](){
+		qDebug() << "all copied";
+		pres->close();
+	});
+
     pres->show();
     QApplication::exec();
 }

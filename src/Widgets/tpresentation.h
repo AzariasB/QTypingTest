@@ -15,6 +15,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QQueue>
 
 #include "tfingerposition.h"
 #include "tvirtualkeyboard.h"
@@ -54,8 +55,9 @@ private:
     TVirtualKeyboard *keyboard_;
     TFingerPosition *positions_;
 
-    QString toPress_ = "";
-    QChar currentExample_ = '\0';
+	QQueue<QChar> toPress_;
+
+	bool modifierPressed_ = false;
 
     void nextCharToCopy();
 
