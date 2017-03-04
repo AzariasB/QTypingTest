@@ -15,8 +15,8 @@
 
 #include <QWidget>
 
-#include "QTypingTest/Dialogs/twindowtest.h"
-#include "QTypingTest/Learn/tpresentation.h"
+#include "Dialogs/twindowtest.h"
+#include "Widgets/tpresentation.h"
 #include "Data/texercice.h"
 
 class TWindowLearn : public TWindowTest {

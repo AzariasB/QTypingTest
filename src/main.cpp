@@ -10,7 +10,7 @@
 #include <QLibraryInfo>
 #include <QDesktopWidget>
 
-#include "QTypingTest/thomepage.h"
+#include "Pages/thomepage.h"
 
 void init(){
     srand(time(NULL)); //Random number generation

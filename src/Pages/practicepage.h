@@ -20,11 +20,11 @@
 #include <QDebug>
 #include <QTime>
 
-#include "QTypingTest/Dialogs/twindowtest.h"
-#include "QTypingTest/Dialogs/Exercices/tpracticerace.h"
-#include "QTypingTest/Dialogs/Exercices/tpracticebase.h"
-#include "QTypingTest/Dialogs/Exercices/tpracticetext.h"
-#include "QTypingTest/Dialogs/Exercices/timprove.h"
+#include "Dialogs/twindowtest.h"
+#include "Dialogs/tpracticerace.h"
+#include "Dialogs/tpracticebase.h"
+#include "Dialogs/tpracticetext.h"
+#include "Dialogs/timprove.h"
 
 class PracticePage : public QWidget {
     Q_OBJECT

@@ -24,8 +24,8 @@
 #include <QStyle>
 #include <QDesktopWidget>
 
-#include "Exercices/tstackpages.h"
-#include "Exercices/ttoolbar.h"
+#include "Widgets/tstackpages.h"
+#include "Widgets/ttoolbar.h"
 #include "Data/tresult.h"
 #include "Data/texercice.h"
 #include "Util/factory.h"

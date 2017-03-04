@@ -20,7 +20,7 @@
 #include <QDebug>
 
 #include "Data/tresult.h"
-#include "QTypingTest/Dialogs/Exercices/tpage.h"
+#include "Widgets/tpage.h"
 
 class TStackPages : public QStackedWidget {
     Q_OBJECT

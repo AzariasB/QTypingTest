@@ -28,7 +28,7 @@
 #include "Data/tresult.h"
 #include "Data/tusermanager.h"
 #include "Util/htmlhelper.h"
-#include "QTypingTest/Dialogs/Exercices/twindowlearn.h"
+#include "Dialogs/twindowlearn.h"
 
 
 class LearnPage : public QWidget {

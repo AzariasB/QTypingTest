@@ -136,7 +136,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>3</number>
+           <number>0</number>
           </property>
           <widget class="LearnPage" name="page_learn">
            <property name="sizePolicy">
@@ -294,31 +294,31 @@
   <customwidget>
    <class>HomePage</class>
    <extends>QWidget</extends>
-   <header>QTypingTest/Home/homepage.h</header>
+   <header>Pages/homepage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>LearnPage</class>
    <extends>QWidget</extends>
-   <header>QTypingTest/Learn/learnpage.h</header>
+   <header>Pages/learnpage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>PracticePage</class>
    <extends>QWidget</extends>
-   <header>QTypingTest/Practice/practicepage.h</header>
+   <header>Pages/practicepage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>GamePage</class>
    <extends>QWidget</extends>
-   <header>QTypingTest/Games/gamepage.h</header>
+   <header>Pages/gamepage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>TStatistics</class>
    <extends>QWidget</extends>
-   <header>QTypingTest/Statistics/tstatistics.h</header>
+   <header>Pages/tstatistics.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

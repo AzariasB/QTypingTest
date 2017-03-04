@@ -21,15 +21,16 @@
 #include <QMap>
 #include <QDesktopWidget>
 
-#include "Learn/learnpage.h"
-#include "Practice/practicepage.h"
-#include "Games/gamepage.h"
-#include "Home/homepage.h"
+#include "learnpage.h"
+#include "practicepage.h"
+#include "gamepage.h"
+#include "homepage.h"
 
 #include "Data/tlayout.h"
 #include "Data/tusermanager.h"
-#include "ui/ui_homepage.h"
-#include "toptiondialog.h"
+#include "UI/ui_homepage.h"
+#include "Dialogs/toptiondialog.h"
+
 
 
 class THomePage : public QMainWindow {

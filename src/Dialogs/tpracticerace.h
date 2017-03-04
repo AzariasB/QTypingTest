@@ -19,7 +19,7 @@
 #include <QDebug>
 
 
-#include "QTypingTest/Dialogs/twindowtest.h"
+#include "Dialogs/twindowtest.h"
 #include "Data/texercice.h"
 #include "Data/tresult.h"
 

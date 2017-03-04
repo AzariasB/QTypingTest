@@ -40,64 +40,49 @@ TEMPLATE = app
 RC_ICONS += etc/icon.ico
 ICON = TypingLine.icns
 
-FORMS += src/ui/homepage.ui \
-         src/ui/options.ui
+FORMS += src/UI/homepage.ui \
+         src/UI/options.ui
 
 
 SOURCES +=\
     src/main.cpp \
     #-------------------------
-    # QTypingTest
+    # Pages
     #------------------------- \
-    src/QTypingTest/thomepage.cpp \
-    src/QTypingTest/toptiondialog.cpp \
-    #-------------------------
-    # Learn
-    #------------------------- \
-    src/QTypingTest/Learn/tvirtualkey.cpp \
-    src/QTypingTest/Learn/learnpage.cpp \
-    src/QTypingTest/Learn/tpresentation.cpp \
-    src/QTypingTest/Learn/tvirtualkeyboard.cpp \
-    src/QTypingTest/Learn/tfingerposition.cpp \
-    #-------------------------
-    # Home
-    #------------------------- \
-    src/QTypingTest/Home/homepage.cpp \
+    src/Pages/gamepage.cpp \
+    src/Pages/homepage.cpp \
+    src/Pages/learnpage.cpp \
+    src/Pages/practicepage.cpp \
+    src/Pages/thomepage.cpp \
+    src/Pages/tstatistics.cpp \
     #-------------------------
     # Dialogs
     #------------------------- \
-    src/QTypingTest/Dialogs/twindowtest.cpp \
+    src/Dialogs/timprove.cpp \
+    src/Dialogs/toptiondialog.cpp \
+    src/Dialogs/tpracticebase.cpp \
+    src/Dialogs/tpracticerace.cpp \
+    src/Dialogs/tpracticetext.cpp \
+    src/Dialogs/twindowlearn.cpp \
+    src/Dialogs/twindowtest.cpp \
     #-------------------------
-    # Exercices
+    # Widgets
     #------------------------- \
-    src/QTypingTest/Dialogs/Exercices/tpracticerace.cpp \
-    src/QTypingTest/Dialogs/Exercices/tpage.cpp \
-    src/QTypingTest/Dialogs/Exercices/tlabel.cpp \
-    src/QTypingTest/Dialogs/Exercices/ttoolbar.cpp \
-    src/QTypingTest/Dialogs/Exercices/tstackpages.cpp \
-    src/QTypingTest/Dialogs/Exercices/timprove.cpp \
-    src/QTypingTest/Dialogs/Exercices/tpracticetext.cpp \
-    src/QTypingTest/Dialogs/Exercices/tpracticebase.cpp \
-    src/QTypingTest/Dialogs/Exercices/twindowlearn.cpp \
-    #-------------------------
-    # Practice
-    #------------------------- \
-    src/QTypingTest/Practice/practicepage.cpp \
-    #-------------------------
-    # Games
-    #------------------------- \
-    src/QTypingTest/Games/gamepage.cpp \
-    #-------------------------
-    # Statistics
-    #-------------------------
-    src/QTypingTest/Statistics/tstatistics.cpp \
+    src/Widgets/tfingerposition.cpp \
+    src/Widgets/tlabel.cpp \
+    src/Widgets/tpage.cpp \
+    src/Widgets/tpresentation.cpp \
+    src/Widgets/tstackpages.cpp \
+    src/Widgets/ttoolbar.cpp \
+    src/Widgets/tvirtualkey.cpp \
+    src/Widgets/tvirtualkeyboard.cpp \
     #-------------------------
     # Util
     #------------------------- \
     src/Util/htmlhelper.cpp \
     src/Util/factory.cpp \
     #-------------------------
-    # ui
+    # UI
     #------------------------- \
     #-------------------------
     # Data
@@ -114,50 +99,35 @@ SOURCES +=\
     src/Data/tjsonobject.cpp
 HEADERS +=\
     #-------------------------
-    # QTypingTest
+    # Pages
     #------------------------- \
-    src/QTypingTest/toptiondialog.h \
-    src/QTypingTest/thomepage.h \
-    #-------------------------
-    # Learn
-    #------------------------- \
-    src/QTypingTest/Learn/tvirtualkeyboard.h \
-    src/QTypingTest/Learn/tpresentation.h \
-    src/QTypingTest/Learn/tvirtualkey.h \
-    src/QTypingTest/Learn/learnpage.h \
-    src/QTypingTest/Learn/tfingerposition.h \
-    #-------------------------
-    # Home
-    #------------------------- \
-    src/QTypingTest/Home/homepage.h \
+    src/Pages/gamepage.h \
+    src/Pages/homepage.h \
+    src/Pages/learnpage.h \
+    src/Pages/practicepage.h \
+    src/Pages/thomepage.h \
+    src/Pages/tstatistics.h \
     #-------------------------
     # Dialogs
     #------------------------- \
-    src/QTypingTest/Dialogs/twindowtest.h \
+    src/Dialogs/timprove.h \
+    src/Dialogs/toptiondialog.h \
+    src/Dialogs/tpracticebase.h \
+    src/Dialogs/tpracticerace.h \
+    src/Dialogs/tpracticetext.h \
+    src/Dialogs/twindowlearn.h \
+    src/Dialogs/twindowtest.h \
     #-------------------------
-    # Exercices
+    # Widgets
     #------------------------- \
-    src/QTypingTest/Dialogs/Exercices/tpracticerace.h \
-    src/QTypingTest/Dialogs/Exercices/tpracticebase.h \
-    src/QTypingTest/Dialogs/Exercices/ttoolbar.h \
-    src/QTypingTest/Dialogs/Exercices/twindowlearn.h \
-    src/QTypingTest/Dialogs/Exercices/tlabel.h \
-    src/QTypingTest/Dialogs/Exercices/tpracticetext.h \
-    src/QTypingTest/Dialogs/Exercices/tpage.h \
-    src/QTypingTest/Dialogs/Exercices/timprove.h \
-    src/QTypingTest/Dialogs/Exercices/tstackpages.h \
-    #-------------------------
-    # Practice
-    #------------------------- \
-    src/QTypingTest/Practice/practicepage.h \
-    #-------------------------
-    # Games
-    #------------------------- \
-    src/QTypingTest/Games/gamepage.h \
-    #-------------------------
-    # Statistics
-    #-------------------------
-    src/QTypingTest/Statistics/tstatistics.h \
+    src/Widgets/tfingerposition.h \
+    src/Widgets/tlabel.h \
+    src/Widgets/tpage.h \
+    src/Widgets/tpresentation.h \
+    src/Widgets/tstackpages.h \
+    src/Widgets/ttoolbar.h \
+    src/Widgets/tvirtualkey.h \
+    src/Widgets/tvirtualkeyboard.h \
     #-------------------------
     # Util
     #------------------------- \
@@ -166,8 +136,8 @@ HEADERS +=\
     #-------------------------
     # ui
     #------------------------- \
-    src/ui/ui_options.h \
-    src/ui/ui_homepage.h \
+    src/UI/ui_options.h \
+    src/UI/ui_homepage.h \
     #-------------------------
     # Data
     #------------------------- \

@@ -15,7 +15,7 @@
 
 #include <QWidget>
 
-#include "QTypingTest/Dialogs/twindowtest.h"
+#include "Dialogs/twindowtest.h"
 #include "Data/texercice.h"
 
 class TPracticeBase : public TWindowTest {
