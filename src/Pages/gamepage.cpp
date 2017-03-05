@@ -17,7 +17,7 @@
 
 
 GamePage::~GamePage(){
-
+	delete interactiveKeyboard_;
 }
 
 GamePage::GamePage(QWidget* parent):

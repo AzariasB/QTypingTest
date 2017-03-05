@@ -213,5 +213,6 @@ void TWindowTest::answerTyped(QString nwAnswer)
 //Destructor
 
 TWindowTest::~TWindowTest() {
+
 }
 

@@ -27,6 +27,7 @@ public:
     TWindowLearn(TExercice *ex, int numberOfPages, QWidget *parent = 0);
 
     virtual ~TWindowLearn() {
+		delete instructions_;
     }
 
 public slots:

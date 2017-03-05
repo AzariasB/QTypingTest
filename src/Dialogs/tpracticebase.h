@@ -25,8 +25,8 @@ public:
     TPracticeBase(QWidget *parent = 0);
     TPracticeBase(TExercice *generator,QWidget *parent = 0);
     TPracticeBase(const TPracticeBase& orig);
-    virtual ~TPracticeBase(){
-        
+	virtual ~TPracticeBase(){
+		delete generator_;
     }
 
     TExercice *getGenerator() const{

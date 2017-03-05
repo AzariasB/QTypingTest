@@ -216,7 +216,7 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
                 target->wrong();
                 return 0;
             } else {
-                if(needsModifier && ev->text().isNull()){
+				if(needsModifier && ev->text().isEmpty()){
                     if(TLayout::getInstance().needsShiftModifier(expected) && ev->key() == Qt::Key_Shift ||
                             TLayout::getInstance().needsAltgrModifier(expected) && ev->key() == Qt::Key_AltGr){
                         target->right();

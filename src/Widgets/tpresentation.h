@@ -29,7 +29,8 @@ public:
     TPresentation(TLayout&layout, QString charsToCopy, QWidget *parent = 0);
 
     virtual ~TPresentation() {
-
+		delete keyboard_;
+		delete positions_;
     }
 
     TVirtualKeyboard* getKeyboard() const {
