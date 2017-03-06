@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 #include "tstatistics.h"
 
 
@@ -14,6 +19,7 @@ TStatistics::TStatistics(TUser *user, QWidget *parent):QWidget(parent),
 
 void TStatistics::init()
 {
+	this->setStyleSheet("background-color : rgba(228, 241, 254,1.0)");
     if(user_){
         userResults_ = user_->getPracticeHistory()->values();
     }else if(TUserManager::getInstance().getCurrentUser()){
@@ -70,12 +76,14 @@ void TStatistics::drawMainPolygon(QPainter &painter)
     graph.append({QPoint(graph.back().point.x(),height()), TResult()  });
     QPainterPath tmpPath;
     tmpPath.addPolygon(polyFromPointResult(graph));
-    painter.fillPath(tmpPath, QBrush(Qt::gray));
-    painter.drawEllipse(rectAroundPoint(currentHilight_.second.point));
+	painter.fillPath(tmpPath, QBrush(QColor(52, 73, 94)));
+	painter.setBrush(QBrush(QColor(241, 196, 15)));
+	painter.drawEllipse(rectAroundPoint(currentHilight_.second.point));
 }
 
 void TStatistics::drawResult(QPainter &painter)
 {
+	painter.setBrush(QBrush(Qt::transparent));
     QString res = QString("WPM : <b>%1</b> <br/> Correct keystrokes : <b color=\"red\" >%2</b> <br/> Wrong keystrokes : <b>%3</b>")
             .arg(currentHilight_.second.res.getWPM())
             .arg(currentHilight_.second.res.getCorrectKeysStrokes())
@@ -149,10 +157,10 @@ QList<point_result> TStatistics::resultToPoint(const QList<TResult> &results)
 
 QRect TStatistics::rectAroundPoint(const QPoint &point)
 {
-    int rectSide = 10;
-    int top = point.y() - (rectSide>>1);
-    int left = point.x() - (rectSide>>1);
-    return QRect(left,top, rectSide, rectSide);
+	int squareSide = 12;
+	int top = point.y() - (squareSide>>1);
+	int left = point.x() - (squareSide>>1);
+	return QRect(left,top, squareSide, squareSide);
 }
 
 QPoint TStatistics::translate(const TResult &res)

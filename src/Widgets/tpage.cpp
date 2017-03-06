@@ -1,6 +1,6 @@
 
 /*
- * QTypingTest by Pierre and Azarias - //website//
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
  * License : GNU - GPL 2
  */
 

@@ -1,3 +1,8 @@
+/*
+ * QTypingTest by Pierre and Azarias - //website//
+ * License : GNU - GPL 2
+ */
+
 #ifndef TSTATISTICS_H
 #define TSTATISTICS_H
 
@@ -60,7 +65,7 @@ private:
 
     QPoint *listToPointArray(const QList<QPoint> &points);
 
-    QRect rectAroundPoint(const QPoint &point);
+	QRect rectAroundPoint(const QPoint &point);
 
     QPair<QRect, point_result> findContainer(const QPoint &point);
 

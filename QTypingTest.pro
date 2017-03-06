@@ -96,7 +96,9 @@ SOURCES +=\
     src/Data/ttext.cpp \
     src/Data/tresult.cpp \
     src/Data/tlayout.cpp \
-    src/Data/tjsonobject.cpp
+    src/Data/tjsonobject.cpp \
+    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Graphics/tstateswitcher.cpp \
+    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Graphics/tgraphicsview.cpp
 HEADERS +=\
     #-------------------------
     # Pages
@@ -150,7 +152,9 @@ HEADERS +=\
     src/Data/ttext.h \
     src/Data/tstats.h \
     src/Data/tlayout.h \
-    src/Data/tjsonobject.h
+    src/Data/tjsonobject.h \
+    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Graphics/tstateswitcher.h \
+    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Graphics/tgraphicsview.h
 
 DISTFILES += \
     ressources/syle.qss
