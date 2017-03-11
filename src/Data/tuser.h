@@ -16,27 +16,24 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QHash>
-#include <QDataStream>
+#include <QJsonArray>
+#include <QJsonObject>
 
 #include "Data/texercice.h"
 #include "tstats.h"
 #include "Util/factory.h"
 #include "tprogression.h"
 #include "tresult.h"
+#include "tjsonserializable.h"
 
-class TJsonObject;
 
-struct date_exercice_ {
-    QDateTime dateResult;
-    TExercice exercice;
-};
-
-class TUser : public QObject {
+class TUser : public QObject, public TJsonSerializable {
 
     Q_OBJECT
 public:
     TUser(QString pseudo = "", QObject *parent = 0) :
-        QObject(parent),
+		QObject(parent),
+		TJsonSerializable(),
         id_(factory::nexUId()),
         pseudo_(pseudo),
         progress_(new TProgression()),
@@ -45,7 +42,8 @@ public:
     }
 
     TUser(const TUser &orig) :
-    QObject(orig.parent()),
+	QObject(orig.parent()),
+	TJsonSerializable(),
     id_(orig.id()),
     pseudo_(orig.pseudo_),
     progress_(orig.progress_),
@@ -63,7 +61,7 @@ public:
         this->pseudo_ = pseudo;
     }
 
-    QHash<date_exercice_, TResult> *getPracticeHistory() {
+	QList<TExercice> *getPracticeHistory() {
         return &practiceHistory_;
     }
 
@@ -89,19 +87,25 @@ public:
         emit statsChanged(this);
     }
 
-    void setPracticeHistory(QHash<date_exercice_, TResult> history) {
+	void setPracticeHistory(QList<TExercice> history) {
         practiceHistory_ = history;
     }
 
-    void read(const QJsonObject &json);
+	virtual void read(const QJsonObject &json) override;
 
-    void write(QJsonObject &json);
+	virtual void write(QJsonObject &json) const override;
+
+	void readHistory(const QJsonObject &json);
+
+	void writeHistory(QJsonObject &json) const;
 
     void oneMoreMistake(const QChar &mistaken);
 
     void setId(int id){
         id_ = id;
     }
+
+
 
     int id() const{
         return id_;
@@ -116,7 +120,7 @@ public:
      * @param exRes the result of the exercice
      * @return the time when this result was saved
      */
-    QDateTime addResult(TExercice *exo, TResult *exRes, QDateTime date = QDateTime::currentDateTime());
+	QDateTime addResult(TExercice *exo);
 
     void operator=(const TUser &orig) {
         setParent(orig.parent());
@@ -143,74 +147,13 @@ private:
     QString pseudo_;
     TProgression *progress_;
     TStats statistics_;
-    QHash<date_exercice_, TResult> practiceHistory_;
-
-
-    friend QDataStream &operator<<(QDataStream& out, const TUser& user){
-        out << user.id_ << user.pseudo_ << *user.progress_ << user.statistics_ << user.practiceHistory_;
-        return out;
-    }
-
-    friend QDataStream &operator>>(QDataStream& in, TUser &user){
-        in >> user.id_ >> user.pseudo_ >> *user.progress_ >> user.statistics_ >> user.practiceHistory_;
-        return in;
-    }
+	QList<TExercice> practiceHistory_;
 };
 
-Q_DECLARE_METATYPE(TUser)
-/**
- * Write a user in the DataStream
- * 
- * @param out the dataStream target (where to write the data)
- * @param user the user that is to be written in the dataStream
- * @return the modified dataStream
- */
-QDataStream &operator<<(QDataStream& out, const TUser& user);
 
-
-/**
- * Takes back all the user's informations
- * from the DataStream
- * 
- * @param in the dataStream containing the user
- * @param user the user to initialize from the datastream
- * @return the datastream
- */
-QDataStream &operator>>(QDataStream& in, TUser &user);
-
-inline QDataStream &operator>>(QDataStream& in, date_exercice_& dateEx){
-    in >> dateEx.dateResult >> dateEx.exercice;
-    return in;
-}
-
-/**
- * Save the date_exercice_ structure
- *
- * @param out the dataStream targer (where to write the data)
- * @param dateEx the structur to be written in the dataStream
- * @return teh modified datastream
- */
-inline QDataStream &operator<<(QDataStream& out, const date_exercice_& dateEx){
-    out << dateEx.dateResult << dateEx.exercice;
-    return out;
-}
 
 inline bool operator==(const TUser& user1, const TUser& user2) {
     return user1.id() == user2.id();
-}
-
-inline bool operator==(const date_exercice_& date1, const date_exercice_& date2) {
-    return date1.dateResult == date2.dateResult &&
-            date1.exercice == date2.exercice;
-}
-
-inline QDebug operator<<(QDebug debug, const date_exercice_ date){
-    debug << QString("date : %1").arg(date.dateResult.toString());
-    return debug;
-}
-
-inline uint qHash(const date_exercice_ & key) {
-    return qHash(static_cast<qint64>(key.dateResult.currentMSecsSinceEpoch()));
 }
 
 #endif /* TUSER_H */

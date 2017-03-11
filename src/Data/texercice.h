@@ -1,5 +1,5 @@
 /*
- * QTypingTest by Pierre and Azarias - //website//
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
  * License : GNU - GPL 2
  */
 /* 
@@ -15,6 +15,10 @@
 #include <QStringList>
 #include <QDebug>
 #include <QDataStream>
+#include <QDateTime>
+
+#include "tjsonserializable.h"
+#include "tresult.h"
 
 class TLayout;
 class TResult;
@@ -24,7 +28,7 @@ class TResult;
  * There are differents types of exercices and depending on these, differents parameters
  * This class is a factory : it generates the exercice depending on the given parameter
  */
-class TExercice {
+class TExercice : public TJsonSerializable{
 public:
 
 	enum EXERCICE_TYPE {
@@ -42,6 +46,20 @@ public:
 
 	void addAttribute(QString key, QString value);
 
+	/**
+	 * @brief completed
+	 * Sets the result of the exercise,
+	 * and sets the 'completed' time
+	 *
+	 * @param exRes
+	 * @return the datetime at which the exercise ended
+	 */
+	const QDateTime &completed(TResult &exRes);
+
+	virtual void read(const QJsonObject &json) override;
+
+	virtual void write(QJsonObject &json) const override;
+
 	QString findAttribute(QString key);
 
 	bool hasAttribute(const QString &key);
@@ -58,6 +76,10 @@ public:
 		return availableLetters_;
 	}
 
+	const QDateTime &getDateComplete() const {
+		return dateComplete_;
+	}
+
 	EXERCICE_TYPE getExerciceType() const {
 		return exerciceType_;
 	}
@@ -66,6 +88,7 @@ public:
 		return numberOfWords_;
 	}
 
+
 private:
 	TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
 
@@ -73,6 +96,9 @@ private:
 	QString availableLetters_;
 	EXERCICE_TYPE exerciceType_;
 	QHash<QString, QString> attributes_;
+	QDateTime dateComplete_;
+	TResult result_;
+
 	int numberOfWords_;
 
 	friend QDataStream &operator>>(QDataStream &in, TExercice &ex){

@@ -40,10 +40,6 @@ public:
 			qWarning() <<  "Trying to set a non-existing user";
         }
 
-        if(currentUser_){
-            connect(currentUser_,SIGNAL(settingsChanged(TUser*)),this,SLOT(saveUsers()));
-            connect(currentUser_,SIGNAL(statsChanged(TUser*)),this,SLOT(saveUsers()));
-        }
         emit userChanged(currentUser_);
     }
 
@@ -56,14 +52,13 @@ public:
         return users_;
     }
 
-    QList<TUser *> readUsers();
+	QList<TUser *> readUsers(QFile &readTarget);
 
 
     virtual ~TUserManager();
 
     void operator<<(TUser *nwUser){
         users_ << nwUser;
-        saveUsers();
     }
 
     bool operator -(TUser *userLess)
@@ -72,7 +67,6 @@ public:
             setCurrentUser(nullptr);
         }
         bool rmed = users_.removeOne(userLess);
-        saveUsers();
         return rmed;
     }
 
@@ -98,9 +92,7 @@ public:
     //Respect singleton patter, prevent assigning values by any mean
     TUserManager(const TUserManager& orig) = delete;
     void operator=(TUserManager const&)    = delete;
-
-public slots:
-    void saveUsers();
+	void saveUsers(QFile &saveTarget);
 
 signals:
     void userChanged(TUser *);

@@ -12,20 +12,52 @@
 
 #include "tuser.h"
 
-#include "tjsonobject.h"
+#include "tjsonserializable.h"
 
-QDateTime TUser::addResult(TExercice* exo, TResult* exRes, QDateTime date) {
-    date_exercice_ key;
-    key.dateResult = date;
-    key.exercice = *exo;
-    practiceHistory_[key] = *exRes;
+QDateTime TUser::addResult(TExercice* exo) {
+	practiceHistory_ << *exo;
     emit statsChanged(this);
-    return key.dateResult;
+	return exo->getDateComplete();
 }
 
 void TUser::oneMoreMistake(const QChar& mistaken) {
     this->statistics_[mistaken]++;
     //emit statsChanged(this);
+}
+
+void TUser::read(const QJsonObject &json)
+{
+	id_ = json["id"].toInt();
+	pseudo_ = json["pseudo"].toString();
+	progress_->read(json["progression"].toObject());
+	statistics_.read(json["statistics"].toObject());
+	for(QJsonValue v : json["exercises"].toArray()){
+		TExercice ex;
+		ex.read(v.toObject());
+		practiceHistory_ << ex;
+	}
+}
+
+
+
+void TUser::write(QJsonObject &json) const
+{
+	json["id"] = id_;
+	json["pseudo"] = pseudo_;
+	QJsonObject progression;
+	progress_->write(progression);
+	json["progression"] = progression;
+	QJsonObject statsJson;
+	statistics_.write(statsJson);
+	json["statistics"] = statsJson;
+
+	QJsonArray exercices;
+	foreach(TExercice ex, practiceHistory_){
+		QJsonObject exo;
+		ex.write(exo);
+		exercices << exo;
+	}
+	json["exercises"] = exercices;
 }
 
 

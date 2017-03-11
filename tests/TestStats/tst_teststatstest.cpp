@@ -4,6 +4,8 @@
 #include <QEvent>
 #include <QHash>
 
+#include <qlineedit.h>
+
 #include "time.h"
 #include "Data/tuser.h"
 #include "Data/texercice.h"
@@ -32,15 +34,14 @@ private:
 
 void TestStatsTest::testCase1()
 {
+	TUser *user = new TUser("Brian");
+	genHistory(user);
+	TUserManager::getInstance() << user;
+	TUserManager::getInstance().setCurrentUser(user);
+	TStatistics stats;
 
-    TUser *user = new TUser("Brian");
-    genHistory(user);
-    TUserManager::getInstance() << user;
-    TUserManager::getInstance().setCurrentUser(user);
-    TStatistics stats;
-
-    stats.show();
-    QApplication::exec();
+	stats.show();
+	QApplication::exec();
 }
 
 void TestStatsTest::genHistory(TUser *user)

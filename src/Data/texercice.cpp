@@ -51,6 +51,31 @@ void TExercice::addAttribute(QString key, QString value)
     attributes_[key] = value;
 }
 
+const QDateTime &TExercice::completed(TResult &exRes)
+{
+	result_ = exRes;
+	dateComplete_ = QDateTime::currentDateTime();
+	return dateComplete_;
+}
+
+void TExercice::read(const QJsonObject &json)
+{
+	exerciceType_ = (EXERCICE_TYPE)json["exerciseType"].toInt();
+	dateComplete_ = QDateTime::fromMSecsSinceEpoch(json["dateComplete"].toInt());
+	result_.read(json["result"].toObject());
+	numberOfWords_ = json["numberOfWords"].toInt();
+}
+
+void TExercice::write(QJsonObject &json) const
+{
+	json["exerciseType"] = exerciceType_;
+	json["dateComplete"] = dateComplete_.toMSecsSinceEpoch();
+	QJsonObject resultJson;
+	result_.write(resultJson);
+	json["result"] = resultJson;
+	json["numberOfWords"] = numberOfWords_;
+}
+
 QString TExercice::findAttribute(QString key)
 {
     return attributes_[key];

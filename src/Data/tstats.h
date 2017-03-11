@@ -15,18 +15,26 @@
 
 #include <QHash>
 #include <QtCore>
+#include <QJsonObject>
 
+
+#include "tjsonserializable.h"
 /**
  * Number of WRONG keystrokes for each char
  * 
+ *
  */
-class TStats : public QHash<QChar,int> {
+class TStats : public QHash<QChar,int>, public TJsonSerializable {
 public:
     TStats();
     TStats(const TStats& orig);
     virtual ~TStats();
     
     void add(const TStats &otherStat);
+
+	virtual void read(const QJsonObject &json) override;
+
+	virtual void write(QJsonObject &json) const override;
     
     TStats* operator+(const TStats &otherStat);
 

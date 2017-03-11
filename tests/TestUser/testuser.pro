@@ -18,6 +18,7 @@ HEADERS = $$SRC/Data/tuser.h \
          $$SRC/Data/tstats.h \
          $$SRC/Data/tresult.h \
          $$SRC/Data/tlayout.h \
+         $$SRC/Data/tjsonserializable.h \
          $$SRC/Data/tprogression.h \
          $$SRC/Data/ttext.h \
          $$SRC/Util/factory.h \
@@ -29,6 +30,7 @@ SOURCES = $$SRC/Data/tuser.cpp \
          $$SRC/Data/tstats.cpp \
          $$SRC/Data/tresult.cpp \
          $$SRC/Data/tlayout.cpp \
+         $$SRC/Data/tjsonserializable.cpp \
          $$SRC/Data/tprogression.cpp \
          $$SRC/Data/ttext.cpp \
          $$SRC/Util/factory.cpp \

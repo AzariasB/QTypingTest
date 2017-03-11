@@ -16,6 +16,7 @@
 
 #include <QDebug>
 #include <QDataStream>
+#include "tjsonserializable.h"
 
 /**
  * A class to define the progression of a user
@@ -23,7 +24,7 @@
  * the difficulty of the exercices
  * 
  */
-class TProgression {
+class TProgression : public TJsonSerializable {
 
 public:
     TProgression();
@@ -42,22 +43,15 @@ public:
         lastExerciceIndex_++;
     }
 
+	void read(const QJsonObject &json) override;
+
+	void write(QJsonObject &json) const override;
+
+
 private:
     int lastExerciceIndex_;
-    friend QDataStream &operator<<(QDataStream &out, const TProgression &prog){
-        out << prog.lastExerciceIndex_;
-        return out;
-    }
-
-    friend QDataStream &operator>>(QDataStream &in, TProgression &prog){
-        in >> prog.lastExerciceIndex_;
-        return in;
-    }
 };
 
-QDataStream &operator<<(QDataStream &out, const TProgression &prog);
-
-QDataStream &operator>>(QDataStream &in, TProgression &prog);
 
 bool operator==(const TProgression &prog1, const TProgression &prog2);
 

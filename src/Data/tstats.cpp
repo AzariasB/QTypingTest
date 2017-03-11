@@ -24,6 +24,21 @@ QHash(){
     }
 }
 
+void TStats::read(const QJsonObject &json)
+{
+	for(auto it = json.begin(); it != json.end(); ++it){
+		//Test if int
+		this->insert(it.key().at(0), it.value().toInt());
+	}
+}
+
+void TStats::write(QJsonObject &json) const
+{
+	for(auto it = this->begin(); it != this->end();++it){
+		json[it.key()] = it.value();
+	}
+}
+
 TStats::~TStats() {
 }
 

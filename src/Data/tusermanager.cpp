@@ -17,56 +17,57 @@ TUserManager::TUserManager() :
     QObject(),
     saveTarget_("QTypingTest"){
     currentUser_ = 0;
-    readUsers();
 }
 
 TUserManager::~TUserManager() {
 }
 
-QList<TUser*> TUserManager::readUsers()
+QList<TUser*> TUserManager::readUsers(QFile &readTarget)
 {
-    bool allValid = true;
-    int nextUid = saveTarget_.value("nextUid").toInt();
-    factory::setUId(nextUid);
-    int arrSize = saveTarget_.beginReadArray("users");
-    QList<TUser*> usersTemp;
-    for(int i =0; i < arrSize;i++){
-        saveTarget_.setArrayIndex(i);
-        QString key = saveTarget_.childKeys()[0];
-        QVariant v = saveTarget_.value(key);
-        allValid = allValid && v.isValid();
+	if(!readTarget.open(QIODevice::ReadOnly)){
+		qWarning("Failed to open save file.");
+		return users_;
+	}
 
-        if(v.isValid()){
-            TUser *u = new TUser(v.value<TUser>());
-            usersTemp << u;
-        }else{
-            qWarning() << "Found invalid user";
-        }
-    }
-    saveTarget_.endArray();
+	QJsonDocument loadDoc = QJsonDocument::fromBinaryData(readTarget.readAll());
+	QJsonObject root = loadDoc.object();
+	for(QJsonValue v : root["users"].toArray()){
+		if(v.isObject()){
+			TUser *usr = new TUser();
+			usr->read(v.toObject());
+			qDebug() << "Read user " << usr->getPseudo() << endl;
+			users_ << usr;
+		}
+	}
 
-    if(allValid)
-        users_ = usersTemp;
-    return users_;
+	readTarget.flush();
+	readTarget.close();
+	return users_;
 }
 
-void TUserManager::saveUsers()
+void TUserManager::saveUsers(QFile &saveTarget)
 {
-    QVariant nextUid(factory::currentUId());
-    saveTarget_.clear();
-    saveTarget_.setValue("nextUid",nextUid);
-    saveTarget_.beginWriteArray("users");
-    for(int i = 0; i< users_.size();i++){
-        saveTarget_.setArrayIndex(i);
-        TUser *u = users_[i];
-        QVariant uVariant = QVariant::fromValue(*u);
-        if(uVariant.isValid())
-            saveTarget_.setValue(u->getPseudo(),uVariant);
-        else
-            qWarning() << "Tried to save an invalid user";
-    }
-    saveTarget_.endArray();
-    emit usersSaved();
+	if(!saveTarget.open(QIODevice::WriteOnly)){
+		qWarning("Failed to open save target.");
+		return;
+	}
+
+	QJsonObject usrObject;
+	QJsonArray usersArr;
+	for(TUser *user : users_){
+		QJsonObject jsonUsr;
+		user->write(jsonUsr);
+
+		usersArr << jsonUsr;
+	}
+
+	usrObject["users"] = usersArr;
+	QJsonDocument saveDoc(usrObject);
+	saveTarget.write(saveDoc.toJson());
+
+	saveTarget.flush();
+	saveTarget.close();
+	emit usersSaved();
 }
 
 

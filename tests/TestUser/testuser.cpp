@@ -9,7 +9,6 @@
 #include <QFile>
 #include <QDebug>
 #include <QVector>
-#include <QDataStream>
 #include <time.h>
 
 #include "Data/tuser.h"
@@ -19,23 +18,20 @@
 
 class TestTUser : public QObject {
     Q_OBJECT
+public:
+	TestTUser():saveTarget("save.json"){
+	}
+
 private slots:
     void initTestCase(){
-        qRegisterMetaTypeStreamOperators<TUser>("TUser");
-        beforeTesting = TUserManager::getInstance().readUsers();
-        TUserManager::getInstance().removeAllUsers();
-        srand(time(NULL));
+		srand(time(NULL));
     }
 
     void cleanup(){
-        TUserManager::getInstance().removeAllUsers();
-        for(TUser *u: beforeTesting){
-            TUserManager::getInstance() << u;
-        }
     }
 
     void testSettings();
-    void testMetaTypes();
+	void testSerializable();
     void testConstructor();
     void testProgression();
     void testUserManager();
@@ -43,7 +39,7 @@ private slots:
 private:
     QString randomName();
 
-    QList<TUser*> beforeTesting;
+	QFile saveTarget;
 };
 
 void TestTUser::testSettings()
@@ -58,8 +54,8 @@ void TestTUser::testSettings()
         TUserManager::getInstance() << new TUser(name);
     }
 
-	TUserManager::getInstance().saveUsers();
-    QList<TUser*> users = TUserManager::getInstance().readUsers();
+	TUserManager::getInstance().saveUsers(saveTarget);
+	QList<TUser*> users = TUserManager::getInstance().readUsers(saveTarget);
 
     QCOMPARE(users.size(),10);
     foreach(TUser *u , users){
@@ -69,13 +65,10 @@ void TestTUser::testSettings()
     }
 }
 
-void TestTUser::testMetaTypes()
+void TestTUser::testSerializable()
 {
     TUser t("pedro");
-    QVariant v = QVariant::fromValue(t);
-    QVERIFY(v.isValid());
-    TUser tV = v.value<TUser>();
-    QCOMPARE(tV,t);
+
 }
 
 void TestTUser::testUserManager()
@@ -140,10 +133,11 @@ void TestTUser::testConstructor() {
 void TestTUser::testProgression() {
     TExercice *ex = TExercice::generateExercice(TExercice::LEARNING,"d","d");
     TResult *res = new TResult();
+	ex->completed(*res);
 
     TUser t("Dupont");
 
-    t.addResult(ex, res);
+	t.addResult(ex);
     QVERIFY(t.getPracticeHistory()->size() >= 1);
 }
 

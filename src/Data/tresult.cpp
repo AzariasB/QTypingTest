@@ -50,6 +50,24 @@ TResult& TResult::operator+=(const TResult& otherRes) {
     return *this;
 }
 
+void TResult::read(const QJsonObject &json)
+{
+	correctKeystrokes_ = json["correctKeyStrokes"].toInt();
+	wrongKeystrokes_ = json["wrongKeyStrokes"].toInt();
+	correctWords_ = json["correctWords"].toInt();
+	wrongWords_ = json["wrongWords"].toInt();
+	wordsPerMinute_ = json["wordsPerMinute"].toInt();
+}
+
+void TResult::write(QJsonObject &json) const
+{
+	json["correctKeyStrokes"] = correctKeystrokes_;
+	json["wrongKeyStrokes"] = wrongKeystrokes_;
+	json["correctWords"] = correctWords_;
+	json["wrongWords"] = wrongWords_;
+	json["wordsPerMinute"] = wordsPerMinute_;
+}
+
 TResult* TResult::operator+(const TResult& otherRes) {
     TResult *res = new TResult();
     res->setCorrectKeysStrokes(this->getCorrectWords() + otherRes.getCorrectKeysStrokes());
@@ -76,8 +94,8 @@ QString TResult::getResume() {
     return QString("WPM : %1<br/>Correct keyStrokes : %2<br/>"
             "Wrong keystrokes : %3<br/>Total keystrokes : %4")
             .arg(html::addTagToChars(wpm, "b"))
-            .arg(html::addTagToChars(corrects, "span", "stlye='color : green;'"))
-            .arg(html::addTagToChars(wrongs, "span", "style='color :red;'"))
+			.arg(html::addTagToChars(corrects, "span", "stlye='color : green;'"))
+			.arg(html::addTagToChars(wrongs, "span", "style='color :red;'"))
             .arg(tot);
 }
 

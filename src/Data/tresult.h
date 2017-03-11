@@ -16,13 +16,13 @@
 #include <qdatastream.h>
 
 #include <QString>
-
+#include "tjsonserializable.h"
 
 /**
  * This class is here to calculate the results of an exercice
  * this must be used to calculate the speed, and the accuracy
  */
-class TResult {
+class TResult : public TJsonSerializable {
 public:
     TResult();
     TResult(const TResult &base);
@@ -69,6 +69,7 @@ public:
         this->correctKeystrokes_ += incrementation;
     }
 
+
     /* modif code de base from private to public */
     void setCorrectWords(int correctWords) {
         this->correctWords_ = correctWords;
@@ -78,6 +79,10 @@ public:
         this->wrongWords_ = wrongWords;
     }
     /* ************* */
+
+	virtual void read(const QJsonObject &json) override;
+
+	virtual void write(QJsonObject &json) const override;
 
     /**
      * Return a QString with all the values of the object
