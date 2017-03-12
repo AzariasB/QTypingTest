@@ -22,14 +22,16 @@
 
 #include "Data/tlayout.h"
 #include "Data/tusermanager.h"
-
+#include "tapplication.h"
 
 
 THomePage::THomePage(QWidget *parent) :
-QMainWindow(parent)
+QMainWindow(parent),
+  um(tApp.getUserManager())
 {
     ui.setupUi(this);
-//    TUserManager::getInstance().setCurrentUser(new TUser("timmy"));
+	um.readUsers();
+	//TUserManager::getInstance().setCurrentUser(new TUser("timmy"));
     connectEvents();
     this->setGeometry(QStyle::alignedRect(
                             Qt::LeftToRight,
@@ -37,6 +39,13 @@ QMainWindow(parent)
                             this->size(),
                             qApp->desktop()->availableGeometry()
                           ));
+}
+
+void THomePage::closeEvent(QCloseEvent *ev)
+{
+	QFile saveTarget("save.json");
+	qDebug() << "Saving users" << saveTarget.exists();
+	//TUserManager::getInstance().saveUsers(saveTarget);
 }
 
 THomePage::~THomePage() {
@@ -47,12 +56,12 @@ void THomePage::showAboutDialogs(){
 }
 
 void THomePage::showOptionDialog(){
-    TOptionDialog *opt = new TOptionDialog(*TUserManager::getInstance().getCurrentUser(),this);
+	TOptionDialog *opt = new TOptionDialog(um.getCurrentUser(),this);
     opt->show();
     connect(opt,&QDialog::finished ,this,[=](int res){
         if(res == 1){
-            TUser *currentUser = TUserManager::getInstance().getCurrentUser();
-            currentUser->setSettings(opt->getCurrentSettings());
+			TUser &currentUser = um.getCurrentUser();
+			currentUser.setSettings(opt->getCurrentSettings());
         }
         delete opt;
     });
@@ -61,13 +70,14 @@ void THomePage::showOptionDialog(){
 void THomePage::connectEvents() {
     connect(ui.action_about,SIGNAL(triggered(bool)),this,SLOT(showAboutDialogs()));
     connect(ui.action_option,SIGNAL(triggered(bool)),this,SLOT(showOptionDialog()));
-    connect(ui.action_change_user,SIGNAL(triggered(bool)),this,SLOT(changeUser()));
+	connect(ui.action_change_user,SIGNAL(triggered(bool)),this,SLOT(disconnectUser()));
     connect(ui.action_homepage,SIGNAL(triggered(bool)),this,SLOT(goToHomePage()));
     connect(ui.action_aboutQt,SIGNAL(triggered(bool)),qApp,SLOT(aboutQt()));
-    connect(&TUserManager::getInstance(),&TUserManager::usersSaved,this,[=](){
+	connect(&um,&TUserManager::usersSaved,this,[&](){
         ui.statusbar->showMessage("Users saved !",4000);
     });
-    connect(&TUserManager::getInstance(),SIGNAL(userChanged(TUser*)),this,SLOT(updateUI(TUser*)) );
+	connect(&um,SIGNAL(userChanged(TUser&)),this,SLOT(enableUI(TUser&)) );
+	connect(&um, SIGNAL(userDiconnected()), this, SLOT(disableUI()));
 
     buttonsStacks_[ui.button_home] = ui.page_home;
     buttonsStacks_[ui.button_learn] = ui.page_learn;
@@ -78,7 +88,7 @@ void THomePage::connectEvents() {
     //Iterate over the buttons-page couple
     for (auto it = buttonsStacks_.begin(); it != buttonsStacks_.end(); ++it) {
         //If child is not nullptr create a simple layout with parent and add the child into it
-        if (!TUserManager::getInstance().getCurrentUser()) {
+		if (!um.isUserConnected()) {
             it.key()->setEnabled(false);
         }
         connect(it.key(), &QPushButton::clicked, [ = ](){
@@ -89,20 +99,29 @@ void THomePage::connectEvents() {
     ui.stack_main->setCurrentWidget(ui.page_home);
 }
 
-void THomePage::updateUI(TUser* nwUser) {
-    bool enable = nwUser != 0;
-    ui.action_option->setEnabled(enable);
-    ui.action_change_user->setEnabled(enable);
-    ui.action_homepage->setEnabled(enable);
-    for (auto it = buttonsStacks_.begin(); it != buttonsStacks_.end(); ++it) {
-        it.key()->setEnabled(enable);
-    }
+void THomePage::enableUI(TUser &nwUser) {
+	setUIState(true);
+}
+
+void THomePage::disableUI()
+{
+	setUIState(false);
+}
+
+void THomePage::setUIState(bool state)
+{
+	ui.action_option->setEnabled(state);
+	ui.action_change_user->setEnabled(state);
+	ui.action_homepage->setEnabled(state);
+	for (auto it = buttonsStacks_.begin(); it != buttonsStacks_.end(); ++it) {
+		it.key()->setEnabled(state);
+	}
 }
 
 
-void THomePage::changeUser()
+void THomePage::disconnectUser()
 {
-    TUserManager::getInstance().setCurrentUser();
+	um.disconnectCurrentUser();
     goToHomePage();
 }
 

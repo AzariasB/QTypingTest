@@ -16,8 +16,6 @@
 void init(){
     srand(time(NULL)); //Random number generation
 
-    qRegisterMetaTypeStreamOperators<TUser>("TUser"); //Metatype declaration
-
     //Set translator
     QString locale = QLocale::system().name().section('_',0,0);
     QTranslator translator;

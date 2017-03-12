@@ -13,60 +13,77 @@
 
 #include "tusermanager.h"
 
-TUserManager::TUserManager() :
-    QObject(),
-    saveTarget_("QTypingTest"){
+TUserManager::TUserManager(QString destFilePath) :
+QObject(),
+saveFile_(destFilePath){
     currentUser_ = 0;
 }
 
 TUserManager::~TUserManager() {
 }
 
-QList<TUser*> TUserManager::readUsers(QFile &readTarget)
+QList<TUser> &TUserManager::readUsers()
 {
-	if(!readTarget.open(QIODevice::ReadOnly)){
+	if(saveFile_.open(QIODevice::ReadOnly | QIODevice::Text)){
+		qDebug() << saveFile_.readAll();
+		saveFile_.close();
+	}
+
+	if(!saveFile_.open(QIODevice::ReadOnly | QIODevice::Text)){
 		qWarning("Failed to open save file.");
 		return users_;
 	}
 
-	QJsonDocument loadDoc = QJsonDocument::fromBinaryData(readTarget.readAll());
+	QJsonDocument loadDoc = QJsonDocument::fromJson(saveFile_.readAll());
+	saveFile_.close();
+
 	QJsonObject root = loadDoc.object();
 	for(QJsonValue v : root["users"].toArray()){
 		if(v.isObject()){
-			TUser *usr = new TUser();
-			usr->read(v.toObject());
-			qDebug() << "Read user " << usr->getPseudo() << endl;
+			TUser usr;
+			usr.read(v.toObject());
+			qDebug() << "Read user " << usr.getPseudo() << endl;
 			users_ << usr;
 		}
 	}
 
-	readTarget.flush();
-	readTarget.close();
 	return users_;
 }
 
-void TUserManager::saveUsers(QFile &saveTarget)
+void TUserManager::addUser(const TUser nwUser)
 {
-	if(!saveTarget.open(QIODevice::WriteOnly)){
-		qWarning("Failed to open save target.");
-		return;
-	}
+	users_ << nwUser;
+}
 
+bool TUserManager::removeUser(const TUser &toRemove)
+{
+	if(currentUser_ != nullptr && toRemove == *currentUser_)
+		disconnectCurrentUser();
+
+	return users_.contains(toRemove) && users_.removeOne(toRemove);
+}
+
+void TUserManager::saveUsers()
+{
 	QJsonObject usrObject;
 	QJsonArray usersArr;
-	for(TUser *user : users_){
+	for(TUser &user : users_){
 		QJsonObject jsonUsr;
-		user->write(jsonUsr);
+		user.write(jsonUsr);
 
 		usersArr << jsonUsr;
 	}
 
 	usrObject["users"] = usersArr;
 	QJsonDocument saveDoc(usrObject);
-	saveTarget.write(saveDoc.toJson());
 
-	saveTarget.flush();
-	saveTarget.close();
+	if(!saveFile_.open(QIODevice::WriteOnly)){
+		qWarning("Failed to open save target.");
+		return;
+	}
+	saveFile_.write(saveDoc.toJson());
+
+	saveFile_.close();
 	emit usersSaved();
 }
 

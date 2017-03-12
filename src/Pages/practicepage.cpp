@@ -19,12 +19,15 @@
 #include "Dialogs/tpracticebase.h"
 #include "Dialogs/tpracticetext.h"
 #include "Dialogs/timprove.h"
+#include "Data/tusermanager.h"
+#include "tapplication.h"
 
 PracticePage::PracticePage(QWidget *parent) : QWidget(parent),
 practiceAgainstTime_(tr("Against time")),
 practiceDefault_(tr("Normal")),
 practiceImprove_(tr("Improve")),
-practiceText_(tr("Text")) {
+practiceText_(tr("Text")),
+um(tApp.getUserManager()){
     setupLayout();
 }
 
@@ -33,7 +36,8 @@ QWidget(orig.parentWidget()),
 practiceAgainstTime_(tr("Against time")),
 practiceDefault_(tr("Normal")),
 practiceImprove_(tr("Improve")),
-practiceText_(tr("Text")) {
+practiceText_(tr("Text")),
+um(tApp.getUserManager()){
     setupLayout();
 }
 
@@ -71,7 +75,7 @@ void PracticePage::connectEvents() {
         this->startExercice(new TImprove(this));
     });
 
-    connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(userChanges(TUser*)));
+	connect(&um, SIGNAL(userChanged(TUser&)), this, SLOT(userChanges(TUser&)));
 }
 
 void PracticePage::startExercice(TWindowTest *exercice) {
@@ -88,7 +92,7 @@ void PracticePage::startExercice(TWindowTest *exercice) {
 }
 
 void PracticePage::saveExerciceResult(TResult* res, QTime time) {
-    TUserManager::getInstance().saveUsers();
+	um.saveUsers();
     QMessageBox::information(currentDialog_, "Exercice finished", res->getResume() +
             "<br/> Realized in :" + time.toString("mm:ss"));
     resetExercice();
@@ -102,22 +106,17 @@ void PracticePage::resetExercice() {
     }
 }
 
-void PracticePage::updateImproveButton(TUser* nwUser) {
-    if (nwUser) {
-        TStats stats = nwUser->getStatistics();
-        if (stats.isEmpty()) {
-            practiceImprove_.setEnabled(false);
-        } else {
-            practiceImprove_.setEnabled(true);
-        }
-    } else {
-        practiceImprove_.setEnabled(false);
-    }
+void PracticePage::updateImproveButton(TUser &nwUser) {
+	const TStats &stats = nwUser.getStatistics();
+	practiceImprove_.setEnabled(!stats.isEmpty());
 }
 
-void PracticePage::userChanges(TUser* nwUser) {
-    if (nwUser) {
-        updateImproveButton(nwUser);
-        connect(nwUser, SIGNAL(statsChanged(TUser*)), this, SLOT(updateImproveButton(TUser*)));
-    }
+void PracticePage::userChanges(TUser& nwUser) {
+	updateImproveButton(nwUser);
+	connect(&nwUser, SIGNAL(statsChanged(TUser&)), this, SLOT(updateImproveButton(TUser&)));
+}
+
+void PracticePage::userDisconnects()
+{
+	practiceImprove_.setEnabled(false);
 }

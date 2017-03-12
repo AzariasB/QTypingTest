@@ -88,6 +88,10 @@ public:
 		return numberOfWords_;
 	}
 
+	const TResult &getResult() const{
+		return result_;
+	}
+
 
 private:
 	TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);

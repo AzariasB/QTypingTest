@@ -8,11 +8,12 @@
 
 #include "Data/tuser.h"
 #include "Data/tusermanager.h"
+#include "tapplication.h"
 
 
 
-TStatistics::TStatistics(TUser *user, QWidget *parent):QWidget(parent),
-    user_(user)
+TStatistics::TStatistics(QWidget *parent):QWidget(parent),
+	um_(tApp.getUserManager())
 {
     init();
 }
@@ -20,38 +21,23 @@ TStatistics::TStatistics(TUser *user, QWidget *parent):QWidget(parent),
 void TStatistics::init()
 {
 	this->setStyleSheet("background-color : rgba(228, 241, 254,1.0)");
-    if(user_){
-        userResults_ = user_->getPracticeHistory()->values();
-    }else if(TUserManager::getInstance().getCurrentUser()){
-        user_ = TUserManager::getInstance().getCurrentUser();
-        auto hash = user_->getPracticeHistory();
-        if(hash){
-            userResults_ = hash->values();
-        }
-    }
-    if(user_){
-        connect(user_ ,SIGNAL(statsChanged(TUser*)),this, SLOT(updateStats(TUser*)) );
-    }
-
-    connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(userChanged(TUser*)) );
+	connect(&um_, SIGNAL(userChanged(TUser&)), this, SLOT(userChanged(TUser&)) );
     setMouseTracking(true);
 }
 
-void TStatistics::userChanged(TUser *nwUser)
+void TStatistics::userChanged(TUser &nwUser)
 {
-    user_ = nwUser;
-    if(user_){
-        updateStats(user_);
-        connect(user_ ,SIGNAL(statsChanged(TUser*)),this, SLOT(updateStats(TUser*)) );
-    }
+	updateStats(nwUser);
+	connect(&nwUser ,SIGNAL(statsChanged(TUser&)),this, SLOT(updateStats(TUser&)) );
 }
 
-void TStatistics::updateStats(TUser *user)
+void TStatistics::updateStats(TUser &user)
 {
-    if(user){
-        userResults_ = user->getPracticeHistory()->values();
-        update();
-    }
+	userResults_.clear();
+	for(TExercice exo : *user.getPracticeHistory()){
+		userResults_.append(exo.getResult());
+	}
+	update();
 }
 
 void TStatistics::paintEvent(QPaintEvent *ev)

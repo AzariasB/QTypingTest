@@ -28,6 +28,7 @@ class TPracticeText;
 class TImprove;
 class TResult;
 class TUser;
+class TUserManager;
 
 class PracticePage : public QWidget {
     Q_OBJECT
@@ -53,11 +54,17 @@ public slots:
      * when the user finished an exercice (and has some new errors)
      * to update the button 'improve'
      */    
-    void updateImproveButton(TUser *nwUser);
+	void updateImproveButton(TUser &nwUser);
     
     /**
      */
-    void userChanges(TUser *nwUser);
+	void userChanges(TUser &nwUser);
+
+	/**
+	 * @brief userDisconnects
+	 * Called when user disconnects
+	 */
+	void userDisconnects();
 
 private:
     /* Setup the widget on the page */
@@ -65,7 +72,6 @@ private:
 
     /* Connect the events of each button */
     void connectEvents();
-
 
     /*Button to acces an exercice against the time*/
     QPushButton practiceAgainstTime_;
@@ -81,6 +87,9 @@ private:
 
     /* Dialog of the exercice */
     QDialog *currentDialog_ = nullptr;
+
+	/* Reference to the user manager */
+	TUserManager &um;
 };
 
 #endif /* PRACTICEPAGE_H */

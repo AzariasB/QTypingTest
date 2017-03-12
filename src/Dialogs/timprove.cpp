@@ -15,7 +15,7 @@
 
 TImprove::TImprove(QWidget* parent):
 TWindowTest(TExercice::generateExercice(TExercice::IMPROVING), parent){
-    QList<QChar> chars =  TUserManager::getInstance().getCurrentUser()->getStatistics().keys();
+	QList<QChar> chars =  um_.getCurrentUser().getStatistics().keys();
     QString training = listToString(chars);
     
     QString page1 = factory::generatePractice(training,false);

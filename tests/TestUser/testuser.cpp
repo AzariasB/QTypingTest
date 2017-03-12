@@ -19,15 +19,12 @@
 class TestTUser : public QObject {
     Q_OBJECT
 public:
-	TestTUser():saveTarget("save.json"){
+	TestTUser():userManager("save.json"){
 	}
 
 private slots:
     void initTestCase(){
 		srand(time(NULL));
-    }
-
-    void cleanup(){
     }
 
     void testSettings();
@@ -39,69 +36,77 @@ private slots:
 private:
     QString randomName();
 
-	QFile saveTarget;
+	TUserManager userManager;
 };
 
 void TestTUser::testSettings()
 {
-    TUserManager::getInstance().removeAllUsers();
-    QCOMPARE(TUserManager::getInstance().users().size(),0);
+	userManager.removeAllUsers();
+	QCOMPARE(userManager.users().size(),0);
     QList<QString> pseudos;
     for(int i = 0; i < 10;i++){
         QString name = randomName();
         pseudos << name;
         qDebug() << "Assigning : " << name;
-        TUserManager::getInstance() << new TUser(name);
+		TUser randUser(name);
+		userManager << randUser;
     }
 
-	TUserManager::getInstance().saveUsers(saveTarget);
-	QList<TUser*> users = TUserManager::getInstance().readUsers(saveTarget);
-
+	//userManager.saveUsers(saveTarget);
+	QList<TUser> &users = userManager.readUsers();
     QCOMPARE(users.size(),10);
-    foreach(TUser *u , users){
-        QVERIFY(pseudos.contains(u->getPseudo()));
-        bool removed = TUserManager::getInstance() - u;
-        qDebug() << "Found :" << u->getPseudo() << " " << removed;
-    }
+	for(const TUser &u : users){
+		QVERIFY(pseudos.contains(u.getPseudo()));
+		bool removed = userManager.removeUser(u);
+		qDebug() << "Found :" << u.getPseudo() << " " << removed;
+	}
 }
 
 void TestTUser::testSerializable()
 {
     TUser t("pedro");
 
+	userManager.addUser(t);
+	userManager.saveUsers();
+
+	userManager.removeAllUsers();
+
+
+	userManager.readUsers();
+	QVERIFY(userManager.users().size() >= 1);
 }
 
 void TestTUser::testUserManager()
 {
     int numberOfChanges = 0;
-    TUser *other = new TUser(randomName());
-    connect(&TUserManager::getInstance(),&TUserManager::userChanged,this,[=,&numberOfChanges](){
+	TUser other(randomName());
+	connect(&userManager,&TUserManager::userChanged,this,[=,&numberOfChanges](){
         numberOfChanges++;
     });
 
-    TUserManager::getInstance().removeAllUsers();
+	userManager.removeAllUsers();
 
     for(int i = 0; i < 10;i++){
-        TUser *u = new TUser(randomName());
-        TUserManager::getInstance() << u;
+		TUser u(randomName());
+		userManager << u;
     }
 
 
     //Operator testing
-    QCOMPARE(TUserManager::getInstance().users().size(),10);
-    TUserManager::getInstance() << other;
-    QCOMPARE(TUserManager::getInstance().users().size(),11);
+	QCOMPARE(userManager.users().size(),10);
+	userManager << other;
+	QCOMPARE(userManager.users().size(),11);
 
     //Signal testing
     for(int i = 0; i < 10;i++)
-        TUserManager::getInstance().setCurrentUser(other);
+		QVERIFY(userManager.setCurrentUser(other));
 
 	qDebug() << numberOfChanges;
 	QVERIFY(numberOfChanges == 10);
 
-    TUserManager::getInstance() - other;
-    QCOMPARE(TUserManager::getInstance().users().size(),10);
-    QVERIFY(!TUserManager::getInstance().users().contains(other));
+	userManager.removeUser(other);
+	QCOMPARE(userManager.users().size(),10);
+	QVERIFY(!userManager.users().contains(other));
 }
 
 

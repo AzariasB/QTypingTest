@@ -12,6 +12,7 @@
  */
 
 #include "tpage.h"
+#include "tapplication.h"
 
 TPage::TPage(QString model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
@@ -104,8 +105,8 @@ void TPage::handleMistype(QChar userAns, bool previousWasRight) {
         previousWasRight = globalAnswer_[lastAnswer_.size() - 2] == lastAnswer_[lastAnswer_.size() - 2];
     }
 
-    if (previousWasRight && TUserManager::getInstance().getCurrentUser()) {
-        TUserManager::getInstance().getCurrentUser()->oneMoreMistake(userAns);
+	if (previousWasRight && tApp.getUserManager().isUserConnected()) {
+		 tApp.getUserManager().getCurrentUser().oneMoreMistake(userAns);
     }
 }
 

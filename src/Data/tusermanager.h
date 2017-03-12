@@ -17,7 +17,8 @@
 #include <QObject>
 #include <QList>
 #include <QDataStream>
-#include <QSettings>
+#include <QJsonDocument>
+#include <QFile>
 
 #include "tuser.h"
 
@@ -27,49 +28,67 @@ class TUserManager : public QObject {
 
 public:
 
-    static TUserManager& getInstance() {
-        static TUserManager instance;
-        return instance;
-    }
+	TUserManager(QString destFilePath);
 
-    void setCurrentUser(TUser *nwUser = 0) {
+	void disconnectCurrentUser(){
+		currentUser_ = nullptr;
+		emit userDiconnected();
+	}
+
+	bool setCurrentUser(TUser &nwUser) {
         //Can only set an existing user
-        if(!nwUser ||  users_.contains(nwUser)){
-            currentUser_ = nwUser;
+		if(users_.contains(nwUser)){
+			currentUser_ = &nwUser;
+			emit userChanged(*currentUser_);
+			return true;
         }else{
 			qWarning() <<  "Trying to set a non-existing user";
+			return false;
         }
-
-        emit userChanged(currentUser_);
     }
 
-    TUser *getCurrentUser() {
-        return currentUser_;
+	/**
+	 * @brief getCurrentUser
+	 * returns the content
+	 *
+	 * @return pointer to the current user
+	 */
+	TUser &getCurrentUser() {
+		if(currentUser_ == nullptr){
+			qWarning() << "Tried to get user when not connected";
+		}
+		return *currentUser_;
     }
 
-    const QList<TUser*> &users()
+	bool isUserConnected(){
+		return currentUser_ != nullptr;
+	}
+
+
+
+	QFile &getSaveFile(){
+		return saveFile_;
+	}
+
+	QList<TUser> &users()
     {
         return users_;
     }
 
-	QList<TUser *> readUsers(QFile &readTarget);
+	QList<TUser> &readUsers();
+
+	void saveUsers();
 
 
     virtual ~TUserManager();
 
-    void operator<<(TUser *nwUser){
-        users_ << nwUser;
-    }
+	void addUser(const TUser nwUser);
 
-    bool operator -(TUser *userLess)
-    {
-		if(currentUser_ != nullptr && (*userLess) == (*currentUser_)){
-            setCurrentUser(nullptr);
-        }
-        bool rmed = users_.removeOne(userLess);
-        return rmed;
-    }
+	bool removeUser(const TUser &toRemove);
 
+	void operator<<(TUser nwUser){
+		addUser(nwUser);
+    }
 
 #ifdef QT_DEBUG
     /**
@@ -83,30 +102,34 @@ public:
      */
     void removeAllUsers(){
         users_.clear();
-        saveTarget_.beginGroup("users");
-        saveTarget_.clear();
-        saveTarget_.endGroup();
     }
 #endif
 
     //Respect singleton patter, prevent assigning values by any mean
     TUserManager(const TUserManager& orig) = delete;
     void operator=(TUserManager const&)    = delete;
-	void saveUsers(QFile &saveTarget);
 
 signals:
-    void userChanged(TUser *);
+	//Emited when the user (a new one is connecting)
+	void userChanged(TUser &);
+
+	//Emitted when the user is diconnected and nobody connects
+	void userDiconnected();
 
     void usersSaved();
 
 private:
-    QSettings saveTarget_;
+	/**
+	 * @brief currentUser_
+	 * Pointer to the current user
+	 * We're using a pointer to be able to "disconnect" the user
+	 * and thus, setting the pointer to 'nullptr'
+	 */
+	TUser *currentUser_;
 
-    TUser *currentUser_;
+	QList<TUser> users_;
 
-    QList<TUser*> users_;
-
-    TUserManager();
+	QFile saveFile_;
 };
 
 #endif /* TUSERMANAGER_H */

@@ -17,10 +17,12 @@
 #include "Data/tusermanager.h"
 #include "Util/htmlhelper.h"
 #include "Dialogs/twindowlearn.h"
+#include "tapplication.h"
 
 LearnPage::LearnPage(QWidget* parent) :
 QWidget(parent),
-learnButtons_(QVector<QPushButton*>()) {
+learnButtons_(QVector<QPushButton*>()),
+um(tApp.getUserManager()){
     this->createPractice();
 }
 
@@ -38,7 +40,8 @@ void LearnPage::createPractice() {
 
     scroll->setWidget(scrollWidget);
     main->addWidget(scroll);
-    connect(&TUserManager::getInstance(), SIGNAL(userChanged(TUser*)), this, SLOT(updateUserProgression(TUser*)));
+	connect(&um, SIGNAL(userChanged(TUser&)), this, SLOT(updateUserProgression(TUser&)));
+	connect(&um, SIGNAL(userDiconnected()), this, SLOT(resetUserProgressoin()) );
 }
 
 void LearnPage::createButtons(QGridLayout *lay) {
@@ -63,10 +66,9 @@ void LearnPage::createButtons(QGridLayout *lay) {
         button->setContentsMargins(1, 1, 1, 1);
         button->setFocusPolicy(Qt::NoFocus);
 
-        TUser *currentUser = TUserManager::getInstance().getCurrentUser();
         int lastUserExercice = -1;
-        if (currentUser) {
-            lastUserExercice = currentUser->getProgression()->getLastExericeIndex();
+		if (um.isUserConnected()) {
+			lastUserExercice = um.getCurrentUser().getProgression()->getLastExericeIndex();
         }
 
         if (index > lastUserExercice) {
@@ -121,11 +123,15 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
     testWindow_->hide();
     QString time = QString("Made in : %1").arg(timeEx.toString("mm:ss"));
 
+	if(!um.isUserConnected())//nothing is done then ...
+		return;
     // Min time and min wpm may change depending on overall difficulty
     if (exerciceResult->getWPM() < 30) {
         QMessageBox::information(this, "Too long", "You didn't made in time.<br/>" + exerciceResult->getResume() +"<br/>" + time);
     } else {
-        TProgression *curProgr = TUserManager::getInstance().getCurrentUser()->getProgression();
+
+
+		TProgression *curProgr = um.getCurrentUser().getProgression();
         if (currentProgression_ == curProgr->getLastExericeIndex())
             curProgr->avdvanceExIndex();
 
@@ -144,7 +150,7 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
             /*
              You get a firework,
              * you get a firework;
-             * EVERYBODY gets a fireworks !!!
+			 * EVERYBODY gets a firework !!!
              */
         }
     }
@@ -161,22 +167,23 @@ void LearnPage::resetExercice() {
     currentProgression_ = -1;
 }
 
-void LearnPage::updateUserProgression(TUser* nwUser) {
-    if (nwUser) {
-        int lastUserExercice = nwUser->getProgression()->getLastExericeIndex();
-        for (int i = 0; i <= lastUserExercice && i < learnButtons_.size(); i++) {
-            learnButtons_[i]->setEnabled(true);
-        }
+void LearnPage::updateUserProgression(TUser &nwUser) {
+	int lastUserExercice = nwUser.getProgression()->getLastExericeIndex();
+	for (int i = 0; i <= lastUserExercice && i < learnButtons_.size(); i++) {
+		learnButtons_[i]->setEnabled(true);
+	}
 
-        for (int i = lastUserExercice + 1; i < learnButtons_.size(); i++) {
-            learnButtons_[i]->setEnabled(false);
-        }
-    } else {
-        for (QPushButton *elem : learnButtons_) {
-            elem->setEnabled(false);
-        }
+	for (int i = lastUserExercice + 1; i < learnButtons_.size(); i++) {
+		learnButtons_[i]->setEnabled(false);
+	}
+}
 
-    }
+void LearnPage::resetUserProgressoin()
+{
+	for (QPushButton *elem : learnButtons_) {
+		elem->setEnabled(false);
+	}
+
 }
 
 void LearnPage::resizeEvent(QResizeEvent*) {

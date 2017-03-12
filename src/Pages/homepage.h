@@ -23,6 +23,9 @@
 #include <QHBoxLayout>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QApplication>
+#include "Data/tusermanager.h"
+#include "tapplication.h"
 
 class TUserManager;
 class TUser;
@@ -31,7 +34,7 @@ class HomePage : public QWidget {
     Q_OBJECT
 public:
 
-    HomePage(QWidget *parent = 0);
+	HomePage(QWidget *parent = 0);
 
     ~HomePage();
 
@@ -47,7 +50,7 @@ public slots:
      * A message of confirmation is asked before
      * to confirm the deletion
      */
-    void deleteUser(TUser *user );
+	void deleteUser(TUser &user );
     
 private:
     /**
@@ -56,6 +59,8 @@ private:
      * every time the users list if modified
      */
     QVBoxLayout *usersList_;
+
+	TUserManager &um;
     
 
     /**

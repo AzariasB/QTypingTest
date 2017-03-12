@@ -23,7 +23,7 @@
 #include <QVector>
 #include <QScrollArea>
 #include <QTime>
-
+#include "Data/tusermanager.h"
 #include "Data/tlayout.h"
 
 class TExercice;
@@ -58,7 +58,13 @@ public slots:
      */
     void resetExercice();
 
-    void updateUserProgression(TUser *nwUser);
+	void updateUserProgression(TUser &nwUser);
+
+	/**
+	 * @brief resetUserProgressoin
+	 * Called when a user disconnects
+	 */
+	void resetUserProgressoin();
 
 protected:
      void resizeEvent(QResizeEvent *);
@@ -78,7 +84,8 @@ private:
      */
     void createButtons(QGridLayout *lay);
    
-
+	//Reference to the app's user manager
+	TUserManager &um;
 
     //Save the tpractice instead of instanciate it over and over
     TLayout practice_ = TLayout::getInstance();

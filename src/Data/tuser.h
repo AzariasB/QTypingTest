@@ -75,7 +75,7 @@ public:
 
     void setSettings(const TUser &user){
         pseudo_ = user.getPseudo();
-        emit settingsChanged(this);
+		emit settingsChanged(*this);
     }
 
     void setProgression(TProgression *nwProgression) {
@@ -84,7 +84,7 @@ public:
 
     void setStatistics(const TStats& stats) {
         statistics_ = stats;
-        emit statsChanged(this);
+		emit statsChanged(*this);
     }
 
 	void setPracticeHistory(QList<TExercice> history) {
@@ -138,9 +138,9 @@ public:
     }
 
 signals:
-    void statsChanged(TUser *);
+	void statsChanged(TUser &);
 
-    void settingsChanged(TUser *);
+	void settingsChanged(TUser &);
 
 private:
     int id_;

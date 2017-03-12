@@ -30,7 +30,7 @@ class TStatistics : public QWidget
 
 
 public:
-    explicit TStatistics(TUser *user = 0, QWidget *parent = 0);
+	explicit TStatistics(QWidget *parent = 0);
 
 
 protected:
@@ -41,9 +41,9 @@ protected:
 signals:
 
 public slots:
-    void updateStats(TUser *user);
+	void updateStats(TUser &user);
 
-    void userChanged(TUser *nwUser);
+	void userChanged(TUser &nwUser);
 
 private:
 
@@ -78,9 +78,6 @@ private:
     int minWPM_;
     int step_;
 
-    /* The base user for statistics */
-    TUser *user_;
-
     /* Save the user's result to avoir research them everytime */
     QList<TResult> userResults_;
 
@@ -89,6 +86,8 @@ private:
 
     /* Save the current pos of mouse to avoir expensive calculations */
     QPair<QRect,point_result> currentHilight_;
+
+	TUserManager &um_;
 };
 
 inline uint qHash(const QRect & key) {

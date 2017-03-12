@@ -16,7 +16,7 @@
 
 QDateTime TUser::addResult(TExercice* exo) {
 	practiceHistory_ << *exo;
-    emit statsChanged(this);
+	emit statsChanged(*this);
 	return exo->getDateComplete();
 }
 

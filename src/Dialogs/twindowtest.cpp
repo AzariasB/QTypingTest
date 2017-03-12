@@ -148,9 +148,9 @@ void TWindowTest::pauseContinueExercice() {
 void TWindowTest::exerciceFinished(bool forced) {
     if (!forced) {
         TResult *tot = exerciceResult();
-        TUser *user = TUserManager::getInstance().getCurrentUser();
-        if(user){
-            user->addResult(exercice_, tot);
+		if(um_.isUserConnected()){
+			exercice()->completed(*tot);
+			um_.getCurrentUser().addResult(exercice_);
         }
 
         emit endOfExercice(tot, timeStart_);
@@ -181,7 +181,9 @@ void TWindowTest::setupShortcuts() {
 
     connect(allShortcut, &QShortcut::activated, [=] (){
         qWarning() << "Unlocking the learning";
-        TUserManager::getInstance().getCurrentUser()->getProgression()->avdvanceExIndex();
+		if(um_.isUserConnected()){
+			um_.getCurrentUser().getProgression()->avdvanceExIndex();
+		}
     });
 #endif
 

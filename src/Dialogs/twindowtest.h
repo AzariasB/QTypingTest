@@ -26,6 +26,8 @@
 
 #include "Widgets/tstackpages.h"
 #include "Widgets/ttoolbar.h"
+#include "Data/tusermanager.h"
+#include "tapplication.h"
 
 class TResult;
 class TExercice;
@@ -41,7 +43,8 @@ public:
     timeStart_(QTime(0, 0)),
     updateTimer_(new QTimer()),
     mainLayout_(new QStackedLayout()),
-    exercice_(exercice){
+	exercice_(exercice),
+	um_(tApp.getUserManager()){
         setupWidget();
     }
 
@@ -52,7 +55,8 @@ public:
     timeStart_(QTime()),
     updateTimer_(new QTimer()),
     mainLayout_(new QStackedLayout()),
-    exercice_(exercice){
+	exercice_(exercice),
+	um_(tApp.getUserManager()){
         setupWidget();
     }
 
@@ -63,7 +67,8 @@ public:
     timeStart_(QTime()),
     updateTimer_(new QTimer()),
     mainLayout_(new QStackedLayout()),
-    exercice_(exercice){
+	exercice_(exercice),
+	um_(tApp.getUserManager()){
         setupWidget();
     }
 
@@ -257,6 +262,9 @@ protected:
     TStackPages pages_;
 
     QLineEdit edit_;
+
+	/* Reference to the user manager */
+	TUserManager &um_;
 
 private:
     /* Type of exercice */

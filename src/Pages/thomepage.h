@@ -35,7 +35,6 @@ class HomePage;
 
 
 
-
 class THomePage : public QMainWindow {
     Q_OBJECT
 public:
@@ -43,18 +42,23 @@ public:
     virtual ~THomePage();
 
 public slots:
-    void updateUI(TUser *nwUser);
+	void enableUI(TUser &nwUser);
+
+	void disableUI();
 
     void showAboutDialogs();
 
     void showOptionDialog();
+
+protected:
+	void closeEvent(QCloseEvent *ev);
 
 private slots:
     /**
      * @brief changeUser disonnect the current user
      * redirect him to the homepage
      */
-    void changeUser();
+	void disconnectUser();
 
     /**
      * @brief goToHomePage set the current widget of the
@@ -69,8 +73,13 @@ private:
      * and connect event about the menu options 
      */
     void connectEvents();
+
+	void setUIState(bool state);
+
     Ui_MainWindow ui;
     QMap<QPushButton*,QWidget*> buttonsStacks_;
+
+	TUserManager &um;
 
 };
 

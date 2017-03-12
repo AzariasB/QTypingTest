@@ -96,7 +96,9 @@ SOURCES +=\
     src/Data/ttext.cpp \
     src/Data/tresult.cpp \
     src/Data/tlayout.cpp \
-    src/Data/tjsonobject.cpp
+    src/Data/tjsonserializable.cpp \
+    src/tapplication.cpp
+
 HEADERS +=\
     #-------------------------
     # Pages
@@ -133,6 +135,7 @@ HEADERS +=\
     #------------------------- \
     src/Util/htmlhelper.h \
     src/Util/factory.h \
+    src/Util/config.h \
     #-------------------------
     # ui
     #------------------------- \
@@ -150,7 +153,8 @@ HEADERS +=\
     src/Data/ttext.h \
     src/Data/tstats.h \
     src/Data/tlayout.h \
-    src/Data/tjsonobject.h
+    src/Data/tjsonserializable.h \
+    src/tapplication.h
 
 DISTFILES += \
     ressources/syle.qss
