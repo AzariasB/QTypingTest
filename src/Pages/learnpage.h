@@ -49,7 +49,7 @@ public slots:
     /**
      * Called when an exercice is finished
      */
-    void endExercice(TResult *exerciceResult, QTime timeEx);
+	void endExercice(TResult &exerciceResult, QTime timeEx);
 
 
     /**

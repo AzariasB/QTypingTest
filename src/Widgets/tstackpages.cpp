@@ -13,14 +13,12 @@
 #include "tstackpages.h"
 
 TStackPages::TStackPages(QWidget *parent) :
-QStackedWidget(parent),
-toCopy_(QStringList()) {
+QStackedWidget(parent){
 }
 
 TStackPages::TStackPages(const TStackPages& orig) :
 QStackedWidget(orig.parentWidget()),
-numberOfPages_(orig.numberOfPages()),
-toCopy_(QStringList()) {
+numberOfPages_(orig.numberOfPages()) {
     setupPages(orig.getText());
 }
 
@@ -47,7 +45,7 @@ void TStackPages::setupPages(QString wholeText) {
         setCurrentIndex(0);
 }
 
-void TStackPages::nextPage(TResult* previousScore)
+void TStackPages::nextPage(TResult &previousScore)
 {
     emit pageEnded(previousScore);
     if (!nextPage()) {
@@ -92,7 +90,7 @@ bool TStackPages::answerTyped(QString answer)
 
 void TStackPages::addPage(QString pageText, bool isFirst) {
     TPage *mPage = new TPage(pageText);
-    connect(mPage, SIGNAL(endedPage(TResult*)), this, SLOT(nextPage(TResult*)));
+	connect(mPage, SIGNAL(endedPage(TResult&)), this, SLOT(nextPage(TResult&)));
 
     if (!isFirst) {
         mPage->setEnabled(false); //Disable all to prevent user to switch of lineEdit

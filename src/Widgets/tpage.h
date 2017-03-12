@@ -49,7 +49,7 @@ public:
         this->toCopy_[currentTLabel_]->setFirst();
     }
 
-    TResult *getResult() {
+	TResult &getResult() {
         return lineRes_;
     }
     
@@ -71,7 +71,7 @@ signals:
     /**
      *  Signale trigerred when there is no more text to copy on the page
      */
-    void endedPage(TResult*);
+	void endedPage(TResult&);
     
     
     /**
@@ -129,7 +129,7 @@ private:
 
     QString globalAnswer_;
     QString lastAnswer_;
-    TResult *lineRes_;
+	TResult lineRes_;
 
     bool started_ = false;
 

@@ -16,19 +16,13 @@
 
 TPage::TPage(QString model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
-toCopy_(QList<TLabel*>()),
-globalAnswer_(model),
-lastAnswer_(QString()),
-lineRes_(new TResult()) {
+globalAnswer_(model){
     this->setupPage();
 }
 
 TPage::TPage(QString model) : QWidget(),
 tLineLayout_(new QVBoxLayout(this)),
-toCopy_(QList<TLabel*>()),
-globalAnswer_(model),
-lastAnswer_(QString()),
-lineRes_(new TResult()) {
+globalAnswer_(model){
     this->setLayout(this->tLineLayout_);
     this->setupPage();
 }
@@ -71,14 +65,14 @@ bool TPage::typingAnswer(QString answer)
         if(answer.size() == 1)
         {
             handleMistype(answer[answer.size() - 1]);
-            lineRes_->incrWrongKeyStrokes();
+			lineRes_.incrWrongKeyStrokes();
         }
     }
     else
     {
         lastAnswer_ += answer;
         cursorPosition_++;
-        lineRes_->incrCorrectKeystrokes();
+		lineRes_.incrCorrectKeystrokes();
     }
 
     if(answer.size() == 1) //When a single char is typed
@@ -139,5 +133,4 @@ void TPage::updateLine(QString answer)
 
 TPage::~TPage()
 {
-    delete lineRes_;
 }

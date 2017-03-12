@@ -120,7 +120,7 @@ public:
      * @param exRes the result of the exercice
      * @return the time when this result was saved
      */
-	QDateTime addResult(TExercice *exo);
+	QDateTime addResult(TExercice &exo);
 
     void operator=(const TUser &orig) {
         setParent(orig.parent());

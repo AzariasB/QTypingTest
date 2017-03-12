@@ -33,7 +33,7 @@ public:
     }
 
 private:
-    QString findTitleAndAuthor(TExercice* exo);
+	QString findTitleAndAuthor(TExercice &exo);
     
 };
 

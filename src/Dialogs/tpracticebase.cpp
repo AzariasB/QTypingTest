@@ -19,18 +19,13 @@ TPracticeBase::TPracticeBase(QWidget* parent)
     setupText();
 }
 
-TPracticeBase::TPracticeBase(TExercice* generator, QWidget* parent) :
+TPracticeBase::TPracticeBase(TExercice &generator, QWidget* parent) :
 TWindowTest(generator, parent){
-    setupText();
-}
-
-TPracticeBase::TPracticeBase(const TPracticeBase& orig) :
-TWindowTest(orig.cExercice(), orig.parentWidget()){
     setupText();
 }
 
 void TPracticeBase::setupText() {
     pages_.setNumberOfPages(2);
-    pages_.setupPages(exercice()->buildExercice());
+	pages_.setupPages(exercice().buildExercice());
     updateToolbarProgression();
 }

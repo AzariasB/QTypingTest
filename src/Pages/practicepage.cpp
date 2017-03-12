@@ -91,9 +91,9 @@ void PracticePage::startExercice(TWindowTest *exercice) {
     }
 }
 
-void PracticePage::saveExerciceResult(TResult* res, QTime time) {
+void PracticePage::saveExerciceResult(TResult& res, QTime time) {
 	um.saveUsers();
-    QMessageBox::information(currentDialog_, "Exercice finished", res->getResume() +
+	QMessageBox::information(currentDialog_, "Exercice finished", res.getResume() +
             "<br/> Realized in :" + time.toString("mm:ss"));
     resetExercice();
 }

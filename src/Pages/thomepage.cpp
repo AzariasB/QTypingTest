@@ -29,8 +29,8 @@ THomePage::THomePage(QWidget *parent) :
 QMainWindow(parent),
   um(tApp.getUserManager())
 {
-    ui.setupUi(this);
 	um.readUsers();
+	ui.setupUi(this);
 	//TUserManager::getInstance().setCurrentUser(new TUser("timmy"));
     connectEvents();
     this->setGeometry(QStyle::alignedRect(
@@ -43,9 +43,7 @@ QMainWindow(parent),
 
 void THomePage::closeEvent(QCloseEvent *ev)
 {
-	QFile saveTarget("save.json");
-	qDebug() << "Saving users" << saveTarget.exists();
-	//TUserManager::getInstance().saveUsers(saveTarget);
+	um.saveUsers();
 }
 
 THomePage::~THomePage() {

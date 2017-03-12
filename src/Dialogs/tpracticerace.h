@@ -27,8 +27,7 @@ class TPracticeRace : public TWindowTest {
     Q_OBJECT
 public:
     TPracticeRace(int timeStart = RACE_TIME, QWidget *parent = 0);
-    TPracticeRace(TExercice *generator, int timeStart = RACE_TIME,QWidget *parent = 0);
-    TPracticeRace(const TPracticeRace& orig);
+	TPracticeRace(TExercice &exercise, int timeStart = RACE_TIME, QWidget *parent = 0);
 
     virtual ~TPracticeRace() {
     }

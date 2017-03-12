@@ -90,15 +90,15 @@ void TWindowTest::keyPressEvent(QKeyEvent *ev)
 }
 
 void TWindowTest::setupTimer() {
-    updateTimer_->setSingleShot(false);
-    updateTimer_->setInterval(1000);
-    connect(updateTimer_, SIGNAL(timeout()), this, SLOT(updateClock()));
+	updateTimer_.setSingleShot(false);
+	updateTimer_.setInterval(1000);
+	connect(&updateTimer_, SIGNAL(timeout()), this, SLOT(updateClock()));
 }
 
 
 //Slots
 
-void TWindowTest::saveResult(TResult* previousScore)
+void TWindowTest::saveResult(TResult &previousScore)
 {
     this->results_ << previousScore;
 
@@ -107,22 +107,22 @@ void TWindowTest::saveResult(TResult* previousScore)
 void TWindowTest::beginExercice() {
     started_ = true;
     timeStart_.start();
-    updateTimer_->start();
+	updateTimer_.start();
 }
 
-TResult* TWindowTest::exerciceResult() {
+TResult TWindowTest::exerciceResult() {
     elapsedMS_ += this->timeStart_.elapsed();
     timeStart_ = QTime(0, 0).addMSecs(elapsedMS_);
 
     //Sum the results
-    TResult *res = new TResult();
+	TResult res;
     for (auto it = results_.begin(); it != results_.end(); ++it) {
-        *res += **it;
+		res += *it;
     }
 
     float mnElapsed = (float) timeStart_.msecsSinceStartOfDay() / (60.f * 1000.f);
 
-    res->updateWPM(mnElapsed);
+	res.updateWPM(mnElapsed);
 
     return res;
 }
@@ -131,12 +131,12 @@ void TWindowTest::pauseContinueExercice() {
     paused_ = !paused_;
     edit_.setEnabled(!paused_);
     if (paused_) {
-        updateTimer_->stop();
+		updateTimer_.stop();
         timeStart_.restart();
     } else  {
         edit_.setFocus();
         if(started_){
-            updateTimer_->start();
+			updateTimer_.start();
             elapsedMS_ += timeStart_.elapsed();
         }
     }
@@ -147,13 +147,13 @@ void TWindowTest::pauseContinueExercice() {
 
 void TWindowTest::exerciceFinished(bool forced) {
     if (!forced) {
-        TResult *tot = exerciceResult();
+		TResult tot = exerciceResult();
 		if(um_.isUserConnected()){
-			exercice()->completed(*tot);
+			exercice_.completed(tot);
 			um_.getCurrentUser().addResult(exercice_);
         }
 
-        emit endOfExercice(tot, timeStart_);
+		emit endOfExercice(exercice_.getResult(), timeStart_);
     } else {
         emit closed();
     }
@@ -162,34 +162,34 @@ void TWindowTest::exerciceFinished(bool forced) {
 void TWindowTest::setupShortcuts() {
     //Hacks
 
-#ifdef QDEBUG_H
-    //Hack for testing => shortucut to end the exercice
-    QShortcut *endShortcut = new QShortcut(this);
-    endShortcut->setKey(Qt::CTRL + Qt::Key_F);
+//#ifdef QDEBUG_H
+//    //Hack for testing => shortucut to end the exercice
+//	QShortcut endShortcut(this);
+//	endShortcut.setKey(Qt::CTRL + Qt::Key_F);
 
-    connect(endShortcut, &QShortcut::activated, [ = ](){
-        if (results_.isEmpty()) {
-            //TPage *curPage = static_cast<TPage*> (pages_.currentWidget());
-            this->results_.push_back(pages_.currentPage()->getResult());
-        }
-        exerciceFinished();
-    });
-    //end of hacks
+//	connect(&endShortcut, &QShortcut::activated, [ = ](){
+//        if (results_.isEmpty()) {
+//            //TPage *curPage = static_cast<TPage*> (pages_.currentWidget());
+//            this->results_.push_back(pages_.currentPage()->getResult());
+//        }
+//        exerciceFinished();
+//    });
+//    //end of hacks
 
-    QShortcut *allShortcut = new QShortcut(this);
-    allShortcut->setKey(Qt::CTRL + Qt::Key_A);
+//	QShortcut allShortcut(this);
+//	allShortcut.setKey(Qt::CTRL + Qt::Key_A);
 
-    connect(allShortcut, &QShortcut::activated, [=] (){
-        qWarning() << "Unlocking the learning";
-		if(um_.isUserConnected()){
-			um_.getCurrentUser().getProgression()->avdvanceExIndex();
-		}
-    });
-#endif
+//	connect(&allShortcut, &QShortcut::activated, [=] (){
+//        qWarning() << "Unlocking the learning";
+//		if(um_.isUserConnected()){
+//			um_.getCurrentUser().getProgression()->avdvanceExIndex();
+//		}
+//    });
+//#endif
 
-    QShortcut *pauseSh = new QShortcut(this);
-    pauseSh->setKey(Qt::CTRL + Qt::Key_P);
-    connect(pauseSh, SIGNAL(activated()), this, SLOT(pauseContinueExercice()));
+	QShortcut pauseSh(this);
+	pauseSh.setKey(Qt::CTRL + Qt::Key_P);
+	connect(&pauseSh, SIGNAL(activated()), this, SLOT(pauseContinueExercice()));
 }
 
 void TWindowTest::connectEvents() {

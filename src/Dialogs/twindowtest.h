@@ -36,38 +36,32 @@ class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-    TWindowTest(TExercice *exercice = nullptr, QWidget* parent = 0) :
+	TWindowTest(TExercice exercise, QWidget* parent = 0) :
     QDialog(parent),
-    pages_(TStackPages(2)),
-    results_(QList<TResult*>()),
-    timeStart_(QTime(0, 0)),
-    updateTimer_(new QTimer()),
+	pages_(TStackPages(2)),
+	timeStart_(QTime(0, 0)),
     mainLayout_(new QStackedLayout()),
-	exercice_(exercice),
+	exercice_(exercise),
 	um_(tApp.getUserManager()){
         setupWidget();
     }
 
-    TWindowTest(QString text, TExercice *exercice = nullptr, QWidget *parent = 0) :
+	TWindowTest(QString text, TExercice exercise, QWidget *parent = 0) :
     QDialog(parent),
-    pages_(TStackPages(text, 2)),
-    results_(QList<TResult*>()),
-    timeStart_(QTime()),
-    updateTimer_(new QTimer()),
+	pages_(TStackPages(text, 2)),
+	timeStart_(QTime()),
     mainLayout_(new QStackedLayout()),
-	exercice_(exercice),
+	exercice_(exercise),
 	um_(tApp.getUserManager()){
         setupWidget();
     }
 
-    TWindowTest(QString text, int numberOfPages,TExercice *exercice = nullptr,  QWidget *parent = 0) :
+	TWindowTest(QString text, int numberOfPages,TExercice exercise,  QWidget *parent = 0) :
     QDialog(parent),
-    pages_(TStackPages(text, numberOfPages)),
-    results_(QList<TResult*>()),
-    timeStart_(QTime()),
-    updateTimer_(new QTimer()),
+	pages_(TStackPages(text, numberOfPages)),
+	timeStart_(QTime()),
     mainLayout_(new QStackedLayout()),
-	exercice_(exercice),
+	exercice_(exercise),
 	um_(tApp.getUserManager()){
         setupWidget();
     }
@@ -80,11 +74,11 @@ public:
         return pages_;
     }
 
-    TExercice *exercice(){
+	TExercice &exercice(){
         return exercice_;
     }
 
-    TExercice *cExercice() const{
+	const TExercice &cExercice() const{
         return exercice_;
     }
 
@@ -104,7 +98,7 @@ public:
         return timerEnd_;
     }
 
-    void addResult(TResult* nwResult) {
+	void addResult(TResult &nwResult) {
         results_.append(nwResult);
     }
 
@@ -120,7 +114,7 @@ public slots:
      * 
      * @param previousScore the score of the line that was finished
      */
-    void saveResult(TResult *previousScore);
+	void saveResult(TResult &previousScore);
 
     void beginExercice();
 
@@ -170,7 +164,7 @@ signals:
      * @param exeRes the result of the exercice
      * @param timeRealised the time realised to complete the exercice
      */
-    void endOfExercice(TResult *exeRes, QTime timeRealised);
+	void endOfExercice(TResult &exeRes, QTime timeRealised);
 
     /**
      * Called whenever the exercice
@@ -237,7 +231,7 @@ protected:
      * 
      * @return the sum of all the resulst of each lines
      */
-    TResult *exerciceResult();
+	TResult exerciceResult();
 
     /**
      * Initiate all the shorcuts of the dialogs
@@ -268,14 +262,14 @@ protected:
 
 private:
     /* Type of exercice */
-    TExercice *exercice_;
+	TExercice exercice_;
 
     /* The results of each pages */
-    QList<TResult*> results_;
+	QList<TResult> results_;
 
     QTime timeStart_;
 
-    QTimer *updateTimer_;
+	QTimer updateTimer_;
 
     /* The main layout (to be able to customize in the subclasses) */
     QStackedLayout *mainLayout_;

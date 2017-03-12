@@ -19,9 +19,9 @@ TPracticeText::TPracticeText(QWidget *parent):
 TWindowTest(TExercice::generateExercice(TExercice::PRACTICING_TEXT), parent){
     //Set the number of page depending on the text's length
     //40 words per page
-    QString exo = exercice()->buildExercice();
+	QString exo = exercice().buildExercice();
     int wordsPerPage = 30;
-    pages_.setNumberOfPages(exercice()->getNumberOfWords() / wordsPerPage);
+	pages_.setNumberOfPages(exercice().getNumberOfWords() / wordsPerPage);
     pages_.setupPages(exo);
 
     topToolbar_.setAdditionnalText(findTitleAndAuthor(exercice()));
@@ -39,10 +39,10 @@ TWindowTest(text, TExercice::generateExercice(TExercice::PRACTICING_TEXT), paren
 }
 
 
-QString TPracticeText::findTitleAndAuthor(TExercice *exo)
+QString TPracticeText::findTitleAndAuthor(TExercice &exo)
 {
-    QString author = exo->hasAttribute("author") ? exo->findAttribute("author") : "";
-    QString title = exo->hasAttribute("title") ? exo->findAttribute("title") : "";
+	QString author = exo.hasAttribute("author") ? exo.findAttribute("author") : "";
+	QString title = exo.hasAttribute("title") ? exo.findAttribute("title") : "";
     QString authorPres = author.isEmpty() ? "" : "<b>Author : </b> " + author;
     QString titlePres = title.isEmpty() ? "" : "<b>Title : </b> " + title;
     return authorPres + (titlePres.isEmpty() ? "" : "<br/>" + titlePres);

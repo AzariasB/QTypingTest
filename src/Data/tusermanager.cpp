@@ -24,11 +24,6 @@ TUserManager::~TUserManager() {
 
 QList<TUser> &TUserManager::readUsers()
 {
-	if(saveFile_.open(QIODevice::ReadOnly | QIODevice::Text)){
-		qDebug() << saveFile_.readAll();
-		saveFile_.close();
-	}
-
 	if(!saveFile_.open(QIODevice::ReadOnly | QIODevice::Text)){
 		qWarning("Failed to open save file.");
 		return users_;

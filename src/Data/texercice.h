@@ -36,7 +36,7 @@ public:
 	};
 
 	//No difficulty because : why would it be necessary ?
-	static TExercice *generateExercice(EXERCICE_TYPE type, QString mainLetters = "", QString availableLetters = "");
+	static TExercice generateExercice(EXERCICE_TYPE type, QString mainLetters = "", QString availableLetters = "");
 
 	TExercice();
 	TExercice(const TExercice& orig);
@@ -54,7 +54,7 @@ public:
 	 * @param exRes
 	 * @return the datetime at which the exercise ended
 	 */
-	const QDateTime &completed(TResult &exRes);
+	const QDateTime &completed(TResult exRes);
 
 	virtual void read(const QJsonObject &json) override;
 
@@ -88,7 +88,7 @@ public:
 		return numberOfWords_;
 	}
 
-	const TResult &getResult() const{
+	TResult &getResult(){
 		return result_;
 	}
 

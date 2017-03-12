@@ -36,14 +36,14 @@ availableLetters_(orig.availableLetters_),
 exerciceType_(orig.exerciceType_){
 }
 
-TExercice* TExercice::generateExercice(EXERCICE_TYPE type, QString mainLetters, QString availableLetters)
+TExercice TExercice::generateExercice(EXERCICE_TYPE type, QString mainLetters, QString availableLetters)
 {
-    switch(type){
-        case LEARNING:
-            return new TExercice(type, mainLetters, availableLetters);
-        default:
-            return new TExercice(type, "", TLayout::getInstance().getAllAvailableLetters() );
-    }
+
+	if(type == LEARNING){
+		return TExercice(type, mainLetters, availableLetters);;
+	}else{
+		return TExercice(type, "", TLayout::getInstance().getAllAvailableLetters());
+	}
 }
 
 void TExercice::addAttribute(QString key, QString value)
@@ -51,7 +51,7 @@ void TExercice::addAttribute(QString key, QString value)
     attributes_[key] = value;
 }
 
-const QDateTime &TExercice::completed(TResult &exRes)
+const QDateTime &TExercice::completed(TResult exRes)
 {
 	result_ = exRes;
 	dateComplete_ = QDateTime::currentDateTime();

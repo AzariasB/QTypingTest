@@ -23,11 +23,10 @@ class TWindowLearn : public TWindowTest {
     Q_OBJECT
 public:
     TWindowLearn(QString content, QWidget *parent = 0);
-    TWindowLearn(TExercice *ex, QWidget *parent = 0);
-    TWindowLearn(TExercice *ex, int numberOfPages, QWidget *parent = 0);
+	TWindowLearn(TExercice &ex, QWidget *parent = 0);
+	TWindowLearn(TExercice &ex, int numberOfPages, QWidget *parent = 0);
 
     virtual ~TWindowLearn() {
-		delete instructions_;
     }
 
 public slots:
@@ -38,7 +37,7 @@ public slots:
 private:
     TPresentation *instructions_;
 
-    void addInstructions(TExercice *exo = 0);
+	void addInstructions(TExercice &exo);
 };
 
 #endif /* TWINDOWLEARN_H */

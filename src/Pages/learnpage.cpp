@@ -105,29 +105,29 @@ void LearnPage::lauchExercice() {
             currentProgression_ = lastLetterIndex;
             QString lastLetter = practice_.getLettersAt(lastLetterIndex);
             QString allLetters = practice_.getAllLettersTo(lastLetterIndex + 1);
-            TExercice *ex = TExercice::generateExercice(TExercice::LEARNING, lastLetter, allLetters);
+            TExercice ex = TExercice::generateExercice(TExercice::LEARNING, lastLetter, allLetters);
 
 
             testWindow_ = new TWindowLearn(ex, this);
 
             connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
             //Connect only once the test dialog
-            connect(testWindow_, SIGNAL(endOfExercice(TResult*, QTime)), this, SLOT(endExercice(TResult*, QTime)));
+			connect(testWindow_, SIGNAL(endOfExercice(TResult&, QTime)), this, SLOT(endExercice(TResult&, QTime)));
             testWindow_->show();
             testWindow_->focusWidget();
         }
     }//else ..nothing to do !
 }
 
-void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
+void LearnPage::endExercice(TResult& exerciceResult, QTime timeEx) {
     testWindow_->hide();
     QString time = QString("Made in : %1").arg(timeEx.toString("mm:ss"));
 
 	if(!um.isUserConnected())//nothing is done then ...
 		return;
     // Min time and min wpm may change depending on overall difficulty
-    if (exerciceResult->getWPM() < 30) {
-        QMessageBox::information(this, "Too long", "You didn't made in time.<br/>" + exerciceResult->getResume() +"<br/>" + time);
+	if (exerciceResult.getWPM() < 30) {
+		QMessageBox::information(this, "Too long", "You didn't made in time.<br/>" + exerciceResult.getResume() +"<br/>" + time);
     } else {
 
 
@@ -136,7 +136,7 @@ void LearnPage::endExercice(TResult* exerciceResult, QTime timeEx) {
             curProgr->avdvanceExIndex();
 
         QString text = QString("Congratulations, you finished the exercice !<br/>"
-                "Results are :<br/>") + exerciceResult->getResume() + "<br/>" + time;
+				"Results are :<br/>") + exerciceResult.getResume() + "<br/>" + time;
 
         QMessageBox::information(this, "End of exercice", text);
         //Unlock the last button if exercice succeeded

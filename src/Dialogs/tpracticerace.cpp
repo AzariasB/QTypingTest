@@ -20,28 +20,25 @@ TWindowTest(TExercice::generateExercice(TExercice::PRACTICING_RACE), parent) {
     setupPage(timeStart);
 }
 
-TPracticeRace::TPracticeRace(TExercice* exercice,int timeStart, QWidget* parent) :
-TWindowTest(exercice, parent){
+TPracticeRace::TPracticeRace(TExercice &exercise,int timeStart, QWidget* parent) :
+TWindowTest(exercise, parent){
     setupPage(timeStart);
 }
 
-TPracticeRace::TPracticeRace(const TPracticeRace& orig) :
-TWindowTest(orig.cExercice() , orig.parentWidget()) {
-    setupPage();
-}
 
 void TPracticeRace::createPage() {
-    QString ex = exercice()->buildExercice();
+	QString ex = exercice().buildExercice();
     pages_.addPage(ex);
 }
 
 void TPracticeRace::setupPage(int timeStart) {
     //HACK for testing => shortucut to end the exercice
-    QShortcut *endShortcut = new QShortcut(this);
-    endShortcut->setKey(Qt::CTRL + Qt::Key_E);
+	QShortcut endShortcut(this);
+	endShortcut.setKey(Qt::CTRL + Qt::Key_E);
 
-    connect(endShortcut, &QShortcut::activated, [ = ](){
-        emit pages_.pageEnded(new TResult());
+	connect(&endShortcut, &QShortcut::activated, [ = ](){
+		TResult res;
+		emit pages_.pageEnded(res);
     });
     //end of hacks
 
@@ -52,8 +49,8 @@ void TPracticeRace::setupPage(int timeStart) {
 
 
     topToolbar_.setLCDDisplayValue(timeStart);
-    connect(&pages_, SIGNAL(pageEnded(TResult*)), this, SLOT(createPage()));
-    QString ex = exercice()->buildExercice();
+	connect(&pages_, SIGNAL(pageEnded(TResult&)), this, SLOT(createPage()));
+	QString ex = exercice().buildExercice();
     pages_.addPage(ex, true);
 }
 

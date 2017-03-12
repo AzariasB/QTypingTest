@@ -14,10 +14,10 @@
 
 #include "tjsonserializable.h"
 
-QDateTime TUser::addResult(TExercice* exo) {
-	practiceHistory_ << *exo;
+QDateTime TUser::addResult(TExercice &exo) {
+	practiceHistory_ << exo;
 	emit statsChanged(*this);
-	return exo->getDateComplete();
+	return exo.getDateComplete();
 }
 
 void TUser::oneMoreMistake(const QChar& mistaken) {

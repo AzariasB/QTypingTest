@@ -23,20 +23,11 @@ class TPracticeBase : public TWindowTest {
     Q_OBJECT
 public:
     TPracticeBase(QWidget *parent = 0);
-    TPracticeBase(TExercice *generator,QWidget *parent = 0);
-    TPracticeBase(const TPracticeBase& orig);
+	TPracticeBase(TExercice &generator, QWidget *parent = 0);
 	virtual ~TPracticeBase(){
-		delete generator_;
-    }
-
-    TExercice *getGenerator() const{
-        return generator_;
     }
     
-private:
-
-    TExercice *generator_;
-    
+private:    
     void setupText();
 };
 
