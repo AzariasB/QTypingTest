@@ -30,12 +30,6 @@ exerciceType_(exType)
 {
 }
 
-TExercice::TExercice(const TExercice& orig) :
-learningLetters_(orig.learningLetters_),
-availableLetters_(orig.availableLetters_),
-exerciceType_(orig.exerciceType_){
-}
-
 TExercice TExercice::generateExercice(EXERCICE_TYPE type, QString mainLetters, QString availableLetters)
 {
 

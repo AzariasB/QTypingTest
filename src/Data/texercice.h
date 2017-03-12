@@ -39,8 +39,6 @@ public:
 	static TExercice generateExercice(EXERCICE_TYPE type, QString mainLetters = "", QString availableLetters = "");
 
 	TExercice();
-	TExercice(const TExercice& orig);
-
 
 	QString buildExercice();
 
@@ -65,8 +63,6 @@ public:
 	bool hasAttribute(const QString &key);
 
 	virtual ~TExercice() {}
-
-	QString learningLetters() const;
 
 	const QString &getLearningLetters() const {
 		return learningLetters_;
