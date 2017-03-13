@@ -11,6 +11,7 @@
 #include "Data/texercice.h"
 #include "Pages/tstatistics.h"
 #include "Data/tusermanager.h"
+#include "tapplication.h"
 
 class TestStatsTest : public QObject
 {
@@ -25,59 +26,50 @@ private slots:
 
 
 private:
-    void genHistory(TUser *user);
-    TResult * genRandTResult();
-    TExercice *genRandExercice();
-    QDateTime genRandDate();
+	void genHistory(TUser &user);
+	TResult genRandTResult();
+	TExercice genRandExercice();
 };
 
 
 void TestStatsTest::testCase1()
 {
-	TUser *user = new TUser("Brian");
+	TUser user("Brian");
 	genHistory(user);
-	TUserManager::getInstance() << user;
-	TUserManager::getInstance().setCurrentUser(user);
+	tApp.getUserManager() << user;
+	tApp.getUserManager().setCurrentUser(user);
 	TStatistics stats;
 
 	stats.show();
 	QApplication::exec();
 }
 
-void TestStatsTest::genHistory(TUser *user)
+void TestStatsTest::genHistory(TUser &user)
 {
     int numberOfResults = 50;
     for(int i = 0; i < numberOfResults; i++){
-        TResult *res = genRandTResult();
-        TExercice *exo = genRandExercice();
-        QDateTime time = genRandDate();
-        user->addResult(exo, res, time);
+		TResult res = genRandTResult();
+		TExercice exo = genRandExercice();
+		exo.completed(res);
+		user.addResult(exo);
     }
 }
 
-TResult *TestStatsTest::genRandTResult()
+TResult TestStatsTest::genRandTResult()
 {
-    TResult *res = new TResult();
+	TResult res;
     int randWpM = rand() % 80 + 10;
-    res->setWPM(randWpM);
-    res->setCorrectKeysStrokes(rand() % 200 + 100);
-    res->setWrongKeysStrokes(rand() % 40 + 1);
+	res.setWPM(randWpM);
+	res.setCorrectKeysStrokes(rand() % 200 + 100);
+	res.setWrongKeysStrokes(rand() % 40 + 1);
     return res;
 }
 
-TExercice *TestStatsTest::genRandExercice()
+TExercice TestStatsTest::genRandExercice()
 {
     //Add randomness later
-    TExercice *exo = TExercice::generateExercice(TExercice::PRACTICING);
-    return exo;
+	return TExercice::generateExercice(TExercice::PRACTICING);
 }
-
-QDateTime TestStatsTest::genRandDate()
-{
-    QDateTime time = QDateTime::currentDateTime();
-    return time.addDays(rand() % 100);
-}
-
 QTEST_MAIN(TestStatsTest)
 
 #include "tst_teststatstest.moc"

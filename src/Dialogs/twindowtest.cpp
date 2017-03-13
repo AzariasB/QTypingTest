@@ -98,7 +98,7 @@ void TWindowTest::setupTimer() {
 
 //Slots
 
-void TWindowTest::saveResult(TResult &previousScore)
+void TWindowTest::saveResult(TResult previousScore)
 {
     this->results_ << previousScore;
 
@@ -148,11 +148,10 @@ void TWindowTest::pauseContinueExercice() {
 void TWindowTest::exerciceFinished(bool forced) {
     if (!forced) {
 		TResult tot = exerciceResult();
+		exercice_.completed(tot);
 		if(um_.isUserConnected()){
-			exercice_.completed(tot);
 			um_.getCurrentUser().addResult(exercice_);
         }
-
 		emit endOfExercice(exercice_.getResult(), timeStart_);
     } else {
         emit closed();

@@ -29,6 +29,7 @@ HEADERS = $$SRC/Dialogs/twindowtest.h \
             $$SRC/Data/tlayout.h \
             $$SRC/Data/ttext.h \
             $$SRC/Util/htmlhelper.h \
+            $$SRC/tapplication.h \
             $$SRC/Util/factory.h 
           
 
@@ -52,6 +53,7 @@ SOURCES = $$SRC/Dialogs/twindowtest.cpp \
             $$SRC/Data/ttext.cpp \
             $$SRC/Util/htmlhelper.cpp \
             $$SRC/Util/factory.cpp \
+            $$SRC/tapplication.cpp \
             testlearndialog.cpp
 
 # install

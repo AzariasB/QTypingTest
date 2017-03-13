@@ -98,7 +98,7 @@ public:
         return timerEnd_;
     }
 
-	void addResult(TResult &nwResult) {
+	void addResult(TResult nwResult) {
         results_.append(nwResult);
     }
 
@@ -114,7 +114,7 @@ public slots:
      * 
      * @param previousScore the score of the line that was finished
      */
-	void saveResult(TResult &previousScore);
+	void saveResult(TResult previousScore);
 
     void beginExercice();
 

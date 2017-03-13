@@ -34,8 +34,8 @@ void TestPracticeRace::testWithoutExercice() {
     //Test if the dialogs shows up with text
 
     TPracticeRace race(10);
-    connect(&race,&TPracticeRace::endOfExercice,this,[&race,this](TResult* res,QTime){
-        QMessageBox::information(&race,"Exercice finished",res->getResume());
+	connect(&race,&TPracticeRace::endOfExercice,this,[&race,this](TResult &res,QTime){
+		QMessageBox::information(&race,"Exercice finished",res.getResume());
         race.close();
     });
     race.show();

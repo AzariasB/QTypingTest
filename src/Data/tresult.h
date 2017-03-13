@@ -25,8 +25,8 @@
 class TResult : public TJsonSerializable {
 public:
     TResult();
-    TResult(const TResult &base);
-    virtual ~TResult();
+
+	virtual ~TResult();
 
     int getCorrectKeysStrokes() const {
         return this->correctKeystrokes_;
@@ -132,21 +132,8 @@ private:
 //        this->wrongWords_ = wrongWords;
 //    }
 
-    friend QDataStream &operator>>(QDataStream &in, TResult &result){
-        in >> result.correctKeystrokes_ >> result.wrongKeystrokes_ >> result.wordsPerMinute_;
-        return in;
-    }
-
-    friend QDataStream &operator<<(QDataStream &out, const TResult &result){
-        out << result.correctKeystrokes_ << result.wrongKeystrokes_ << result.wordsPerMinute_;
-        return out;
-    }
 
 };
-
-QDataStream &operator>>(QDataStream &in, TResult &result);
-
-QDataStream &operator<<(QDataStream &out, const TResult &result);
 
 #endif /* TRESULT_H */
 

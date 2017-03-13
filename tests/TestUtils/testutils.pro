@@ -9,14 +9,12 @@ SRC = $$PWD/../../src/
 INCLUDEPATH += $$SRC
 
 HEADERS = $$SRC/Util/htmlhelper.h \
-    $$SRC/Data/ttext.h \
-    $$SRC/Util/factory.h
+            $$SRC/Util/factory.h
 
 
 SOURCES = $$SRC/Util/htmlhelper.cpp \
-    $$SRC/Util/factory.cpp \
-    $$SRC/Data/ttext.cpp \
-    testutils.cpp
+        $$SRC/Util/factory.cpp \
+        testutils.cpp
 
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/tutorial1

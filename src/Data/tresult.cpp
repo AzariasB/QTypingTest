@@ -18,13 +18,6 @@
 TResult::TResult() {
 }
 
-TResult::TResult(const TResult &base):
-wordsPerMinute_(base.getWPM()),
-correctKeystrokes_(base.getCorrectKeysStrokes()),
-wrongKeystrokes_(base.getWrongKeysStrokes()),
-correctWords_(base.getCorrectWords()){
-}
-
 int TResult::getTotalKeysStrokes() const {
     return getCorrectKeysStrokes() + getWrongKeysStrokes();
 }

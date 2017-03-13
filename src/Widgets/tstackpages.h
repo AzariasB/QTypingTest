@@ -71,7 +71,7 @@ signals:
     /**
      * Called whenever the current page is terminated
      */
-	void pageEnded(TResult &pageResult);
+	void pageEnded(TResult pageResult);
 
 
     /**
@@ -93,7 +93,7 @@ public slots:
      * 
      * @param previousScore the score of the line that was finished
      */
-	void nextPage(TResult &previousScore);
+	void nextPage(TResult previousScore);
 
     /**
      * Called whenever the user typed the first char on his keyboard

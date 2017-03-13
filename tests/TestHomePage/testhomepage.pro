@@ -18,6 +18,7 @@ HEADERS = $$SRC/Pages/homepage.h \
           $$SRC/Data/tlayout.h \
           $$SRC/Data/ttext.h \
           $$SRC/Util/factory.h \
+          $$SRC/tapplication.h \
           $$SRC/Util/htmlhelper.h 
 
 
@@ -32,6 +33,7 @@ SOURCES = $$SRC/Pages/homepage.cpp \
           $$SRC/Data/ttext.cpp \
           $$SRC/Util/factory.cpp \
           $$SRC/Util/htmlhelper.cpp  \
+          $$SRC/tapplication.cpp \
           testhomepage.cpp
 
 # install

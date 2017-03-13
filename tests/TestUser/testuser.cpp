@@ -42,6 +42,7 @@ private:
 void TestTUser::testSettings()
 {
 	userManager.removeAllUsers();
+	userManager.saveUsers();
 	QCOMPARE(userManager.users().size(),0);
     QList<QString> pseudos;
     for(int i = 0; i < 10;i++){
@@ -136,9 +137,9 @@ void TestTUser::testConstructor() {
 }
 
 void TestTUser::testProgression() {
-    TExercice *ex = TExercice::generateExercice(TExercice::LEARNING,"d","d");
-    TResult *res = new TResult();
-	ex->completed(*res);
+	TExercice ex = TExercice::generateExercice(TExercice::LEARNING,"d","d");
+	TResult res;
+	ex.completed(res);
 
     TUser t("Dupont");
 

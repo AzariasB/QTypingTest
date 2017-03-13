@@ -22,6 +22,7 @@ HEADERS = $$SRC/Data/tuser.h \
          $$SRC/Data/tprogression.h \
          $$SRC/Data/ttext.h \
          $$SRC/Util/factory.h \
+         $$SRC/tapplication.h \
          $$SRC/Util/htmlhelper.h
 
 SOURCES = $$SRC/Data/tuser.cpp \
@@ -35,7 +36,8 @@ SOURCES = $$SRC/Data/tuser.cpp \
          $$SRC/Data/ttext.cpp \
          $$SRC/Util/factory.cpp \
          $$SRC/Util/htmlhelper.cpp \
-        testuser.cpp
+         $$SRC/tapplication.cpp \
+            testuser.cpp
 
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/testUser

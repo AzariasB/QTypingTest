@@ -31,42 +31,44 @@ CONFIG(debug, debug|release) {
     RCC_DIR = build/release/.rcc
 }
 
+SRC = $$PWD/../../src/
+
 
 TEMPLATE = app
 
 
 SOURCES += tst_testusersettingstest.cpp \
-    ../../src/Data/texercice.cpp \
-    ../../src/Data/tlayout.cpp \
-    ../../src/Data/tprogression.cpp \
-    ../../src/Data/tresult.cpp \
-    ../../src/Data/tstats.cpp \
-    ../../src/Data/tuser.cpp \
-    ../../src/Data/ttext.cpp \
-    ../../src/Data/tusermanager.cpp \
-    ../../src/Dialogs/toptiondialog.cpp \
-    ../../src/Util/factory.cpp \
-    ../../src/Util/htmlhelper.cpp
-
-DEFINES += SRCDIR=\\\"$$PWD/\\\"
+        $$SRC/Data/texercice.cpp \
+        $$SRC/Data/tlayout.cpp \
+        $$SRC/Data/tprogression.cpp \
+        $$SRC/Data/tresult.cpp \
+        $$SRC/Data/tstats.cpp \
+        $$SRC/Data/tuser.cpp \
+        $$SRC/Data/ttext.cpp \
+        $$SRC/Data/tusermanager.cpp \
+        $$SRC/Dialogs/toptiondialog.cpp \
+        $$SRC/Util/factory.cpp \
+        $$SRC/tapplication.cpp \
+        $$SRC/Util/htmlhelper.cpp
 
 HEADERS += \
-    ../../src/Data/texercice.h \
-    ../../src/Data/tlayout.h \
-    ../../src/Data/tprogression.h \
-    ../../src/Data/tresult.h \
-    ../../src/Data/tstats.h \
-    ../../src/Data/tuser.h \
-    ../../src/Data/tusermanager.h \
-    ../../src/Data/ttext.h \
-    ../../src/Dialogs/toptiondialog.h \
-    ../../src/Util/factory.h \
-    ../../src/Util/htmlhelper.h
+        $$SRC/Data/texercice.h \
+        $$SRC/Data/tlayout.h \
+        $$SRC/Data/tprogression.h \
+        $$SRC/Data/tresult.h \
+        $$SRC/Data/tstats.h \
+        $$SRC/Data/tuser.h \
+        $$SRC/Data/tusermanager.h \
+        $$SRC/Data/ttext.h \
+        $$SRC/Dialogs/toptiondialog.h \
+        $$SRC/Util/factory.h \
+        $$SRC/tapplication.h \
+        $$SRC/Util/htmlhelper.h
 
 FORMS += \
-    ../../src/UI/options.ui
+    $$SRC/UI/options.ui
 
-UI_DIR = ../../src/UI
+UI_DIR = $$SRC/UI
 
 
 RESOURCES += \

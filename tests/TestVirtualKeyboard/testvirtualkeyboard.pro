@@ -9,19 +9,19 @@ SRC = $$PWD/../../src/
 INCLUDEPATH += $$SRC
 
 HEADERS = $$SRC/Widgets/tvirtualkey.h \
-          $$SRC/Widgets/tvirtualkeyboard.h \
-          $$SRC/Widgets/tfingerposition.h \
-          $$SRC/Widgets/tpresentation.h \
-          $$SRC/Util/factory.h \
-          $$SRC/Data/tlayout.h
+        $$SRC/Widgets/tvirtualkeyboard.h \
+        $$SRC/Widgets/tfingerposition.h \
+        $$SRC/Widgets/tpresentation.h \
+        $$SRC/Util/factory.h \
+        $$SRC/Data/tlayout.h
 
 SOURCES = $$SRC/Widgets/tvirtualkey.cpp \
-          $$SRC/Widgets/tvirtualkeyboard.cpp \
-          $$SRC/Widgets/tfingerposition.cpp \
-          $$SRC/Widgets/tpresentation.cpp \
-          $$SRC/Data/tlayout.cpp \
-          $$SRC/Util/factory.cpp \
-          testvirtualkeyboard.cpp
+        $$SRC/Widgets/tvirtualkeyboard.cpp \
+        $$SRC/Widgets/tfingerposition.cpp \
+        $$SRC/Widgets/tpresentation.cpp \
+        $$SRC/Data/tlayout.cpp \
+        $$SRC/Util/factory.cpp \
+        testvirtualkeyboard.cpp
 
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/qtestlib/testVirtualKeyboard

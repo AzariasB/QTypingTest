@@ -21,26 +21,7 @@ private slots:
 };
 
 void TestProgression::testDataStream(){
-    QFile f("prog.dat");
-    QDataStream stream(&f);
-    
-    if(!f.open(QFile::WriteOnly)){
-        qDebug() << "could not open file";
-        exit(1);
-    }
-    
-    TProgression prog;
-    
-    stream << prog;
-    f.close();
-    if(!f.open(QFile::ReadOnly)){
-        qDebug() << "could not open file";
-        exit(1);
-    }
-    
-    TProgression other;
-    stream >> other;
-    QCOMPARE(prog,other);
+	//test serialization
 }
 
 QTEST_MAIN(TestProgression)

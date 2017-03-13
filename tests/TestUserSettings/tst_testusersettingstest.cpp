@@ -5,6 +5,7 @@
 #include "Dialogs/toptiondialog.h"
 #include "Data/tuser.h"
 #include "Data/tusermanager.h"
+#include "tapplication.h"
 
 
 class TestUserSettingsTest : public QObject
@@ -24,14 +25,15 @@ TestUserSettingsTest::TestUserSettingsTest()
 
 void TestUserSettingsTest::testCase1()
 {
-    TUser *user = new TUser("timmy");
-    TUserManager::getInstance().setCurrentUser(user);
-    TOptionDialog opt(*user);
+	TUser user("timmy");
+	tApp.getUserManager() << user;
+	tApp.getUserManager().setCurrentUser(user);
+	TOptionDialog opt(user);
     opt.show();
 
-    connect(&opt,&QDialog::finished,[=, &opt](int res){
+	connect(&opt,&QDialog::finished,[&](int res){
         if(res == 1){
-            user->setSettings(opt.getCurrentSettings());
+			user.setSettings(opt.getCurrentSettings());
         }
     });
 

@@ -49,13 +49,14 @@ void TPracticeRace::setupPage(int timeStart) {
 
 
     topToolbar_.setLCDDisplayValue(timeStart);
-	connect(&pages_, SIGNAL(pageEnded(TResult&)), this, SLOT(createPage()));
+	connect(&pages_, SIGNAL(pageEnded(TResult)), this, SLOT(createPage()));
 	QString ex = exercice().buildExercice();
     pages_.addPage(ex, true);
 }
 
 void TPracticeRace::stopRun()
 {
-    addResult(pages_.currentPage()->getResult());
-    emit pages_.textFinished();
+	addResult(pages_.currentPage()->getResult());
+	TWindowTest::exerciceFinished();
+	//emit pages_.textFinished();
 }

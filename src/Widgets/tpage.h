@@ -69,9 +69,9 @@ signals:
     void startedPage();
 
     /**
-     *  Signale trigerred when there is no more text to copy on the page
+	 *  Signal trigerred when there is no more text to copy on the page
      */
-	void endedPage(TResult&);
+	void endedPage(TResult);
     
     
     /**

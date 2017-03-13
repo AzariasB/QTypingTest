@@ -16,6 +16,9 @@ TStatistics::TStatistics(QWidget *parent):QWidget(parent),
 	um_(tApp.getUserManager())
 {
     init();
+	if(um_.isUserConnected()){
+		userChanged(um_.getCurrentUser());
+	}
 }
 
 void TStatistics::init()

@@ -28,19 +28,19 @@ private:
 };
 
 void TestImprove::testOpen() {
-    TUser *timmy = new TUser("Timmy");
-    TStats stats = timmy->getStatistics();
+	TUser timmy("timmy");
+	TStats stats = timmy.getStatistics();
 
-	TUserManager::getInstance() << timmy;
+	tApp.getUserManager() << timmy;
     generateRandomChars(stats);
-    timmy->setStatistics(stats);
-    TUserManager::getInstance().setCurrentUser(timmy);
+	timmy.setStatistics(stats);
+	tApp.getUserManager().setCurrentUser(timmy);
     
     TImprove improve;
     improve.show();
-    connect(&improve, &TImprove::endOfExercice, this, [&improve, this](TResult *res, QTime time) {
+	connect(&improve, &TImprove::endOfExercice, this, [&improve, this](TResult res, QTime time) {
         qDebug() << "End of the exerice";
-        qDebug() << res->getResume();
+		qDebug() << res.getResume();
         improve.close();
     });
     QApplication::exec();

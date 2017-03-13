@@ -30,6 +30,7 @@ HEADERS = $$SRC/Data/tprogression.h \
             $$SRC/Util/factory.h \
             $$SRC/Pages/tstatistics.h \
             $$SRC/Graphics/tstateswitcher.h \
+            $$SRC/tapplication.h \
             $$SRC/Graphics/tgraphicsview.h
 
 SOURCES = $$SRC/Data/tprogression.cpp \
@@ -44,6 +45,7 @@ SOURCES = $$SRC/Data/tprogression.cpp \
             $$SRC/Util/factory.cpp \
             $$SRC/Pages/tstatistics.cpp \
             $$SRC/Graphics/tstateswitcher.cpp \
+            $$SRC/tapplication.cpp \
             tst_teststatstest.cpp
 
 TARGET = tst_teststatstest
