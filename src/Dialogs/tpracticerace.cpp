@@ -12,27 +12,27 @@
 
 #include "tpracticerace.h"
 
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 #include "Data/tresult.h"
 
 TPracticeRace::TPracticeRace(int timeStart,QWidget *parent) :
-TWindowTest(TExercice::generateExercice(TExercice::PRACTICING_RACE), parent) {
+TWindowTest(TExercise::generateExercise(TExercise::PRACTICING_RACE), parent) {
     setupPage(timeStart);
 }
 
-TPracticeRace::TPracticeRace(TExercice &exercise,int timeStart, QWidget* parent) :
+TPracticeRace::TPracticeRace(TExercise &exercise,int timeStart, QWidget* parent) :
 TWindowTest(exercise, parent){
     setupPage(timeStart);
 }
 
 
 void TPracticeRace::createPage() {
-	QString ex = exercice().buildExercice();
+	QString ex = exercise().buildExercise();
     pages_.addPage(ex);
 }
 
 void TPracticeRace::setupPage(int timeStart) {
-    //HACK for testing => shortucut to end the exercice
+    //HACK for testing => shortucut to end the exercise
 	QShortcut endShortcut(this);
 	endShortcut.setKey(Qt::CTRL + Qt::Key_E);
 
@@ -50,13 +50,13 @@ void TPracticeRace::setupPage(int timeStart) {
 
     topToolbar_.setLCDDisplayValue(timeStart);
 	connect(&pages_, SIGNAL(pageEnded(TResult)), this, SLOT(createPage()));
-	QString ex = exercice().buildExercice();
+	QString ex = exercise().buildExercise();
     pages_.addPage(ex, true);
 }
 
 void TPracticeRace::stopRun()
 {
 	addResult(pages_.currentPage()->getResult());
-	TWindowTest::exerciceFinished();
+	TWindowTest::exerciseFinished();
 	//emit pages_.textFinished();
 }

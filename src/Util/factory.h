@@ -55,7 +55,7 @@ namespace factory {
     void setUId(int nwId);
 
     /**
-     * This function generate the practice exercice from the given letters.
+     * This function generate the practice exercise from the given letters.
      * The result is devided into three parts :
      * <ul>
      *  <li>The first part is the letters that the user must learn, and only these</li>
@@ -65,7 +65,7 @@ namespace factory {
      * NOTE : if no words can be made with the available letters, it will be replaced by a set of random letters
      * 
      * @param mainLetter the letter that the user is going to learn
-     * @param allLetters all the available letters for the exercice
+     * @param allLetters all the available letters for the exercise
      * @return a random-generated list of words
      */
     QString generateLearning(QString mainLetter, QString allLetters);
@@ -78,7 +78,7 @@ namespace factory {
      * the user can train on existing words
      * otherwise, it will also contains some random-generated words
      * The size of the produced string is made to be contained in only ONE page
-     * of an exercice.
+     * of an exercise.
      * 
      * @param letters the available letters
      * @param onlyRealWords if it must generates only words existing in a language, or if it can generate random words
@@ -120,7 +120,7 @@ namespace factory {
 
     /**
      * Select one random char in the availables elements of the String
-     * Helper to create exercices
+     * Helper to create exercises
      * 
      * @param string
      * @return a random-selected char (casted to a QString) in the string

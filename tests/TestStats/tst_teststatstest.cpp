@@ -8,7 +8,7 @@
 
 #include "time.h"
 #include "Data/tuser.h"
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 #include "Pages/tstatistics.h"
 #include "Data/tusermanager.h"
 #include "tapplication.h"
@@ -28,7 +28,7 @@ private slots:
 private:
 	void genHistory(TUser &user);
 	TResult genRandTResult();
-	TExercice genRandExercice();
+	TExercise genRandExercise();
 };
 
 
@@ -49,7 +49,7 @@ void TestStatsTest::genHistory(TUser &user)
     int numberOfResults = 50;
     for(int i = 0; i < numberOfResults; i++){
 		TResult res = genRandTResult();
-		TExercice exo = genRandExercice();
+		TExercise exo = genRandExercise();
 		exo.completed(res);
 		user.addResult(exo);
     }
@@ -65,10 +65,10 @@ TResult TestStatsTest::genRandTResult()
     return res;
 }
 
-TExercice TestStatsTest::genRandExercice()
+TExercise TestStatsTest::genRandExercise()
 {
     //Add randomness later
-	return TExercice::generateExercice(TExercice::PRACTICING);
+	return TExercise::generateExercise(TExercise::PRACTICING);
 }
 QTEST_MAIN(TestStatsTest)
 

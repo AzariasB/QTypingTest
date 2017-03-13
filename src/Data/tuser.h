@@ -19,7 +19,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 #include "tstats.h"
 #include "Util/factory.h"
 #include "tprogression.h"
@@ -61,7 +61,7 @@ public:
         this->pseudo_ = pseudo;
     }
 
-	QList<TExercice> *getPracticeHistory() {
+	QList<TExercise> *getPracticeHistory() {
         return &practiceHistory_;
     }
 
@@ -87,7 +87,7 @@ public:
 		emit statsChanged(*this);
     }
 
-	void setPracticeHistory(QList<TExercice> history) {
+	void setPracticeHistory(QList<TExercise> history) {
         practiceHistory_ = history;
     }
 
@@ -113,14 +113,14 @@ public:
 
     /**
      * Add result to the history of user practice.
-     * Save the date, and the type of the exercice as a key, 
+     * Save the date, and the type of the exercise as a key, 
      * then add the result as value
      * 
-     * @param exTyp the  exercice done by the user
-     * @param exRes the result of the exercice
+     * @param exTyp the  exercise done by the user
+     * @param exRes the result of the exercise
      * @return the time when this result was saved
      */
-	QDateTime addResult(TExercice exo);
+	QDateTime addResult(TExercise exo);
 
     void operator=(const TUser &orig) {
         setParent(orig.parent());
@@ -147,7 +147,7 @@ private:
     QString pseudo_;
     TProgression *progress_;
     TStats statistics_;
-	QList<TExercice> practiceHistory_;
+	QList<TExercise> practiceHistory_;
 };
 
 

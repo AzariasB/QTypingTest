@@ -14,25 +14,25 @@
 
 #include "Dialogs/twindowtest.h"
 #include "Widgets/tpresentation.h"
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 
-TWindowLearn::TWindowLearn(TExercice &ex, QWidget* parent) :
-TWindowTest(ex.buildExercice() ,ex, parent),
+TWindowLearn::TWindowLearn(TExercise &ex, QWidget* parent) :
+TWindowTest(ex.buildExercise() ,ex, parent),
 instructions_(new TPresentation(TLayout::getInstance(),ex.getLearningLetters(),parent )) {
     addInstructions(ex);
 }
 
 TWindowLearn::TWindowLearn(QString content, QWidget* parent) :
-TWindowTest(content, 1, TExercice::generateExercice(TExercice::LEARNING), parent),
+TWindowTest(content, 1, TExercise::generateExercise(TExercise::LEARNING), parent),
 instructions_(new TPresentation(TLayout::getInstance())) {
-	addInstructions(exercice());
+	addInstructions(exercise());
 }
 
-TWindowLearn::TWindowLearn(TExercice & ex, int numberOfPages, QWidget* parent) :
-TWindowTest(ex.buildExercice(), numberOfPages,TExercice::generateExercice(TExercice::LEARNING),  parent) {
+TWindowLearn::TWindowLearn(TExercise & ex, int numberOfPages, QWidget* parent) :
+TWindowTest(ex.buildExercise(), numberOfPages,TExercise::generateExercise(TExercise::LEARNING),  parent) {
 }
 
-void TWindowLearn::addInstructions(TExercice &exo) {
+void TWindowLearn::addInstructions(TExercise &exo) {
     QStackedLayout *mainLayout = layout();
     mainLayout->insertWidget(0, instructions_);
     mainLayout->setCurrentIndex(0);

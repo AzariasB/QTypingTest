@@ -20,14 +20,14 @@
 
 #include "twindowtest.h"
 
-class TExercice;
+class TExercise;
 class TResult;
 
 class TPracticeRace : public TWindowTest {
     Q_OBJECT
 public:
     TPracticeRace(int timeStart = RACE_TIME, QWidget *parent = 0);
-	TPracticeRace(TExercice &exercise, int timeStart = RACE_TIME, QWidget *parent = 0);
+	TPracticeRace(TExercise &exercise, int timeStart = RACE_TIME, QWidget *parent = 0);
 
     virtual ~TPracticeRace() {
     }
@@ -40,7 +40,7 @@ public slots:
     void stopRun();
 
     /**
-     * Generate a new page for the exercice
+     * Generate a new page for the exercise
      * 
      * @param prevPageRes the result of the page that was just finished
      */
@@ -50,7 +50,7 @@ private:
 
 
     /**
-     * Because this type of exercice is way different from the others
+     * Because this type of exercise is way different from the others
      * (genrate a page when one is finished), a lot of configuration
      * must be applied to the stackpage object
      */

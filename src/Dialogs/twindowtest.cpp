@@ -23,7 +23,7 @@
 #include "twindowtest.h"
 
 #include "Data/tresult.h"
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 #include "Util/factory.h"
 
 void TWindowTest::setupWidget() {
@@ -76,7 +76,7 @@ void TWindowTest::moveEvent(QMoveEvent *ev) {
 
 void TWindowTest::closeEvent(QCloseEvent* ev) {
     if (ev->isAccepted())
-        exerciceFinished(true);
+        exerciseFinished(true);
 }
 
 void TWindowTest::keyPressEvent(QKeyEvent *ev)
@@ -85,7 +85,7 @@ void TWindowTest::keyPressEvent(QKeyEvent *ev)
         QDialog::keyPressEvent(ev);
     }else{
         ev->setAccepted(false);
-        this->pauseContinueExercice();
+        this->pauseContinueExercise();
     }
 }
 
@@ -104,13 +104,13 @@ void TWindowTest::saveResult(TResult previousScore)
 
 }
 
-void TWindowTest::beginExercice() {
+void TWindowTest::beginExercise() {
     started_ = true;
     timeStart_.start();
 	updateTimer_.start();
 }
 
-TResult TWindowTest::exerciceResult() {
+TResult TWindowTest::exerciseResult() {
     elapsedMS_ += this->timeStart_.elapsed();
     timeStart_ = QTime(0, 0).addMSecs(elapsedMS_);
 
@@ -127,7 +127,7 @@ TResult TWindowTest::exerciceResult() {
     return res;
 }
 
-void TWindowTest::pauseContinueExercice() {
+void TWindowTest::pauseContinueExercise() {
     paused_ = !paused_;
     edit_.setEnabled(!paused_);
     if (paused_) {
@@ -145,14 +145,14 @@ void TWindowTest::pauseContinueExercice() {
 
 //Private
 
-void TWindowTest::exerciceFinished(bool forced) {
+void TWindowTest::exerciseFinished(bool forced) {
     if (!forced) {
-		TResult tot = exerciceResult();
-		exercice_.completed(tot);
+		TResult tot = exerciseResult();
+		exercise_.completed(tot);
 		if(um_.isUserConnected()){
-			um_.getCurrentUser().addResult(exercice_);
+			um_.getCurrentUser().addResult(exercise_);
         }
-		emit endOfExercice(exercice_.getResult(), timeStart_);
+		emit endOfExercise(exercise_.getResult(), timeStart_);
     } else {
         emit closed();
     }
@@ -162,7 +162,7 @@ void TWindowTest::setupShortcuts() {
     //Hacks
 
 //#ifdef QDEBUG_H
-//    //Hack for testing => shortucut to end the exercice
+//    //Hack for testing => shortucut to end the exercise
 //	QShortcut endShortcut(this);
 //	endShortcut.setKey(Qt::CTRL + Qt::Key_F);
 
@@ -171,7 +171,7 @@ void TWindowTest::setupShortcuts() {
 //            //TPage *curPage = static_cast<TPage*> (pages_.currentWidget());
 //            this->results_.push_back(pages_.currentPage()->getResult());
 //        }
-//        exerciceFinished();
+//        exerciseFinished();
 //    });
 //    //end of hacks
 
@@ -188,18 +188,18 @@ void TWindowTest::setupShortcuts() {
 
 	QShortcut pauseSh(this);
 	pauseSh.setKey(Qt::CTRL + Qt::Key_P);
-	connect(&pauseSh, SIGNAL(activated()), this, SLOT(pauseContinueExercice()));
+	connect(&pauseSh, SIGNAL(activated()), this, SLOT(pauseContinueExercise()));
 }
 
 void TWindowTest::connectEvents() {
     auto thePages = pages_.objectName();
     connect(&pages_, &TStackPages::textFinished, this, [thePages, this] {
-        this->exerciceFinished(false);
+        this->exerciseFinished(false);
     });
     connect(&pages_, &TStackPages::pageEnded, this, &TWindowTest::saveResult);
     connect(&pages_, &TStackPages::currentChanged, this, &TWindowTest::updateToolbarProgression);
-    connect(&pages_, SIGNAL(exerciceStarted()), this, SLOT(beginExercice()));
-    connect(&topToolbar_, SIGNAL(pauseClicked()), this, SLOT(pauseContinueExercice()));
+    connect(&pages_, SIGNAL(exerciseStarted()), this, SLOT(beginExercise()));
+    connect(&topToolbar_, SIGNAL(pauseClicked()), this, SLOT(pauseContinueExercise()));
     connect(&edit_,SIGNAL(textEdited(QString)),this,SLOT(answerTyped(QString)));
 }
 

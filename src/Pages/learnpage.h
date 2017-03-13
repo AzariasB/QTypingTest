@@ -26,7 +26,7 @@
 #include "Data/tusermanager.h"
 #include "Data/tlayout.h"
 
-class TExercice;
+class TExercise;
 class TResult;
 class TUserManager;
 class TWindowLearn;
@@ -45,18 +45,18 @@ public:
     }
 
 public slots:
-    void lauchExercice();
+    void lauchExercise();
     /**
-     * Called when an exercice is finished
+     * Called when an exercise is finished
      */
-	void endExercice(TResult &exerciceResult, QTime timeEx);
+	void endExercise(TResult &exerciseResult, QTime timeEx);
 
 
     /**
-     * Called when an exercice is finished or when the exerice
+     * Called when an exercise is finished or when the exerice
      * dialog is closed to reset all the necessary values
      */
-    void resetExercice();
+    void resetExercise();
 
 	void updateUserProgression(TUser &nwUser);
 
@@ -72,7 +72,7 @@ protected:
 
 private:
     /**
-     * Get the current keyboard layout, and display the exercices depending on 
+     * Get the current keyboard layout, and display the exercises depending on 
      * the layout
      */
     void createPractice();
@@ -90,14 +90,14 @@ private:
     //Save the tpractice instead of instanciate it over and over
     TLayout practice_ = TLayout::getInstance();
 
-    //Have a unique window for the exercice that will change depending on the exercices
+    //Have a unique window for the exercise that will change depending on the exercises
     TWindowLearn *testWindow_;
 
     /*A list of button to save the state (activated or not) of each depending on the user progression*/
     QVector<QPushButton*> learnButtons_;
 
     /**
-     * When a user start a new exercice, this int is set to the index of the letter he's doing
+     * When a user start a new exercise, this int is set to the index of the letter he's doing
      */
     int currentProgression_ = -1;
     

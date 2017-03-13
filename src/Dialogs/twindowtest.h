@@ -30,38 +30,38 @@
 #include "tapplication.h"
 
 class TResult;
-class TExercice;
+class TExercise;
 
 class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-	TWindowTest(TExercice exercise, QWidget* parent = 0) :
+	TWindowTest(TExercise exercise, QWidget* parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(2)),
 	timeStart_(QTime(0, 0)),
     mainLayout_(new QStackedLayout()),
-	exercice_(exercise),
+	exercise_(exercise),
 	um_(tApp.getUserManager()){
         setupWidget();
     }
 
-	TWindowTest(QString text, TExercice exercise, QWidget *parent = 0) :
+	TWindowTest(QString text, TExercise exercise, QWidget *parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(text, 2)),
 	timeStart_(QTime()),
     mainLayout_(new QStackedLayout()),
-	exercice_(exercise),
+	exercise_(exercise),
 	um_(tApp.getUserManager()){
         setupWidget();
     }
 
-	TWindowTest(QString text, int numberOfPages,TExercice exercise,  QWidget *parent = 0) :
+	TWindowTest(QString text, int numberOfPages,TExercise exercise,  QWidget *parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(text, numberOfPages)),
 	timeStart_(QTime()),
     mainLayout_(new QStackedLayout()),
-	exercice_(exercise),
+	exercise_(exercise),
 	um_(tApp.getUserManager()){
         setupWidget();
     }
@@ -74,12 +74,12 @@ public:
         return pages_;
     }
 
-	TExercice &exercice(){
-        return exercice_;
+	TExercise &exercise(){
+        return exercise_;
     }
 
-	const TExercice &cExercice() const{
-        return exercice_;
+	const TExercise &cExercise() const{
+        return exercise_;
     }
 
     void setTimeIncrement(int timeInc){
@@ -116,24 +116,24 @@ public slots:
      */
 	void saveResult(TResult previousScore);
 
-    void beginExercice();
+    void beginExercise();
 
 
     /**
      * Called whenever wa have the exerice is finished
      * 
-     * @param a boolean to know if the user really ended the exercice
+     * @param a boolean to know if the user really ended the exercise
      * or if he exited
      */
-    void exerciceFinished(bool forced = false);
+    void exerciseFinished(bool forced = false);
 
     /**
      * Called whenever the user click on the pause/continue button
      * depending on the state, the button will react differently
-     * if the exercice is paused, it will resume it
-     * if the exercice is not paused, it will pause it
+     * if the exercise is paused, it will resume it
+     * if the exercise is not paused, it will pause it
      */
-    void pauseContinueExercice();
+    void pauseContinueExercise();
 
 
     /**
@@ -158,16 +158,16 @@ public slots:
 
 signals:
     /**
-     * Triggerred when the exercice is 'officialy' finished
+     * Triggerred when the exercise is 'officialy' finished
      * Either thanks to a debug shortcut or the text to copy is finished
      * 
-     * @param exeRes the result of the exercice
-     * @param timeRealised the time realised to complete the exercice
+     * @param exeRes the result of the exercise
+     * @param timeRealised the time realised to complete the exercise
      */
-	void endOfExercice(TResult &exeRes, QTime timeRealised);
+	void endOfExercise(TResult &exeRes, QTime timeRealised);
 
     /**
-     * Called whenever the exercice
+     * Called whenever the exercise
      * is forced to finish and no result/score is expected from the user 
      */
     void closed();
@@ -188,7 +188,7 @@ protected:
 
     /**
      * Create a signal when the dialog close
-     * to warn the parent and reset the exercice
+     * to warn the parent and reset the exercise
      * 
      * @param the close event
      */
@@ -214,7 +214,7 @@ protected:
     /**
      * Return the progression as a fraction
      * For example, if the user is at the first page and
-     * the exercice is composed of two pages, it will return 
+     * the exercise is composed of two pages, it will return 
      * "1/2"
      * 
      * @return the page proression
@@ -231,7 +231,7 @@ protected:
      * 
      * @return the sum of all the resulst of each lines
      */
-	TResult exerciceResult();
+	TResult exerciseResult();
 
     /**
      * Initiate all the shorcuts of the dialogs
@@ -242,7 +242,7 @@ protected:
     void setupShortcuts();
 
     /**
-     * Set the timers of the exercice
+     * Set the timers of the exercise
      * and the values to update/calculate the time
      * realised by the user
      */
@@ -261,8 +261,8 @@ protected:
 	TUserManager &um_;
 
 private:
-    /* Type of exercice */
-	TExercice exercice_;
+    /* Type of exercise */
+	TExercise exercise_;
 
     /* The results of each pages */
 	QList<TResult> results_;
@@ -274,7 +274,7 @@ private:
     /* The main layout (to be able to customize in the subclasses) */
     QStackedLayout *mainLayout_;
 
-    /* Save the ms elapsed if the user pause the exercice*/
+    /* Save the ms elapsed if the user pause the exercise*/
     int elapsedMS_ = 0;
 
     /* Time to increment the timer with */
@@ -285,7 +285,7 @@ private:
     /* The current state of the game */
     bool paused_ = false;
 
-    /* Wether the exercice started */
+    /* Wether the exercise started */
     bool started_ = false;
 
     /**

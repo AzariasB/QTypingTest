@@ -26,12 +26,12 @@ void TestLearnDialog::testOpen() {
     //Test if the dialogs shows up with text
     QWidget *w = new QWidget();
     TLayout frLayout = TLayout::getInstance();
-	TExercice ex = TExercice::generateExercice(TExercice::LEARNING,"fj", "fj");
+	TExercise ex = TExercise::generateExercise(TExercise::LEARNING,"fj", "fj");
     
     TWindowLearn learn(ex,w);
     learn.show();
-	connect(&learn,&TWindowLearn::endOfExercice,this, [&learn,this](TResult res, QTime time){
-        qDebug() << "End of the exercice";
+	connect(&learn,&TWindowLearn::endOfExercise,this, [&learn,this](TResult res, QTime time){
+        qDebug() << "End of the exercise";
 		qDebug() << res.getResume();
         learn.close();
     });

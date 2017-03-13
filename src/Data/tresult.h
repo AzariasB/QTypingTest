@@ -19,7 +19,7 @@
 #include "tjsonserializable.h"
 
 /**
- * This class is here to calculate the results of an exercice
+ * This class is here to calculate the results of an exercise
  * this must be used to calculate the speed, and the accuracy
  */
 class TResult : public TJsonSerializable {
@@ -86,8 +86,8 @@ public:
 
     /**
      * Return a QString with all the values of the object
-     * Helper to show results at the end of an exercice
-     * or when watching the history of exercices
+     * Helper to show results at the end of an exercise
+     * or when watching the history of exercises
      * 
      * @return the resume of all the data
      */

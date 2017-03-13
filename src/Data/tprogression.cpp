@@ -8,13 +8,13 @@
 #include "tprogression.h"
 
 TProgression::TProgression() :
-    lastExerciceIndex_(0) {
+    lastExerciseIndex_(0) {
     
 }
 
 
 TProgression::TProgression(const TProgression& orig):
-lastExerciceIndex_(orig.lastExerciceIndex_){
+lastExerciseIndex_(orig.lastExerciseIndex_){
 }
 
 TProgression::~TProgression() {
@@ -23,12 +23,12 @@ TProgression::~TProgression() {
 
 void TProgression::read(const QJsonObject &json)
 {
-	lastExerciceIndex_ = json["lastExerciceIndex"].toInt();
+	lastExerciseIndex_ = json["lastExerciseIndex"].toInt();
 }
 
 void TProgression::write(QJsonObject &json) const
 {
-	json["lastExerciceIndex"] = lastExerciceIndex_;
+	json["lastExerciseIndex"] = lastExerciseIndex_;
 }
 
 

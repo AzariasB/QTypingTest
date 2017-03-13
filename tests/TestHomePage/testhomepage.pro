@@ -12,7 +12,7 @@ HEADERS = $$SRC/Pages/homepage.h \
           $$SRC/Data/tusermanager.h \
           $$SRC/Data/tuser.h \
           $$SRC/Data/tprogression.h \
-          $$SRC/Data/texercice.h \
+          $$SRC/Data/texercise.h \
           $$SRC/Data/tresult.h \
           $$SRC/Data/tstats.h  \
           $$SRC/Data/tlayout.h \
@@ -24,7 +24,7 @@ HEADERS = $$SRC/Pages/homepage.h \
 
 SOURCES = $$SRC/Pages/homepage.cpp \
           $$SRC/Data/tprogression.cpp \
-          $$SRC/Data/texercice.cpp \
+          $$SRC/Data/texercise.cpp \
           $$SRC/Data/tresult.cpp \
           $$SRC/Data/tstats.cpp \
           $$SRC/Data/tusermanager.cpp \

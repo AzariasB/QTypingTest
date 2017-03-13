@@ -41,17 +41,17 @@ public:
 
 public slots:
     /* Start a practice against time */
-    void startExercice(TWindowTest *exercice);
+    void startExercise(TWindowTest *exercise);
 
-    /* Save the result and the time at the end of each exercice */
-	void saveExerciceResult(TResult &res, QTime time);
+    /* Save the result and the time at the end of each exercise */
+	void saveExerciseResult(TResult &res, QTime time);
 
     /* Reset the dialog (disconnect and set to null) */
-    void resetExercice();
+    void resetExercise();
     
     /**
      * Called whenever the user changes, or
-     * when the user finished an exercice (and has some new errors)
+     * when the user finished an exercise (and has some new errors)
      * to update the button 'improve'
      */    
 	void updateImproveButton(TUser &nwUser);
@@ -73,10 +73,10 @@ private:
     /* Connect the events of each button */
     void connectEvents();
 
-    /*Button to acces an exercice against the time*/
+    /*Button to acces an exercise against the time*/
     QPushButton practiceAgainstTime_;
 
-    /* To access the 'default' exercice */
+    /* To access the 'default' exercise */
     QPushButton practiceDefault_;
 
     /* Improve the keys where the user makes the most mistakes */
@@ -85,7 +85,7 @@ private:
     /* Practice on a text */
     QPushButton practiceText_;
 
-    /* Dialog of the exercice */
+    /* Dialog of the exercise */
     QDialog *currentDialog_ = nullptr;
 
 	/* Reference to the user manager */

@@ -87,7 +87,6 @@ SOURCES +=\
     #-------------------------
     # Data
     #------------------------- \
-    src/Data/texercice.cpp \
     src/Data/tprogression.cpp \
     src/Data/tpractical.cpp \
     src/Data/tstats.cpp \
@@ -97,7 +96,8 @@ SOURCES +=\
     src/Data/tresult.cpp \
     src/Data/tlayout.cpp \
     src/Data/tjsonserializable.cpp \
-    src/tapplication.cpp
+    src/tapplication.cpp \
+    src/Data/texercise.cpp
 
 HEADERS +=\
     #-------------------------
@@ -147,14 +147,14 @@ HEADERS +=\
     src/Data/tresult.h \
     src/Data/tusermanager.h \
     src/Data/tpractical.h \
-    src/Data/texercice.h \
     src/Data/tprogression.h \
     src/Data/tuser.h \
     src/Data/ttext.h \
     src/Data/tstats.h \
     src/Data/tlayout.h \
     src/Data/tjsonserializable.h \
-    src/tapplication.h
+    src/tapplication.h \
+    src/Data/texercise.h
 
 DISTFILES += \
     ressources/syle.qss

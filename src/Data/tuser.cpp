@@ -14,7 +14,7 @@
 
 #include "tjsonserializable.h"
 
-QDateTime TUser::addResult(TExercice exo) {
+QDateTime TUser::addResult(TExercise exo) {
 	practiceHistory_ << exo;
 	emit statsChanged(*this);
 	return exo.getDateComplete();
@@ -32,7 +32,7 @@ void TUser::read(const QJsonObject &json)
 	progress_->read(json["progression"].toObject());
 	statistics_.read(json["statistics"].toObject());
 	for(QJsonValue v : json["exercises"].toArray()){
-		TExercice ex;
+		TExercise ex;
 		ex.read(v.toObject());
 		practiceHistory_ << ex;
 	}
@@ -51,13 +51,13 @@ void TUser::write(QJsonObject &json) const
 	statistics_.write(statsJson);
 	json["statistics"] = statsJson;
 
-	QJsonArray exercices;
-	foreach(TExercice ex, practiceHistory_){
+	QJsonArray exercises;
+	foreach(TExercise ex, practiceHistory_){
 		QJsonObject exo;
 		ex.write(exo);
-		exercices << exo;
+		exercises << exo;
 	}
-	json["exercises"] = exercices;
+	json["exercises"] = exercises;
 }
 
 

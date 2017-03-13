@@ -27,14 +27,14 @@ private slots:
         srand(time(NULL));//Random number generation
     }
     
-    void testWithoutExercice();
+    void testWithoutExercise();
 };
 
-void TestText::testWithoutExercice() {
+void TestText::testWithoutExercise() {
     //Test if the dialogs shows up with text
     TPracticeText text;
-	connect(&text,&TPracticeText::endOfExercice,this,[&text,this](TResult res,QTime){
-		QMessageBox::information(&text,"Exercice finished",res.getResume());
+	connect(&text,&TPracticeText::endOfExercise,this,[&text,this](TResult res,QTime){
+		QMessageBox::information(&text,"Exercise finished",res.getResume());
         text.close();
     });
     text.show();

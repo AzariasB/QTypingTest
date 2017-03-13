@@ -3,66 +3,66 @@
  * License : GNU - GPL 2
  */
 /* 
- * File:   TExercice.cpp
+ * File:   TExercise.cpp
  * Author: boutina
  * 
  * Created on 18 décembre 2015, 11:42
  */
 
 
-#include "texercice.h"
+#include "texercise.h"
 
 #include "tresult.h"
 #include "Util/factory.h"
 #include "Data/tlayout.h"
 
 
-TExercice::TExercice() :
+TExercise::TExercise() :
 learningLetters_(""),
 availableLetters_(TLayout::getInstance().getAllAvailableLetters()),
-exerciceType_(PRACTICING){
+exerciseType_(PRACTICING){
 }
 
-TExercice::TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters) :
+TExercise::TExercise(EXERCISE_TYPE exType, QString mainLetter, QString availableLetters) :
 learningLetters_(mainLetter),
 availableLetters_(availableLetters),
-exerciceType_(exType)
+exerciseType_(exType)
 {
 }
 
-TExercice TExercice::generateExercice(EXERCICE_TYPE type, QString mainLetters, QString availableLetters)
+TExercise TExercise::generateExercise(EXERCISE_TYPE type, QString mainLetters, QString availableLetters)
 {
 
 	if(type == LEARNING){
-		return TExercice(type, mainLetters, availableLetters);;
+		return TExercise(type, mainLetters, availableLetters);;
 	}else{
-		return TExercice(type, "", TLayout::getInstance().getAllAvailableLetters());
+		return TExercise(type, "", TLayout::getInstance().getAllAvailableLetters());
 	}
 }
 
-void TExercice::addAttribute(QString key, QString value)
+void TExercise::addAttribute(QString key, QString value)
 {
     attributes_[key] = value;
 }
 
-const QDateTime &TExercice::completed(TResult exRes)
+const QDateTime &TExercise::completed(TResult exRes)
 {
 	result_ = exRes;
 	dateComplete_ = QDateTime::currentDateTime();
 	return dateComplete_;
 }
 
-void TExercice::read(const QJsonObject &json)
+void TExercise::read(const QJsonObject &json)
 {
-	exerciceType_ = (EXERCICE_TYPE)json["exerciseType"].toInt();
+	exerciseType_ =  static_cast<EXERCISE_TYPE>(json["exerciseType"].toInt());
 	dateComplete_ = QDateTime::fromMSecsSinceEpoch(json["dateComplete"].toInt());
 	result_.read(json["result"].toObject());
 	numberOfWords_ = json["numberOfWords"].toInt();
 }
 
-void TExercice::write(QJsonObject &json) const
+void TExercise::write(QJsonObject &json) const
 {
-	json["exerciseType"] = exerciceType_;
+	json["exerciseType"] = exerciseType_;
 	json["dateComplete"] = dateComplete_.toMSecsSinceEpoch();
 	QJsonObject resultJson;
 	result_.write(resultJson);
@@ -70,19 +70,19 @@ void TExercice::write(QJsonObject &json) const
 	json["numberOfWords"] = numberOfWords_;
 }
 
-QString TExercice::findAttribute(QString key)
+QString TExercise::findAttribute(QString key)
 {
     return attributes_[key];
 }
 
-bool TExercice::hasAttribute(const QString &key)
+bool TExercise::hasAttribute(const QString &key)
 {
     return attributes_.contains(key);
 }
 
-QString TExercice::buildExercice() {
+QString TExercise::buildExercise() {
     QString exo;
-    switch (exerciceType_) {
+	switch (exerciseType_) {
         case LEARNING:
             exo = factory::generateLearning(learningLetters_, availableLetters_);
             addAttribute("learning",learningLetters_);

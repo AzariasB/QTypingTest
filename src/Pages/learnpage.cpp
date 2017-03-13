@@ -12,7 +12,7 @@
 #include "learnpage.h"
 
 #include "Data/tlayout.h"
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 #include "Data/tresult.h"
 #include "Data/tusermanager.h"
 #include "Util/htmlhelper.h"
@@ -59,19 +59,19 @@ void LearnPage::createButtons(QGridLayout *lay) {
     for (auto it = l.begin(); it != l.end(); ++it, index++) {
         QPushButton *button = new QPushButton((*it).replace('&', "&&"));
 
-        connect(button, SIGNAL(clicked()), this, SLOT(lauchExercice()));
+        connect(button, SIGNAL(clicked()), this, SLOT(lauchExercise()));
         //        button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         button->setMinimumHeight(100);
         button->setMinimumWidth(buttonWidth);
         button->setContentsMargins(1, 1, 1, 1);
         button->setFocusPolicy(Qt::NoFocus);
 
-        int lastUserExercice = -1;
+        int lastUserExercise = -1;
 		if (um.isUserConnected()) {
-			lastUserExercice = um.getCurrentUser().getProgression()->getLastExericeIndex();
+			lastUserExercise = um.getCurrentUser().getProgression()->getLastExericeIndex();
         }
 
-        if (index > lastUserExercice) {
+        if (index > lastUserExercise) {
             button->setEnabled(false);
         }
 
@@ -91,43 +91,43 @@ void LearnPage::createButtons(QGridLayout *lay) {
 
 
 
-void LearnPage::lauchExercice() {
+void LearnPage::lauchExercise() {
 
     if (QPushButton * trigger = dynamic_cast<QPushButton*> (sender())) {
 
         int lastLetterIndex = learnButtons_.indexOf(trigger);
         if (lastLetterIndex == -1) {//Not found in the list ... that is weird !
-            QMessageBox::critical(this, "Exercice not existing", "The exercice you are trying to do does not exist");
+            QMessageBox::critical(this, "Exercise not existing", "The exercise you are trying to do does not exist");
         } else if (currentProgression_ != -1) {
-            //An exercice is currently running
-            QMessageBox::critical(this, "Exercice already running", "There is alerady a running exercice");
+            //An exercise is currently running
+            QMessageBox::critical(this, "Exercise already running", "There is alerady a running exercise");
         } else {
             currentProgression_ = lastLetterIndex;
             QString lastLetter = practice_.getLettersAt(lastLetterIndex);
             QString allLetters = practice_.getAllLettersTo(lastLetterIndex + 1);
-            TExercice ex = TExercice::generateExercice(TExercice::LEARNING, lastLetter, allLetters);
+            TExercise ex = TExercise::generateExercise(TExercise::LEARNING, lastLetter, allLetters);
 
 
             testWindow_ = new TWindowLearn(ex, this);
 
-            connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercice()));
+            connect(testWindow_, SIGNAL(closed()), this, SLOT(resetExercise()));
             //Connect only once the test dialog
-			connect(testWindow_, SIGNAL(endOfExercice(TResult&, QTime)), this, SLOT(endExercice(TResult&, QTime)));
+			connect(testWindow_, SIGNAL(endOfExercise(TResult&, QTime)), this, SLOT(endExercise(TResult&, QTime)));
             testWindow_->show();
             testWindow_->focusWidget();
         }
     }//else ..nothing to do !
 }
 
-void LearnPage::endExercice(TResult& exerciceResult, QTime timeEx) {
+void LearnPage::endExercise(TResult& exerciseResult, QTime timeEx) {
     testWindow_->hide();
     QString time = QString("Made in : %1").arg(timeEx.toString("mm:ss"));
 
 	if(!um.isUserConnected())//nothing is done then ...
 		return;
     // Min time and min wpm may change depending on overall difficulty
-	if (exerciceResult.getWPM() < 30) {
-		QMessageBox::information(this, "Too long", "You didn't made in time.<br/>" + exerciceResult.getResume() +"<br/>" + time);
+	if (exerciseResult.getWPM() < 30) {
+		QMessageBox::information(this, "Too long", "You didn't made in time.<br/>" + exerciseResult.getResume() +"<br/>" + time);
     } else {
 
 
@@ -135,11 +135,11 @@ void LearnPage::endExercice(TResult& exerciceResult, QTime timeEx) {
         if (currentProgression_ == curProgr->getLastExericeIndex())
             curProgr->avdvanceExIndex();
 
-        QString text = QString("Congratulations, you finished the exercice !<br/>"
-				"Results are :<br/>") + exerciceResult.getResume() + "<br/>" + time;
+        QString text = QString("Congratulations, you finished the exercise !<br/>"
+				"Results are :<br/>") + exerciseResult.getResume() + "<br/>" + time;
 
-        QMessageBox::information(this, "End of exercice", text);
-        //Unlock the last button if exercice succeeded
+        QMessageBox::information(this, "End of exercise", text);
+        //Unlock the last button if exercise succeeded
 
 
         if (curProgr->getLastExericeIndex() < learnButtons_.size()) {
@@ -155,10 +155,10 @@ void LearnPage::endExercice(TResult& exerciceResult, QTime timeEx) {
         }
     }
 
-    resetExercice();
+    resetExercise();
 }
 
-void LearnPage::resetExercice() {
+void LearnPage::resetExercise() {
     if (testWindow_) {
         testWindow_->hide();
         testWindow_->disconnect();
@@ -168,12 +168,12 @@ void LearnPage::resetExercice() {
 }
 
 void LearnPage::updateUserProgression(TUser &nwUser) {
-	int lastUserExercice = nwUser.getProgression()->getLastExericeIndex();
-	for (int i = 0; i <= lastUserExercice && i < learnButtons_.size(); i++) {
+	int lastUserExercise = nwUser.getProgression()->getLastExericeIndex();
+	for (int i = 0; i <= lastUserExercise && i < learnButtons_.size(); i++) {
 		learnButtons_[i]->setEnabled(true);
 	}
 
-	for (int i = lastUserExercice + 1; i < learnButtons_.size(); i++) {
+	for (int i = lastUserExercise + 1; i < learnButtons_.size(); i++) {
 		learnButtons_[i]->setEnabled(false);
 	}
 }

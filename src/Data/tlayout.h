@@ -40,7 +40,7 @@
 
 
 /**
- * This class is here to have a way to create the exercices
+ * This class is here to have a way to create the exercises
  * on a certain order based on the keyboard layout
  *
  */

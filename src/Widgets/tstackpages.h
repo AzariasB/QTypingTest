@@ -81,10 +81,10 @@ signals:
 
 
     /**
-     * Called when the user typed the first letter of the exercice
+     * Called when the user typed the first letter of the exercise
      * wether the letter is right
      */
-    void exerciceStarted();
+    void exerciseStarted();
 
 
 public slots:
@@ -100,7 +100,7 @@ public slots:
      * This permits to launch a timer.
      * 
      */
-    void beginExercice();
+    void beginExercise();
 
     /* Answer typed */
     bool answerTyped(QString answer);

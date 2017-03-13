@@ -12,34 +12,34 @@
 
 #include "tpracticetext.h"
 
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 
 
 TPracticeText::TPracticeText(QWidget *parent):
-TWindowTest(TExercice::generateExercice(TExercice::PRACTICING_TEXT), parent){
+TWindowTest(TExercise::generateExercise(TExercise::PRACTICING_TEXT), parent){
     //Set the number of page depending on the text's length
     //40 words per page
-	QString exo = exercice().buildExercice();
+	QString exo = exercise().buildExercise();
     int wordsPerPage = 30;
-	pages_.setNumberOfPages(exercice().getNumberOfWords() / wordsPerPage);
+	pages_.setNumberOfPages(exercise().getNumberOfWords() / wordsPerPage);
     pages_.setupPages(exo);
 
-    topToolbar_.setAdditionnalText(findTitleAndAuthor(exercice()));
+    topToolbar_.setAdditionnalText(findTitleAndAuthor(exercise()));
     updateToolbarProgression();
 }
 
 TPracticeText::TPracticeText(const TPracticeText& orig) :
-TWindowTest(orig.pages_.getText(), TExercice::generateExercice(TExercice::PRACTICING_TEXT), orig.parentWidget()){
+TWindowTest(orig.pages_.getText(), TExercise::generateExercise(TExercise::PRACTICING_TEXT), orig.parentWidget()){
     updateToolbarProgression();
 }
 
 TPracticeText::TPracticeText(QString text, QWidget* parent):
-TWindowTest(text, TExercice::generateExercice(TExercice::PRACTICING_TEXT), parent){
+TWindowTest(text, TExercise::generateExercise(TExercise::PRACTICING_TEXT), parent){
     updateToolbarProgression();
 }
 
 
-QString TPracticeText::findTitleAndAuthor(TExercice &exo)
+QString TPracticeText::findTitleAndAuthor(TExercise &exo)
 {
 	QString author = exo.hasAttribute("author") ? exo.findAttribute("author") : "";
 	QString title = exo.hasAttribute("title") ? exo.findAttribute("title") : "";

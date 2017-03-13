@@ -3,7 +3,7 @@
  * License : GNU - GPL 2
  */
 /* 
- * File:   TExercice.h
+ * File:   TExercise.h
  * Author: boutina
  *
  * Created on 18 décembre 2015, 11:42
@@ -24,23 +24,23 @@ class TLayout;
 class TResult;
 
 /**
- * A model class to define the type of exercice the user is about to do
- * There are differents types of exercices and depending on these, differents parameters
- * This class is a factory : it generates the exercice depending on the given parameter
+ * A model class to define the type of exercise the user is about to do
+ * There are differents types of exercises and depending on these, differents parameters
+ * This class is a factory : it generates the exercise depending on the given parameter
  */
-class TExercice : public TJsonSerializable{
+class TExercise : public TJsonSerializable{
 public:
 
-	enum EXERCICE_TYPE {
+	enum EXERCISE_TYPE {
 		LEARNING, PRACTICING, PRACTICING_RACE, PRACTICING_TEXT, IMPROVING, UNKNOWN
 	};
 
 	//No difficulty because : why would it be necessary ?
-	static TExercice generateExercice(EXERCICE_TYPE type, QString mainLetters = "", QString availableLetters = "");
+	static TExercise generateExercise(EXERCISE_TYPE type, QString mainLetters = "", QString availableLetters = "");
 
-	TExercice();
+	TExercise();
 
-	QString buildExercice();
+	QString buildExercise();
 
 	void addAttribute(QString key, QString value);
 
@@ -62,7 +62,7 @@ public:
 
 	bool hasAttribute(const QString &key);
 
-	virtual ~TExercice() {}
+	virtual ~TExercise() {}
 
 	const QString &getLearningLetters() const {
 		return learningLetters_;
@@ -76,8 +76,8 @@ public:
 		return dateComplete_;
 	}
 
-	EXERCICE_TYPE getExerciceType() const {
-		return exerciceType_;
+	EXERCISE_TYPE getExerciseType() const {
+		return exerciseType_;
 	}
 
 	int getNumberOfWords() const{
@@ -90,38 +90,38 @@ public:
 
 
 private:
-	TExercice(EXERCICE_TYPE exType, QString mainLetter, QString availableLetters);
+	TExercise(EXERCISE_TYPE exType, QString mainLetter, QString availableLetters);
 
 	QString learningLetters_;
 	QString availableLetters_;
-	EXERCICE_TYPE exerciceType_;
+	EXERCISE_TYPE exerciseType_;
 	QHash<QString, QString> attributes_;
 	QDateTime dateComplete_;
 	TResult result_;
 
 	int numberOfWords_;
 
-	friend QDataStream &operator>>(QDataStream &in, TExercice &ex){
+	friend QDataStream &operator>>(QDataStream &in, TExercise &ex){
 		qint16 type;
 		in >> ex.availableLetters_ >> type >> ex.learningLetters_  >> ex.attributes_ >> ex.numberOfWords_;
-		ex.exerciceType_ = static_cast<EXERCICE_TYPE>(type);
+		ex.exerciseType_ = static_cast<EXERCISE_TYPE>(type);
 		return in;
 	}
 
-	friend QDataStream &operator<<(QDataStream &out, const TExercice &ex){
-		out << ex.availableLetters_ << static_cast<qint16>(ex.exerciceType_) <<
+	friend QDataStream &operator<<(QDataStream &out, const TExercise &ex){
+		out << ex.availableLetters_ << static_cast<qint16>(ex.exerciseType_) <<
 			   ex.learningLetters_ << ex.attributes_ << ex.numberOfWords_;
 		return out;
 	}
 };
 
-QDataStream &operator>>(QDataStream &in, TExercice &ex);
+QDataStream &operator>>(QDataStream &in, TExercise &ex);
 
-QDataStream &operator<<(QDataStream &out, const TExercice &ex);
+QDataStream &operator<<(QDataStream &out, const TExercise &ex);
 
-inline bool operator==(const TExercice& exo1, const TExercice& exo2) {
+inline bool operator==(const TExercise& exo1, const TExercise& exo2) {
 	return exo1.getAvailableLetters() == exo2.getAvailableLetters() &&
-			exo1.getExerciceType() == exo2.getExerciceType() &&
+			exo1.getExerciseType() == exo2.getExerciseType() &&
 			exo1.getLearningLetters() == exo2.getLearningLetters();
 }
 

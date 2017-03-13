@@ -38,7 +38,7 @@ TEMPLATE = app
 
 
 SOURCES += tst_testusersettingstest.cpp \
-        $$SRC/Data/texercice.cpp \
+        $$SRC/Data/texercise.cpp \
         $$SRC/Data/tlayout.cpp \
         $$SRC/Data/tprogression.cpp \
         $$SRC/Data/tresult.cpp \
@@ -52,7 +52,7 @@ SOURCES += tst_testusersettingstest.cpp \
         $$SRC/Util/htmlhelper.cpp
 
 HEADERS += \
-        $$SRC/Data/texercice.h \
+        $$SRC/Data/texercise.h \
         $$SRC/Data/tlayout.h \
         $$SRC/Data/tprogression.h \
         $$SRC/Data/tresult.h \

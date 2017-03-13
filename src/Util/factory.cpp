@@ -131,7 +131,7 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
             res += wordsWMain;
         }
     } else{
-        qWarning() << "Warning : no letters available to generate the exercice";
+        qWarning() << "Warning : no letters available to generate the exercise";
     }
     return res;
 }

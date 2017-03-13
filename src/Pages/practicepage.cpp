@@ -61,44 +61,44 @@ void PracticePage::setupLayout() {
 
 void PracticePage::connectEvents() {
     connect(&practiceAgainstTime_, &QPushButton::clicked, this, [ = ](){
-        this->startExercice(new TPracticeRace(60, this));
+        this->startExercise(new TPracticeRace(60, this));
     });
     connect(&practiceDefault_, &QPushButton::clicked, this, [ = ](){
-        this->startExercice(new TPracticeBase(this));
+        this->startExercise(new TPracticeBase(this));
     });
 
     connect(&practiceText_, &QPushButton::clicked, this, [ = ](){
-        this->startExercice(new TPracticeText(this));
+        this->startExercise(new TPracticeText(this));
     });
 
     connect(&practiceImprove_, &QPushButton::clicked, this, [ = ](){
-        this->startExercice(new TImprove(this));
+        this->startExercise(new TImprove(this));
     });
 
 	connect(&um, SIGNAL(userChanged(TUser&)), this, SLOT(userChanges(TUser&)));
 }
 
-void PracticePage::startExercice(TWindowTest *exercice) {
+void PracticePage::startExercise(TWindowTest *exercise) {
     if (currentDialog_ != nullptr) {
-        qWarning() << "Already running another exercice";
+        qWarning() << "Already running another exercise";
         //Already running
     } else {
-        currentDialog_ = exercice;
+        currentDialog_ = exercise;
         currentDialog_->show();
-        connect(exercice, &TWindowTest::endOfExercice, this, &PracticePage::saveExerciceResult);
-        connect(exercice, SIGNAL(closed()), this, SLOT(resetExercice()));
+        connect(exercise, &TWindowTest::endOfExercise, this, &PracticePage::saveExerciseResult);
+        connect(exercise, SIGNAL(closed()), this, SLOT(resetExercise()));
 
     }
 }
 
-void PracticePage::saveExerciceResult(TResult& res, QTime time) {
+void PracticePage::saveExerciseResult(TResult& res, QTime time) {
 	um.saveUsers();
-	QMessageBox::information(currentDialog_, "Exercice finished", res.getResume() +
+	QMessageBox::information(currentDialog_, "Exercise finished", res.getResume() +
             "<br/> Realized in :" + time.toString("mm:ss"));
-    resetExercice();
+    resetExercise();
 }
 
-void PracticePage::resetExercice() {
+void PracticePage::resetExercise() {
     if (currentDialog_) {
         currentDialog_->hide();
         currentDialog_->disconnect();

@@ -16,15 +16,15 @@
 #include <QWidget>
 #include "twindowtest.h"
 
-class TExercice;
+class TExercise;
 class TPresentation;
 
 class TWindowLearn : public TWindowTest {
     Q_OBJECT
 public:
     TWindowLearn(QString content, QWidget *parent = 0);
-	TWindowLearn(TExercice &ex, QWidget *parent = 0);
-	TWindowLearn(TExercice &ex, int numberOfPages, QWidget *parent = 0);
+	TWindowLearn(TExercise &ex, QWidget *parent = 0);
+	TWindowLearn(TExercise &ex, int numberOfPages, QWidget *parent = 0);
 
     virtual ~TWindowLearn() {
     }
@@ -37,7 +37,7 @@ public slots:
 private:
     TPresentation *instructions_;
 
-	void addInstructions(TExercice &exo);
+	void addInstructions(TExercise &exo);
 };
 
 #endif /* TWINDOWLEARN_H */

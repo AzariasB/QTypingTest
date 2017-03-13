@@ -21,7 +21,7 @@
 /**
  * A class to define the progression of a user
  * to know what's the last letters he learned
- * the difficulty of the exercices
+ * the difficulty of the exercises
  * 
  */
 class TProgression : public TJsonSerializable {
@@ -32,15 +32,15 @@ public:
     virtual ~TProgression();
 
     int getLastExericeIndex() const {
-        return lastExerciceIndex_;
+        return lastExerciseIndex_;
     }
 
-    void setLastExerciceIndex(int exIndex) {
-        lastExerciceIndex_ = exIndex;
+    void setLastExerciseIndex(int exIndex) {
+        lastExerciseIndex_ = exIndex;
     }
 
     void avdvanceExIndex() {
-        lastExerciceIndex_++;
+        lastExerciseIndex_++;
     }
 
 	void read(const QJsonObject &json) override;
@@ -49,7 +49,7 @@ public:
 
 
 private:
-    int lastExerciceIndex_;
+    int lastExerciseIndex_;
 };
 
 

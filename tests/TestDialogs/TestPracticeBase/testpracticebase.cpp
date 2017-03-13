@@ -22,15 +22,15 @@ private slots:
         srand(time(NULL));//Random number generation
     }
     
-    void testWithoutExercice();
+    void testWithoutExercise();
 };
 
-void TestPracticeBase::testWithoutExercice() {
+void TestPracticeBase::testWithoutExercise() {
     //Test if the dialogs shows up with text
 
     TPracticeBase pract;
-	connect(&pract,&TPracticeBase::endOfExercice,this,[&pract,this](TResult res,QTime time){
-		QMessageBox::information(&pract,"Exercice finished",res.getResume());
+	connect(&pract,&TPracticeBase::endOfExercise,this,[&pract,this](TResult res,QTime time){
+		QMessageBox::information(&pract,"Exercise finished",res.getResume());
         pract.close();
     });
     pract.show();

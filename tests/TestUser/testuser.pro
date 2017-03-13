@@ -14,7 +14,7 @@ INCLUDEPATH += $$SRC
 
 HEADERS = $$SRC/Data/tuser.h \
          $$SRC/Data/tusermanager.h \
-         $$SRC/Data/texercice.h \
+         $$SRC/Data/texercise.h \
          $$SRC/Data/tstats.h \
          $$SRC/Data/tresult.h \
          $$SRC/Data/tlayout.h \
@@ -27,7 +27,7 @@ HEADERS = $$SRC/Data/tuser.h \
 
 SOURCES = $$SRC/Data/tuser.cpp \
          $$SRC/Data/tusermanager.cpp \
-         $$SRC/Data/texercice.cpp \
+         $$SRC/Data/texercise.cpp \
          $$SRC/Data/tstats.cpp \
          $$SRC/Data/tresult.cpp \
          $$SRC/Data/tlayout.cpp \

@@ -22,7 +22,7 @@ HEADERS = $$SRC/Dialogs/twindowtest.h \
             $$SRC/Widgets/tvirtualkeyboard.h \
             $$SRC/Data/tprogression.h \
             $$SRC/Data/tresult.h \
-            $$SRC/Data/texercice.h \
+            $$SRC/Data/texercise.h \
             $$SRC/Data/tuser.h \
             $$SRC/Data/tusermanager.h \
             $$SRC/Data/tstats.h \
@@ -45,7 +45,7 @@ SOURCES = $$SRC/Dialogs/twindowtest.cpp \
             $$SRC/Widgets/tvirtualkeyboard.cpp \
             $$SRC/Data/tprogression.cpp \
             $$SRC/Data/tresult.cpp \
-            $$SRC/Data/texercice.cpp \
+            $$SRC/Data/texercise.cpp \
             $$SRC/Data/tuser.cpp \
             $$SRC/Data/tusermanager.cpp \
             $$SRC/Data/tstats.cpp \

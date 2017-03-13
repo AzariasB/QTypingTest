@@ -17,13 +17,13 @@
 
 #include "twindowtest.h"
 
-class TExercice;
+class TExercise;
 
 class TPracticeBase : public TWindowTest {
     Q_OBJECT
 public:
     TPracticeBase(QWidget *parent = 0);
-	TPracticeBase(TExercice &generator, QWidget *parent = 0);
+	TPracticeBase(TExercise &generator, QWidget *parent = 0);
 	virtual ~TPracticeBase(){
     }
     

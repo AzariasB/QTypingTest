@@ -71,8 +71,8 @@ bool TStackPages::nextPage()
     }
 }
 
-void TStackPages::beginExercice() {
-    emit exerciceStarted();
+void TStackPages::beginExercise() {
+    emit exerciseStarted();
 }
 
 //void TStackPages::keyPressed(QKeyEvent *ev) {
@@ -95,7 +95,7 @@ void TStackPages::addPage(QString pageText, bool isFirst) {
     if (!isFirst) {
         mPage->setEnabled(false); //Disable all to prevent user to switch of lineEdit
     } else {
-        connect(mPage, SIGNAL(startedPage()), this, SLOT(beginExercice()));
+        connect(mPage, SIGNAL(startedPage()), this, SLOT(beginExercise()));
         mPage->updateAsFirst();
     }
     this->addWidget(mPage);

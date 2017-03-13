@@ -38,7 +38,7 @@ void TestImprove::testOpen() {
     
     TImprove improve;
     improve.show();
-	connect(&improve, &TImprove::endOfExercice, this, [&improve, this](TResult res, QTime time) {
+	connect(&improve, &TImprove::endOfExercise, this, [&improve, this](TResult res, QTime time) {
         qDebug() << "End of the exerice";
 		qDebug() << res.getResume();
         improve.close();

@@ -18,7 +18,7 @@
 
 #include "twindowtest.h"
 
-class TExercice;
+class TExercise;
 
 class TPracticeText : public TWindowTest {
     Q_OBJECT
@@ -33,7 +33,7 @@ public:
     }
 
 private:
-	QString findTitleAndAuthor(TExercice &exo);
+	QString findTitleAndAuthor(TExercise &exo);
     
 };
 

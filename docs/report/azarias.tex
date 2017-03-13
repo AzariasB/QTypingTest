@@ -358,9 +358,9 @@ The data classes are a bit different from the widget class. The code bellow is t
 
 //includes [...]
 
-struct date_exercice_ {
+struct date_exercise_ {
     QDateTime dateResult;
-    TExercice exercice;
+    TExercise exercise;
 };
 
 class TUser : public QObject {
@@ -407,7 +407,7 @@ private:
     TProgression *progress_;
     TStats statistics_;
     QString layout_;
-	QHash<date_exercice_, TResult> practiceHistory_;
+	QHash<date_exercise_, TResult> practiceHistory_;
 \end{lstlisting}
 These are the attributes of the TUser class.
 

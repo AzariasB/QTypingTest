@@ -12,7 +12,7 @@
 #include <time.h>
 
 #include "Data/tuser.h"
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 #include "Data/tusermanager.h"
 
 
@@ -137,7 +137,7 @@ void TestTUser::testConstructor() {
 }
 
 void TestTUser::testProgression() {
-	TExercice ex = TExercice::generateExercice(TExercice::LEARNING,"d","d");
+	TExercise ex = TExercise::generateExercise(TExercise::LEARNING,"d","d");
 	TResult res;
 	ex.completed(res);
 

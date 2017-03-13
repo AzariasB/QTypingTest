@@ -12,20 +12,20 @@
 
 #include "tpracticebase.h"
 
-#include "Data/texercice.h"
+#include "Data/texercise.h"
 
 TPracticeBase::TPracticeBase(QWidget* parent)
-: TWindowTest(TExercice::generateExercice(TExercice::PRACTICING), parent){
+: TWindowTest(TExercise::generateExercise(TExercise::PRACTICING), parent){
     setupText();
 }
 
-TPracticeBase::TPracticeBase(TExercice &generator, QWidget* parent) :
+TPracticeBase::TPracticeBase(TExercise &generator, QWidget* parent) :
 TWindowTest(generator, parent){
     setupText();
 }
 
 void TPracticeBase::setupText() {
     pages_.setNumberOfPages(2);
-	pages_.setupPages(exercice().buildExercice());
+	pages_.setupPages(exercise().buildExercise());
     updateToolbarProgression();
 }
