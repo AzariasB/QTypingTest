@@ -14,7 +14,6 @@
 
 #include <QStringList>
 #include <QDebug>
-#include <QDataStream>
 #include <QDateTime>
 
 #include "tjsonserializable.h"
