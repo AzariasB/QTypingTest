@@ -100,24 +100,7 @@ private:
 	TResult result_;
 
 	int numberOfWords_;
-
-	friend QDataStream &operator>>(QDataStream &in, TExercise &ex){
-		qint16 type;
-		in >> ex.availableLetters_ >> type >> ex.learningLetters_  >> ex.attributes_ >> ex.numberOfWords_;
-		ex.exerciseType_ = static_cast<EXERCISE_TYPE>(type);
-		return in;
-	}
-
-	friend QDataStream &operator<<(QDataStream &out, const TExercise &ex){
-		out << ex.availableLetters_ << static_cast<qint16>(ex.exerciseType_) <<
-			   ex.learningLetters_ << ex.attributes_ << ex.numberOfWords_;
-		return out;
-	}
 };
-
-QDataStream &operator>>(QDataStream &in, TExercise &ex);
-
-QDataStream &operator<<(QDataStream &out, const TExercise &ex);
 
 inline bool operator==(const TExercise& exo1, const TExercise& exo2) {
 	return exo1.getAvailableLetters() == exo2.getAvailableLetters() &&
