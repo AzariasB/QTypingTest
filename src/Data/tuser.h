@@ -35,10 +35,7 @@ public:
 		QObject(parent),
 		TJsonSerializable(),
         id_(factory::nexUId()),
-        pseudo_(pseudo),
-        progress_(new TProgression()),
-        practiceHistory_(),
-        statistics_(TStats()){
+		pseudo_(pseudo){
     }
 
     TUser(const TUser &orig) :
@@ -61,11 +58,11 @@ public:
         this->pseudo_ = pseudo;
     }
 
-	QList<TExercise> *getPracticeHistory() {
-        return &practiceHistory_;
+	QList<TExercise> &getPracticeHistory() {
+		return practiceHistory_;
     }
 
-    TProgression* getProgression() const {
+	TProgression &getProgression() {
         return progress_;
     }
 
@@ -78,7 +75,7 @@ public:
 		emit settingsChanged(*this);
     }
 
-    void setProgression(TProgression *nwProgression) {
+	void setProgression(TProgression nwProgression) {
         progress_ = nwProgression;
     }
 
@@ -145,7 +142,7 @@ signals:
 private:
     int id_;
     QString pseudo_;
-    TProgression *progress_;
+	TProgression progress_;
     TStats statistics_;
 	QList<TExercise> practiceHistory_;
 };

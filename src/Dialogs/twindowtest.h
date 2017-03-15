@@ -39,30 +39,33 @@ public:
 	TWindowTest(TExercise exercise, QWidget* parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(2)),
-	timeStart_(QTime(0, 0)),
-    mainLayout_(new QStackedLayout()),
+	um_(tApp.getUserManager()),
 	exercise_(exercise),
-	um_(tApp.getUserManager()){
+	timeStart_(QTime(0, 0)),
+	mainLayout_(new QStackedLayout())
+	{
         setupWidget();
     }
 
 	TWindowTest(QString text, TExercise exercise, QWidget *parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(text, 2)),
-	timeStart_(QTime()),
-    mainLayout_(new QStackedLayout()),
+	um_(tApp.getUserManager()),
 	exercise_(exercise),
-	um_(tApp.getUserManager()){
+	timeStart_(QTime()),
+	mainLayout_(new QStackedLayout())
+	{
         setupWidget();
     }
 
 	TWindowTest(QString text, int numberOfPages,TExercise exercise,  QWidget *parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(text, numberOfPages)),
-	timeStart_(QTime()),
-    mainLayout_(new QStackedLayout()),
+	um_(tApp.getUserManager()),
 	exercise_(exercise),
-	um_(tApp.getUserManager()){
+	timeStart_(QTime()),
+	mainLayout_(new QStackedLayout())
+	{
         setupWidget();
     }
 

@@ -21,8 +21,9 @@
 
 LearnPage::LearnPage(QWidget* parent) :
 QWidget(parent),
-learnButtons_(QVector<QPushButton*>()),
-um(tApp.getUserManager()){
+um(tApp.getUserManager()),
+learnButtons_(QVector<QPushButton*>())
+{
     this->createPractice();
 }
 
@@ -68,7 +69,7 @@ void LearnPage::createButtons(QGridLayout *lay) {
 
         int lastUserExercise = -1;
 		if (um.isUserConnected()) {
-			lastUserExercise = um.getCurrentUser().getProgression()->getLastExericeIndex();
+			lastUserExercise = um.getCurrentUser().getProgression().getLastExericeIndex();
         }
 
         if (index > lastUserExercise) {
@@ -131,9 +132,9 @@ void LearnPage::endExercise(TResult& exerciseResult, QTime timeEx) {
     } else {
 
 
-		TProgression *curProgr = um.getCurrentUser().getProgression();
-        if (currentProgression_ == curProgr->getLastExericeIndex())
-            curProgr->avdvanceExIndex();
+		TProgression &curProgr = um.getCurrentUser().getProgression();
+		if (currentProgression_ == curProgr.getLastExericeIndex())
+			curProgr.avdvanceExIndex();
 
         QString text = QString("Congratulations, you finished the exercise !<br/>"
 				"Results are :<br/>") + exerciseResult.getResume() + "<br/>" + time;
@@ -142,8 +143,8 @@ void LearnPage::endExercise(TResult& exerciseResult, QTime timeEx) {
         //Unlock the last button if exercise succeeded
 
 
-        if (curProgr->getLastExericeIndex() < learnButtons_.size()) {
-            learnButtons_.at(curProgr->getLastExericeIndex())->setEnabled(true);
+		if (curProgr.getLastExericeIndex() < learnButtons_.size()) {
+			learnButtons_.at(curProgr.getLastExericeIndex())->setEnabled(true);
         } else {
             //Finished the game !
             QMessageBox::information(this, "End of the game", "Congratulation, you completed the game.");
@@ -168,7 +169,7 @@ void LearnPage::resetExercise() {
 }
 
 void LearnPage::updateUserProgression(TUser &nwUser) {
-	int lastUserExercise = nwUser.getProgression()->getLastExericeIndex();
+	int lastUserExercise = nwUser.getProgression().getLastExericeIndex();
 	for (int i = 0; i <= lastUserExercise && i < learnButtons_.size(); i++) {
 		learnButtons_[i]->setEnabled(true);
 	}

@@ -37,7 +37,7 @@ void TStatistics::userChanged(TUser &nwUser)
 void TStatistics::updateStats(TUser &user)
 {
 	userResults_.clear();
-	for(TExercise exo : *user.getPracticeHistory()){
+	for(TExercise &exo : user.getPracticeHistory()){
 		userResults_.append(exo.getResult());
 	}
 	update();

@@ -29,7 +29,7 @@ void TUser::read(const QJsonObject &json)
 {
 	id_ = json["id"].toInt();
 	pseudo_ = json["pseudo"].toString();
-	progress_->read(json["progression"].toObject());
+	progress_.read(json["progression"].toObject());
 	statistics_.read(json["statistics"].toObject());
 	for(QJsonValue v : json["exercises"].toArray()){
 		TExercise ex;
@@ -45,7 +45,7 @@ void TUser::write(QJsonObject &json) const
 	json["id"] = id_;
 	json["pseudo"] = pseudo_;
 	QJsonObject progression;
-	progress_->write(progression);
+	progress_.write(progression);
 	json["progression"] = progression;
 	QJsonObject statsJson;
 	statistics_.write(statsJson);
