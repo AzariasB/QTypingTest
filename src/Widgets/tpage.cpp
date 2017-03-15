@@ -55,7 +55,6 @@ bool TPage::typingAnswer(QString answer)
         emit startedPage();
     }
 
-    bool nextChar = true;
 
     TLabel *curLabel = toCopy_[currentTLabel_];
 
@@ -75,9 +74,11 @@ bool TPage::typingAnswer(QString answer)
 		lineRes_.incrCorrectKeystrokes();
     }
 
+	//bool nextChar = true;
     if(answer.size() == 1) //When a single char is typed
     {//Try to move the cursor
-        nextChar = curLabel->nextChar(sameChar);
+	   // nextChar = curLabel->nextChar(sameChar);
+		curLabel->nextChar(sameChar);
     }
 
      if (cursorPosition_ == curLabel->text().size() ) {//Next line

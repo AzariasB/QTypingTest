@@ -10,6 +10,7 @@
  */
 
 #include "tvirtualkeyboard.h"
+#include "tapplication.h"
 
 using namespace Qt;
 
@@ -194,7 +195,7 @@ QWidget* TVirtualKeyboard::spaceBarLine() {
 
 TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
     TVirtualKey *target = 0;
-    bool needsModifier = !TLayout::getInstance().needsNoModifier(expected);
+	bool needsModifier = !tApp.getLayout().needsNoModifier(expected);
     bool wrongKey = !expected.isNull() && !needsModifier;
 
 	if (ev->key() == Qt::Key_Shift) {
@@ -217,8 +218,8 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
                 return 0;
             } else {
 				if(needsModifier && ev->text().isEmpty()){
-                    if(TLayout::getInstance().needsShiftModifier(expected) && ev->key() == Qt::Key_Shift ||
-                            TLayout::getInstance().needsAltgrModifier(expected) && ev->key() == Qt::Key_AltGr){
+					if((tApp.getLayout().needsShiftModifier(expected) && ev->key() == Qt::Key_Shift) ||
+							(tApp.getLayout().needsAltgrModifier(expected) && ev->key() == Qt::Key_AltGr)){
                         target->right();
                     }else{
                         target->wrong();
@@ -230,7 +231,7 @@ TVirtualKey* TVirtualKeyboard::updateKeyboard(QKeyEvent* ev, QChar expected) {
         } else if (ev->type() == QEvent::KeyRelease) {
 			setOriginalState(target, ev, expected);
 			if(expected.isNull()) return target;
-			if (wrongKey || !TLayout::getInstance().needsNoModifier(expected)) return 0;
+			if (wrongKey || !tApp.getLayout().needsNoModifier(expected)) return 0;
         }
     }
     return target;
@@ -244,11 +245,11 @@ void TVirtualKeyboard::setOriginalState(TVirtualKey *key, QKeyEvent *ev, QChar e
 	}
 
 
-	bool altgrReset = ev->key() == Qt::Key_AltGr && TLayout::getInstance().needsAltgrModifier(expected);
+	bool altgrReset = ev->key() == Qt::Key_AltGr && tApp.getLayout().needsAltgrModifier(expected);
 	bool textReset = ev->text().size() > 0 && key->possibleToType(expected) && ev->text() != expected;
 
 	bool shiftReset = false;
-	if(ev->key() == Qt::Key_Shift && TLayout::getInstance().needsShiftModifier(expected)){
+	if(ev->key() == Qt::Key_Shift && tApp.getLayout().needsShiftModifier(expected)){
 		qDebug() << expected;
 		TVirtualKey *needed = keys_->value(getKeyCode(expected));
 		shiftReset = (TFingerPosition::isLeftHand(needed->associatedFinger()) && key == rightShift_) ||
@@ -305,4 +306,5 @@ TVirtualKey *TVirtualKeyboard::highlightShift(short index){
 		rightShift_->example();
 		return rightShift_;
 	}
+	return 0;
 }

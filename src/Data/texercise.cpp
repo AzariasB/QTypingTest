@@ -15,11 +15,12 @@
 #include "tresult.h"
 #include "Util/factory.h"
 #include "Data/tlayout.h"
+#include "tapplication.h"
 
 
 TExercise::TExercise() :
 learningLetters_(""),
-availableLetters_(TLayout::getInstance().getAllAvailableLetters()),
+availableLetters_(tApp.getLayout().getAllAvailableLetters()),
 exerciseType_(PRACTICING){
 }
 
@@ -36,7 +37,7 @@ TExercise TExercise::generateExercise(EXERCISE_TYPE type, QString mainLetters, Q
 	if(type == LEARNING){
 		return TExercise(type, mainLetters, availableLetters);;
 	}else{
-		return TExercise(type, "", TLayout::getInstance().getAllAvailableLetters());
+		return TExercise(type, "", tApp.getLayout().getAllAvailableLetters());
 	}
 }
 

@@ -41,7 +41,7 @@ QMainWindow(parent),
                           ));
 }
 
-void THomePage::closeEvent(QCloseEvent *ev)
+void THomePage::closeEvent(QCloseEvent *)
 {
 	um.saveUsers();
 }
@@ -97,7 +97,7 @@ void THomePage::connectEvents() {
     ui.stack_main->setCurrentWidget(ui.page_home);
 }
 
-void THomePage::enableUI(TUser &nwUser) {
+void THomePage::enableUI(TUser &) {
 	setUIState(true);
 }
 

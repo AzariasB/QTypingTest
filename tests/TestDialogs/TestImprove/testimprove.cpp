@@ -14,6 +14,7 @@
 
 #include "Dialogs/timprove.h"
 #include "Data/tlayout.h"
+#include "tapplication.h"
 
 class TestImprove : public QObject {
 
@@ -38,7 +39,7 @@ void TestImprove::testOpen() {
     
     TImprove improve;
     improve.show();
-	connect(&improve, &TImprove::endOfExercise, this, [&improve, this](TResult res, QTime time) {
+	connect(&improve, &TImprove::endOfExercise, this, [&improve, this](TResult res, QTime) {
         qDebug() << "End of the exerice";
 		qDebug() << res.getResume();
         improve.close();
@@ -49,7 +50,7 @@ void TestImprove::testOpen() {
 void TestImprove::generateRandomChars(TStats &chars) {
     int numbersOfRandomChars = rand() % 200 + 50;
     qDebug() << "Generating " << numbersOfRandomChars << " random chars";
-    QString possibilities = TLayout::getInstance().getAllAvailableLetters();
+	QString possibilities = tApp.getLayout().getAllAvailableLetters();
     qDebug() << possibilities;
     for(int i = 0; i < numbersOfRandomChars;i++){
         //Always the same letter

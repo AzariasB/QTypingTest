@@ -144,7 +144,7 @@ void TestTUser::testProgression() {
     TUser t("Dupont");
 
 	t.addResult(ex);
-    QVERIFY(t.getPracticeHistory()->size() >= 1);
+	QVERIFY(t.getPracticeHistory().size() >= 1);
 }
 
 

@@ -27,7 +27,7 @@ void TLayout::initLetters() {
     QJsonObject jsonLays = doc.object();
 
     lettersList_ = QStringList(); // reset the lettersList
-    TLayout:allAvailableLetters_ = "";
+	allAvailableLetters_ = "";
     layoutLines_ = decomposeLayout(jsonLays["rows"]);
     initLearningCouples();
     initKeyCombination();

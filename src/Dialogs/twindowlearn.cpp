@@ -15,16 +15,17 @@
 #include "Dialogs/twindowtest.h"
 #include "Widgets/tpresentation.h"
 #include "Data/texercise.h"
+#include "tapplication.h"
 
 TWindowLearn::TWindowLearn(TExercise &ex, QWidget* parent) :
 TWindowTest(ex.buildExercise() ,ex, parent),
-instructions_(new TPresentation(TLayout::getInstance(),ex.getLearningLetters(),parent )) {
+instructions_(new TPresentation(tApp.getLayout(),ex.getLearningLetters(),parent )) {
     addInstructions(ex);
 }
 
 TWindowLearn::TWindowLearn(QString content, QWidget* parent) :
 TWindowTest(content, 1, TExercise::generateExercise(TExercise::LEARNING), parent),
-instructions_(new TPresentation(TLayout::getInstance())) {
+instructions_(new TPresentation(tApp.getLayout())) {
 	addInstructions(exercise());
 }
 

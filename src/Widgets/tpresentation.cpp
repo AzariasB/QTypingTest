@@ -12,6 +12,8 @@
 
 #include "tpresentation.h"
 
+#include "tapplication.h"
+
 TPresentation::TPresentation(TLayout&layout, QWidget* parent) :
 QWidget(parent),
 keyboard_(new TVirtualKeyboard(layout)),
@@ -41,7 +43,7 @@ void TPresentation::nextCharToCopy() {
         if (hilighted) {
             positions_->enableFinger(hilighted->associatedFinger());
         }
-		if(TLayout::getInstance().needsShiftModifier(current)){
+		if(tApp.getLayout().needsShiftModifier(current)){
 			//If left hand needed for character => right shift, else, left shift
 			short shiftSide = TFingerPosition::isLeftHand(hilighted->associatedFinger()) ? 1 : 0;
 			TVirtualKey *shift = keyboard_->highlightShift(shiftSide);
@@ -49,7 +51,8 @@ void TPresentation::nextCharToCopy() {
                 positions_->enableFinger(shift->associatedFinger() );
             }
         }
-		if(TLayout::getInstance().needsAltgrModifier(current)){
+
+		if(tApp.getLayout().needsAltgrModifier(current)){
             TVirtualKey *altGr = keyboard_->highlightModifier(Qt::Key_AltGr);
             if(altGr){
                 positions_->enableFinger(altGr->associatedFinger() );

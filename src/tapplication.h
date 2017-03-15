@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "Data/tusermanager.h"
+#include "Data/tlayout.h"
 
 #define tApp (TApplication::instance())
 
@@ -27,6 +28,10 @@ public:
             return userManager;
         }
 
+		TLayout &getLayout(){
+			return layout;
+		}
+
 	TApplication(const TApplication&) = delete;
 	void operator=(const TApplication&) = delete;
 
@@ -38,6 +43,8 @@ private:
 	explicit TApplication(QObject *parent = 0);
 
 	TUserManager userManager;
+
+	TLayout layout;
 
 };
 

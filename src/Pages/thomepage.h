@@ -42,7 +42,7 @@ public:
     virtual ~THomePage();
 
 public slots:
-	void enableUI(TUser &nwUser);
+	void enableUI(TUser &);
 
 	void disableUI();
 
@@ -51,7 +51,7 @@ public slots:
     void showOptionDialog();
 
 protected:
-	void closeEvent(QCloseEvent *ev);
+	void closeEvent(QCloseEvent *);
 
 private slots:
     /**

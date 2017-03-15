@@ -11,7 +11,7 @@
 
 #include "Dialogs/twindowlearn.h"
 #include "Data/tlayout.h"
-
+#include "tapplication.h"
 
 class TestLearnDialog : public QObject {
     Q_OBJECT
@@ -25,12 +25,11 @@ private slots:
 void TestLearnDialog::testOpen() {
     //Test if the dialogs shows up with text
     QWidget *w = new QWidget();
-    TLayout frLayout = TLayout::getInstance();
 	TExercise ex = TExercise::generateExercise(TExercise::LEARNING,"fj", "fj");
     
     TWindowLearn learn(ex,w);
     learn.show();
-	connect(&learn,&TWindowLearn::endOfExercise,this, [&learn,this](TResult res, QTime time){
+	connect(&learn,&TWindowLearn::endOfExercise,this, [&learn,this](TResult res, QTime){
         qDebug() << "End of the exercise";
 		qDebug() << res.getResume();
         learn.close();

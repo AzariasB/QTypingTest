@@ -1,16 +1,16 @@
 #include "ttext.h"
 
 TText::TText():
+	author_(""),
     title_(""),
-    author_(""),
     text_("")
 {
 
 }
 
 TText::TText(QDomElement textElem):
+	author_( textElem.hasAttribute("author") ? textElem.attribute("author") : "" ),
     title_(textElem.hasAttribute("title") ? textElem.attribute("title") : "" ),
-    author_( textElem.hasAttribute("author") ? textElem.attribute("author") : "" ),
     text_(textElem.text().simplified())
 {
 }

@@ -13,6 +13,16 @@ HEADERS = $$SRC/Widgets/tvirtualkey.h \
         $$SRC/Widgets/tfingerposition.h \
         $$SRC/Widgets/tpresentation.h \
         $$SRC/Util/factory.h \
+        $$SRC/Data/tuser.h \
+        $$SRC/Data/tusermanager.h \
+        $$SRC/Data/tstats.h \
+        $$SRC/Data/tjsonserializable.h \
+        $$SRC/Data/texercise.h \
+        $$SRC/Data/tresult.h \
+        $$SRC/Data/tprogression.h \
+        $$SRC/Data/ttext.h \
+        $$SRC/tapplication.h \
+        $$SRC/Util/htmlhelper.h \
         $$SRC/Data/tlayout.h
 
 SOURCES = $$SRC/Widgets/tvirtualkey.cpp \
@@ -21,6 +31,16 @@ SOURCES = $$SRC/Widgets/tvirtualkey.cpp \
         $$SRC/Widgets/tpresentation.cpp \
         $$SRC/Data/tlayout.cpp \
         $$SRC/Util/factory.cpp \
+        $$SRC/Data/tuser.cpp \
+        $$SRC/Data/tusermanager.cpp \
+        $$SRC/Data/tstats.cpp \
+        $$SRC/Data/tjsonserializable.cpp \
+        $$SRC/Data/texercise.cpp \
+        $$SRC/Data/tresult.cpp \
+        $$SRC/Data/tprogression.cpp \
+        $$SRC/Data/ttext.cpp \
+        $$SRC/tapplication.cpp \
+        $$SRC/Util/htmlhelper.cpp \
         testvirtualkeyboard.cpp
 
 # install

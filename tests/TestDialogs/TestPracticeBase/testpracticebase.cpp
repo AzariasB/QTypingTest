@@ -29,7 +29,7 @@ void TestPracticeBase::testWithoutExercise() {
     //Test if the dialogs shows up with text
 
     TPracticeBase pract;
-	connect(&pract,&TPracticeBase::endOfExercise,this,[&pract,this](TResult res,QTime time){
+	connect(&pract,&TPracticeBase::endOfExercise,this,[&pract,this](TResult res,QTime){
 		QMessageBox::information(&pract,"Exercise finished",res.getResume());
         pract.close();
     });

@@ -12,6 +12,7 @@
 #include <QInputMethod>
 
 #include "Widgets/tpresentation.h"
+#include "tapplication.h"
 
 class TestVirtualKeyboard : public QObject {
     Q_OBJECT
@@ -22,7 +23,7 @@ private slots:
 
 void TestVirtualKeyboard::testKeyboard()
 {
-    TLayout layTest = TLayout::getInstance();
+	TLayout layTest = tApp.getLayout();
     layTest.getLearningCouples();
 	TPresentation *pres = new TPresentation(layTest, "{AQP},(ap)");
 	connect(pres, &TPresentation::allCopied, [pres](){

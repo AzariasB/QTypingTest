@@ -47,10 +47,10 @@
 class TLayout{
 public:
 
-    static TLayout&getInstance() {
-        static TLayout instance;
-        return instance;
-    }
+
+	TLayout(){
+		this->initLetters();
+	}
 
     QList<QStringList> getLayouLines() const {
         return *layoutLines_;
@@ -88,10 +88,6 @@ public:
 private:
 
     QString allAvailableLetters_;
-
-    TLayout(){
-        this->initLetters();
-    }
 
     /**
      * Init the list of letters, from the given

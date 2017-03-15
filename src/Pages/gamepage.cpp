@@ -14,6 +14,7 @@
 #include "gamepage.h"
 
 #include "Widgets/tpresentation.h"
+#include "tapplication.h"
 
 
 GamePage::~GamePage(){
@@ -41,7 +42,7 @@ void GamePage::connectEvents() {
 
 void GamePage::showInteractiveKeyboard() {
     QDialog *dial = new QDialog(this);
-    TPresentation *p = new TPresentation(TLayout::getInstance());
+	TPresentation *p = new TPresentation(tApp.getLayout());
     QGridLayout *dialLay = new QGridLayout();
     dialLay->addWidget(p);
     

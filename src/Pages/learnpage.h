@@ -24,13 +24,14 @@
 #include <QScrollArea>
 #include <QTime>
 #include "Data/tusermanager.h"
-#include "Data/tlayout.h"
+#include "tapplication.h"
 
 class TExercise;
 class TResult;
 class TUserManager;
 class TWindowLearn;
 class TUser;
+class TLayout;
 
 class LearnPage : public QWidget {
     Q_OBJECT
@@ -88,7 +89,7 @@ private:
 	TUserManager &um;
 
     //Save the tpractice instead of instanciate it over and over
-    TLayout practice_ = TLayout::getInstance();
+	TLayout practice_ = tApp.getLayout();
 
     //Have a unique window for the exercise that will change depending on the exercises
     TWindowLearn *testWindow_;

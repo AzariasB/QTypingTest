@@ -16,10 +16,11 @@
 
 TToolbar::TToolbar(QWidget *parent) :
 QWidget(parent),
-pageProgression_(new QLabel("")),
-additionnalInfos_(new QLabel("")),
 pauseButton_(new QPushButton("Pause") ),
-LCDtimer_(new QLCDNumber() ){
+LCDtimer_(new QLCDNumber() ),
+pageProgression_(new QLabel("")),
+additionnalInfos_(new QLabel(""))
+{
     setupToolbar();
 }
 
