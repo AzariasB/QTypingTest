@@ -97,7 +97,11 @@ SOURCES +=\
     src/Data/tlayout.cpp \
     src/Data/tjsonserializable.cpp \
     src/tapplication.cpp \
-    src/Data/texercise.cpp
+    src/Data/texercise.cpp \
+    src/Games/vector2f.cpp \
+    src/Games/bounce.cpp \
+    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/bullet.cpp \
+    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/letterwall.cpp
 
 HEADERS +=\
     #-------------------------
@@ -154,7 +158,11 @@ HEADERS +=\
     src/Data/tlayout.h \
     src/Data/tjsonserializable.h \
     src/tapplication.h \
-    src/Data/texercise.h
+    src/Data/texercise.h \
+    src/Games/vector2f.h \
+    src/Games/bounce.h \
+    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/bullet.h \
+    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/letterwall.h
 
 DISTFILES += \
     ressources/syle.qss
