@@ -34,6 +34,30 @@ void LetterWall::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 	painter->drawText(this->boundingRect(), QString(char_),  Qt::AlignCenter | Qt::AlignVCenter );
 }
 
+void LetterWall::resetState()
+{
+	state_ = STATE_NULL;
+	update();
+}
+
+void LetterWall::setSelectedState()
+{
+	state_ = STATE_SELECTED;
+	update();
+}
+
+void LetterWall::setWrongState()
+{
+        state_ = STATE_WRONG;
+	update();
+}
+
+void LetterWall::setCorrectState()
+{
+        state_ = STATE_CORRECT;
+	update();
+}
+
 QColor LetterWall::stateToColor()
 {
 	QColor color(Qt::white);

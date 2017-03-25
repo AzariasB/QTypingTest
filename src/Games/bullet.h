@@ -33,7 +33,7 @@ public:
 private:
 	Vector2f direction;
 
-	float speed = 4.f;
+	float speed = 8.f;
 };
 
 #endif // BULLET_H

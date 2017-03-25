@@ -29,13 +29,13 @@ public:
 		return char_;
 	}
 
-	void setSelectedState(){state_ = STATE_SELECTED;}
+	void setSelectedState();
 
-	void setWrongState(){state_ = STATE_WRONG;}
+	void setWrongState();
 
-	void resetState(){state_ = STATE_NULL;}
+	void resetState();
 
-	void setCorrectState(){state_ = STATE_CORRECT;}
+	void setCorrectState();
 
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 

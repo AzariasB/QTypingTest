@@ -45,9 +45,11 @@ private:
 
 	void addWallToScene(QVector<LetterWall*> &toAdd);
 
-	void nextTarget(DIRECTION nwDirection = NO_DIRECTION);
+	void nextTarget(LetterWall *nwTarget = nullptr);
 
 	LetterWall *randomTarget(DIRECTION nwDirection = NO_DIRECTION);
+
+	LetterWall *currentTarget_ = nullptr;
 
 	QGraphicsScene scene_;
 

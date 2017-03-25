@@ -41,9 +41,10 @@ void Bounce::tick(int dt)
 		}
 
 		if(nwTarget){
-			nwTarget->setSelectedState();
-			nwTarget->update();
-			bullet_.setTarget(nwTarget);
+			if(currentTarget_)
+				currentTarget_->resetState();
+
+			nextTarget(nwTarget);
 		}
 	}
 
@@ -69,12 +70,17 @@ void Bounce::addWallToScene(QVector<LetterWall*> &toAdd)
 	}
 }
 
-void Bounce::nextTarget(DIRECTION nwDirection)
+void Bounce::nextTarget(LetterWall *nwTarget)
 {
-	LetterWall *target = randomTarget(nwDirection);
-	target->setSelectedState();
-	bullet_.setTarget(target);
-	target->update();
+	if(nwTarget == 0)
+		nwTarget = randomTarget();
+
+	if(currentTarget_ != 0)
+		currentTarget_->resetState();
+
+	currentTarget_ = nwTarget;
+	nwTarget->setSelectedState();
+	bullet_.setTarget(nwTarget);
 }
 
 QVector<LetterWall *> Bounce::createWall(int numberOfWalls, QPoint start, QPoint increment)
