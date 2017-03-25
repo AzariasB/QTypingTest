@@ -31,6 +31,12 @@ void Bullet::setTarget(QGraphicsItem *target)
 	}
 }
 
+void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+	QGraphicsEllipseItem::paint(painter, option, widget);
+	painter->drawRect(boundingRect());
+}
+
 void Bullet::tick(int dt)
 {
 	this->setX(this->x() + (dt/100.f) * direction.x() * speed);

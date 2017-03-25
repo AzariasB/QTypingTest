@@ -28,6 +28,7 @@ void Bounce::tick(int dt)
 	bullet_.tick(dt);
 	QList<QGraphicsItem*> colliders = scene_.collidingItems(&bullet_);
 	if(colliders.length() > 0){
+		qDebug() << "collision";
 		LetterWall *collider = static_cast<LetterWall*>(colliders[0]);
 		LetterWall *nwTarget = nullptr;
 		if(leftWall_.contains(collider)){

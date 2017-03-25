@@ -18,6 +18,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsEllipseItem>
 #include <QDebug>
+#include <QPainter>
 
 #include "vector2f.h"
 
@@ -30,10 +31,13 @@ public:
 
 	void tick(int dt);
 
+protected:
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
 private:
 	Vector2f direction;
 
-	float speed = 8.f;
+	qreal speed = 8.f;
 };
 
 #endif // BULLET_H

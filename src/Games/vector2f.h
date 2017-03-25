@@ -58,8 +58,25 @@ public:
 private:
 	qreal x_ = 0;
 	qreal y_ = 0;
-
-	bool clockWiseRotate_ = false;
 };
+
+
+Vector2f &operator+=(Vector2f &left, const Vector2f &right);
+
+Vector2f &operator-=(Vector2f &left, const Vector2f &right);
+
+Vector2f operator+(const Vector2f &left, const Vector2f &right);
+
+Vector2f operator-(const Vector2f &left, const Vector2f &right);
+
+Vector2f operator*(const Vector2f &left, qreal right);
+
+Vector2f operator*(qreal left, const Vector2f &right);
+
+Vector2f &operator*=(Vector2f &left, qreal right);
+
+Vector2f operator/(const Vector2f &left, qreal right);
+
+Vector2f &operator/=(Vector2f &left, qreal right);
 
 #endif // VECTOR2F_H
