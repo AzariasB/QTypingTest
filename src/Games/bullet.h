@@ -26,8 +26,6 @@ class Bullet : public QGraphicsEllipseItem
 public:
 	Bullet(QGraphicsItem *parent = 0);
 
-	Bullet(int x, int y, QGraphicsItem *parent = 0);
-
 	void setTarget(QGraphicsItem *target);
 
 	void tick(int dt);

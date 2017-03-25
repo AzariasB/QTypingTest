@@ -22,6 +22,8 @@
 #include "bullet.h"
 #include "letterwall.h"
 
+#define WALL_SIDE 40
+#define WALL_NUMBER 20
 
 class Bounce : public QGraphicsView
 {

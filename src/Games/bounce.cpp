@@ -14,11 +14,10 @@
 
 Bounce::Bounce(QWidget *parent):
 	QGraphicsView(parent),
-	bullet_(),
-	leftWall_(createWall(10, QPoint(0,10), QPoint(0,10))),
-	rightWall_(createWall(10, QPoint(110,10), QPoint(0,10))),
-	upperWall_(createWall(10, QPoint(10,0), QPoint(10,0))),
-	lowerWall_( createWall(10, QPoint(10, 110), QPoint(10, 0)))
+	leftWall_(createWall(WALL_NUMBER, QPoint(0,WALL_SIDE), QPoint(0,WALL_SIDE))),
+	rightWall_(createWall(WALL_NUMBER, QPoint((WALL_NUMBER+1)*WALL_SIDE  ,WALL_SIDE), QPoint(0,WALL_SIDE))),
+	upperWall_(createWall(WALL_NUMBER, QPoint(WALL_SIDE,0), QPoint(WALL_SIDE,0))),
+	lowerWall_( createWall(WALL_NUMBER, QPoint(WALL_SIDE,  (WALL_NUMBER+1)*WALL_SIDE ), QPoint(WALL_SIDE, 0)))
 {
 	setScene(&scene_);
 	init();
@@ -56,11 +55,11 @@ void Bounce::init()
 	addWallToScene(rightWall_);
 	addWallToScene(upperWall_);
 	addWallToScene(lowerWall_);
-	this->update();
-	bullet_.setX(sceneRect().width()/2.f);
-	bullet_.setY(sceneRect().height()/2.f);
 	scene_.addItem(&bullet_);
-
+	this->update();
+	bullet_.setX(scene_.width() / 2.f);
+	bullet_.setY(scene_.height()/ 2.f );
+	nextTarget();
 }
 
 void Bounce::addWallToScene(QVector<LetterWall*> &toAdd)
@@ -84,8 +83,9 @@ QVector<LetterWall *> Bounce::createWall(int numberOfWalls, QPoint start, QPoint
 	for(int i = 0; i < numberOfWalls;i++){
 		int xPos = start.x() + i*increment.x();
 		int yPos = start.y() + i*increment.y();
-		LetterWall *lWall = new LetterWall('a', xPos, yPos);
+		LetterWall *lWall = new LetterWall('a', WALL_SIDE);
 		lWall->setPos(xPos, yPos);
+		//scene_.addItem(lWall);
 		res << lWall;
 	}
 	return res;

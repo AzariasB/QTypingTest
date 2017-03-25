@@ -19,14 +19,6 @@ Bullet::Bullet(QGraphicsItem *parent):
 
 }
 
-
-Bullet::Bullet(int x, int y, QGraphicsItem *parent):
-		QGraphicsEllipseItem(x, y, BULLET_RADIUS, BULLET_RADIUS, parent),
-		direction(1.f,1.f)
-{
-}
-
-
 void Bullet::setTarget(QGraphicsItem *target)
 {
 	if(target){

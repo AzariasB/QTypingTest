@@ -14,7 +14,7 @@
 #ifndef VECTOR2F_H
 #define VECTOR2F_H
 
-
+#include <qglobal.h>
 
 enum DIRECTION{
 	UP, RIGHT, DOWN, LEFT, NO_DIRECTION, ALL_DIRECTIONS
@@ -30,13 +30,13 @@ public:
 
 	Vector2f();
 
-	Vector2f(float x, float y);
+	Vector2f(qreal x, qreal y);
 
-	float x() const {
+	qreal x() const {
 			return x_;
 	}
 
-	float y() const {
+	qreal y() const {
 		return y_;
 	}
 
@@ -44,20 +44,20 @@ public:
 		return x_ == 0 && y_ == 0;
 	}
 
-	float length() const;
+	qreal length() const;
 
 	void normalize();
 
 	Vector2f normalized() const;
 
-	void setX(float x){x_ = x;}
+	void setX(qreal x){x_ = x;}
 
-	void setY(float y){y_ = y;}
+	void setY(qreal y){y_ = y;}
 
 
 private:
-	float x_ = 0;
-	float y_ = 0;
+	qreal x_ = 0;
+	qreal y_ = 0;
 
 	bool clockWiseRotate_ = false;
 };

@@ -21,7 +21,7 @@ Vector2f::Vector2f()
 
 }
 
-Vector2f::Vector2f(float x, float y):
+Vector2f::Vector2f(qreal x, qreal y):
 x_(x),
 y_(y)
 {
@@ -30,14 +30,14 @@ y_(y)
 
 
 
-float Vector2f::length() const
+qreal Vector2f::length() const
 {
 	return sqrt(x_*x_ + y_*y_);
 }
 
 void Vector2f::normalize()
 {
-	float l = length();
+	qreal l = length();
 	x_ = x_/l;
 	y_ = y_/l;
 }

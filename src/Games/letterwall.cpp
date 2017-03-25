@@ -19,19 +19,19 @@ LetterWall::LetterWall(QGraphicsItem *parent):
 
 }
 
-LetterWall::LetterWall(QChar copy, int x, int y, QGraphicsItem *parent):
-	QGraphicsRectItem(x,y,WALL_SIDE, WALL_SIDE, parent),
+LetterWall::LetterWall(QChar copy, int side, QGraphicsItem *parent):
+	QGraphicsRectItem(0, 0, side, side, parent),
 	char_(copy)
 {
-	//setPos(x,y);
 }
 
 void LetterWall::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+	QGraphicsRectItem::paint(painter, option, widget);
 	painter->setBrush(QBrush(stateToColor()));
 	painter->drawRect(rect());
-	QGraphicsRectItem::paint(painter, option, widget);
-	painter->drawText(QPoint(x(), y() + boundingRect().height()), QString(char_));
+	painter->setBrush(QBrush(QColor()));
+	painter->drawText(this->boundingRect(), QString(char_),  Qt::AlignCenter | Qt::AlignVCenter );
 }
 
 QColor LetterWall::stateToColor()

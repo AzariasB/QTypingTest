@@ -14,8 +14,6 @@
 #ifndef LETTERWALL_H
 #define LETTERWALL_H
 
-#define WALL_SIDE 20
-
 #include <QGraphicsRectItem>
 #include <QDebug>
 #include <QPainter>
@@ -25,7 +23,7 @@ class LetterWall : public QGraphicsRectItem
 public:
 	LetterWall(QGraphicsItem *parent = 0);
 
-	LetterWall(QChar copy, int x, int y, QGraphicsItem *parent = 0);
+	LetterWall(QChar copy,int side, QGraphicsItem *parent = 0);
 
 	QChar getChar() const{
 		return char_;
