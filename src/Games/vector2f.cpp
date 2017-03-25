@@ -16,7 +16,16 @@
 
 const Vector2f Vector2f::zero = Vector2f(0,0);
 
-Vector2f::Vector2f()
+Vector2f::Vector2f():
+x_(0),
+y_(0)
+{
+
+}
+
+Vector2f::Vector2f(const QPointF &copy):
+x_(copy.x()),
+y_(copy.y())
 {
 
 }
@@ -28,7 +37,10 @@ y_(y)
 
 }
 
-
+QPointF Vector2f::toPoint()
+{
+	return QPointF(x_,y_);
+}
 
 qreal Vector2f::length() const
 {
@@ -51,64 +63,4 @@ Vector2f Vector2f::normalized() const
 }
 
 
-//////////////////////////////////
-//								//
-//		Operator overloading	//
-//								//
-//////////////////////////////////
 
-inline Vector2f &operator+=(Vector2f &left, const Vector2f &right)
-{
-	left.setX(left.x() + right.x());
-	left.setY(left.y() + right.y());
-	return left;
-}
-
-inline Vector2f &operator-=(Vector2f &left, const Vector2f &right)
-{
-	left.setX(left.x() - right.x());
-	left.setY(left.y() - right.y());
-	return left;
-}
-
-
-inline Vector2f operator+(const Vector2f &left, const Vector2f &right)
-{
-	return Vector2f(left.x() + right.x(), left.y() + right.y());
-}
-
-
-inline Vector2f operator-(const Vector2f &left, const Vector2f &right)
-{
-	return Vector2f(left.x() - right.x(), left.y() - right.y());
-}
-
-inline Vector2f operator*(const Vector2f &left, qreal right)
-{
-	return Vector2f(left.x() * right, left.y() * right);
-}
-
-inline Vector2f operator*(qreal left, const Vector2f &right)
-{
-	return Vector2f(right.x() * left, right.y() * left);
-}
-
-inline Vector2f &operator*=(Vector2f &left, qreal right)
-{
-	left.setX(left.x() * right);
-	left.setY(left.y() * right);
-	return left;
-}
-
-inline Vector2f operator/(const Vector2f &left, qreal right)
-{
-	return Vector2f(left.x()/right, left.y()/right);
-}
-
-
-inline Vector2f &operator/=(Vector2f &left, qreal right)
-{
-	left.setX(left.x()/right);
-	left.setY(left.y()/right);
-	return left;
-}

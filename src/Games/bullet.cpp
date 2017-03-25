@@ -35,6 +35,7 @@ void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 {
 	QGraphicsEllipseItem::paint(painter, option, widget);
 	painter->drawRect(boundingRect());
+	painter->drawLine(5,5, 5 + direction.x()*1000.f, 5 + direction.y() * 1000.f);
 }
 
 void Bullet::tick(int dt)
