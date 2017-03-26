@@ -50,14 +50,18 @@ void Bounce::tick(int dt)
 	bullet_->tick(dt);
 
 	QList<QGraphicsItem*> colliders = scene_.collidingItems(bullet_);
-	if(colliders.length() > 0){
-		LetterWall *collider = static_cast<LetterWall*>(colliders[0]);
+
+	for(QGraphicsItem *itemCollider : colliders){
+		if(itemCollider == scoreItem_)
+			continue;
+
+		LetterWall *collider = static_cast<LetterWall*>(itemCollider);
 
 		if(currentTarget_->getChar() != currentPressed_){
 			looseGame();
 			return;
 		}
-		score_++;
+		incrementScore();
 
 		LetterWall *nwTarget = nullptr;
 		for(int d = UP; d != NO_DIRECTION; d++){
@@ -80,7 +84,6 @@ void Bounce::tick(int dt)
 			nextTarget(nwTarget);
 		}
 	}
-
 }
 
 void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
@@ -104,6 +107,9 @@ void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 
 void Bounce::init()
 {
+	scoreItem_ = new RectText(scene_.sceneRect(), "0");
+	scoreItem_->setZValue(-10.f);
+	scene_.addItem(scoreItem_);
 	scene_.addItem(bullet_);
 	this->update();
 	bullet_->setX(scene_.width() / 2.f);
@@ -215,6 +221,12 @@ void Bounce::resizeEvent(QResizeEvent *)
 	fitInView(scene_.sceneRect(), Qt::AspectRatioMode::KeepAspectRatio);
 }
 
+void Bounce::incrementScore()
+{
+	score_++;
+	scoreItem_->setMessage(QString::number(score_) );
+	scoreItem_->update();
+}
 
 LetterWall *Bounce::randomTarget(DIRECTION nwDirection)
 {
@@ -248,7 +260,7 @@ QGraphicsItem *Bounce::getEndMessage()
 
 	QString message = QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(score_);
 
-	return new EndMessage(messageBounds, message);
+	return new RectText(messageBounds, message, QColor(135, 211, 124), QColor()/* black border */);
 }
 
 Bounce::~Bounce()

@@ -103,7 +103,7 @@ SOURCES +=\
     #------------------------- \
     src/Games/bullet.cpp \
     src/Games/letterwall.cpp \
-    src/Games/endmessage.cpp \
+    src/Games/recttext.cpp \
     src/Games/vector2f.cpp \
     src/Games/bounce.cpp
 
@@ -168,7 +168,7 @@ HEADERS +=\
     #------------------------- \
     src/Games/bullet.h \
     src/Games/letterwall.h \
-    src/Games/endmessage.h \
+    src/Games/recttext.h \
     src/Games/vector2f.h \
     src/Games/bounce.h \
 

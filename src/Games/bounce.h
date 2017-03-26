@@ -22,7 +22,7 @@
 
 #include "bullet.h"
 #include "letterwall.h"
-#include "endmessage.h"
+#include "recttext.h"
 
 // Size (x*x) of a single wall
 #define WALL_SIZE 40
@@ -144,6 +144,12 @@ private:
 	void looseGame();
 
 	/**
+	 * @brief incrementScore
+	 * Increments the score and updates the scoreItem
+	 */
+	void incrementScore();
+
+	/**
 	 * @brief randomLetter
 	 * Selects a random letter from the given alphabet
 	 * @return a random letter
@@ -168,6 +174,9 @@ private:
 
 	// Game's bullet
 	Bullet *bullet_;
+
+	//Score display
+	RectText *scoreItem_;
 
 	// The last char pressed by the user (is kept, even when the user releases the key)
 	QChar currentPressed_ = '\0';
