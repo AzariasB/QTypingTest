@@ -35,22 +35,48 @@ public:
 
 	Vector2f(qreal x, qreal y);
 
+	/**
+	 * @brief x
+	 * X coordinate of the vector
+	 * @return the x coordinate of the vector
+	 */
 	qreal x() const {
 			return x_;
 	}
 
+	/**
+	 * @brief y
+	 * Y coordinate of the vector
+	 * @return the y coordinate of the vector
+	 */
 	qreal y() const {
 		return y_;
 	}
 
+	/**
+	 * @brief isNull
+	 * @return wether this vector is the null vector (x == 0 && y == 0)
+	 */
 	bool isNull() const{
 		return x_ == 0 && y_ == 0;
 	}
 
+	/**
+	 * @brief length
+	 * @return  the vector's ength
+	 */
 	qreal length() const;
 
+	/**
+	 * @brief normalize
+	 * Turns the vector the a unit vector
+	 */
 	void normalize();
 
+	/**
+	 * @brief normalized
+	 * @return this vector, normalized
+	 */
 	Vector2f normalized() const;
 
 	void setX(qreal x){x_ = x;}

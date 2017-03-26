@@ -12,7 +12,7 @@
 
 #include "bounce.h"
 
-const QString Bounce::alphabet = "abcdefghijklmnopqrstuvwxyz";
+const QString Bounce::alphabet = "abcdefghijklmnopqrstuvwxyz,./?;";
 
 Bounce::Bounce(QWidget *parent):
 	QGraphicsView(parent),
@@ -38,7 +38,6 @@ void Bounce::initWalls()
 
 void Bounce::looseGame()
 {
-	qDebug() << score_;
 	lost_ = true;
 	scene_.addItem(getEndMessage());
 }
@@ -87,6 +86,7 @@ void Bounce::tick(int dt)
 void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 {
 	// up || down => change y
+	// left || right => change x
 	if(targetDir == DOWN){
 		qreal minY = collider->y() + collider->boundingRect().height();
 		bullet_->setY(minY  + .1f);
@@ -157,9 +157,6 @@ void Bounce::keyPressEvent(QKeyEvent *event)
 		close();
 		emit gameEnded(-1);
 	}
-
-
-
 
 	if(lost_){
 		if(event->key() == Qt::Key_Return)

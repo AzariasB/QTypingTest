@@ -5,6 +5,10 @@
 #include <QPainter>
 #include <qglobal.h>
 
+/**
+ * @brief The EndMessage class
+ * Message displayed at the end of a game
+ */
 class EndMessage : public QGraphicsRectItem
 {
 public:
@@ -16,7 +20,7 @@ protected:
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
-
+	//Message to display
 	QString message_;
 };
 
