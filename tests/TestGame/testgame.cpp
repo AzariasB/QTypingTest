@@ -38,14 +38,6 @@ void TestGame::cleanupTestCase()
 void TestGame::testCase1()
 {
 	Bounce b;
-	QTimer timer;
-	timer.setInterval(15);
-	timer.setSingleShot(false);
-	connect(&timer, &QTimer::timeout, [&](){
-		b.tick(15);
-	});
-
-	timer.start();
 	b.show();
 	QApplication::exec();
 }

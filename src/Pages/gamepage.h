@@ -18,6 +18,8 @@
 #include <QGridLayout>
 #include <QDialog>
 
+#include "Games/bounce.h"
+
 class TPresentation;
 
 class GamePage : public QWidget {
@@ -30,9 +32,12 @@ public:
 public slots:
     void showInteractiveKeyboard();
 
+	void showBounceGame();
+
 
 private:
     QPushButton *interactiveKeyboard_;
+	QPushButton *bounceGame_;
 
     void setupWidgets();
 

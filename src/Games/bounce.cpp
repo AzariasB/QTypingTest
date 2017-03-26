@@ -22,7 +22,11 @@ Bounce::Bounce(QWidget *parent):
 	upperWall_(createWall(WALL_NUMBER, QPoint(WALL_SIZE,0), QPoint(WALL_SIZE,0), UP)),
 	lowerWall_( createWall(WALL_NUMBER, QPoint(WALL_SIZE,  (WALL_NUMBER+1)*WALL_SIZE ), QPoint(WALL_SIZE, 0), DOWN))
 {
-
+	timer_.setInterval(15);
+	timer_.setSingleShot(false);
+	connect(&timer_, &QTimer::timeout, [=](){
+		this->tick(15);
+	});
 	setScene(&scene_);
 	init();
 }
@@ -32,7 +36,6 @@ void Bounce::looseGame()
 	qDebug() << score_;
 	lost_ = true;
 	scene_.addItem(getEndMessage());
-	emit gameEnded(score_);
 }
 
 void Bounce::tick(int dt)
@@ -105,6 +108,7 @@ void Bounce::init()
 	this->update();
 	bullet_->setX(scene_.width() / 2.f);
 	bullet_->setY(scene_.height()/ 2.f );
+	timer_.start();
 	nextTarget();
 }
 
@@ -159,7 +163,11 @@ void Bounce::keyPressEvent(QKeyEvent *event)
 		return;
 
 	if(event->key() == Qt::Key_Escape)
+	{
 		close();
+		emit gameEnded(-1);
+	}
+
 
 
 
@@ -215,7 +223,7 @@ QVector<LetterWall *> Bounce::createWall(int numberOfWalls, QPoint start, QPoint
 	return res;
 }
 
-void Bounce::resizeEvent(QResizeEvent *event)
+void Bounce::resizeEvent(QResizeEvent *)
 {
 	fitInView(scene_.sceneRect(), Qt::AspectRatioMode::KeepAspectRatio);
 }
@@ -251,7 +259,7 @@ QGraphicsItem *Bounce::getEndMessage()
 
 	QRectF messageBounds(topLeft, bottomRight);
 
-	QString message = QString("You lost\n Score : %1").arg(score_);
+	QString message = QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(score_);
 
 	return new EndMessage(messageBounds, message);
 }

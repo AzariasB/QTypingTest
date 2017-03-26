@@ -98,11 +98,14 @@ SOURCES +=\
     src/Data/tjsonserializable.cpp \
     src/tapplication.cpp \
     src/Data/texercise.cpp \
+    #-------------------------
+    #   Games
+    #------------------------- \
+    src/Games/bullet.cpp \
+    src/Games/letterwall.cpp \
+    src/Games/endmessage.cpp \
     src/Games/vector2f.cpp \
-    src/Games/bounce.cpp \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/bullet.cpp \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/letterwall.cpp \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/endmessage.cpp
+    src/Games/bounce.cpp
 
 HEADERS +=\
     #-------------------------
@@ -160,11 +163,14 @@ HEADERS +=\
     src/Data/tjsonserializable.h \
     src/tapplication.h \
     src/Data/texercise.h \
+    #-------------------------
+    #   Games
+    #------------------------- \
+    src/Games/bullet.h \
+    src/Games/letterwall.h \
+    src/Games/endmessage.h \
     src/Games/vector2f.h \
     src/Games/bounce.h \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/bullet.h \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/letterwall.h \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/endmessage.h
 
 DISTFILES += \
     ressources/syle.qss

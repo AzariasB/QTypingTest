@@ -18,6 +18,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QResizeEvent>
+#include <QTimer>
 
 #include "bullet.h"
 #include "letterwall.h"
@@ -36,7 +37,7 @@ public:
 
 	virtual ~Bounce();
 
-	void resizeEvent(QResizeEvent *event);
+	void resizeEvent(QResizeEvent *);
 
 public slots:
 	void tick(int dt);
@@ -88,6 +89,8 @@ private:
 	QVector<LetterWall*> rightWall_;
 	QVector<LetterWall*> upperWall_;
 	QVector<LetterWall*> lowerWall_;
+
+	QTimer timer_;
 };
 
 #endif // BOUNCE_H

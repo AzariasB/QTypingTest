@@ -58,6 +58,9 @@ void Bullet::setTarget(LetterWall *target)
 			xDist = target->x() - (x() + boundingRect().width());
 			yDist = (target->y() + target->boundingRect().height()/2.f) - (y() + boundingRect().height()/2);
 			break;
+		default:
+			xDist = yDist = 0.f;
+			break;
 		}
 		direction = Vector2f(xDist, yDist);
 		direction.normalize();

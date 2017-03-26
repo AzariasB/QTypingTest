@@ -18,12 +18,12 @@
 
 
 GamePage::~GamePage(){
-	delete interactiveKeyboard_;
 }
 
 GamePage::GamePage(QWidget* parent):
 QWidget(parent),
-interactiveKeyboard_(new QPushButton("Interactive keyboard")){
+interactiveKeyboard_(new QPushButton("Interactive keyboard")),
+bounceGame_(new QPushButton("Bounce game")){
     setupWidgets();
     connectEvents();
 }
@@ -32,12 +32,29 @@ void GamePage::setupWidgets() {
     QGridLayout *mainLay = new QGridLayout();
     
     mainLay->addWidget(interactiveKeyboard_);
+	mainLay->addWidget(bounceGame_);
     
     setLayout(mainLay);
 }
 
 void GamePage::connectEvents() {
     connect(interactiveKeyboard_,SIGNAL(clicked()),this,SLOT(showInteractiveKeyboard()));
+	connect(bounceGame_, SIGNAL(clicked()), this, SLOT(showBounceGame()));
+}
+
+void GamePage::showBounceGame()
+{
+	QDialog *dial = new QDialog(this);
+	Bounce *b = new Bounce(this);
+	QGridLayout *dialLay = new QGridLayout();
+	dialLay->addWidget(b);
+
+	dial->setLayout(dialLay);
+	dial->adjustSize();
+	dial->setModal(true);
+	connect(b, SIGNAL(gameEnded(int)), dial, SLOT(close()));
+	dial->show();
+	b->setFocus();
 }
 
 void GamePage::showInteractiveKeyboard() {
