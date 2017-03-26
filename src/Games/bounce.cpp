@@ -16,12 +16,9 @@ const QString Bounce::alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 Bounce::Bounce(QWidget *parent):
 	QGraphicsView(parent),
-	bullet_(new Bullet()),
-	leftWall_(createWall(WALL_NUMBER, QPoint(0,WALL_SIZE), QPoint(0,WALL_SIZE), LEFT )),
-	rightWall_(createWall(WALL_NUMBER, QPoint((WALL_NUMBER+1)*WALL_SIZE  ,WALL_SIZE), QPoint(0,WALL_SIZE), RIGHT)),
-	upperWall_(createWall(WALL_NUMBER, QPoint(WALL_SIZE,0), QPoint(WALL_SIZE,0), UP)),
-	lowerWall_( createWall(WALL_NUMBER, QPoint(WALL_SIZE,  (WALL_NUMBER+1)*WALL_SIZE ), QPoint(WALL_SIZE, 0), DOWN))
+	bullet_(new Bullet())
 {
+	initWalls();
 	timer_.setInterval(15);
 	timer_.setSingleShot(false);
 	connect(&timer_, &QTimer::timeout, [=](){
@@ -29,6 +26,14 @@ Bounce::Bounce(QWidget *parent):
 	});
 	setScene(&scene_);
 	init();
+}
+
+void Bounce::initWalls()
+{
+	walls_[LEFT] = createWall(WALL_NUMBER, QPoint(0,WALL_SIZE), QPoint(0,WALL_SIZE), LEFT );
+	walls_[RIGHT] = createWall(WALL_NUMBER, QPoint((WALL_NUMBER+1)*WALL_SIZE  ,WALL_SIZE), QPoint(0,WALL_SIZE), RIGHT);
+	walls_[UP] = createWall(WALL_NUMBER, QPoint(WALL_SIZE,0), QPoint(WALL_SIZE,0), UP);
+	walls_[DOWN] = createWall(WALL_NUMBER, QPoint(WALL_SIZE,  (WALL_NUMBER+1)*WALL_SIZE ), QPoint(WALL_SIZE, 0), DOWN);
 }
 
 void Bounce::looseGame()
@@ -56,18 +61,17 @@ void Bounce::tick(int dt)
 		score_++;
 
 		LetterWall *nwTarget = nullptr;
-		if(leftWall_.contains(collider)){
-			nwTarget = randomTarget(DOWN);
-			uncollideBullet(collider, RIGHT);
-		}else if(rightWall_.contains(collider)){
-			nwTarget =  randomTarget(UP);
-			uncollideBullet(collider, LEFT);
-		}else if(upperWall_.contains(collider)){
-			nwTarget = randomTarget(LEFT);
-			uncollideBullet(collider, DOWN);
-		}else{
-			nwTarget = randomTarget(RIGHT);
-			uncollideBullet(collider, UP);
+		for(int d = UP; d != NO_DIRECTION; d++){
+			if(walls_[static_cast<DIRECTION>(d)].contains(collider)){
+				int nextDirI = (d - 1) % NO_DIRECTION;
+				if(nextDirI < 0)
+					nextDirI = NO_DIRECTION - 1;
+
+				DIRECTION opposite = static_cast<DIRECTION>((d+2) % NO_DIRECTION);
+
+				nwTarget = randomTarget(static_cast<DIRECTION>(nextDirI));
+				uncollideBullet(collider, opposite);
+			}
 		}
 
 		if(nwTarget){
@@ -100,23 +104,12 @@ void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 
 void Bounce::init()
 {
-	addWallToScene(leftWall_);
-	addWallToScene(rightWall_);
-	addWallToScene(upperWall_);
-	addWallToScene(lowerWall_);
 	scene_.addItem(bullet_);
 	this->update();
 	bullet_->setX(scene_.width() / 2.f);
 	bullet_->setY(scene_.height()/ 2.f );
 	timer_.start();
 	nextTarget();
-}
-
-void Bounce::addWallToScene(QVector<LetterWall*> &toAdd)
-{
-	for(LetterWall *letter : toAdd){
-		scene_.addItem(letter);
-	}
 }
 
 void Bounce::nextTarget(LetterWall *nwTarget)
@@ -144,10 +137,7 @@ void Bounce::restart()
 	scene_.clear();//Clears all the items
 	equivalents_ = QHash<QChar, QVector<LetterWall*>>();
 
-	leftWall_ = createWall(WALL_NUMBER, QPoint(0,WALL_SIZE), QPoint(0,WALL_SIZE), LEFT );
-	rightWall_ = createWall(WALL_NUMBER, QPoint((WALL_NUMBER+1)*WALL_SIZE  ,WALL_SIZE), QPoint(0,WALL_SIZE), RIGHT);
-	upperWall_ = createWall(WALL_NUMBER, QPoint(WALL_SIZE,0), QPoint(WALL_SIZE,0), UP);
-	lowerWall_ =  createWall(WALL_NUMBER, QPoint(WALL_SIZE,  (WALL_NUMBER+1)*WALL_SIZE ), QPoint(WALL_SIZE, 0), DOWN);
+	initWalls();
 	bullet_ = new Bullet();
 
 	currentPressed_ = '\0';
@@ -217,7 +207,7 @@ QVector<LetterWall *> Bounce::createWall(int numberOfWalls, QPoint start, QPoint
 		LetterWall *lWall = new LetterWall(letter, WALL_SIZE, wallSide);
 		equivalents_[letter].append(lWall);
 		lWall->setPos(xPos, yPos);
-		//scene_.addItem(lWall);
+		scene_.addItem(lWall);
 		res << lWall;
 	}
 	return res;
@@ -234,10 +224,10 @@ LetterWall *Bounce::randomTarget(DIRECTION nwDirection)
 	if(nwDirection == NO_DIRECTION)
 		nwDirection = static_cast<DIRECTION>(qrand() % NO_DIRECTION);
 
-	if(nwDirection == UP) return upperWall_[qrand() % upperWall_.length()];
-	if(nwDirection == RIGHT) return rightWall_[qrand() % rightWall_.length()];
-	if(nwDirection == DOWN) return lowerWall_[qrand() % lowerWall_.length()];
-	if(nwDirection == LEFT) return leftWall_[qrand() % leftWall_.size()];
+	if(walls_.contains(nwDirection)){
+		QVector<LetterWall*> mWall = walls_[nwDirection];
+		return mWall[qrand() % mWall.length()];
+	}
 	return nullptr;
 }
 

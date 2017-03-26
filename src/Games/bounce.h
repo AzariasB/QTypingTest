@@ -55,7 +55,7 @@ private:
 
 	QVector<LetterWall*> createWall(int numberOfWalls, QPoint start, QPoint increment, DIRECTION wallSide);
 
-	void addWallToScene(QVector<LetterWall*> &toAdd);
+	void initWalls();
 
 	void nextTarget(LetterWall *nwTarget = nullptr);
 
@@ -81,14 +81,11 @@ private:
 
 	QHash<QChar, QVector<LetterWall*>> equivalents_;
 
+	QHash<DIRECTION, QVector<LetterWall*>> walls_;
+
 	int score_ = 0;
 
 	bool lost_ = false;
-
-	QVector<LetterWall*> leftWall_;
-	QVector<LetterWall*> rightWall_;
-	QVector<LetterWall*> upperWall_;
-	QVector<LetterWall*> lowerWall_;
 
 	QTimer timer_;
 };
