@@ -24,7 +24,7 @@ public slots:
 	void setMessage(const QString &message);
 
 protected:
-	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) override;
 
 private:
 	//Message to display

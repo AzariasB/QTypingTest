@@ -25,7 +25,7 @@ void RectText::setMessage(const QString &message)
 }
 
 
-void RectText::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void RectText::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
 	painter->setPen(borderColor_);
 	painter->setBrush(QBrush(bgColor_));
