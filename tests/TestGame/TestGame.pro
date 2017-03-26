@@ -16,6 +16,7 @@ INCLUDEPATH += $$SRC
 HEADERS = $$SRC/Games/vector2f.h \
             $$SRC/Games/bounce.h \
             $$SRC/Games/bullet.h \
+            $$SRC/Games/endmessage.h \
             $$SRC/Games/letterwall.h
 
 
@@ -23,6 +24,7 @@ SOURCES = $$SRC/Games/vector2f.cpp \
             $$SRC/Games/bounce.cpp \
             $$SRC/Games/bullet.cpp \
             $$SRC/Games/letterwall.cpp \
+            $$SRC/Games/endmessage.cpp \
             testgame.cpp
 
 # install

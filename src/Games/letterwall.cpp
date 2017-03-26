@@ -32,6 +32,7 @@ void LetterWall::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 	painter->setBrush(QBrush(stateToColor()));
 	painter->drawRect(rect());
 	painter->setBrush(QBrush(QColor()));
+	painter->setFont(QFont("Arial", 16));
 	painter->drawText(this->boundingRect(), QString(char_),  Qt::AlignCenter | Qt::AlignVCenter );
 }
 

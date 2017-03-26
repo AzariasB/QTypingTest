@@ -32,13 +32,23 @@ public:
 
 	void tick(int dt);
 
+	void boost();
+
+	void slowDown();
+
+	qreal getSpeed(){return speed_;}
+
 protected:
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
 	Vector2f direction;
 
-	qreal speed = 8.f;
+	bool boosted_ = false;
+
+	qreal speed_ = 8.f;
+
+	qreal speedBoost_ = 16.f;
 };
 
 #endif // BULLET_H

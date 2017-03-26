@@ -19,6 +19,24 @@ Bullet::Bullet(QGraphicsItem *parent):
 
 }
 
+void Bullet::boost()
+{
+	if(!boosted_){
+		boosted_ = true;
+		speed_ += speedBoost_;
+	}
+}
+
+void Bullet::slowDown()
+{
+	if(boosted_){
+		boosted_ = false;
+		speed_ -= speedBoost_;
+	}
+
+
+}
+
 void Bullet::setTarget(LetterWall *target)
 {
 	if(target){
@@ -57,6 +75,8 @@ void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
 void Bullet::tick(int dt)
 {
-	this->setX(this->x() + (dt/100.f) * direction.x() * speed);
-	this->setY(this->y() + (dt/100.f) * direction.y() * speed);
+	speed_ += (dt/5000.f);
+
+	this->setX(this->x() + (dt/100.f) * direction.x() * speed_);
+	this->setY(this->y() + (dt/100.f) * direction.y() * speed_);
 }
