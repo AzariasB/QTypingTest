@@ -20,6 +20,7 @@
 #include <QDebug>
 #include <QPainter>
 
+#include "letterwall.h"
 #include "vector2f.h"
 
 class Bullet : public QGraphicsEllipseItem
@@ -27,7 +28,7 @@ class Bullet : public QGraphicsEllipseItem
 public:
 	Bullet(QGraphicsItem *parent = 0);
 
-	void setTarget(QGraphicsItem *target);
+	void setTarget(LetterWall *target);
 
 	void tick(int dt);
 

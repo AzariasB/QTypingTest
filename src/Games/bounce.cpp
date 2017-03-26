@@ -14,10 +14,10 @@
 
 Bounce::Bounce(QWidget *parent):
 	QGraphicsView(parent),
-	leftWall_(createWall(WALL_NUMBER, QPoint(0,WALL_SIDE), QPoint(0,WALL_SIDE))),
-	rightWall_(createWall(WALL_NUMBER, QPoint((WALL_NUMBER+1)*WALL_SIDE  ,WALL_SIDE), QPoint(0,WALL_SIDE))),
-	upperWall_(createWall(WALL_NUMBER, QPoint(WALL_SIDE,0), QPoint(WALL_SIDE,0))),
-	lowerWall_( createWall(WALL_NUMBER, QPoint(WALL_SIDE,  (WALL_NUMBER+1)*WALL_SIDE ), QPoint(WALL_SIDE, 0)))
+	leftWall_(createWall(WALL_NUMBER, QPoint(0,WALL_SIZE), QPoint(0,WALL_SIZE), LEFT )),
+	rightWall_(createWall(WALL_NUMBER, QPoint((WALL_NUMBER+1)*WALL_SIZE  ,WALL_SIZE), QPoint(0,WALL_SIZE), RIGHT)),
+	upperWall_(createWall(WALL_NUMBER, QPoint(WALL_SIZE,0), QPoint(WALL_SIZE,0), UP)),
+	lowerWall_( createWall(WALL_NUMBER, QPoint(WALL_SIZE,  (WALL_NUMBER+1)*WALL_SIZE ), QPoint(WALL_SIZE, 0), DOWN))
 {
 	setScene(&scene_);
 	init();
@@ -28,17 +28,20 @@ void Bounce::tick(int dt)
 	bullet_.tick(dt);
 	QList<QGraphicsItem*> colliders = scene_.collidingItems(&bullet_);
 	if(colliders.length() > 0){
-		qDebug() << "collision";
 		LetterWall *collider = static_cast<LetterWall*>(colliders[0]);
 		LetterWall *nwTarget = nullptr;
 		if(leftWall_.contains(collider)){
 			nwTarget = randomTarget(DOWN);
+			uncollideBullet(collider, RIGHT);
 		}else if(rightWall_.contains(collider)){
 			nwTarget =  randomTarget(UP);
+			uncollideBullet(collider, LEFT);
 		}else if(upperWall_.contains(collider)){
 			nwTarget = randomTarget(LEFT);
+			uncollideBullet(collider, DOWN);
 		}else{
 			nwTarget = randomTarget(RIGHT);
+			uncollideBullet(collider, UP);
 		}
 
 		if(nwTarget){
@@ -49,6 +52,24 @@ void Bounce::tick(int dt)
 		}
 	}
 
+}
+
+void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
+{
+	// up || down => change y
+	if(targetDir == DOWN){
+		qreal minY = collider->y() + collider->boundingRect().height();
+		bullet_.setY(minY  + .1f);
+	}else if(targetDir == UP){
+		qreal maxY = collider->y();
+		bullet_.setY(maxY - .1f - bullet_.boundingRect().height());
+	}else if(targetDir == LEFT){
+		qreal maxX = collider->x();
+		bullet_.setX(maxX - .1f - bullet_.boundingRect().width());
+	}else if(targetDir == RIGHT){
+		qreal minX = collider->x() + collider->boundingRect().width();
+		bullet_.setX(minX + .1f);
+	}
 }
 
 void Bounce::init()
@@ -84,13 +105,13 @@ void Bounce::nextTarget(LetterWall *nwTarget)
 	bullet_.setTarget(nwTarget);
 }
 
-QVector<LetterWall *> Bounce::createWall(int numberOfWalls, QPoint start, QPoint increment)
+QVector<LetterWall *> Bounce::createWall(int numberOfWalls, QPoint start, QPoint increment, DIRECTION wallSide)
 {
 	QVector<LetterWall*> res;
 	for(int i = 0; i < numberOfWalls;i++){
 		int xPos = start.x() + i*increment.x();
 		int yPos = start.y() + i*increment.y();
-		LetterWall *lWall = new LetterWall('a', WALL_SIDE);
+		LetterWall *lWall = new LetterWall('a', WALL_SIZE, wallSide);
 		lWall->setPos(xPos, yPos);
 		//scene_.addItem(lWall);
 		res << lWall;

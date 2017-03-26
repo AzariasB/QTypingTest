@@ -19,11 +19,28 @@ Bullet::Bullet(QGraphicsItem *parent):
 
 }
 
-void Bullet::setTarget(QGraphicsItem *target)
+void Bullet::setTarget(LetterWall *target)
 {
 	if(target){
-		float xDist = target->x() - x();
-		float yDist = target->y() - y();
+		qreal xDist,yDist;
+		switch(target->getSide()){
+		case UP:
+			xDist = (target->x() + target->boundingRect().width()/2.f) - (x() + boundingRect().width()/2);
+			yDist = (target->y() + target->boundingRect().height()) - y();
+			break;
+		case DOWN:
+			xDist = (target->x() + target->boundingRect().width()/2.f) - (x() + boundingRect().width()/2);
+			yDist = target->y() - (y() + boundingRect().height());
+			break;
+		case LEFT:
+			xDist = (target->x() + target->boundingRect().width()) - x();
+			yDist = (target->y() + target->boundingRect().height()/2.f) - (y() + boundingRect().height()/2);
+			break;
+		case RIGHT:
+			xDist = target->x() - (x() + boundingRect().width());
+			yDist = (target->y() + target->boundingRect().height()/2.f) - (y() + boundingRect().height()/2);
+			break;
+		}
 		direction = Vector2f(xDist, yDist);
 		direction.normalize();
 	}else{
@@ -34,8 +51,8 @@ void Bullet::setTarget(QGraphicsItem *target)
 void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 	QGraphicsEllipseItem::paint(painter, option, widget);
-	painter->drawRect(boundingRect());
-	painter->drawLine(5,5, 5 + direction.x()*1000.f, 5 + direction.y() * 1000.f);
+	//painter->drawRect(boundingRect());
+	//painter->drawLine(5,5, 5 + direction.x()*1000.f, 5 + direction.y() * 1000.f);
 }
 
 void Bullet::tick(int dt)

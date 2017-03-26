@@ -19,9 +19,10 @@ LetterWall::LetterWall(QGraphicsItem *parent):
 
 }
 
-LetterWall::LetterWall(QChar copy, int side, QGraphicsItem *parent):
-	QGraphicsRectItem(0, 0, side, side, parent),
-	char_(copy)
+LetterWall::LetterWall(QChar copy, int sideSize, DIRECTION side, QGraphicsItem *parent):
+	QGraphicsRectItem(0, 0, sideSize, sideSize, parent),
+	char_(copy),
+	side_(side)
 {
 }
 
@@ -56,6 +57,11 @@ void LetterWall::setCorrectState()
 {
         state_ = STATE_CORRECT;
 	update();
+}
+
+DIRECTION LetterWall::getSide()
+{
+	return side_;
 }
 
 QColor LetterWall::stateToColor()

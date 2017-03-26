@@ -18,12 +18,14 @@
 #include <QDebug>
 #include <QPainter>
 
+#include "vector2f.h"
+
 class LetterWall : public QGraphicsRectItem
 {
 public:
 	LetterWall(QGraphicsItem *parent = 0);
 
-	LetterWall(QChar copy,int side, QGraphicsItem *parent = 0);
+	LetterWall(QChar copy,int sideSize, DIRECTION side, QGraphicsItem *parent = 0);
 
 	QChar getChar() const{
 		return char_;
@@ -37,6 +39,8 @@ public:
 
 	void setCorrectState();
 
+	DIRECTION getSide();
+
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
@@ -47,6 +51,8 @@ private:
 	QChar char_;
 
 	STATE state_ = STATE_NULL;
+
+	DIRECTION side_ = NO_DIRECTION;
 
 	QColor stateToColor();
 };

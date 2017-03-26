@@ -22,7 +22,7 @@
 #include "bullet.h"
 #include "letterwall.h"
 
-#define WALL_SIDE 40
+#define WALL_SIZE 40
 #define WALL_NUMBER 20
 
 class Bounce : public QGraphicsView
@@ -41,11 +41,13 @@ public slots:
 
 private:
 
-	QVector<LetterWall*> createWall(int numberOfWalls, QPoint start, QPoint increment);
+	QVector<LetterWall*> createWall(int numberOfWalls, QPoint start, QPoint increment, DIRECTION wallSide);
 
 	void addWallToScene(QVector<LetterWall*> &toAdd);
 
 	void nextTarget(LetterWall *nwTarget = nullptr);
+
+	void uncollideBullet(LetterWall *collider, DIRECTION targetDir);
 
 	LetterWall *randomTarget(DIRECTION nwDirection = NO_DIRECTION);
 
