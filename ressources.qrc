@@ -34,5 +34,6 @@
         <file alias="sparkles-0.png">ressources/games/sparkles-0.png</file>
         <file alias="sparkles-1.png">ressources/games/sparkles-1.png</file>
         <file alias="sparkles-2.png">ressources/games/sparkles-2.png</file>
+        <file alias="puff.png">ressources/games/puff.png</file>
     </qresource>
 </RCC>

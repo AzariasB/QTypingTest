@@ -89,6 +89,13 @@ private:
 	void spawnSparkles(const QPointF &position);
 
 	/**
+	 * @brief spawnPuff
+	 * Spawns a 'puff' effect at the given position
+	 * @param position the position where to spawn the puff effect
+	 */
+	void spawnPuff(const QPointF &position);
+
+	/**
 	 * @brief randomSparkle
 	 * Gets a random sparkles from the existing images
 	 * @return a pixmap of the random sparkle

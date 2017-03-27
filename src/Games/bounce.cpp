@@ -39,6 +39,7 @@ void Bounce::initWalls()
 void Bounce::looseGame()
 {
 	lost_ = true;
+	spawnPuff(bullet_->pos());
 	scene_.addItem(getEndMessage());
 }
 
@@ -91,6 +92,16 @@ void Bounce::spawnSparkles(const QPointF &position)
 {
 	AnimatedSprite *anim = new AnimatedSprite(randomSparkle(), 7, true);
 	anim->setPos(position);
+	scene_.addItem(anim);
+}
+
+void Bounce::spawnPuff(const QPointF &position)
+{
+	//Puff must be centered around image
+	QImage img(":/game/puff.png");
+	QPixmap pixmap = QPixmap::fromImage(img);
+	AnimatedSprite *anim = new AnimatedSprite(pixmap,5, true);
+	anim->setPos(QPointF(position.x() - 32, position.y() - pixmap.height()/ 2));
 	scene_.addItem(anim);
 }
 
