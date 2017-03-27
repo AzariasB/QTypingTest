@@ -23,6 +23,7 @@
 #include "bullet.h"
 #include "letterwall.h"
 #include "recttext.h"
+#include "animatedsprite.h"
 
 // Size (x*x) of a single wall
 #define WALL_SIZE 40
@@ -52,7 +53,7 @@ public:
 
 	virtual ~Bounce();
 
-	void resizeEvent(QResizeEvent *);
+	void resizeEvent(QResizeEvent *event);
 
 public slots:
 	/**
@@ -78,6 +79,14 @@ protected:
 private:
 	// All the possible letters to display (contains punctuation too)
 	static const QString alphabet;
+
+	/**
+	 * @brief spawnSparkles
+	 * Spawns sparkles 'particle' (it's a sprite actually)
+	 * at the given position
+	 * @param position the position where to spawn the sparkles
+	 */
+	void spawnSparkles(const QPointF &position);
 
 	/**
 	 * @brief createWall

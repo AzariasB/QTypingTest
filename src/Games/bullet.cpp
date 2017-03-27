@@ -72,6 +72,7 @@ void Bullet::setTarget(LetterWall *target)
 void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 	QGraphicsEllipseItem::paint(painter, option, widget);
+	painter->setPen(Qt::yellow);
 	//painter->drawRect(boundingRect());
 	//painter->drawLine(5,5, 5 + direction.x()*1000.f, 5 + direction.y() * 1000.f);
 }

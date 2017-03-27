@@ -52,15 +52,16 @@ void Bounce::tick(int dt)
 	QList<QGraphicsItem*> colliders = scene_.collidingItems(bullet_);
 
 	for(QGraphicsItem *itemCollider : colliders){
-		if(itemCollider == scoreItem_)
-			continue;
 
-		LetterWall *collider = static_cast<LetterWall*>(itemCollider);
+		LetterWall *collider;
+		if(!(collider = dynamic_cast<LetterWall*>(itemCollider)))
+			continue;
 
 		if(currentTarget_->getChar() != currentPressed_){
 			looseGame();
 			return;
 		}
+		spawnSparkles( bullet_->pos() );
 		incrementScore();
 
 		LetterWall *nwTarget = nullptr;
@@ -84,6 +85,15 @@ void Bounce::tick(int dt)
 			nextTarget(nwTarget);
 		}
 	}
+}
+
+void Bounce::spawnSparkles(const QPointF &position)
+{
+	QImage sparkles(":/game/sparkles.png");
+	QPixmap sPixmap = QPixmap::fromImage(sparkles);
+	AnimatedSprite *anim = new AnimatedSprite(sPixmap, 7, true);
+	anim->setPos(position);
+	scene_.addItem(anim);
 }
 
 void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
@@ -116,6 +126,8 @@ void Bounce::init()
 	bullet_->setY(scene_.height()/ 2.f );
 	timer_.start();
 	nextTarget();
+	//Prevent scene from resizing
+	scene_.setSceneRect(scene_.sceneRect());
 }
 
 void Bounce::nextTarget(LetterWall *nwTarget)
@@ -216,8 +228,10 @@ QVector<LetterWall *> Bounce::createWall(int numberOfWalls, QPoint start, QPoint
 	return res;
 }
 
-void Bounce::resizeEvent(QResizeEvent *)
+void Bounce::resizeEvent(QResizeEvent *event)
 {
+	event->setAccepted(false);
+	event->ignore();
 	fitInView(scene_.sceneRect(), Qt::AspectRatioMode::KeepAspectRatio);
 }
 

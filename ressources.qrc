@@ -30,4 +30,7 @@
     <qresource prefix="/images">
         <file alias="hands.png">ressources/hands.png</file>
     </qresource>
+    <qresource prefix="/game" >
+        <file alias="sparkles.png">ressources/games/sparkles.png</file>
+    </qresource>
 </RCC>
