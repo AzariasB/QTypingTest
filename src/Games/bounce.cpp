@@ -89,9 +89,7 @@ void Bounce::tick(int dt)
 
 void Bounce::spawnSparkles(const QPointF &position)
 {
-	QImage sparkles(":/game/sparkles.png");
-	QPixmap sPixmap = QPixmap::fromImage(sparkles);
-	AnimatedSprite *anim = new AnimatedSprite(sPixmap, 7, true);
+	AnimatedSprite *anim = new AnimatedSprite(randomSparkle(), 7, true);
 	anim->setPos(position);
 	scene_.addItem(anim);
 }
@@ -275,6 +273,14 @@ QGraphicsItem *Bounce::getEndMessage()
 	QString message = QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(score_);
 
 	return new RectText(messageBounds, message, QColor(135, 211, 124), QColor()/* black border */);
+}
+
+QPixmap Bounce::randomSparkle()
+{
+	int numberOfSparkles = 3;
+	QString fileName = QString(":/game/sparkles-%1.png").arg(qrand()%numberOfSparkles);
+	QImage img(fileName);
+	return QPixmap::fromImage(img);
 }
 
 Bounce::~Bounce()

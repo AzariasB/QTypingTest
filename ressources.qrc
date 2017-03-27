@@ -5,15 +5,15 @@
         <file alias="texts.xml">ressources/texts.xml</file>
         <file alias="words.txt">ressources/words.txt</file>
     </qresource>
-    <qresource prefix="/" lang="fr">
+    <qresource lang="fr" prefix="/">
         <file alias="layout.json">ressources/layout_azerty.json</file>
         <file alias="texts.xml">ressources/texts_fr.xml</file>
         <file alias="words.txt">ressources/words_fr.txt</file>
     </qresource>
-    <qresource prefix="/" lang="es">
+    <qresource lang="es" prefix="/">
         <file alias="words.txt">ressources/words_es.txt</file>
     </qresource>
-    <qresource prefix="/" lang="de">
+    <qresource lang="de" prefix="/">
         <file alias="layout.json">ressources/layout_qwertz.json</file>
     </qresource>
     <qresource prefix="/icons">
@@ -30,7 +30,9 @@
     <qresource prefix="/images">
         <file alias="hands.png">ressources/hands.png</file>
     </qresource>
-    <qresource prefix="/game" >
-        <file alias="sparkles.png">ressources/games/sparkles.png</file>
+    <qresource prefix="/game">
+        <file alias="sparkles-0.png">ressources/games/sparkles-0.png</file>
+        <file alias="sparkles-1.png">ressources/games/sparkles-1.png</file>
+        <file alias="sparkles-2.png">ressources/games/sparkles-2.png</file>
     </qresource>
 </RCC>

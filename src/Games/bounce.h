@@ -89,6 +89,13 @@ private:
 	void spawnSparkles(const QPointF &position);
 
 	/**
+	 * @brief randomSparkle
+	 * Gets a random sparkles from the existing images
+	 * @return a pixmap of the random sparkle
+	 */
+	QPixmap randomSparkle();
+
+	/**
 	 * @brief createWall
 	 * Creates a single wall, containing <numberOfWalls> walls
 	 * Used to create the four walls of the game
