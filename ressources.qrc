@@ -1,39 +1,39 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="style.qss">ressources/style.qss</file>
-        <file alias="layout.json">ressources/layout_qwerty.json</file>
-        <file alias="texts.xml">ressources/texts.xml</file>
-        <file alias="words.txt">ressources/words.txt</file>
+        <file alias="style.qss">resources/style.qss</file>
+        <file alias="layout.json">resources/layout_qwerty.json</file>
+        <file alias="texts.xml">resources/texts.xml</file>
+        <file alias="words.txt">resources/words.txt</file>
     </qresource>
     <qresource lang="fr" prefix="/">
-        <file alias="layout.json">ressources/layout_azerty.json</file>
-        <file alias="texts.xml">ressources/texts_fr.xml</file>
-        <file alias="words.txt">ressources/words_fr.txt</file>
+        <file alias="layout.json">resources/layout_azerty.json</file>
+        <file alias="texts.xml">resources/texts_fr.xml</file>
+        <file alias="words.txt">resources/words_fr.txt</file>
     </qresource>
     <qresource lang="es" prefix="/">
-        <file alias="words.txt">ressources/words_es.txt</file>
+        <file alias="words.txt">resources/words_es.txt</file>
     </qresource>
     <qresource lang="de" prefix="/">
-        <file alias="layout.json">ressources/layout_qwertz.json</file>
+        <file alias="layout.json">resources/layout_qwertz.json</file>
     </qresource>
     <qresource prefix="/icons">
-        <file alias="play.png">ressources/play.png</file>
-        <file alias="pen.png">ressources/pen.png</file>
-        <file alias="pause.png">ressources/pause.png</file>
-        <file alias="padlock_open.png">ressources/padlock_open.png</file>
-        <file alias="padlock_closed.png">ressources/padlock_closed.png</file>
-        <file alias="icon.png">ressources/icon.png</file>
-        <file>ressources/icon.ico</file>
-        <file>ressources/icon.icns</file>
-        <file alias="bin.png">ressources/bin.png</file>
+        <file alias="play.png">resources/play.png</file>
+        <file alias="pen.png">resources/pen.png</file>
+        <file alias="pause.png">resources/pause.png</file>
+        <file alias="padlock_open.png">resources/padlock_open.png</file>
+        <file alias="padlock_closed.png">resources/padlock_closed.png</file>
+        <file alias="icon.png">resources/icon.png</file>
+        <file>resources/icon.ico</file>
+        <file>resources/icon.icns</file>
+        <file alias="bin.png">resources/bin.png</file>
     </qresource>
     <qresource prefix="/images">
-        <file alias="hands.png">ressources/hands.png</file>
+        <file alias="hands.png">resources/hands.png</file>
     </qresource>
     <qresource prefix="/game">
-        <file alias="sparkles-0.png">ressources/games/sparkles-0.png</file>
-        <file alias="sparkles-1.png">ressources/games/sparkles-1.png</file>
-        <file alias="sparkles-2.png">ressources/games/sparkles-2.png</file>
-        <file alias="puff.png">ressources/games/puff.png</file>
+        <file alias="sparkles-0.png">resources/games/sparkles-0.png</file>
+        <file alias="sparkles-1.png">resources/games/sparkles-1.png</file>
+        <file alias="sparkles-2.png">resources/games/sparkles-2.png</file>
+        <file alias="puff.png">resources/games/puff.png</file>
     </qresource>
 </RCC>
