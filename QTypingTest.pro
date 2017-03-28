@@ -106,8 +106,8 @@ SOURCES +=\
     src/Games/recttext.cpp \
     src/Games/vector2f.cpp \
     src/Games/bounce.cpp \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/animatedsprite.cpp \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/resourcemanager.cpp
+    src/Games/animatedsprite.cpp \
+    src/Games/resourcemanager.cpp
 
 HEADERS +=\
     #-------------------------
@@ -173,8 +173,8 @@ HEADERS +=\
     src/Games/recttext.h \
     src/Games/vector2f.h \
     src/Games/bounce.h \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/animatedsprite.h \
-    ../../../../Scolaire/Programmation/C++/Qt/QTypingTest/src/Games/resourcemanager.h
+    src/Games/animatedsprite.h \
+    src/Games/resourcemanager.h
 
 DISTFILES += \
     ressources/syle.qss
