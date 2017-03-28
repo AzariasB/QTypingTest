@@ -18,6 +18,7 @@ HEADERS = $$SRC/Games/vector2f.h \
             $$SRC/Games/bullet.h \
             $$SRC/Games/recttext.h \
             $$SRC/Games/animatedsprite.h \
+            $$SRC/Games/resourcemanager.h \
             $$SRC/Games/letterwall.h
 
 
@@ -27,6 +28,7 @@ SOURCES = $$SRC/Games/vector2f.cpp \
             $$SRC/Games/letterwall.cpp \
             $$SRC/Games/recttext.cpp \
             $$SRC/Games/animatedsprite.cpp \
+            $$SRC/Games/resourcemanager.cpp \
             testgame.cpp
 
 # install

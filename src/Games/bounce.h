@@ -24,6 +24,7 @@
 #include "letterwall.h"
 #include "recttext.h"
 #include "animatedsprite.h"
+#include "resourcemanager.h"
 
 // Size (x*x) of a single wall
 #define WALL_SIZE 40
@@ -76,6 +77,8 @@ protected:
 
 	void keyReleaseEvent(QKeyEvent *event) override;
 
+	void loadResources();
+
 private:
 	// All the possible letters to display (contains punctuation too)
 	static const QString alphabet;
@@ -100,7 +103,7 @@ private:
 	 * Gets a random sparkles from the existing images
 	 * @return a pixmap of the random sparkle
 	 */
-	QPixmap randomSparkle();
+	const QPixmap &randomSparkle();
 
 	/**
 	 * @brief createWall
@@ -218,6 +221,8 @@ private:
 
 	// Timer to update the game logic every n seconds
 	QTimer timer_;
+
+	ResourceManager rm_;
 };
 
 #endif // BOUNCE_H

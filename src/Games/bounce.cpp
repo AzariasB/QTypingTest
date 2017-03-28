@@ -18,6 +18,7 @@ Bounce::Bounce(QWidget *parent):
 	QGraphicsView(parent),
 	bullet_(new Bullet())
 {
+	loadResources();
 	initWalls();
 	timer_.setInterval(15);
 	timer_.setSingleShot(false);
@@ -26,6 +27,15 @@ Bounce::Bounce(QWidget *parent):
 	});
 	setScene(&scene_);
 	init();
+}
+
+void Bounce::loadResources()
+{
+	int pixmapNumber = 3;
+	for(int i = 0; i < pixmapNumber;i++){
+		rm_.loadPixmap(QString("sparkles-%1").arg(i), QString(":/game/sparkles-%1.png").arg(i));
+	}
+	rm_.loadPixmap("puff",":/game/puff.png");
 }
 
 void Bounce::initWalls()
@@ -97,11 +107,9 @@ void Bounce::spawnSparkles(const QPointF &position)
 
 void Bounce::spawnPuff(const QPointF &position)
 {
-	//Puff must be centered around image
-	QImage img(":/game/puff.png");
-	QPixmap pixmap = QPixmap::fromImage(img);
-	AnimatedSprite *anim = new AnimatedSprite(pixmap,5, true);
-	anim->setPos(QPointF(position.x() - 32, position.y() - pixmap.height()/ 2));
+	const QPixmap &puff = rm_.getPixmap("puff");
+	AnimatedSprite *anim = new AnimatedSprite(puff,5, true);
+	anim->setPos(QPointF(position.x() - 32, position.y() - puff.height()/ 2));
 	scene_.addItem(anim);
 }
 
@@ -286,12 +294,10 @@ QGraphicsItem *Bounce::getEndMessage()
 	return new RectText(messageBounds, message, QColor(135, 211, 124), QColor()/* black border */);
 }
 
-QPixmap Bounce::randomSparkle()
+const QPixmap &Bounce::randomSparkle()
 {
 	int numberOfSparkles = 3;
-	QString fileName = QString(":/game/sparkles-%1.png").arg(qrand()%numberOfSparkles);
-	QImage img(fileName);
-	return QPixmap::fromImage(img);
+	return rm_.getPixmap(QString("sparkles-%1").arg(qrand()%numberOfSparkles));
 }
 
 Bounce::~Bounce()
