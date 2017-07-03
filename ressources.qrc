@@ -36,4 +36,8 @@
         <file alias="sparkles-2.png">resources/games/sparkles-2.png</file>
         <file alias="puff.png">resources/games/puff.png</file>
     </qresource>
+    <qresource prefix="/game/sfx" >
+        <file alias="bounce.wav">resources/games/sfx/bounce.wav</file>
+        <file alias="chime1.wav">resources/games/sfx/chime1.wav</file>
+    </qresource>
 </RCC>

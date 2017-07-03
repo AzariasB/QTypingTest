@@ -19,6 +19,8 @@
 #include <QDebug>
 #include <QResizeEvent>
 #include <QTimer>
+#include <QtMultimedia/QSound>
+
 
 #include "bullet.h"
 #include "letterwall.h"

@@ -100,6 +100,7 @@ void Bounce::tick(int dt)
 
 void Bounce::spawnSparkles(const QPointF &position)
 {
+//	QSound::play(":/game/sfx/c.wav"); => find a good sound
 	AnimatedSprite *anim = new AnimatedSprite(randomSparkle(), 7, true);
 	anim->setPos(position);
 	scene_.addItem(anim);
@@ -108,6 +109,7 @@ void Bounce::spawnSparkles(const QPointF &position)
 void Bounce::spawnPuff(const QPointF &position)
 {
 	const QPixmap &puff = rm_.getPixmap("puff");
+	//if !mute => play ":/"
 	AnimatedSprite *anim = new AnimatedSprite(puff,5, true);
 	anim->setPos(QPointF(position.x() - 32, position.y() - puff.height()/ 2));
 	scene_.addItem(anim);
