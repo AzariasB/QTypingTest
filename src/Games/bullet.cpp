@@ -11,6 +11,7 @@
  */
 
 #include "bullet.h"
+#include <qmath.h>
 
 Bullet::Bullet(QGraphicsItem *parent):
 	QGraphicsEllipseItem(0,0, BULLET_RADIUS, BULLET_RADIUS, parent),
@@ -21,20 +22,12 @@ Bullet::Bullet(QGraphicsItem *parent):
 
 void Bullet::boost()
 {
-	if(!boosted_){
-		boosted_ = true;
-		speed_ += speedBoost_;
-	}
+	boosted_ = true;
 }
 
 void Bullet::slowDown()
 {
-	if(boosted_){
-		boosted_ = false;
-		speed_ -= speedBoost_;
-	}
-
-
+	boosted_ = false;
 }
 
 void Bullet::setTarget(LetterWall *target)
@@ -79,7 +72,8 @@ void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
 void Bullet::tick(int dt)
 {
-	speed_ += (dt/5000.f);
+	totalTime_ += dt;
+	speed_ = qLn(totalTime_)*(2 + (boosted_ ? speedBoost_ : 0 ));
 
 	this->setX(this->x() + (dt/100.f) * direction.x() * speed_);
 	this->setY(this->y() + (dt/100.f) * direction.y() * speed_);

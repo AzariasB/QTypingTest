@@ -84,8 +84,10 @@ private:
 	// Bullet's speed (will increase with time)
 	qreal speed_ = 8.f;
 
+	qreal totalTime_ = 0;
+
 	// Bullet's speedBoost ( valued added to the normal speed when in boost mode)
-	qreal speedBoost_ = 16.f;
+	const qreal speedBoost_ = 2.f;
 };
 
 #endif // BULLET_H
