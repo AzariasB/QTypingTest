@@ -24,7 +24,7 @@ private:
 
 	QTimer timer_;
 
-        QPixmap pixmap_;
+	QPixmap pixmap_;
 
 	int frameNumber_;
 

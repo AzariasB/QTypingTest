@@ -46,16 +46,10 @@ void Bounce::initWalls()
 	walls_[DOWN] = createWall(WALL_NUMBER, QPoint(WALL_SIZE,  (WALL_NUMBER+1)*WALL_SIZE ), QPoint(WALL_SIZE, 0), DOWN);
 }
 
-void Bounce::looseGame()
-{
-	lost_ = true;
-	spawnPuff(bullet_->pos());
-	scene_.addItem(getEndMessage());
-}
 
 void Bounce::tick(int dt)
 {
-	if(lost_)
+	if(state_ == GameSate::Lost || state_ == GameSate::Pause || state_ == GameSate::Menu)
 		return;
 
 	bullet_->tick(dt);
@@ -69,7 +63,7 @@ void Bounce::tick(int dt)
 			continue;
 
 		if(currentTarget_->getChar() != currentPressed_){
-			looseGame();
+			stateChanges(GameSate::Lost);
 			return;
 		}
 		spawnSparkles( bullet_->pos() );
@@ -178,7 +172,7 @@ void Bounce::restart()
 	bullet_ = new Bullet();
 
 	currentPressed_ = '\0';
-	lost_ = false;
+	state_ = GameSate::Play;
 	score_ = 0;
 	currentTarget_ = 0;
 	init();
@@ -191,11 +185,17 @@ void Bounce::keyPressEvent(QKeyEvent *event)
 
 	if(event->key() == Qt::Key_Escape)
 	{
-		close();
-		emit gameEnded(-1);
+		if(state_ == GameSate::Pause){
+			stateChanges(GameSate::Play);
+		}else if(state_ == GameSate::Menu || state_ == GameSate::Lost){
+			close();
+			emit gameEnded(-1);
+		}else if(state_ == GameSate::Play){
+			stateChanges(GameSate::Pause);
+		}
 	}
 
-	if(lost_){
+	if(state_ == GameSate::Lost){
 		if(event->key() == Qt::Key_Return)
 			restart();
 	}else{
@@ -278,7 +278,7 @@ QChar Bounce::randomLetter()
 	return alphabet[qrand()%alphabet.size()];
 }
 
-QGraphicsItem *Bounce::getEndMessage()
+RectText *Bounce::createMessageBox(QString msg)
 {
 	qreal topLeftX = scene()->sceneRect().width()/4.f;
 	qreal topLeftY = scene()->sceneRect().height()/3.f;
@@ -291,15 +291,38 @@ QGraphicsItem *Bounce::getEndMessage()
 
 	QRectF messageBounds(topLeft, bottomRight);
 
-	QString message = QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(score_);
-
-	return new RectText(messageBounds, message, QColor(135, 211, 124), QColor()/* black border */);
+	return new RectText(messageBounds, msg, QColor(135, 211, 124), QColor()/* black border */);
 }
 
 const QPixmap &Bounce::randomSparkle()
 {
 	int numberOfSparkles = 3;
 	return rm_.getPixmap(QString("sparkles-%1").arg(qrand()%numberOfSparkles));
+}
+
+void Bounce::stateChanges(GameSate nwState)
+{
+	switch(nwState){
+		case GameSate::Lost:
+			spawnPuff(bullet_->pos());
+			scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(score_)));
+			break;
+		case GameSate::Menu:
+			//Can't state to old state to menu ...
+			break;
+		case GameSate::Pause:
+			scene_.addItem(scoreItem_ = createMessageBox(QString("Game paused\n Score : %1\n - Enter to continue - \n - Escape to close - ").arg(score_)));
+			break;
+		case GameSate::Play:
+			if(state_ == GameSate::Pause){
+				delete scoreItem_;
+				scoreItem_ = new RectText(scene_.sceneRect(), QString(score_) );
+			}else{
+
+			}
+			break;
+	}
+	state_ = nwState;
 }
 
 Bounce::~Bounce()

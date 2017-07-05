@@ -34,6 +34,13 @@
 // Number of walls per side
 #define WALL_NUMBER 20
 
+enum class GameSate{
+	Menu,
+	Pause,
+	Play,
+	Lost
+};
+
 /**
  * @brief The Bounce class
  * Bounce class is the main class for the bounce game
@@ -66,6 +73,14 @@ public slots:
 	 * @param dt time since last update
 	 */
 	void tick(int dt);
+
+	/**
+	 * @brief stateChanges
+	 * Called whenever the state of the game changes, used to update the UI and logic
+	 *
+	 * @param nwState the nwState of the game
+	 */
+	void stateChanges(GameSate nwState);
 
 signals:
 	/**
@@ -160,16 +175,7 @@ private:
 	 *
 	 * @return the item to add in the scene
 	 */
-	QGraphicsItem *getEndMessage();
-
-	/**
-	 * @brief looseGame
-	 * Called when the bullet hits a wall, but the player
-	 * didn't type the answer in time
-	 * Updates the game state to tell the player
-	 *
-	 */
-	void looseGame();
+	RectText *createMessageBox(QString msg);
 
 	/**
 	 * @brief incrementScore
@@ -218,13 +224,12 @@ private:
 	// User's score (number of successfully hitted target)
 	int score_ = 0;
 
-	// Wether the player lost
-	bool lost_ = false;
-
 	// Timer to update the game logic every n seconds
 	QTimer timer_;
 
 	ResourceManager rm_;
+
+	GameSate state_ = GameSate::Play;
 };
 
 #endif // BOUNCE_H
