@@ -107,7 +107,8 @@ SOURCES +=\
     src/Games/vector2f.cpp \
     src/Games/bounce.cpp \
     src/Games/animatedsprite.cpp \
-    src/Games/resourcemanager.cpp
+    src/Games/resourcemanager.cpp \
+    src/Games/menu.cpp
 
 HEADERS +=\
     #-------------------------
@@ -174,7 +175,8 @@ HEADERS +=\
     src/Games/vector2f.h \
     src/Games/bounce.h \
     src/Games/animatedsprite.h \
-    src/Games/resourcemanager.h
+    src/Games/resourcemanager.h \
+    src/Games/menu.h
 
 DISTFILES += \
     ressources/syle.qss

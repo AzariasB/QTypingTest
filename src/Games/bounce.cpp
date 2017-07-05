@@ -25,8 +25,28 @@ Bounce::Bounce(QWidget *parent):
 	connect(&timer_, &QTimer::timeout, [=](){
 		this->tick(15);
 	});
+        mainMenu_ = new Menu(this, "Bounce", QMap<QString, const char*>{
+                                                         {"1 - Play",SLOT(menuPlay()) },
+                                                         {"2 - Help",SLOT(menuHelp()) },
+                                                         {"3 - Quit",SLOT(menuQuit()) }
+						});
 	setScene(&scene_);
 	init();
+}
+
+void Bounce::menuPlay()
+{
+	qDebug() << "Play";
+}
+
+void Bounce::menuHelp()
+{
+	qDebug() << "Help";
+}
+
+void Bounce::menuQuit()
+{
+	qDebug() << "Quit";
 }
 
 void Bounce::loadResources()
@@ -130,15 +150,17 @@ void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 
 void Bounce::init()
 {
-	scoreItem_ = new RectText(scene_.sceneRect(), "0");
-	scoreItem_->setZValue(-10.f);
-	scene_.addItem(scoreItem_);
-	scene_.addItem(bullet_);
+	//scoreItem_ = new RectText(scene_.sceneRect(), "0");
+	//scoreItem_->setZValue(-10.f);
+
+	scene_.addItem(mainMenu_);
+	//scene_.addItem(scoreItem_);
+	//scene_.addItem(bullet_);
 	this->update();
-	bullet_->setX(scene_.width() / 2.f);
-	bullet_->setY(scene_.height()/ 2.f );
+	//bullet_->setX(scene_.width() / 2.f);
+	//bullet_->setY(scene_.height()/ 2.f );
 	timer_.start();
-	nextTarget();
+	//nextTarget();
 	//Prevent scene from resizing
 	scene_.setSceneRect(scene_.sceneRect());
 }
@@ -291,7 +313,7 @@ RectText *Bounce::createMessageBox(QString msg)
 
 	QRectF messageBounds(topLeft, bottomRight);
 
-	return new RectText(messageBounds, msg, QColor(135, 211, 124), QColor()/* black border */);
+        return new RectText(messageBounds, msg, 0 , QColor(135, 211, 124), QColor()/* black border */);
 }
 
 const QPixmap &Bounce::randomSparkle()
@@ -323,6 +345,11 @@ void Bounce::stateChanges(GameSate nwState)
 			break;
 	}
 	state_ = nwState;
+}
+
+void Bounce::mousePressEvent(QMouseEvent *event)
+{
+    QGraphicsView::mousePressEvent(event);
 }
 
 Bounce::~Bounce()

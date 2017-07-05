@@ -20,13 +20,14 @@
 #include <QResizeEvent>
 #include <QTimer>
 #include <QtMultimedia/QSound>
-
+#include <QFunctionPointer>
 
 #include "bullet.h"
 #include "letterwall.h"
 #include "recttext.h"
 #include "animatedsprite.h"
 #include "resourcemanager.h"
+#include "menu.h"
 
 // Size (x*x) of a single wall
 #define WALL_SIZE 40
@@ -65,6 +66,7 @@ public:
 
 	void resizeEvent(QResizeEvent *event);
 
+
 public slots:
 	/**
 	 * @brief tick
@@ -82,6 +84,13 @@ public slots:
 	 */
 	void stateChanges(GameSate nwState);
 
+	//Three functions used in the main menu :
+	void menuPlay();
+
+	void menuHelp();
+
+	void menuQuit();
+
 signals:
 	/**
 	 * @brief gameEnded Trigerred when the 'esc' key is pressed
@@ -94,9 +103,11 @@ protected:
 
 	void keyReleaseEvent(QKeyEvent *event) override;
 
+        void mousePressEvent(QMouseEvent *event) override;
+
 	void loadResources();
 
-private:
+private:	
 	// All the possible letters to display (contains punctuation too)
 	static const QString alphabet;
 
@@ -227,9 +238,13 @@ private:
 	// Timer to update the game logic every n seconds
 	QTimer timer_;
 
+	// All the pixmap are stored here
 	ResourceManager rm_;
 
-	GameSate state_ = GameSate::Play;
+	// State of the game
+	GameSate state_ = GameSate::Menu;
+
+	Menu *mainMenu_;
 };
 
 #endif // BOUNCE_H
