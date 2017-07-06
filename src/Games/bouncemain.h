@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QStackedLayout>
+#include <QHBoxLayout>
 
 #include "bouncemenu.h"
 #include "bouncegame.h"
@@ -18,8 +19,14 @@ public:
 signals:
 
 public slots:
+	void showGame();
+
+	void showHelp();
+
 
 private:
+	void initGameWidget();
+
 	QStackedLayout *mainLayout_;
 
 	BounceMenu *menu_;
@@ -29,6 +36,8 @@ private:
 	BounceData *bData_;
 
 	BounceGame *bGame_;
+
+	QWidget *gameWidget_;
 };
 
 #endif // BOUNCEMAIN_H

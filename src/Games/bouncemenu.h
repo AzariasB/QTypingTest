@@ -10,6 +10,7 @@
 
 class BounceMenu : public QWidget
 {
+	Q_OBJECT
 public:
 	/**
 	 * @brief Menu

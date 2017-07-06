@@ -2,17 +2,13 @@
 #define BOUNCEDATA_H
 
 #include <QWidget>
-
-#include "recttext.h"
+#include <QLabel>
 
 class BounceData : public QWidget
 {
+	Q_OBJECT
 public:
 	BounceData(int lives, QWidget *parent = 0);
-
-	void incrementScore();
-
-	bool decrementLives();
 
 	void reset(int lives);
 
@@ -20,11 +16,19 @@ public:
 		return score_;
 	}
 
+public slots:
+	void incrementScore();
+
+	void decrementLives();
+
+signals:
+	void noMoreLives();
+
 private:
 
-	RectText *scoreText_;
+	QLabel *livesLabel_;
 
-	RectText *livesText_;
+	QLabel *scoreLabel_;
 
 	int score_ = 0;
 
