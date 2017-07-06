@@ -20,7 +20,6 @@
 #include <QResizeEvent>
 #include <QTimer>
 #include <QtMultimedia/QSound>
-#include <QFunctionPointer>
 
 #include "bullet.h"
 #include "letterwall.h"
@@ -110,7 +109,7 @@ protected:
 
 	void keyReleaseEvent(QKeyEvent *event) override;
 
-        void mousePressEvent(QMouseEvent *event) override;
+	void mousePressEvent(QMouseEvent *event) override;
 
 	void loadResources();
 
@@ -230,7 +229,8 @@ private:
 	//Score display
 	RectText *scoreItem_;
 
-        RectText *helpText_;
+	// RecText used to display help message
+	RectText *helpText_;
 
 	// The last char pressed by the user (is kept, even when the user releases the key)
 	QChar currentPressed_ = '\0';
@@ -253,6 +253,7 @@ private:
 	// State of the game
 	GameSate state_ = GameSate::Menu;
 
+	//Menu to choose between different element when starting the game
 	Menu *mainMenu_;
 };
 

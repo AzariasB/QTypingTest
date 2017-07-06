@@ -53,7 +53,6 @@ void RectText::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void RectText::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
 	Q_UNUSED(event);
-        emit hovered();
 	setCurrentState(RectTextState::Hovered);
 }
 

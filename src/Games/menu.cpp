@@ -1,10 +1,9 @@
 
 
-#include <qdebug.h>
 #include <QGraphicsSceneMouseEvent>
-
 #include "menu.h"
 #include "recttext.h"
+
 
 Menu::Menu(QWidget *parent, QString header, QList<GameMenuItem> actions):
 parent_(parent){
@@ -12,7 +11,6 @@ parent_(parent){
         int leftX = parent->width()/10;
 
 	setHandlesChildEvents(false);
-	qDebug() <<  parent->rect().width();
 	RectText *hRect = new RectText(QRectF(leftX, startY,parent->width(), 50), header);
 	hRect->mapProperties([](RecTextProperty &prop){
 		prop.font.setPixelSize(40);
