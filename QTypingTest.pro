@@ -109,7 +109,6 @@ SOURCES +=\
     src/Games/animatedsprite.cpp \
     src/Games/resourcemanager.cpp \
     src/Games/menu.cpp
-
 HEADERS +=\
     #-------------------------
     # Pages

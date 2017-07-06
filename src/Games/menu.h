@@ -2,7 +2,7 @@
 #define MENU_H
 
 #include <QGraphicsItem>
-#include <QMap>
+#include <QList>
 #include <QGraphicsView>
 #include "recttext.h"
 #include <QObject>
@@ -16,7 +16,10 @@ struct GameMenuItem{
 class Menu : public QGraphicsItemGroup
 {
 public:
-	Menu(QWidget *parent, QString header, QMap<QString, const char*> actions);
+	Menu(QWidget *parent, QString header, QList<GameMenuItem> actions);
+
+
+
 
 private:
 	QWidget *parent_;

@@ -11,6 +11,7 @@
  */
 
 #include "bounce.h"
+#include <QList>
 
 const QString Bounce::alphabet = "abcdefghijklmnopqrstuvwxyz,./?;";
 
@@ -25,7 +26,7 @@ Bounce::Bounce(QWidget *parent):
 	connect(&timer_, &QTimer::timeout, [=](){
 		this->tick(15);
 	});
-        mainMenu_ = new Menu(this, "Bounce", QMap<QString, const char*>{
+        mainMenu_ = new Menu(this, "Bounce", QList<GameMenuItem>{
                                                          {"1 - Play",SLOT(menuPlay()) },
                                                          {"2 - Help",SLOT(menuHelp()) },
                                                          {"3 - Quit",SLOT(menuQuit()) }

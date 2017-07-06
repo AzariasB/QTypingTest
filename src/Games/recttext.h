@@ -6,6 +6,19 @@
 #include <qglobal.h>
 
 
+enum class RectTextState{
+	Default = 0,
+	Hovered = 1,
+	Selected = 2
+};
+
+
+struct RecTextProperty{
+	QFont font = QFont("Arial", 24);
+	QColor penColor;
+	QColor bgColor = QColor(Qt::transparent);
+};
+
 /**
  * @brief The EndMessage class
  * Message displayed at the end of a game
@@ -27,24 +40,8 @@ public:
 
 	void setFontFamily(QString fontFamily);
 
-        /**
-         * @brief setChangeColorOnHover
-         * Wether to change color when overring with mouse
-         *
-         *
-         * @param nwChangeColorOnHover wether to change color when hovering
-         *
-         */
-        void setChangeColorOnHover(bool nwChangeColorOnHover);
+	RecTextProperty& getProperty(const RectTextState &state);
 
-        /**
-         * @brief setHoverColor
-         * Color of mouse when hoverring the item
-         *
-         * @param nwColor
-         * the color to set when overring
-         */
-        void setHoverColor(QColor nwColor);
 
 public slots:
 	void setMessage(const QString &message);
@@ -54,30 +51,27 @@ protected:
 
 	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
-        void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+	void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
 
-        void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
+	void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 
 signals:
 	void mousePressed();
 
 
 private:
+	// Methods
+	void updateState(const RectTextState &nwState);
+
 	//Message to display
 	QString message_;
-
-	//Background color
-	QColor bgColor_;
 
 	//Border color
 	QColor borderColor_;
 
-        //Color when hover with mouse
-        QColor hoverColor_;
+	QHash<RectTextState, RecTextProperty> properties_;
 
-        bool changeColorOnHover_ = false;
-
-	QFont font_ = QFont("Arial", 24);
+	RectTextState currentState_ = RectTextState::Default;
 };
 
 #endif // ENDMESSAGE_H

@@ -7,6 +7,7 @@
 RectText::RectText(QGraphicsItem *parent):
 	QGraphicsRectItem(parent)
 {
+	setAcceptHoverEvents(true);
 }
 
 RectText::RectText(const QRectF& bounds,
@@ -16,9 +17,10 @@ RectText::RectText(const QRectF& bounds,
 				   const QColor &borderColor):
 	QGraphicsRectItem(bounds, parent),
         message_(message),
-		bgColor_(backgroundColor),
 		borderColor_(borderColor)
 {
+	properties_[RectTextState::Default].bgColor = backgroundColor;
+	setAcceptHoverEvents(true);
 }
 
 void RectText::setMessage(const QString &message)
@@ -30,11 +32,11 @@ void RectText::setMessage(const QString &message)
 void RectText::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
 	painter->setPen(borderColor_);
-	painter->setBrush(QBrush(bgColor_));
+	painter->setBrush(QBrush(properties_[currentState_].bgColor));
 	painter->drawRect(boundingRect());
 
-	painter->setPen(QColor());
-	painter->setFont(font_);
+	painter->setPen(QColor(properties_[currentState_].penColor));
+	painter->setFont(properties_[currentState_].font);
 	painter->drawText(boundingRect(),message_, Qt::AlignCenter | Qt::AlignVCenter);
 }
 
@@ -48,38 +50,24 @@ void RectText::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void RectText::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    QColor tmpColor = bgColor_;
-    bgColor_ = hoverColor_;
-    hoverColor_ = tmpColor;
-    update();
+	Q_UNUSED(event);
+	currentState_ = RectTextState::Hovered;
+	update();
 }
 
 void RectText::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
-    QColor tmpColor = bgColor_;
-    bgColor_ = hoverColor_;
-    hoverColor_ = tmpColor;
+	Q_UNUSED(event);
+	currentState_ = RectTextState::Default;
     update();
 }
 
-void RectText::setFontFamily(QString fontFamily)
+
+RecTextProperty& RectText::getProperty(const RectTextState& state)
 {
-	font_.setFamily(fontFamily);
+	return properties_[state];//Default constructor if does not exists
 }
 
-void RectText::setFontSize(int nwFontSize)
-{
-	font_.setPixelSize(nwFontSize);
-}
-
-
-void RectText::setHoverColor(QColor nwColor)
-{
-    hoverColor_ = nwColor;
-}
-
-void RectText::setChangeColorOnHover(bool nwChangeColorOnHover)
-{
-    changeColorOnHover_ = nwChangeColorOnHover;
-    setAcceptHoverEvents(changeColorOnHover_);
+uint qHash(const RectTextState& state){
+	return static_cast<int>(state);
 }
