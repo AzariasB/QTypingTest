@@ -26,7 +26,7 @@
 #include "recttext.h"
 #include "animatedsprite.h"
 #include "resourcemanager.h"
-#include "menu.h"
+#include "bouncemenu.h"
 
 // Size (x*x) of a single wall
 #define WALL_SIZE 40
@@ -38,7 +38,7 @@ enum class GameSate{
 	Menu,
 	Pause,
 	Play,
-        Help,
+	Help,
 	Lost
 };
 
@@ -49,11 +49,11 @@ enum class GameSate{
  * anti-clockwise, the player has to presse the key corresponding to
  * the letter the bullet of targetting
  */
-class Bounce : public QGraphicsView
+class BounceGame : public QGraphicsView
 {
 	Q_OBJECT
 public:
-	Bounce(QWidget *parent = 0);
+	BounceGame(QWidget *parent = 0);
 
 	/**
 	 * @brief init
@@ -62,7 +62,7 @@ public:
 	 */
 	void init();
 
-	virtual ~Bounce();
+	virtual ~BounceGame();
 
 	void resizeEvent(QResizeEvent *event);
 
@@ -116,6 +116,8 @@ protected:
 private:	
 	// All the possible letters to display (contains punctuation too)
 	static const QString alphabet;
+
+	static const int startingLives;
 
 	/**
 	 * @brief spawnSparkles
@@ -217,6 +219,13 @@ private:
 	 */
 	LetterWall *randomTarget(DIRECTION nwDirection = NO_DIRECTION);
 
+	/**
+	 * @brief looseLife
+	 * Reduce the life by one
+	 * if it's at zero, loose the game
+	 */
+	void looseLife();
+
 	// The current target of the bullet
 	LetterWall *currentTarget_ = nullptr;
 
@@ -225,12 +234,6 @@ private:
 
 	// Game's bullet
 	Bullet *bullet_;
-
-	//Score display
-	RectText *scoreItem_;
-
-	// RecText used to display help message
-	RectText *helpText_;
 
 	// The last char pressed by the user (is kept, even when the user releases the key)
 	QChar currentPressed_ = '\0';
@@ -253,8 +256,8 @@ private:
 	// State of the game
 	GameSate state_ = GameSate::Menu;
 
-	//Menu to choose between different element when starting the game
-	Menu *mainMenu_;
+
+	int lives_ = BounceGame::startingLives;
 };
 
 #endif // BOUNCE_H
