@@ -36,11 +36,11 @@ public:
                          const QColor &borderColor = Qt::white);
 
 
-	void setFontSize(int nwFontSize);
-
-	void setFontFamily(QString fontFamily);
-
 	RecTextProperty& getProperty(const RectTextState &state);
+
+	void mapProperties(void (*mapper)(RecTextProperty&));
+
+        void setCurrentState(RectTextState nwState);
 
 
 public slots:
@@ -57,6 +57,8 @@ protected:
 
 signals:
 	void mousePressed();
+
+        void hovered();
 
 
 private:

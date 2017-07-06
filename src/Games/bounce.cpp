@@ -27,9 +27,9 @@ Bounce::Bounce(QWidget *parent):
 		this->tick(15);
 	});
         mainMenu_ = new Menu(this, "Bounce", QList<GameMenuItem>{
-                                                         {"1 - Play",SLOT(menuPlay()) },
-                                                         {"2 - Help",SLOT(menuHelp()) },
-                                                         {"3 - Quit",SLOT(menuQuit()) }
+                                                         {"Play",SLOT(menuPlay()) },
+                                                         {"Help",SLOT(menuHelp()) },
+                                                         {"Quit",SLOT(menuQuit()) }
 						});
 	setScene(&scene_);
 	init();
@@ -37,7 +37,7 @@ Bounce::Bounce(QWidget *parent):
 
 void Bounce::menuPlay()
 {
-	qDebug() << "Play";
+    play();
 }
 
 void Bounce::menuHelp()
@@ -47,7 +47,8 @@ void Bounce::menuHelp()
 
 void Bounce::menuQuit()
 {
-	qDebug() << "Quit";
+        close();
+        emit gameEnded(-1);
 }
 
 void Bounce::loadResources()
@@ -149,19 +150,33 @@ void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 	}
 }
 
+void Bounce::play()
+{
+    //Remove menu
+    scene_.removeItem(mainMenu_);
+
+    scoreItem_ = new RectText(scene_.sceneRect(), "0");
+    scoreItem_->setZValue(-10.f);
+
+    scene_.addItem(scoreItem_);
+    scene_.addItem(bullet_);
+
+    bullet_->setX(scene_.width() / 2.f);
+    bullet_->setY(scene_.height()/ 2.f );
+
+    nextTarget();
+    stateChanges(GameSate::Play);
+}
+
 void Bounce::init()
 {
-	//scoreItem_ = new RectText(scene_.sceneRect(), "0");
-	//scoreItem_->setZValue(-10.f);
+
 
 	scene_.addItem(mainMenu_);
-	//scene_.addItem(scoreItem_);
-	//scene_.addItem(bullet_);
+
 	this->update();
-	//bullet_->setX(scene_.width() / 2.f);
-	//bullet_->setY(scene_.height()/ 2.f );
+
 	timer_.start();
-	//nextTarget();
 	//Prevent scene from resizing
 	scene_.setSceneRect(scene_.sceneRect());
 }
@@ -198,7 +213,7 @@ void Bounce::restart()
 	state_ = GameSate::Play;
 	score_ = 0;
 	currentTarget_ = 0;
-	init();
+        play();
 }
 
 void Bounce::keyPressEvent(QKeyEvent *event)
@@ -221,6 +236,10 @@ void Bounce::keyPressEvent(QKeyEvent *event)
 	if(state_ == GameSate::Lost){
 		if(event->key() == Qt::Key_Return)
 			restart();
+        }else if(state_ == GameSate::Menu){
+            if(event->key() == Qt::Key_Return){
+                //Do what's selected
+            }
 	}else{
 		if(!currentPressed_.isNull()){
 			for(LetterWall *wall : equivalents_[currentPressed_]){

@@ -76,6 +76,12 @@ public slots:
 	 */
 	void tick(int dt);
 
+        /**
+         * @brief play
+         * When the player choose to play (clicks the 'play' button of the menu)
+         */
+        void play();
+
 	/**
 	 * @brief stateChanges
 	 * Called whenever the state of the game changes, used to update the UI and logic

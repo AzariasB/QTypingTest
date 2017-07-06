@@ -51,21 +51,34 @@ void RectText::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void RectText::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
 	Q_UNUSED(event);
-	currentState_ = RectTextState::Hovered;
-	update();
+        emit hovered();
+	setCurrentState(RectTextState::Hovered);
 }
 
 void RectText::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
 	Q_UNUSED(event);
-	currentState_ = RectTextState::Default;
-    update();
+	setCurrentState(RectTextState::Default);
 }
 
 
 RecTextProperty& RectText::getProperty(const RectTextState& state)
 {
 	return properties_[state];//Default constructor if does not exists
+}
+
+void RectText::mapProperties(void (*mapper)(RecTextProperty &))
+{
+	RectTextState allStates[] = {RectTextState::Default, RectTextState::Hovered, RectTextState::Selected};
+	for(RectTextState r : allStates){
+		(*mapper)(properties_[r]);
+	}
+}
+
+void RectText::setCurrentState(RectTextState nwState)
+{
+	currentState_ = nwState;
+	update();
 }
 
 uint qHash(const RectTextState& state){

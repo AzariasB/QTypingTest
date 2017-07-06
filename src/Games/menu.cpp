@@ -14,8 +14,9 @@ parent_(parent){
 	setHandlesChildEvents(false);
 	qDebug() <<  parent->rect().width();
 	RectText *hRect = new RectText(QRectF(leftX, startY,parent->width(), 50), header);
-	hRect->getProperty(RectTextState::Default).font.setPixelSize(40);
-	hRect->getProperty(RectTextState::Hovered).font.setPixelSize(40);
+	hRect->mapProperties([](RecTextProperty &prop){
+		prop.font.setPixelSize(40);
+	});
 	addToGroup(hRect);
 
 	int i = 1;

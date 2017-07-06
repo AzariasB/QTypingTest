@@ -18,9 +18,6 @@ class Menu : public QGraphicsItemGroup
 public:
 	Menu(QWidget *parent, QString header, QList<GameMenuItem> actions);
 
-
-
-
 private:
 	QWidget *parent_;
 
