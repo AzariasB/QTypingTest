@@ -39,6 +39,7 @@ enum class GameSate{
 	Menu,
 	Pause,
 	Play,
+        Help,
 	Lost
 };
 
@@ -228,6 +229,8 @@ private:
 
 	//Score display
 	RectText *scoreItem_;
+
+        RectText *helpText_;
 
 	// The last char pressed by the user (is kept, even when the user releases the key)
 	QChar currentPressed_ = '\0';

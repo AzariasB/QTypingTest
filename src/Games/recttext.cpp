@@ -17,9 +17,11 @@ RectText::RectText(const QRectF& bounds,
 				   const QColor &borderColor):
 	QGraphicsRectItem(bounds, parent),
         message_(message),
-		borderColor_(borderColor)
+                borderColor_(borderColor)
 {
-	properties_[RectTextState::Default].bgColor = backgroundColor;
+    for(RectTextState r : {RectTextState::Default, RectTextState::Hovered, RectTextState::Selected})
+            properties_[r].bgColor = backgroundColor;
+
 	setAcceptHoverEvents(true);
 }
 

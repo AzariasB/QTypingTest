@@ -26,14 +26,15 @@ Bounce::Bounce(QWidget *parent):
 	connect(&timer_, &QTimer::timeout, [=](){
 		this->tick(15);
 	});
-        mainMenu_ = new Menu(this, "Bounce", QList<GameMenuItem>{
-                                                         {"Play",SLOT(menuPlay()) },
-                                                         {"Help",SLOT(menuHelp()) },
-                                                         {"Quit",SLOT(menuQuit()) }
+	mainMenu_ = new Menu(this, "Bounce", QList<GameMenuItem>{
+	                                                 {"Play",SLOT(menuPlay()) },
+	                                                 {"Help",SLOT(menuHelp()) },
+	                                                 {"Quit",SLOT(menuQuit()) }
 						});
 	setScene(&scene_);
 	init();
 }
+
 
 void Bounce::menuPlay()
 {
@@ -42,13 +43,13 @@ void Bounce::menuPlay()
 
 void Bounce::menuHelp()
 {
-	qDebug() << "Help";
+    stateChanges(GameSate::Help);
 }
 
 void Bounce::menuQuit()
 {
-        close();
-        emit gameEnded(-1);
+    close();
+    emit gameEnded(-1);
 }
 
 void Bounce::loadResources()
@@ -71,7 +72,7 @@ void Bounce::initWalls()
 
 void Bounce::tick(int dt)
 {
-	if(state_ == GameSate::Lost || state_ == GameSate::Pause || state_ == GameSate::Menu)
+	if(state_ == GameSate::Lost || state_ == GameSate::Pause || state_ == GameSate::Menu || state_ == GameSate::Help)
 		return;
 
 	bullet_->tick(dt);
@@ -152,25 +153,32 @@ void Bounce::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 
 void Bounce::play()
 {
-    //Remove menu
-    scene_.removeItem(mainMenu_);
+        //Remove menu
+        scene_.removeItem(mainMenu_);
 
-    scoreItem_ = new RectText(scene_.sceneRect(), "0");
-    scoreItem_->setZValue(-10.f);
+	scoreItem_ = new RectText(scene_.sceneRect(), "0");
+	scoreItem_->setZValue(-10.f);
 
-    scene_.addItem(scoreItem_);
-    scene_.addItem(bullet_);
+	scene_.addItem(scoreItem_);
+	scene_.addItem(bullet_);
 
-    bullet_->setX(scene_.width() / 2.f);
-    bullet_->setY(scene_.height()/ 2.f );
+	bullet_->setX(scene_.width() / 2.f);
+	bullet_->setY(scene_.height()/ 2.f );
 
-    nextTarget();
-    stateChanges(GameSate::Play);
+	nextTarget();
+	stateChanges(GameSate::Play);
 }
 
 void Bounce::init()
 {
 
+	helpText_ = new RectText(scene_.sceneRect(), "To play this game, you only have to use your keyboard\n"
+											 "The ball is going toward a certain letter, you have to\n"
+											 "type the letter, when the ball hits the wall, it will\n"
+											 "bounce to another location, towars another letter.\n"
+											 "If the ball reached the wall and you didn't pressed the key\n"
+											 "You loose. Happy playing :) \n\n"
+											 " - Press any key to return to the menu - ", 0, QColor(135, 211, 124), QColor());
 
 	scene_.addItem(mainMenu_);
 
@@ -213,18 +221,20 @@ void Bounce::restart()
 	state_ = GameSate::Play;
 	score_ = 0;
 	currentTarget_ = 0;
-        play();
+	play();
 }
+
 
 void Bounce::keyPressEvent(QKeyEvent *event)
 {
 	if(event->isAutoRepeat())
-		return;
+	        return;
 
 	if(event->key() == Qt::Key_Escape)
 	{
-		if(state_ == GameSate::Pause){
-			stateChanges(GameSate::Play);
+	        if(state_ == GameSate::Pause){
+		        close();
+			emit gameEnded(score_);
 		}else if(state_ == GameSate::Menu || state_ == GameSate::Lost){
 			close();
 			emit gameEnded(-1);
@@ -235,11 +245,13 @@ void Bounce::keyPressEvent(QKeyEvent *event)
 
 	if(state_ == GameSate::Lost){
 		if(event->key() == Qt::Key_Return)
-			restart();
-        }else if(state_ == GameSate::Menu){
-            if(event->key() == Qt::Key_Return){
-                //Do what's selected
-            }
+		        restart();
+	}else if(state_ == GameSate::Help){
+	    stateChanges(GameSate::Menu);
+	}else if(state_ == GameSate::Menu){
+	    if(event->key() == Qt::Key_Return){
+		//Do what's selected
+	    }
 	}else{
 		if(!currentPressed_.isNull()){
 			for(LetterWall *wall : equivalents_[currentPressed_]){
@@ -346,23 +358,28 @@ void Bounce::stateChanges(GameSate nwState)
 {
 	switch(nwState){
 		case GameSate::Lost:
-			spawnPuff(bullet_->pos());
-			scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(score_)));
-			break;
+	            spawnPuff(bullet_->pos());
+		    scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(score_)));
+	            break;
 		case GameSate::Menu:
-			//Can't state to old state to menu ...
-			break;
+	            scene_.removeItem(helpText_);
+		    scene_.addItem(mainMenu_);
+	            break;
 		case GameSate::Pause:
-			scene_.addItem(scoreItem_ = createMessageBox(QString("Game paused\n Score : %1\n - Enter to continue - \n - Escape to close - ").arg(score_)));
-			break;
+	            scene_.addItem(scoreItem_ = createMessageBox(QString("Game paused\n Score : %1\n - Enter to continue - \n - Escape to close - ").arg(score_)));
+	            break;
 		case GameSate::Play:
-			if(state_ == GameSate::Pause){
-				delete scoreItem_;
-				scoreItem_ = new RectText(scene_.sceneRect(), QString(score_) );
-			}else{
+	            if(state_ == GameSate::Pause){
+			delete scoreItem_;
+			scoreItem_ = new RectText(scene_.sceneRect(), QString(score_) );
+		    }else{
 
-			}
-			break;
+		    }
+	            break;
+	        case GameSate::Help:
+	            scene_.addItem(helpText_);
+		    scene_.removeItem(mainMenu_);
+	            break;
 	}
 	state_ = nwState;
 }
