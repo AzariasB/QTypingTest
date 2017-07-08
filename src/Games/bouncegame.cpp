@@ -19,20 +19,24 @@ const int BounceGame::startingLives = 5;
 BounceGame::BounceGame(BounceData *dataHolder, QWidget *parent):
 	QGraphicsView(parent),
 	bullet_(new Bullet()),
-	dataHolder_(dataHolder)
+	dataHolder_(dataHolder),
+	countdown_(new Countdown)
 {
 	loadResources();
 	initWalls();
 	timer_.setInterval(15);
 	timer_.setSingleShot(false);
+
+	connect(countdown_, &Countdown::timeout, this, &BounceGame::play);
 	connect(&timer_, &QTimer::timeout, [=](){
 		this->tick(15);
 	});
+
 	dataHolder_->reset(startingLives);
 
 	setScene(&scene_);
 	init();
-	play();
+	qDebug() << "Test";
 }
 
 
@@ -69,7 +73,7 @@ void BounceGame::looseLife()
 
 void BounceGame::tick(int dt)
 {
-	if(state_ == GameSate::Lost || state_ == GameSate::Pause)
+	if(state_ == GameSate::Lost || state_ == GameSate::Pause || state_ == GameSate::Countdown)
 		return;
 
 	bullet_->tick(dt);
@@ -150,6 +154,7 @@ void BounceGame::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 
 void BounceGame::play()
 {
+	countdown_->setVisible(false);
 	timer_.start();
 	dataHolder_->play();
 	scene_.addItem(bullet_);
@@ -166,6 +171,7 @@ void BounceGame::init()
 
 	this->update();
 	//Prevent scene from resizing
+	scene_.addWidget(countdown_);
 	scene_.setSceneRect(scene_.sceneRect());
 }
 
@@ -195,13 +201,18 @@ void BounceGame::restart()
 	equivalents_ = QHash<QChar, QVector<LetterWall*>>();
 
 	initWalls();
-	bullet_ = new Bullet();
+	bullet_ = new Bullet;
 
 	currentPressed_ = '\0';
-	state_ = GameSate::Play;
+	state_ = GameSate::Countdown;
 	dataHolder_->reset(startingLives);
 	currentTarget_ = 0;
-	play();
+
+	countdown_ = new Countdown;
+	connect(countdown_, &Countdown::timeout, this, &BounceGame::play);
+	scene_.addWidget(countdown_);
+	countdown_->move(scene_.sceneRect().width() / 2.f - countdown_->width(), scene_.sceneRect().height() / 2.f - countdown_->height());
+	countdown_->start();
 }
 
 
@@ -220,7 +231,7 @@ void BounceGame::keyPressEvent(QKeyEvent *event)
 			stateChanges(GameSate::Pause);
 		}
 	}else if(state_ == GameSate::Pause){
-		stateChanges(GameSate::Play);
+		stateChanges(GameSate::Countdown);
 	}
 
 	if(state_ == GameSate::Lost){
@@ -334,13 +345,23 @@ void BounceGame::stateChanges(GameSate nwState)
 				dataHolder_->pause();
 	            break;
 		case GameSate::Play:
+			dataHolder_->play();
+			break;
+		case GameSate::Countdown:
 			QList<QGraphicsItem*> items = scene_.items();
 			foreach(QGraphicsItem *it, items){
 				if(RectText* rt = dynamic_cast<RectText*>(it) ){
 					scene_.removeItem(rt);
 				}
 			}
-			dataHolder_->play();
+			countdown_->reset();
+			countdown_->setVisible(true);
+			countdown_->start();
+			disconnect(countdown_, &Countdown::timeout, this, &BounceGame::play);
+			connect(countdown_, &Countdown::timeout, [=](){
+				countdown_->setVisible(false);
+				stateChanges(GameSate::Play);
+			});
 			break;
 	}
 	state_ = nwState;
@@ -353,5 +374,5 @@ void BounceGame::mousePressEvent(QMouseEvent *event)
 
 BounceGame::~BounceGame()
 {
-
+	//Destroys all the scene's items
 }

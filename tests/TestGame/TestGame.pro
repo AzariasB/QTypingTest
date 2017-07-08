@@ -23,6 +23,7 @@ HEADERS = $$SRC/Games/vector2f.h \
 			$$SRC/Games/bouncedata.h \
 			$$SRC/Games/bouncemain.h \
 			$$SRC/Games/bouncehelp.h \
+			$$SRC/Games/countdown.h \
             $$SRC/Games/letterwall.h
 
 
@@ -37,6 +38,7 @@ SOURCES = $$SRC/Games/vector2f.cpp \
 			$$SRC/Games/bouncedata.cpp \
 			$$SRC/Games/bouncemain.cpp \
 			$$SRC/Games/bouncehelp.cpp \
+			$$SRC/Games/countdown.cpp \
             testgame.cpp
 
 # install

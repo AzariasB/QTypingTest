@@ -111,7 +111,8 @@ SOURCES +=\
     src/Games/menu.cpp \
     src/Games/bouncedata.cpp \
     src/Games/bouncemain.cpp \
-    src/Games/bouncehelp.cpp
+    src/Games/bouncehelp.cpp \
+    src/Games/countdown.cpp
 HEADERS +=\
     #-------------------------
     # Pages
@@ -181,7 +182,8 @@ HEADERS +=\
     src/Games/menu.h \
     src/Games/bouncedata.h \
     src/Games/bouncemain.h \
-    src/Games/bouncehelp.h
+    src/Games/bouncehelp.h \
+    src/Games/countdown.h
 
 DISTFILES += \
     ressources/syle.qss

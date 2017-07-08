@@ -28,6 +28,7 @@
 #include "resourcemanager.h"
 #include "bouncemenu.h"
 #include "bouncedata.h"
+#include "countdown.h"
 
 // Size (x*x) of a single wall
 #define WALL_SIZE 40
@@ -38,7 +39,8 @@
 enum class GameSate{
 	Pause,
 	Play,
-	Lost
+	Lost,
+	Countdown
 };
 
 /**
@@ -76,12 +78,6 @@ public slots:
 	void tick(int dt);
 
 	/**
-	 * @brief play
-	 * When the player choose to play (clicks the 'play' button of the menu)
-	 */
-	void play();
-
-	/**
 	 * @brief stateChanges
 	 * Called whenever the state of the game changes, used to update the UI and logic
 	 *
@@ -111,6 +107,12 @@ protected:
 	void mousePressEvent(QMouseEvent *event) override;
 
 	void loadResources();
+
+	/**
+	 * @brief play
+	 * When the player choose to play (clicks the 'play' button of the menu)
+	 */
+	void play();
 
 private:	
 	// All the possible letters to display (contains punctuation too)
@@ -239,10 +241,11 @@ private:
 	ResourceManager rm_;
 
 	// State of the game
-	GameSate state_ = GameSate::Play;
+	GameSate state_ = GameSate::Countdown;
 
 	BounceData *dataHolder_;
 
+	Countdown *countdown_;
 };
 
 #endif // BOUNCE_H
