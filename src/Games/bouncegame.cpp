@@ -151,7 +151,7 @@ void BounceGame::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 void BounceGame::play()
 {
 	timer_.start();
-	dataHolder_->start();
+	dataHolder_->play();
 	scene_.addItem(bullet_);
 
 	bullet_->setX(scene_.width() / 2.f);
@@ -219,6 +219,8 @@ void BounceGame::keyPressEvent(QKeyEvent *event)
 		}else if(state_ == GameSate::Play){
 			stateChanges(GameSate::Pause);
 		}
+	}else if(state_ == GameSate::Pause){
+		stateChanges(GameSate::Play);
 	}
 
 	if(state_ == GameSate::Lost){
@@ -324,13 +326,22 @@ void BounceGame::stateChanges(GameSate nwState)
 	switch(nwState){
 		case GameSate::Lost:
 				dataHolder_->stop();
-				scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to return to the menu - ").arg(dataHolder_->getScore())));
+				scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape : return to menu - ").arg(dataHolder_->getScore())));
 	            break;
 		case GameSate::Pause:
-	    //TODO : Add (maybe) a recttext indicating the game is paused
+				//TODO : Add (maybe) a recttext indicating the game is paused
+				scene_.addItem(createMessageBox(QString("Gamed paused\n - Espace : return to menu -\n - Any key : continue -")));
+				dataHolder_->pause();
 	            break;
-	case GameSate::Play:
-	    break;
+		case GameSate::Play:
+			QList<QGraphicsItem*> items = scene_.items();
+			foreach(QGraphicsItem *it, items){
+				if(RectText* rt = dynamic_cast<RectText*>(it) ){
+					scene_.removeItem(rt);
+				}
+			}
+			dataHolder_->play();
+			break;
 	}
 	state_ = nwState;
 }

@@ -44,12 +44,17 @@ void BounceData::addSecond()
 	timerLabel_->setText(totalTime_.toString("mm:ss"));
 }
 
-void BounceData::start()
+void BounceData::play()
 {
 	timer_.start();
 }
 
 void BounceData::stop()
+{
+	timer_.stop();
+}
+
+void BounceData::pause()
 {
 	timer_.stop();
 }

@@ -24,9 +24,11 @@ public slots:
 
 	bool decrementLives();
 
-	void start();
+	void play();
 
 	void stop();
+
+	void pause();
 
 	void addSecond();
 
