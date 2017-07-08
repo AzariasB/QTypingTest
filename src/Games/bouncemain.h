@@ -23,6 +23,7 @@ public slots:
 
 	void showHelp();
 
+	void showMenu();
 
 private:
 	void initGameWidget();

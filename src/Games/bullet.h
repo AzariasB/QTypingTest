@@ -65,11 +65,12 @@ public:
 	void slowDown();
 
 	/**
-	 * @brief getSpeed
-	 * The bullet's speed
-	 * @return the bullet's speed
+	 * @brief reset
+	 * Reset the data about the bullet :
+	 *  - speed and boosted to false
+	 *
 	 */
-	qreal getSpeed(){return speed_;}
+	void reset();
 
 protected:
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -80,9 +81,6 @@ private:
 
 	// Wether the bullet is boosted
 	bool boosted_ = false;
-
-	// Bullet's speed (will increase with time)
-	qreal speed_ = 8.f;
 
 	qreal totalTime_ = 0;
 

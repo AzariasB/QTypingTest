@@ -12,11 +12,10 @@ BounceMain::BounceMain(QWidget *parent) : QWidget(parent),
 {
 	connect(menu_, &BounceMenu::playSelected, this, &BounceMain::showGame);
 	connect(menu_, &BounceMenu::helpSelected, this, &BounceMain::showHelp);
+	connect(bGame_, &BounceGame::gameEnded, this, &BounceMain::showMenu);
+	connect(help_, &BounceHelp::backToMenu,this, &BounceMain::showMenu);
 	connect(menu_, &BounceMenu::quitSelected, [=](){
 		close();
-	});
-	connect(help_, &BounceHelp::backToMenu, [=](){
-		mainLayout_->setCurrentWidget(menu_);
 	});
 
 	mainLayout_->setContentsMargins(0,0,0,0);
@@ -36,13 +35,18 @@ void BounceMain::initGameWidget()
 	layout->addWidget(bData_);
 	layout->addWidget(bGame_);
 
-	//Connect game signals to data slots
 	gameWidget_->setLayout(layout);
 	gameWidget_->setStyleSheet("background-color : white;");
 }
 
+void BounceMain::showMenu()
+{
+	mainLayout_->setCurrentWidget(menu_);
+}
+
 void BounceMain::showGame()
 {
+	bGame_->restart();
 	mainLayout_->setCurrentWidget(gameWidget_);
 }
 

@@ -32,6 +32,13 @@ void Bullet::slowDown()
 	boosted_ = false;
 }
 
+void Bullet::reset()
+{
+	boosted_ = false;
+	totalTime_ = 0;
+	direction = Vector2f::zero;
+}
+
 void Bullet::setTarget(LetterWall *target)
 {
 	if(target){
@@ -74,8 +81,8 @@ void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 void Bullet::tick(int dt)
 {
 	totalTime_ += dt;
-	speed_ = qLn(totalTime_)*(2 + (boosted_ ? speedBoost_ : 0 ));
+	qreal speed = qLn(totalTime_)*(2 + (boosted_ ? speedBoost_ : 0 ));
 
-	this->setX(this->x() + (dt/100.f) * direction.x() * speed_);
-	this->setY(this->y() + (dt/100.f) * direction.y() * speed_);
+	this->setX(this->x() + (dt/100.f) * direction.x() * speed);
+	this->setY(this->y() + (dt/100.f) * direction.y() * speed);
 }

@@ -14,7 +14,7 @@ class TestGame : public QObject
 public:
 	TestGame();
 
-private Q_SLOTS:
+private slots:
 	void initTestCase();
 	void cleanupTestCase();
 	void testCase1();

@@ -75,11 +75,11 @@ public slots:
 	 */
 	void tick(int dt);
 
-        /**
-         * @brief play
-         * When the player choose to play (clicks the 'play' button of the menu)
-         */
-        void play();
+	/**
+	 * @brief play
+	 * When the player choose to play (clicks the 'play' button of the menu)
+	 */
+	void play();
 
 	/**
 	 * @brief stateChanges
@@ -88,6 +88,13 @@ public slots:
 	 * @param nwState the nwState of the game
 	 */
 	void stateChanges(GameSate nwState);
+
+	/**
+	 * @brief restart
+	 * Restarts the game
+	 * (called when user presses 'enter')
+	 */
+	void restart();
 
 signals:
 	/**
@@ -109,7 +116,15 @@ private:
 	// All the possible letters to display (contains punctuation too)
 	static const QString alphabet;
 
+	// Starting lives
 	static const int startingLives;
+
+	/**
+	 * @brief looseLife
+	 * When bullet hits a wall without
+	 * having it activated
+	 */
+	void looseLife();
 
 	/**
 	 * @brief spawnSparkles
@@ -171,13 +186,6 @@ private:
 	 * @param targetDir the opposite direction of the wall
 	 */
 	void uncollideBullet(LetterWall *collider, DIRECTION targetDir);
-
-	/**
-	 * @brief restart
-	 * Restarts the game
-	 * (called when user presses 'enter')
-	 */
-	void restart();
 
 	/**
 	 * @brief getEndMessage
