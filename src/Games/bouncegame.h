@@ -111,8 +111,6 @@ protected:
 
 	void keyReleaseEvent(QKeyEvent *event) override;
 
-	void focusOutEvent(QFocusEvent *event) override;
-
 	/**
 	 * @brief loadResources
 	 * Loads all the images in memory, using the QPixmap memory,

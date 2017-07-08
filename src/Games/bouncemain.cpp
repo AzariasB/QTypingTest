@@ -36,6 +36,7 @@ BounceMain::BounceMain(QWidget *parent) : QWidget(parent),
 	mainLayout_->addWidget(gameWidget_);
 
 	mainLayout_->setCurrentWidget(menu_);
+	menu_->setFocus();
 }
 
 void BounceMain::initGameWidget()
@@ -53,6 +54,7 @@ void BounceMain::initGameWidget()
 void BounceMain::showMenu()
 {
 	mainLayout_->setCurrentWidget(menu_);
+	menu_->setFocus();
 }
 
 void BounceMain::showGame()

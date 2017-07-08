@@ -2,11 +2,10 @@
 #define MENU_H
 
 #include <QObject>
-#include <QPushButton>
 #include <QLabel>
 #include <QWidget>
 
-
+#include "menubutton.h"
 
 class BounceMenu : public QWidget
 {
@@ -23,13 +22,39 @@ public:
 	BounceMenu(QWidget *parent = 0);
 
 signals:
+	/**
+	 * @brief playSelected
+	 * When the "play" button is
+	 * clicked/selected
+	 */
 	void playSelected();
 
+	/**
+	 * @brief helpSelected
+	 * When the "help" button is
+	 * clicked/selected
+	 */
 	void helpSelected();
 
+	/**
+	 * @brief quitSelected
+	 * When the "quit" button is
+	 * clicked/selected
+	 */
 	void quitSelected();
 
+public slots:
+	void selectionChanged(int nwSelection);
+
+
+protected:
+	void keyPressEvent(QKeyEvent *event) override;
+
 private:
+
+	int selectedButton_ = 0;
+
+	QList<MenuButton*> buttons_;
 
 };
 

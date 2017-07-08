@@ -174,6 +174,7 @@ void BounceGame::play()
 	bullet_->setY(scene_.height()/ 2.f );
 
 	nextTarget();
+	setFocus();
 	stateChanges(GameSate::Play);
 }
 
@@ -377,12 +378,6 @@ void BounceGame::stateChanges(GameSate nwState)
 			break;
 	}
 	state_ = nwState;
-}
-
-void BounceGame::focusOutEvent(QFocusEvent *event)
-{
-	Q_UNUSED(event);
-	setFocus();
 }
 
 BounceGame::~BounceGame()
