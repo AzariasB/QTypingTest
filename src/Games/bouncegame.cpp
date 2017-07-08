@@ -55,7 +55,7 @@ void BounceGame::initWalls()
 
 void BounceGame::tick(int dt)
 {
-	if(state_ == GameSate::Lost || state_ == GameSate::Pause || state_ == GameSate::Menu || state_ == GameSate::Help)
+	if(state_ == GameSate::Lost || state_ == GameSate::Pause)
 		return;
 
 	bullet_->tick(dt);
@@ -69,6 +69,7 @@ void BounceGame::tick(int dt)
 			continue;
 
 		if(currentTarget_->getChar() != currentPressed_){
+			spawnPuff(bullet_->pos());
 			if(!dataHolder_->decrementLives()){
 				//Loosing
 				stateChanges(GameSate::Lost);
@@ -143,6 +144,8 @@ void BounceGame::uncollideBullet(LetterWall *collider, DIRECTION targetDir)
 
 void BounceGame::play()
 {
+	timer_.start();
+	dataHolder_->start();
 	scene_.addItem(bullet_);
 
 	bullet_->setX(scene_.width() / 2.f);
@@ -156,7 +159,6 @@ void BounceGame::init()
 {
 
 	this->update();
-	timer_.start();
 	//Prevent scene from resizing
 	scene_.setSceneRect(scene_.sceneRect());
 }
@@ -207,7 +209,7 @@ void BounceGame::keyPressEvent(QKeyEvent *event)
 	        if(state_ == GameSate::Pause){
 		        close();
 			emit gameEnded(dataHolder_->getScore());
-		}else if(state_ == GameSate::Menu || state_ == GameSate::Lost){
+		}else if(state_ == GameSate::Lost){
 			close();
 			emit gameEnded(-1);
 		}else if(state_ == GameSate::Play){
@@ -218,12 +220,6 @@ void BounceGame::keyPressEvent(QKeyEvent *event)
 	if(state_ == GameSate::Lost){
 		if(event->key() == Qt::Key_Return)
 		        restart();
-	}else if(state_ == GameSate::Help){
-	    stateChanges(GameSate::Menu);
-	}else if(state_ == GameSate::Menu){
-	    if(event->key() == Qt::Key_Return){
-		//Do what's selected
-	    }
 	}else{
 		if(!currentPressed_.isNull()){
 			for(LetterWall *wall : equivalents_[currentPressed_]){
@@ -323,7 +319,7 @@ void BounceGame::stateChanges(GameSate nwState)
 {
 	switch(nwState){
 		case GameSate::Lost:
-	            spawnPuff(bullet_->pos());
+				dataHolder_->stop();
 				scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(dataHolder_->getScore())));
 	            break;
 		case GameSate::Pause:

@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QLCDNumber>
+#include <QTimer>
+#include <QTime>
 
 class BounceData : public QWidget
 {
@@ -21,14 +24,29 @@ public slots:
 
 	bool decrementLives();
 
+	void start();
+
+	void stop();
+
+	void addSecond();
+
 signals:
 	void noMoreLives();
 
 private:
+	QFrame *getLine();
 
 	QLabel *livesLabel_;
 
 	QLabel *scoreLabel_;
+
+	QLabel *timerLabel_;
+
+	QFont font_ = QFont("Arial", 24);
+
+	QTimer timer_;
+
+	QTime totalTime_ = QTime(0,0);
 
 	int score_ = 0;
 

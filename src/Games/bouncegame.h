@@ -36,10 +36,8 @@
 #define WALL_NUMBER 20
 
 enum class GameSate{
-	Menu,
 	Pause,
 	Play,
-	Help,
 	Lost
 };
 
@@ -233,7 +231,7 @@ private:
 	ResourceManager rm_;
 
 	// State of the game
-	GameSate state_ = GameSate::Menu;
+	GameSate state_ = GameSate::Play;
 
 	BounceData *dataHolder_;
 

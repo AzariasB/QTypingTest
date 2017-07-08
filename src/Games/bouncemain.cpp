@@ -19,6 +19,7 @@ BounceMain::BounceMain(QWidget *parent) : QWidget(parent),
 		mainLayout_->setCurrentWidget(menu_);
 	});
 
+	mainLayout_->setContentsMargins(0,0,0,0);
 	mainLayout_->addWidget(menu_);
 	mainLayout_->addWidget(help_);
 
@@ -31,11 +32,13 @@ BounceMain::BounceMain(QWidget *parent) : QWidget(parent),
 void BounceMain::initGameWidget()
 {
 	QHBoxLayout *layout = new QHBoxLayout;
+	layout->setContentsMargins(0,0,0,0);
 	layout->addWidget(bData_);
 	layout->addWidget(bGame_);
 
 	//Connect game signals to data slots
 	gameWidget_->setLayout(layout);
+	gameWidget_->setStyleSheet("background-color : white;");
 }
 
 void BounceMain::showGame()
