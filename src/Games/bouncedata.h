@@ -6,6 +6,8 @@
 #include <QLCDNumber>
 #include <QTimer>
 #include <QTime>
+#include <QPushButton>
+
 
 class BounceData : public QWidget
 {
@@ -33,7 +35,9 @@ public slots:
 	void addSecond();
 
 signals:
-	void noMoreLives();
+	void playPause();
+
+	void exit(int score);
 
 private:
 	QFrame *getLine();
@@ -44,11 +48,11 @@ private:
 
 	QLabel *timerLabel_;
 
-	QFont font_ = QFont("Arial", 24);
-
 	QTimer timer_;
 
 	QTime totalTime_ = QTime(0,0);
+
+	QPushButton *playPauseButton_;
 
 	int score_ = 0;
 

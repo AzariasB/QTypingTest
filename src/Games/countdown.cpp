@@ -3,7 +3,10 @@
 Countdown::Countdown()
 {
 	setStyleSheet("background-color : white;");
-	setFont(QFont("Arial",24));
+
+	setFont(QFont("Coalition", 28));
+
+
 	timer_.setInterval(1000);
 	timer_.setSingleShot(false);
 	connect(&timer_, &QTimer::timeout, this, &Countdown::tick);

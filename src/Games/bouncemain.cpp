@@ -1,6 +1,7 @@
 
 #include "bouncemain.h"
 #include <QDebug>
+#include <QFontDatabase>
 
 BounceMain::BounceMain(QWidget *parent) : QWidget(parent),
 	mainLayout_(new QStackedLayout(this)),
@@ -10,6 +11,15 @@ BounceMain::BounceMain(QWidget *parent) : QWidget(parent),
 	bGame_(new BounceGame(bData_)),
 	gameWidget_(new QWidget())
 {
+	if(QFontDatabase::addApplicationFont(":/font/coalition.ttf") == -1){
+		qDebug() << "Failed to load font";
+	}
+	QFile f(":/gamestyle.qss");
+	f.open(QIODevice::ReadOnly | QIODevice::Text);
+	QLatin1String style = QLatin1String(f.readAll());
+	setStyleSheet(style);
+	bData_->setStyleSheet(style);
+
 	connect(menu_, &BounceMenu::playSelected, this, &BounceMain::showGame);
 	connect(menu_, &BounceMenu::helpSelected, this, &BounceMain::showHelp);
 	connect(bGame_, &BounceGame::gameEnded, this, &BounceMain::showMenu);
@@ -34,6 +44,7 @@ void BounceMain::initGameWidget()
 	layout->setContentsMargins(0,0,0,0);
 	layout->addWidget(bData_);
 	layout->addWidget(bGame_);
+	bData_->setFocusPolicy(Qt::NoFocus);
 
 	gameWidget_->setLayout(layout);
 	gameWidget_->setStyleSheet("background-color : white;");

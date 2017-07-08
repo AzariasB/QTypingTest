@@ -92,6 +92,13 @@ public slots:
 	 */
 	void restart();
 
+	/**
+	 * @brief playPause
+	 * Toggle the state between play and pause
+	 * depending on the current state
+	 */
+	void togglePause();
+
 signals:
 	/**
 	 * @brief gameEnded Trigerred when the 'esc' key is pressed
@@ -104,7 +111,7 @@ protected:
 
 	void keyReleaseEvent(QKeyEvent *event) override;
 
-	void mousePressEvent(QMouseEvent *event) override;
+	void focusOutEvent(QFocusEvent *event) override;
 
 	/**
 	 * @brief loadResources

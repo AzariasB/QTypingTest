@@ -4,15 +4,14 @@
 #include <QVBoxLayout>
 #include <QGraphicsLinearLayout>
 
+#include <qdebug.h>
+
 BounceData::BounceData(int lives, QWidget *parent):
 	QWidget(parent),
 	livesLabel_(new QLabel),
 	scoreLabel_(new QLabel("Score : 0")),
 	timerLabel_(new QLabel("00:00"))
 {
-	scoreLabel_->setFont(font_);
-	livesLabel_->setFont(font_);
-	timerLabel_->setFont(font_);
 	lives_ = lives;
 	score_ = 0;
 	timer_.setInterval(1000);
@@ -27,13 +26,27 @@ BounceData::BounceData(int lives, QWidget *parent):
 
 	mainLayout->setAlignment(Qt::AlignTop);
 	QLabel *title = new QLabel("Bounce game");
-	title->setFont(font_);
+
+	QPushButton *exitButton = new QPushButton("Exit");
+	exitButton->setStyleSheet(("font-size : 20px;"));
+	connect(exitButton, &QPushButton::clicked, [=](){
+		emit exit(score_);
+	});
+
+	playPauseButton_ = new QPushButton("Pause");
+	playPauseButton_->setStyleSheet("font-size : 20px;");
+	connect(playPauseButton_, &QPushButton::clicked, this, &BounceData::playPause);
+
 
 	mainLayout->addWidget(title);
 	mainLayout->addWidget(getLine());
 	mainLayout->addWidget(scoreLabel_);
 	mainLayout->addWidget(livesLabel_);
 	mainLayout->addWidget(timerLabel_);
+	mainLayout->addStretch(1);
+
+	mainLayout->addWidget(playPauseButton_);
+	mainLayout->addWidget(exitButton);
 
 	setLayout(mainLayout);
 }
@@ -46,6 +59,7 @@ void BounceData::addSecond()
 
 void BounceData::play()
 {
+	playPauseButton_->setText(("Pause"));
 	timer_.start();
 }
 
@@ -56,6 +70,7 @@ void BounceData::stop()
 
 void BounceData::pause()
 {
+	playPauseButton_->setText(("Play"));
 	timer_.stop();
 }
 

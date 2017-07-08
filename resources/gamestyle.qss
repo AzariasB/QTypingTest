@@ -1,6 +1,6 @@
 *{
 font-family: Coalition;
-
+font-size : 24px;
 }
 
 QPushButton {

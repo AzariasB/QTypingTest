@@ -25,7 +25,7 @@ BounceHelp::BounceHelp(QWidget *parent) : QWidget(parent)
 
 	QPushButton *backButton = new QPushButton("Menu");
 	connect(backButton, SIGNAL(clicked(bool)), this, SIGNAL(backToMenu()));
-
+	vLayout->setContentsMargins(100,2,100,2);
 	vLayout->addWidget(backButton);
 
 	setLayout(vLayout);

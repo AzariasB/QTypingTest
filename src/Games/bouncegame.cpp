@@ -28,6 +28,8 @@ BounceGame::BounceGame(BounceData *dataHolder, QWidget *parent):
 	timer_.setSingleShot(false);
 
 	connect(countdown_, &Countdown::timeout, this, &BounceGame::play);
+	connect(dataHolder_, &BounceData::playPause, this, &BounceGame::togglePause);
+	connect(dataHolder, &BounceData::exit, this, &BounceGame::gameEnded);
 	connect(&timer_, &QTimer::timeout, [=](){
 		this->tick(15);
 	});
@@ -39,6 +41,15 @@ BounceGame::BounceGame(BounceData *dataHolder, QWidget *parent):
 	qDebug() << "Test";
 }
 
+void BounceGame::togglePause()
+{
+	if(state_ == GameSate::Pause){
+		stateChanges(GameSate::Countdown);
+	}else if(state_ == GameSate::Play){
+		stateChanges(GameSate::Pause);
+	}
+	setFocus();
+}
 
 void BounceGame::loadResources()
 {
@@ -345,6 +356,7 @@ void BounceGame::stateChanges(GameSate nwState)
 				dataHolder_->pause();
 	            break;
 		case GameSate::Play:
+
 			dataHolder_->play();
 			break;
 		case GameSate::Countdown:
@@ -367,9 +379,10 @@ void BounceGame::stateChanges(GameSate nwState)
 	state_ = nwState;
 }
 
-void BounceGame::mousePressEvent(QMouseEvent *event)
+void BounceGame::focusOutEvent(QFocusEvent *event)
 {
-    QGraphicsView::mousePressEvent(event);
+	Q_UNUSED(event);
+	setFocus();
 }
 
 BounceGame::~BounceGame()

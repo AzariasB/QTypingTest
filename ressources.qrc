@@ -1,6 +1,8 @@
 <RCC>
+
     <qresource prefix="/">
         <file alias="style.qss">resources/style.qss</file>
+	<file alias="gamestyle.qss" >resources/gamestyle.qss</file>
         <file alias="layout.json">resources/layout_qwerty.json</file>
         <file alias="texts.xml">resources/texts.xml</file>
         <file alias="words.txt">resources/words.txt</file>
@@ -39,5 +41,8 @@
     <qresource prefix="/game/sfx" >
         <file alias="bounce.wav">resources/games/sfx/bounce.wav</file>
         <file alias="chime1.wav">resources/games/sfx/chime1.wav</file>
+    </qresource>
+    <qresource prefix="/font">
+        <file alias="coalition.ttf" >resources/coalition/Coalition_v2.ttf</file>
     </qresource>
 </RCC>

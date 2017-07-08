@@ -34,17 +34,8 @@ int main(int argc, char *argv[]) {
 
     //Set style
     QFile file(":/style.qss");
-    if (file.exists()) {
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            qWarning() << "Could not open file, please check the permissions";
-        } else {
-            hp.setStyleSheet(QLatin1String(file.readAll()));
-        }
-        file.close();
-    } else {
-        qWarning() << "Could not load stylesheet";
-    }
-
+	file.open(QIODevice::ReadOnly | QIODevice::Text);
+	hp.setStyleSheet(QLatin1String(file.readAll()));
 
     hp.show();
 
