@@ -18,7 +18,7 @@
 #include <QGridLayout>
 #include <QDialog>
 
-#include "Games/bouncegame.h"
+#include "Games/bouncemain.h"
 
 class TPresentation;
 

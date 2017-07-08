@@ -105,10 +105,10 @@ SOURCES +=\
     src/Games/letterwall.cpp \
     src/Games/recttext.cpp \
     src/Games/vector2f.cpp \
-    src/Games/bounce.cpp \
     src/Games/animatedsprite.cpp \
     src/Games/resourcemanager.cpp \
-    src/Games/menu.cpp \
+	src/Games/bouncegame.cpp \
+	src/Games/bouncemenu.cpp \
     src/Games/bouncedata.cpp \
     src/Games/bouncemain.cpp \
     src/Games/bouncehelp.cpp \
@@ -176,14 +176,14 @@ HEADERS +=\
     src/Games/letterwall.h \
     src/Games/recttext.h \
     src/Games/vector2f.h \
-    src/Games/bounce.h \
     src/Games/animatedsprite.h \
     src/Games/resourcemanager.h \
-    src/Games/menu.h \
+	src/Games/bouncemenu.h \
     src/Games/bouncedata.h \
     src/Games/bouncemain.h \
-    src/Games/bouncehelp.h \
-    src/Games/countdown.h
+	src/Games/bouncehelp.h \
+	src/Games/bouncegame.h \
+	src/Games/countdown.h
 
 DISTFILES += \
     ressources/syle.qss

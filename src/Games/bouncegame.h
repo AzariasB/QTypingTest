@@ -106,6 +106,11 @@ protected:
 
 	void mousePressEvent(QMouseEvent *event) override;
 
+	/**
+	 * @brief loadResources
+	 * Loads all the images in memory, using the QPixmap memory,
+	 * the resources are loaded thanks to the resourceManager
+	 */
 	void loadResources();
 
 	/**
@@ -243,8 +248,10 @@ private:
 	// State of the game
 	GameSate state_ = GameSate::Countdown;
 
+	// Pointer to the data panel to udpate the score, lives and timer
 	BounceData *dataHolder_;
 
+	// Pointer to the countdown widget used when starting a new game or when unpausing
 	Countdown *countdown_;
 };
 

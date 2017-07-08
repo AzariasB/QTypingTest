@@ -6,8 +6,8 @@
 
 BounceData::BounceData(int lives, QWidget *parent):
 	QWidget(parent),
-	scoreLabel_(new QLabel("Score : 0")),
 	livesLabel_(new QLabel),
+	scoreLabel_(new QLabel("Score : 0")),
 	timerLabel_(new QLabel("00:00"))
 {
 	scoreLabel_->setFont(font_);

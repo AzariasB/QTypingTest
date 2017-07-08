@@ -44,18 +44,9 @@ void GamePage::connectEvents() {
 
 void GamePage::showBounceGame()
 {
-	QDialog *dial = new QDialog(this);
-	Bounce *b = new Bounce(this);
-	QGridLayout *dialLay = new QGridLayout();
-	dialLay->addWidget(b);
-	dialLay->setContentsMargins(0,0,0,0);
-
-	dial->setLayout(dialLay);
-	dial->adjustSize();
-	dial->setModal(true);
-	connect(b, SIGNAL(gameEnded(int)), dial, SLOT(close()));
-	dial->show();
-	b->setFocus();
+	BounceMain *bMain = new BounceMain;
+	bMain->show();
+	//connect(b, SIGNAL(gameEnded(int)), dial, SLOT(close()));
 }
 
 void GamePage::showInteractiveKeyboard() {
