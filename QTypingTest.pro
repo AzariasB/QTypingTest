@@ -108,7 +108,10 @@ SOURCES +=\
     src/Games/bounce.cpp \
     src/Games/animatedsprite.cpp \
     src/Games/resourcemanager.cpp \
-    src/Games/menu.cpp
+    src/Games/menu.cpp \
+    src/Games/bouncedata.cpp \
+    src/Games/bouncemain.cpp \
+    src/Games/bouncehelp.cpp
 HEADERS +=\
     #-------------------------
     # Pages
@@ -175,7 +178,10 @@ HEADERS +=\
     src/Games/bounce.h \
     src/Games/animatedsprite.h \
     src/Games/resourcemanager.h \
-    src/Games/menu.h
+    src/Games/menu.h \
+    src/Games/bouncedata.h \
+    src/Games/bouncemain.h \
+    src/Games/bouncehelp.h
 
 DISTFILES += \
     ressources/syle.qss

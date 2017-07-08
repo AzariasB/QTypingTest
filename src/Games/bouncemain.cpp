@@ -7,13 +7,16 @@ BounceMain::BounceMain(QWidget *parent) : QWidget(parent),
 	menu_(new BounceMenu()),
 	help_(new BounceHelp()),
 	bData_(new BounceData(5)),
-	bGame_(new BounceGame()),
+	bGame_(new BounceGame(bData_)),
 	gameWidget_(new QWidget())
 {
 	connect(menu_, &BounceMenu::playSelected, this, &BounceMain::showGame);
 	connect(menu_, &BounceMenu::helpSelected, this, &BounceMain::showHelp);
 	connect(menu_, &BounceMenu::quitSelected, [=](){
 		close();
+	});
+	connect(help_, &BounceHelp::backToMenu, [=](){
+		mainLayout_->setCurrentWidget(menu_);
 	});
 
 	mainLayout_->addWidget(menu_);

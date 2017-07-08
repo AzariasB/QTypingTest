@@ -9,7 +9,11 @@ class BounceHelp : public QWidget
 public:
 	explicit BounceHelp(QWidget *parent = 0);
 
+protected:
+	void keyPressEvent(QKeyEvent *event) override;
+
 signals:
+	void backToMenu();
 
 public slots:
 };

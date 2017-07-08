@@ -20,7 +20,10 @@ QWidget(parent){
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-	mainLayout->addWidget(new QLabel("Bounce game"));
+	QLabel *title = new QLabel("Bounce game");
+	title->setAlignment(Qt::AlignCenter);
+
+	mainLayout->addWidget(title);
 	mainLayout->addWidget(playButton);
 	mainLayout->addWidget(helpButton);
 	mainLayout->addWidget(quitButton);

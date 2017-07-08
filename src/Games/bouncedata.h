@@ -19,7 +19,7 @@ public:
 public slots:
 	void incrementScore();
 
-	void decrementLives();
+	bool decrementLives();
 
 signals:
 	void noMoreLives();

@@ -48,6 +48,7 @@ void GamePage::showBounceGame()
 	Bounce *b = new Bounce(this);
 	QGridLayout *dialLay = new QGridLayout();
 	dialLay->addWidget(b);
+	dialLay->setContentsMargins(0,0,0,0);
 
 	dial->setLayout(dialLay);
 	dial->adjustSize();

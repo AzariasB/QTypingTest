@@ -27,6 +27,7 @@
 #include "animatedsprite.h"
 #include "resourcemanager.h"
 #include "bouncemenu.h"
+#include "bouncedata.h"
 
 // Size (x*x) of a single wall
 #define WALL_SIZE 40
@@ -53,7 +54,7 @@ class BounceGame : public QGraphicsView
 {
 	Q_OBJECT
 public:
-	BounceGame(QWidget *parent = 0);
+	BounceGame(BounceData *dataHolder, QWidget *parent = 0);
 
 	/**
 	 * @brief init
@@ -89,13 +90,6 @@ public slots:
 	 * @param nwState the nwState of the game
 	 */
 	void stateChanges(GameSate nwState);
-
-	//Three functions used in the main menu :
-	void menuPlay();
-
-	void menuHelp();
-
-	void menuQuit();
 
 signals:
 	/**
@@ -197,12 +191,6 @@ private:
 	RectText *createMessageBox(QString msg);
 
 	/**
-	 * @brief incrementScore
-	 * Increments the score and updates the scoreItem
-	 */
-	void incrementScore();
-
-	/**
 	 * @brief randomLetter
 	 * Selects a random letter from the given alphabet
 	 * @return a random letter
@@ -219,12 +207,6 @@ private:
 	 */
 	LetterWall *randomTarget(DIRECTION nwDirection = NO_DIRECTION);
 
-	/**
-	 * @brief looseLife
-	 * Reduce the life by one
-	 * if it's at zero, loose the game
-	 */
-	void looseLife();
 
 	// The current target of the bullet
 	LetterWall *currentTarget_ = nullptr;
@@ -244,9 +226,6 @@ private:
 	// Associated hash, each direction has several wals
 	QHash<DIRECTION, QVector<LetterWall*>> walls_;
 
-	// User's score (number of successfully hitted target)
-	int score_ = 0;
-
 	// Timer to update the game logic every n seconds
 	QTimer timer_;
 
@@ -256,8 +235,8 @@ private:
 	// State of the game
 	GameSate state_ = GameSate::Menu;
 
+	BounceData *dataHolder_;
 
-	int lives_ = BounceGame::startingLives;
 };
 
 #endif // BOUNCE_H

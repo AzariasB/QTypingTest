@@ -5,8 +5,7 @@
 #include <QtTest>
 #include <QCoreApplication>
 
-
-#include "Games/bounce.h"
+#include "Games/bouncemain.h"
 
 class TestGame : public QObject
 {
@@ -37,8 +36,8 @@ void TestGame::cleanupTestCase()
 
 void TestGame::testCase1()
 {
-	Bounce b;
-	b.show();
+	BounceMain *main = new BounceMain();
+	main->show();
 	QApplication::exec();
 }
 

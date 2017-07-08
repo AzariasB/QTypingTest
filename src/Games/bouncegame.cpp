@@ -16,9 +16,10 @@
 const QString BounceGame::alphabet = "abcdefghijklmnopqrstuvwxyz,./?;";
 const int BounceGame::startingLives = 5;
 
-BounceGame::BounceGame(QWidget *parent):
+BounceGame::BounceGame(BounceData *dataHolder, QWidget *parent):
 	QGraphicsView(parent),
-	bullet_(new Bullet())
+	bullet_(new Bullet()),
+	dataHolder_(dataHolder)
 {
 	loadResources();
 	initWalls();
@@ -27,27 +28,13 @@ BounceGame::BounceGame(QWidget *parent):
 	connect(&timer_, &QTimer::timeout, [=](){
 		this->tick(15);
 	});
+	dataHolder_->reset(startingLives);
 
 	setScene(&scene_);
 	init();
+	play();
 }
 
-
-void BounceGame::menuPlay()
-{
-    play();
-}
-
-void BounceGame::menuHelp()
-{
-    stateChanges(GameSate::Help);
-}
-
-void BounceGame::menuQuit()
-{
-    close();
-    emit gameEnded(-1);
-}
 
 void BounceGame::loadResources()
 {
@@ -66,23 +53,6 @@ void BounceGame::initWalls()
 	walls_[DOWN] = createWall(WALL_NUMBER, QPoint(WALL_SIZE,  (WALL_NUMBER+1)*WALL_SIZE ), QPoint(WALL_SIZE, 0), DOWN);
 }
 
-void BounceGame::looseLife()
-{
-	if(lives_ == 0)return;
-
-	lives_--;
-
-	if(lives_ == 0){
-		stateChanges(GameSate::Lost);
-	}else{
-		//Reset bullet's position
-		bullet_->setX(scene_.width() / 2.f);
-		bullet_->setY(scene_.height()/ 2.f );
-		nextTarget();
-
-	}
-}
-
 void BounceGame::tick(int dt)
 {
 	if(state_ == GameSate::Lost || state_ == GameSate::Pause || state_ == GameSate::Menu || state_ == GameSate::Help)
@@ -99,12 +69,18 @@ void BounceGame::tick(int dt)
 			continue;
 
 		if(currentTarget_->getChar() != currentPressed_){
-			looseLife();
-
+			if(!dataHolder_->decrementLives()){
+				//Loosing
+				stateChanges(GameSate::Lost);
+			}else{
+				bullet_->setX(scene_.width() / 2.f);
+				bullet_->setY(scene_.height()/ 2.f );
+				nextTarget();
+			}
 			return;
 		}
 		spawnSparkles( bullet_->pos() );
-		//TODO : increment score here
+		dataHolder_->incrementScore();
 
 		LetterWall *nwTarget = nullptr;
 		for(int d = UP; d != NO_DIRECTION; d++){
@@ -180,7 +156,6 @@ void BounceGame::init()
 {
 
 	this->update();
-
 	timer_.start();
 	//Prevent scene from resizing
 	scene_.setSceneRect(scene_.sceneRect());
@@ -216,7 +191,7 @@ void BounceGame::restart()
 
 	currentPressed_ = '\0';
 	state_ = GameSate::Play;
-	score_ = 0;
+	dataHolder_->reset(startingLives);
 	currentTarget_ = 0;
 	play();
 }
@@ -231,7 +206,7 @@ void BounceGame::keyPressEvent(QKeyEvent *event)
 	{
 	        if(state_ == GameSate::Pause){
 		        close();
-			emit gameEnded(score_);
+			emit gameEnded(dataHolder_->getScore());
 		}else if(state_ == GameSate::Menu || state_ == GameSate::Lost){
 			close();
 			emit gameEnded(-1);
@@ -349,7 +324,7 @@ void BounceGame::stateChanges(GameSate nwState)
 	switch(nwState){
 		case GameSate::Lost:
 	            spawnPuff(bullet_->pos());
-				scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(score_)));
+				scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape to close - ").arg(dataHolder_->getScore())));
 	            break;
 		case GameSate::Pause:
 	    //TODO : Add (maybe) a recttext indicating the game is paused

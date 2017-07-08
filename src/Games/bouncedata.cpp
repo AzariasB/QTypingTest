@@ -29,10 +29,11 @@ void BounceData::incrementScore()
 	scoreLabel_->setText(QString("Score : %1").arg(score_) );
 }
 
-void BounceData::decrementLives()
+bool BounceData::decrementLives()
 {
 	lives_--;
 	livesLabel_->setText(QString("Lives : %1").arg(lives_));
+	return lives_ > 0;
 }
 
 void BounceData::reset(int lives)
