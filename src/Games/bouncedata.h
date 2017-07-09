@@ -21,6 +21,10 @@ public:
 		return score_;
 	}
 
+	QTime time(){
+		return totalTime_;
+	}
+
 public slots:
 	void incrementScore();
 
@@ -37,7 +41,7 @@ public slots:
 signals:
 	void playPause();
 
-	void exit(int score);
+	void exit(int score, QTime time);
 
 private:
 	QFrame *getLine();

@@ -76,9 +76,11 @@ void BounceGame::looseLife()
 		//Loosing
 		stateChanges(GameSate::Lost);
 	}else{
+		timer_.stop();
 		bullet_->setX(scene_.width() / 2.f);
 		bullet_->setY(scene_.height()/ 2.f );
 		nextTarget();
+		stateChanges(GameSate::Countdown);
 	}
 }
 
@@ -236,9 +238,9 @@ void BounceGame::keyPressEvent(QKeyEvent *event)
 	if(event->key() == Qt::Key_Escape)
 	{
 		if(state_ == GameSate::Pause){
-			emit gameEnded(-1);
+			emit gameEnded(-1, QTime());
 		}else if(state_ == GameSate::Lost){
-			emit gameEnded(dataHolder_->getScore());
+			emit gameEnded(dataHolder_->getScore(), dataHolder_->time());
 		}else if(state_ == GameSate::Play){
 			stateChanges(GameSate::Pause);
 		}
@@ -357,7 +359,7 @@ void BounceGame::stateChanges(GameSate nwState)
 				dataHolder_->pause();
 	            break;
 		case GameSate::Play:
-
+			timer_.start();
 			dataHolder_->play();
 			break;
 		case GameSate::Countdown:

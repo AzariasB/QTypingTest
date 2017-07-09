@@ -46,7 +46,6 @@ void GamePage::showBounceGame()
 {
 	BounceMain *bMain = new BounceMain;
 	bMain->show();
-	//connect(b, SIGNAL(gameEnded(int)), dial, SLOT(close()));
 }
 
 void GamePage::showInteractiveKeyboard() {

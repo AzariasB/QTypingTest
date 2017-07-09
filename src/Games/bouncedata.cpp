@@ -30,7 +30,7 @@ BounceData::BounceData(int lives, QWidget *parent):
 	QPushButton *exitButton = new QPushButton("Exit");
 	exitButton->setStyleSheet(("font-size : 20px;"));
 	connect(exitButton, &QPushButton::clicked, [=](){
-		emit exit(score_);
+		emit exit(score_, totalTime_);
 	});
 
 	playPauseButton_ = new QPushButton("Pause");
@@ -43,6 +43,7 @@ BounceData::BounceData(int lives, QWidget *parent):
 	mainLayout->addWidget(scoreLabel_);
 	mainLayout->addWidget(livesLabel_);
 	mainLayout->addWidget(timerLabel_);
+
 	mainLayout->addStretch(1);
 
 	mainLayout->addWidget(playPauseButton_);

@@ -104,7 +104,7 @@ signals:
 	 * @brief gameEnded Trigerred when the 'esc' key is pressed
 	 * @param score score when key is pressed
 	 */
-	void gameEnded(int score);
+	void gameEnded(int score, QTime time);
 
 protected:
 	void keyPressEvent(QKeyEvent *event) override;
