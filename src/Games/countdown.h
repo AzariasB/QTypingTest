@@ -1,3 +1,14 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+
+/*
+ * File:   countdown.h
+ * Author: azarias
+ *
+ */
+
 #ifndef COUNTDOWN_H
 #define COUNTDOWN_H
 

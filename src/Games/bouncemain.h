@@ -1,3 +1,14 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+
+/*
+ * File:   bouncemain.h
+ * Author: azarias
+ *
+ */
+
 #ifndef BOUNCEMAIN_H
 #define BOUNCEMAIN_H
 

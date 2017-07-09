@@ -1,4 +1,13 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
 
+/*
+ * File:   bouncemenu.h
+ * Author: azarias
+ *
+ */
 
 #include "bouncemenu.h"
 #include "recttext.h"

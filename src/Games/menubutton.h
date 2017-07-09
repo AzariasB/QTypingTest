@@ -1,3 +1,14 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+
+/*
+ * File:   menubutton.h
+ * Author: azarias
+ *
+ */
+
 #ifndef MENUBUTTON_H
 #define MENUBUTTON_H
 

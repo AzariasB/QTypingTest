@@ -1,6 +1,15 @@
-
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+/*
+ * File:   bouncedata.cpp
+ * Author: azarias
+ *
+ */
 
 #include "bouncedata.h"
+
 #include <QVBoxLayout>
 #include <QGraphicsLinearLayout>
 

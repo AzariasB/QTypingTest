@@ -1,3 +1,13 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+/*
+ * File:   bouncedata.h
+ * Author: azarias
+ *
+ */
+
 #ifndef BOUNCEDATA_H
 #define BOUNCEDATA_H
 

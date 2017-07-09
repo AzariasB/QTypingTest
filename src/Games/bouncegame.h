@@ -4,10 +4,9 @@
  */
 
 /*
- * File:   vector2f.h
- * Author: boutina
+ * File:   bouncegame.h
+ * Author: azarias
  *
- * Created on 15 mars 2017, 19:00
  */
 
 #ifndef BOUNCE_H

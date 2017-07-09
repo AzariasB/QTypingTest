@@ -1,3 +1,13 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+/*
+ * File:   animatedsprite.h
+ * Author: azarias
+ *
+ */
+
 #ifndef ANIMATEDSPRITE_H
 #define ANIMATEDSPRITE_H
 

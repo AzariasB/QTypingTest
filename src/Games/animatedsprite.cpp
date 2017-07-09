@@ -1,3 +1,14 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+/*
+ * File:   animatedsprite.cpp
+ * Author: azarias
+ *
+ */
+
+
 #include "animatedsprite.h"
 
 AnimatedSprite::AnimatedSprite(QGraphicsItem *parent):

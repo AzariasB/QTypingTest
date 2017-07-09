@@ -1,3 +1,14 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+
+/*
+ * File:   resourcemanager.h
+ * Author: azarias
+ *
+ */
+
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 

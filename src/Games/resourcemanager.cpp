@@ -1,3 +1,14 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+
+/*
+ * File:   resourcemanager.cpp
+ * Author: azarias
+ *
+ */
+
 #include "resourcemanager.h"
 
 ResourceManager::ResourceManager()

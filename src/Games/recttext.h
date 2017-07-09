@@ -1,3 +1,14 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+
+/*
+ * File:   recttext.h
+ * Author: azarias
+ *
+ */
+
 #ifndef ENDMESSAGE_H
 #define ENDMESSAGE_H
 

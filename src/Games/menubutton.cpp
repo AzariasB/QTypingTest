@@ -1,3 +1,13 @@
+/*
+ * QTypingTest by Pierre and Azarias - https://azariasb.github.io/QTypingTest/
+ * License : GNU - GPL 2
+ */
+
+/*
+ * File:   menubutton.cpp
+ * Author: azarias
+ *
+ */
 
 #include "menubutton.h"
 #include <QPaintEvent>
