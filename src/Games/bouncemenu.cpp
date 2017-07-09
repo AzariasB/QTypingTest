@@ -20,7 +20,11 @@ QWidget(parent)
 
 	MenuButton *quitButton = new MenuButton("Quit ✗");
 	connect(quitButton, SIGNAL(clicked(bool)) , this, SIGNAL(quitSelected()));
-	buttons_ << playButton << helpButton << quitButton;
+
+	MenuButton *leaderBoardButton = new MenuButton("Leaderboard 🏆");
+	connect(leaderBoardButton, &MenuButton::clicked, this, &BounceMenu::leaderBoardSelected);
+
+	buttons_ << playButton << helpButton << leaderBoardButton << quitButton;
 
 	foreach (MenuButton *mb, buttons_) {
 		connect(mb, &MenuButton::hovered, [=](){
@@ -39,6 +43,7 @@ QWidget(parent)
 	mainLayout->addWidget(title);
 	mainLayout->addWidget(playButton);
 	mainLayout->addWidget(helpButton);
+	mainLayout->addWidget(leaderBoardButton);
 	mainLayout->addWidget(quitButton);
 }
 

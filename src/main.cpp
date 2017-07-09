@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
     QFile file(":/style.qss");
 	file.open(QIODevice::ReadOnly | QIODevice::Text);
 	hp.setStyleSheet(QLatin1String(file.readAll()));
+	file.close();
 
     hp.show();
 

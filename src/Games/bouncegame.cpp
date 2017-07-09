@@ -29,7 +29,7 @@ BounceGame::BounceGame(BounceData *dataHolder, QWidget *parent):
 
 	connect(countdown_, &Countdown::timeout, this, &BounceGame::play);
 	connect(dataHolder_, &BounceData::playPause, this, &BounceGame::togglePause);
-	connect(dataHolder, &BounceData::exit, this, &BounceGame::gameEnded);
+	connect(dataHolder_, &BounceData::exit, this, &BounceGame::stop);
 	connect(&timer_, &QTimer::timeout, [=](){
 		this->tick(15);
 	});
@@ -39,6 +39,12 @@ BounceGame::BounceGame(BounceData *dataHolder, QWidget *parent):
 	setScene(&scene_);
 	init();
 	qDebug() << "Test";
+}
+
+void BounceGame::stop()
+{
+	dataHolder_->stop();
+	timer_.stop();
 }
 
 void BounceGame::togglePause()
@@ -239,8 +245,6 @@ void BounceGame::keyPressEvent(QKeyEvent *event)
 	{
 		if(state_ == GameSate::Pause){
 			emit gameEnded(-1, QTime());
-		}else if(state_ == GameSate::Lost){
-			emit gameEnded(dataHolder_->getScore(), dataHolder_->time());
 		}else if(state_ == GameSate::Play){
 			stateChanges(GameSate::Pause);
 		}
@@ -351,7 +355,7 @@ void BounceGame::stateChanges(GameSate nwState)
 	switch(nwState){
 		case GameSate::Lost:
 				dataHolder_->stop();
-				scene_.addItem(createMessageBox(QString("You lost\n Score : %1\n - Enter to restart - \n - Escape : return to menu - ").arg(dataHolder_->getScore())));
+				emit gameEnded(dataHolder_->getScore(), dataHolder_->time());
 	            break;
 		case GameSate::Pause:
 				//TODO : Add (maybe) a recttext indicating the game is paused

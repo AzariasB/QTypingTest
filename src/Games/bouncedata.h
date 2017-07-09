@@ -41,7 +41,7 @@ public slots:
 signals:
 	void playPause();
 
-	void exit(int score, QTime time);
+	void exit();
 
 private:
 	QFrame *getLine();

@@ -43,6 +43,11 @@ signals:
 	 */
 	void quitSelected();
 
+	/**
+	 * @brief leaderBoardSelected
+	 */
+	void leaderBoardSelected();
+
 public slots:
 	void selectionChanged(int nwSelection);
 

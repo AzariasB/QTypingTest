@@ -99,6 +99,13 @@ public slots:
 	 */
 	void togglePause();
 
+	/**
+	 * @brief stop
+	 * Stops the timers and the dataholder timers
+	 * (avoids useless ticking)
+	 */
+	void stop();
+
 signals:
 	/**
 	 * @brief gameEnded Trigerred when the 'esc' key is pressed

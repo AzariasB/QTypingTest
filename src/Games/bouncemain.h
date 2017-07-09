@@ -9,6 +9,7 @@
 #include "bouncegame.h"
 #include "bouncedata.h"
 #include "bouncehelp.h"
+#include "bouncescore.h"
 
 class BounceMain : public QWidget
 {
@@ -25,6 +26,10 @@ public slots:
 
 	void showMenu();
 
+	void showLeaderboard();
+
+	void saveGameScore(int score, QTime time);
+
 private:
 	void initGameWidget();
 
@@ -37,6 +42,8 @@ private:
 	BounceData *bData_;
 
 	BounceGame *bGame_;
+
+	BounceScore *bScore_;
 
 	QWidget *gameWidget_;
 };

@@ -29,9 +29,7 @@ BounceData::BounceData(int lives, QWidget *parent):
 
 	QPushButton *exitButton = new QPushButton("Exit");
 	exitButton->setStyleSheet(("font-size : 20px;"));
-	connect(exitButton, &QPushButton::clicked, [=](){
-		emit exit(score_, totalTime_);
-	});
+	connect(exitButton, &QPushButton::clicked, this, &BounceData::exit);
 
 	playPauseButton_ = new QPushButton("Pause");
 	playPauseButton_->setStyleSheet("font-size : 20px;");
@@ -96,6 +94,7 @@ void BounceData::reset(int lives)
 
 	scoreLabel_->setText(QString("Score : %1").arg(score_) );
 	livesLabel_->setText(QString("Lives : %1").arg(lives_));
+	timerLabel_->setText("00:00");
 }
 
 QFrame *BounceData::getLine()

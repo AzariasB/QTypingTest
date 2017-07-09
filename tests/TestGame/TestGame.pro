@@ -23,6 +23,7 @@ HEADERS = $$SRC/Games/vector2f.h \
 			$$SRC/Games/bouncedata.h \
 			$$SRC/Games/bouncemain.h \
 			$$SRC/Games/bouncehelp.h \
+			$$SRC/Games/bouncescore.h \
 			$$SRC/Games/countdown.h \
 			$$SRC/Games/menubutton.h \
             $$SRC/Games/letterwall.h
@@ -39,6 +40,7 @@ SOURCES = $$SRC/Games/vector2f.cpp \
 			$$SRC/Games/bouncedata.cpp \
 			$$SRC/Games/bouncemain.cpp \
 			$$SRC/Games/bouncehelp.cpp \
+			$$SRC/Games/bouncescore.cpp \
 			$$SRC/Games/countdown.cpp \
 			$$SRC/Games/menubutton.cpp \
             testgame.cpp
