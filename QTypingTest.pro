@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT              += designer uitools core gui xml multimedia
+QT              += designer uitools core gui xml multimedia websockets
 CONFIG          += -std=c++11 debug
 QMAKE_CXXFLAGS  += -std=c++11
 
@@ -114,7 +114,8 @@ SOURCES +=\
     src/Games/bouncehelp.cpp \
     src/Games/countdown.cpp \
     src/Games/menubutton.cpp \
-    src/Games/bouncescore.cpp
+    src/Games/bouncescore.cpp \
+    src/Games/competitionmain.cpp
 HEADERS +=\
     #-------------------------
     # Pages
@@ -187,7 +188,8 @@ HEADERS +=\
 	src/Games/bouncegame.h \
 	src/Games/countdown.h \
     src/Games/menubutton.h \
-    src/Games/bouncescore.h
+    src/Games/bouncescore.h \
+    src/Games/competitionmain.h
 
 DISTFILES += \
     ressources/syle.qss
