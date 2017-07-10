@@ -115,7 +115,8 @@ SOURCES +=\
     src/Games/countdown.cpp \
     src/Games/menubutton.cpp \
     src/Games/bouncescore.cpp \
-    src/Games/competitionmain.cpp
+	src/Games/Competition/competitionmain.cpp \
+    src/Games/Competition/userlist.cpp
 HEADERS +=\
     #-------------------------
     # Pages
@@ -189,7 +190,8 @@ HEADERS +=\
 	src/Games/countdown.h \
     src/Games/menubutton.h \
     src/Games/bouncescore.h \
-    src/Games/competitionmain.h
+	src/Games/Competion/competitionmain.h \
+    src/Games/Competition/userlist.h
 
 DISTFILES += \
     ressources/syle.qss

@@ -5,7 +5,7 @@
 #include <QtTest>
 #include <QCoreApplication>
 
-#include "Games/competitionmain.h"
+#include "Games/Competition/competitionmain.h"
 
 class TestGame : public QObject
 {

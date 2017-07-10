@@ -13,9 +13,11 @@ SRC = $$PWD/../../src/
 INCLUDEPATH += $$SRC
 
 
-HEADERS = $$SRC/Games/competitionmain.h
+HEADERS = $$SRC/Games/Competition/competitionmain.h \
+			$$SRC/Games/Competition/userlist.h
 
-SOURCES = $$SRC/Games/competitionmain.cpp \
+SOURCES = $$SRC/Games/Competition/competitionmain.cpp \
+			$$SRC/Games/Competition/userlist.cpp \
             testgame.cpp
 
 # install
