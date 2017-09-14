@@ -45,3 +45,8 @@ See your progression for every type of exercise you did.
 <p align="center"  >
 <img src="resources/etc/screen.png" alt="Statistics" />
 </p>
+
+Authors
+-------
+Azarias Boutin
+Pierre Thubé
