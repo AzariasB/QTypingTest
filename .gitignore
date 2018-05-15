@@ -30,6 +30,7 @@ build*/
 .rcc/
 *.pro.user
 *.pro.user.*
+.qmake.stash
 
 #Ignore the makefiles
 #Don't need them since there are the .pro files

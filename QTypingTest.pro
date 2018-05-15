@@ -19,16 +19,16 @@ greaterThan(QT_MAJOR_VERSION, 5): QT += widgets
 #Change config depending on the build configuration
 CONFIG(debug, debug|release) {
         TARGET = QTypingTest
-        DESTDIR = build/Debug
-        OBJECTS_DIR = build/Debug/.obj
-        MOC_DIR = build/Debug/.moc
-        RCC_DIR = build/Debug/.rcc
+        DESTDIR = Debug
+        OBJECTS_DIR = Debug/.obj
+        MOC_DIR = Debug/.moc
+        RCC_DIR = Debug/.rcc
 } else {
         TARGET = QTypingTest
-        DESTDIR = build/release
-        OBJECTS_DIR = build/release/.obj
-        MOC_DIR = build/release/.moc
-        RCC_DIR = build/release/.rcc
+        DESTDIR = Release
+        OBJECTS_DIR = Release/.obj
+        MOC_DIR = Release/.moc
+        RCC_DIR = Release/.rcc
 }
 
 UI_DIR = src/ui
@@ -37,8 +37,8 @@ UI_DIR = src/ui
 TEMPLATE = app
 
 #Icons for windows
-RC_ICONS += etc/icon.ico
-ICON = TypingLine.icns
+RC_ICONS += resources/icon.ico
+ICON = resources/icon.ico
 
 FORMS += src/UI/homepage.ui \
          src/UI/options.ui
@@ -107,16 +107,17 @@ SOURCES +=\
     src/Games/vector2f.cpp \
     src/Games/animatedsprite.cpp \
     src/Games/resourcemanager.cpp \
-	src/Games/bouncegame.cpp \
-	src/Games/bouncemenu.cpp \
+    src/Games/bouncegame.cpp \
+    src/Games/bouncemenu.cpp \
     src/Games/bouncedata.cpp \
     src/Games/bouncemain.cpp \
     src/Games/bouncehelp.cpp \
     src/Games/countdown.cpp \
     src/Games/menubutton.cpp \
     src/Games/bouncescore.cpp \
-	src/Games/Competition/competitionmain.cpp \
+    src/Games/Competition/competitionmain.cpp \
     src/Games/Competition/userlist.cpp
+
 HEADERS +=\
     #-------------------------
     # Pages
@@ -182,15 +183,15 @@ HEADERS +=\
     src/Games/vector2f.h \
     src/Games/animatedsprite.h \
     src/Games/resourcemanager.h \
-	src/Games/bouncemenu.h \
+    src/Games/bouncemenu.h \
     src/Games/bouncedata.h \
     src/Games/bouncemain.h \
-	src/Games/bouncehelp.h \
-	src/Games/bouncegame.h \
-	src/Games/countdown.h \
+    src/Games/bouncehelp.h \
+    src/Games/bouncegame.h \
+    src/Games/countdown.h \
     src/Games/menubutton.h \
     src/Games/bouncescore.h \
-	src/Games/Competion/competitionmain.h \
+    src/Games/Competition/competitionmain.h \
     src/Games/Competition/userlist.h
 
 DISTFILES += \

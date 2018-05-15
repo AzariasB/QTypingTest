@@ -25,8 +25,7 @@
         <file alias="padlock_open.png">resources/padlock_open.png</file>
         <file alias="padlock_closed.png">resources/padlock_closed.png</file>
         <file alias="icon.png">resources/icon.png</file>
-        <file>resources/icon.ico</file>
-        <file>resources/icon.icns</file>
+        <file alias="icon.ico" >resources/icon.ico</file>
         <file alias="bin.png">resources/bin.png</file>
 	<file alias="crown.png">resources/crown.png</file>
     </qresource>
