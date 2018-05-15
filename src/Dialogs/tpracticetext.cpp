@@ -41,8 +41,8 @@ TWindowTest(text, TExercise::generateExercise(TExercise::PRACTICING_TEXT), paren
 
 QString TPracticeText::findTitleAndAuthor(TExercise &exo)
 {
-	QString author = exo.hasAttribute("author") ? exo.findAttribute("author") : "";
-	QString title = exo.hasAttribute("title") ? exo.findAttribute("title") : "";
+    QString author = exo.getAttribute("author","");
+    QString title = exo.getAttribute("title","");
     QString authorPres = author.isEmpty() ? "" : "<b>Author : </b> " + author;
     QString titlePres = title.isEmpty() ? "" : "<b>Title : </b> " + title;
     return authorPres + (titlePres.isEmpty() ? "" : "<br/>" + titlePres);

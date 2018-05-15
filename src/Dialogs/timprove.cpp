@@ -27,9 +27,7 @@ TWindowTest(TExercise::generateExercise(TExercise::IMPROVING), parent){
 
 QString TImprove::listToString(const QList<QChar>& chars) {
     QString str = "";
-    for (auto it = chars.begin(); it != chars.end();++it){
-        str += *it;
-    }
+    for(const QChar &chr : chars)str += chr;
     return str;
 }
 

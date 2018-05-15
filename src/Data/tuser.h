@@ -31,7 +31,7 @@ class TUser : public QObject, public TJsonSerializable {
 
     Q_OBJECT
 public:
-    TUser(QString pseudo = "", QObject *parent = 0) :
+    TUser(const QString &pseudo = "", QObject *parent = 0) :
 		QObject(parent),
 		TJsonSerializable(),
         id_(factory::nexUId()),
@@ -54,7 +54,7 @@ public:
         return pseudo_;
     }
 
-    void setPseudo(QString pseudo) {
+    void setPseudo(const QString &pseudo) {
         this->pseudo_ = pseudo;
     }
 
@@ -75,7 +75,7 @@ public:
 		emit settingsChanged(*this);
     }
 
-	void setProgression(TProgression nwProgression) {
+    void setProgression(const TProgression &nwProgression) {
         progress_ = nwProgression;
     }
 
@@ -84,7 +84,7 @@ public:
 		emit statsChanged(*this);
     }
 
-	void setPracticeHistory(QList<TExercise> history) {
+    void setPracticeHistory(const QList<TExercise> &history) {
         practiceHistory_ = history;
     }
 
@@ -117,7 +117,7 @@ public:
      * @param exRes the result of the exercise
      * @return the time when this result was saved
      */
-	QDateTime addResult(TExercise exo);
+    QDateTime addResult(const TExercise &exo);
 
     void operator=(const TUser &orig) {
         setParent(orig.parent());

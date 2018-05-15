@@ -24,16 +24,15 @@ availableLetters_(tApp.getLayout().getAllAvailableLetters()),
 exerciseType_(PRACTICING){
 }
 
-TExercise::TExercise(EXERCISE_TYPE exType, QString mainLetter, QString availableLetters) :
+TExercise::TExercise(EXERCISE_TYPE exType, const QString &mainLetter, const QString &availableLetters) :
 learningLetters_(mainLetter),
 availableLetters_(availableLetters),
 exerciseType_(exType)
 {
 }
 
-TExercise TExercise::generateExercise(EXERCISE_TYPE type, QString mainLetters, QString availableLetters)
+TExercise TExercise::generateExercise(EXERCISE_TYPE type, const QString &mainLetters, const QString &availableLetters)
 {
-
 	if(type == LEARNING){
 		return TExercise(type, mainLetters, availableLetters);;
 	}else{
@@ -41,12 +40,12 @@ TExercise TExercise::generateExercise(EXERCISE_TYPE type, QString mainLetters, Q
 	}
 }
 
-void TExercise::addAttribute(QString key, QString value)
+void TExercise::addAttribute(const QString &key, const QString &value)
 {
     attributes_[key] = value;
 }
 
-const QDateTime &TExercise::completed(TResult exRes)
+const QDateTime &TExercise::completed(const TResult &exRes)
 {
 	result_ = exRes;
 	dateComplete_ = QDateTime::currentDateTime();
@@ -71,9 +70,9 @@ void TExercise::write(QJsonObject &json) const
 	json["numberOfWords"] = numberOfWords_;
 }
 
-QString TExercise::findAttribute(QString key)
+QString TExercise::getAttribute(const QString &key, const QString &def)
 {
-    return attributes_[key];
+    return attributes_.contains(key) ? attributes_[key] : def;
 }
 
 bool TExercise::hasAttribute(const QString &key)

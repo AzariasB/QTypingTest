@@ -42,12 +42,12 @@ QList<QStringList> *TLayout::decomposeLayout(const QJsonValue &rows) {
     } else {
         QRegExp isLetter("[a-z]");
         QList<QStringList> *parts = new QList<QStringList>;
-        for (auto elem : arr) {
+        for (const auto &elem : arr) {
             QJsonArray theArr = elem.toArray();
             //Add the whole splitted line to the main lines
             QStringList splitedLine;
             QString total = "";
-            for(auto keyInfo : theArr){
+            for(const auto &keyInfo : theArr){
                 QJsonObject keyObj = keyInfo.toObject();
                 QString main = keyObj["main"].toString();
                 if(isLetter.exactMatch(main)){
@@ -79,7 +79,7 @@ void TLayout::initKeyCombination()
     qFill(std::begin(keyCombinations_),std::end(keyCombinations_), "");
 
     if(!layoutLines_->isEmpty()){
-        for(QStringList strList : *layoutLines_)
+        for(const QStringList &strList : *layoutLines_)
         {
             for(QString str: strList)
             {

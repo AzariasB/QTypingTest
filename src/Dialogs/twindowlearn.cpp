@@ -23,7 +23,7 @@ instructions_(new TPresentation(tApp.getLayout(),ex.getLearningLetters(),parent 
     addInstructions(ex);
 }
 
-TWindowLearn::TWindowLearn(QString content, QWidget* parent) :
+TWindowLearn::TWindowLearn(const QString &content, QWidget* parent) :
 TWindowTest(content, 1, TExercise::generateExercise(TExercise::LEARNING), parent),
 instructions_(new TPresentation(tApp.getLayout())) {
 	addInstructions(exercise());

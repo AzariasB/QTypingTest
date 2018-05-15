@@ -15,7 +15,7 @@ class TText
 public:
     TText();
 
-    TText(QDomElement textElem);
+    TText(const QDomElement &textElem);
 
     QString author()
     {
@@ -37,28 +37,28 @@ public:
         return this->difficulty_;
     }
 
-    TText* setAuthor(QString author)
+    TText &setAuthor(const QString &author)
     {
         this->author_ = author;
-        return this;
+        return *this;
     }
 
-    TText* setTitle(QString title)
+    TText &setTitle(const QString &title)
     {
         this->title_ = title;
-        return this;
+        return *this;
     }
 
-    TText* setDifficulty(int difficulty)
+    TText &setDifficulty(int difficulty)
     {
         this->difficulty_ = difficulty;
-        return this;
+        return *this;
     }
 
-    TText *setText(QString text)
+    TText &setText(const QString &text)
     {
         this->text_ = text;
-        return this;
+        return *this;
     }
 
 private:

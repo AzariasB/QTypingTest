@@ -28,7 +28,7 @@ class TUserManager : public QObject {
 
 public:
 
-	TUserManager(QString destFilePath);
+    TUserManager(const QString &destFilePath);
 
 	void disconnectCurrentUser(){
 		currentUser_ = nullptr;
@@ -82,15 +82,14 @@ public:
 
     virtual ~TUserManager();
 
-	void addUser(const TUser nwUser);
+    void addUser(const TUser &nwUser);
 
 	bool removeUser(const TUser &toRemove);
 
-	void operator<<(TUser nwUser){
+    void operator<<(TUser &nwUser){
 		addUser(nwUser);
     }
 
-#ifdef QT_DEBUG
     /**
      * ONLY FOR TESTING
      *
@@ -103,7 +102,6 @@ public:
     void removeAllUsers(){
         users_.clear();
     }
-#endif
 
     //Respect singleton patter, prevent assigning values by any mean
     TUserManager(const TUserManager& orig) = delete;

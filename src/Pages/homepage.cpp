@@ -40,7 +40,8 @@ void HomePage::createUser() {
     QString pseudo = QInputDialog::getText(this, "Create new user",
             "User's pseudo :", QLineEdit::Normal, "", &ok);
     if (ok) {
-		um << TUser(pseudo);
+        TUser created(pseudo);
+        um.addUser(created);
         updateUserDisplay();
     }
 }

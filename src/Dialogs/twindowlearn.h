@@ -22,7 +22,7 @@ class TPresentation;
 class TWindowLearn : public TWindowTest {
     Q_OBJECT
 public:
-    TWindowLearn(QString content, QWidget *parent = 0);
+    TWindowLearn(const QString &content, QWidget *parent = 0);
 	TWindowLearn(TExercise &ex, QWidget *parent = 0);
 	TWindowLearn(TExercise &ex, int numberOfPages, QWidget *parent = 0);
 

@@ -13,7 +13,7 @@
 
 #include "tusermanager.h"
 
-TUserManager::TUserManager(QString destFilePath) :
+TUserManager::TUserManager(const QString &destFilePath) :
 QObject(),
 saveFile_(destFilePath){
     currentUser_ = 0;
@@ -45,9 +45,9 @@ QList<TUser> &TUserManager::readUsers()
 	return users_;
 }
 
-void TUserManager::addUser(const TUser nwUser)
+void TUserManager::addUser(const TUser &nwUser)
 {
-	users_ << nwUser;
+    users_.append(std::move(nwUser));
 }
 
 bool TUserManager::removeUser(const TUser &toRemove)
@@ -62,7 +62,7 @@ void TUserManager::saveUsers()
 {
 	QJsonObject usrObject;
 	QJsonArray usersArr;
-	for(TUser &user : users_){
+    for(const TUser &user : users_){
 		QJsonObject jsonUsr;
 		user.write(jsonUsr);
 

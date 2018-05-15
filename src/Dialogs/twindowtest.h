@@ -36,7 +36,7 @@ class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-	TWindowTest(TExercise exercise, QWidget* parent = 0) :
+    TWindowTest(const TExercise &exercise, QWidget* parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(2)),
 	um_(tApp.getUserManager()),
@@ -47,7 +47,7 @@ public:
         setupWidget();
     }
 
-	TWindowTest(QString text, TExercise exercise, QWidget *parent = 0) :
+    TWindowTest(const QString &text, const TExercise &exercise, QWidget *parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(text, 2)),
 	um_(tApp.getUserManager()),
@@ -58,7 +58,7 @@ public:
         setupWidget();
     }
 
-	TWindowTest(QString text, int numberOfPages,TExercise exercise,  QWidget *parent = 0) :
+    TWindowTest(const QString &text, int numberOfPages, const TExercise &exercise,  QWidget *parent = 0) :
     QDialog(parent),
 	pages_(TStackPages(text, numberOfPages)),
 	um_(tApp.getUserManager()),
@@ -101,7 +101,7 @@ public:
         return timerEnd_;
     }
 
-	void addResult(TResult nwResult) {
+    void addResult(const TResult &nwResult) {
         results_.append(nwResult);
     }
 
@@ -117,7 +117,7 @@ public slots:
      * 
      * @param previousScore the score of the line that was finished
      */
-	void saveResult(TResult previousScore);
+    void saveResult(const TResult &previousScore);
 
     void beginExercise();
 
@@ -157,7 +157,7 @@ public slots:
      * @brief answerTyped called whenever the user type an answer
      * @param nwAnswer the answer typed
      */
-    void answerTyped(QString nwAnswer);
+    void answerTyped(const QString &nwAnswer);
 
 signals:
     /**
@@ -167,7 +167,7 @@ signals:
      * @param exeRes the result of the exercise
      * @param timeRealised the time realised to complete the exercise
      */
-	void endOfExercise(TResult &exeRes, QTime timeRealised);
+    void endOfExercise(TResult &exeRes, const QTime &timeRealised);
 
     /**
      * Called whenever the exercise

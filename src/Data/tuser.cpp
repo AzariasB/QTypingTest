@@ -14,7 +14,7 @@
 
 #include "tjsonserializable.h"
 
-QDateTime TUser::addResult(TExercise exo) {
+QDateTime TUser::addResult(const TExercise &exo) {
 	practiceHistory_ << exo;
 	emit statsChanged(*this);
 	return exo.getDateComplete();

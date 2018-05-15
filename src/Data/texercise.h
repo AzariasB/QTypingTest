@@ -12,15 +12,12 @@
 #ifndef TEXERCICE_H
 #define TEXERCICE_H
 
-#include <QStringList>
-#include <QDebug>
 #include <QDateTime>
 
 #include "tjsonserializable.h"
 #include "tresult.h"
 
 class TLayout;
-class TResult;
 
 /**
  * A model class to define the type of exercise the user is about to do
@@ -35,13 +32,13 @@ public:
 	};
 
 	//No difficulty because : why would it be necessary ?
-	static TExercise generateExercise(EXERCISE_TYPE type, QString mainLetters = "", QString availableLetters = "");
+    static TExercise generateExercise(EXERCISE_TYPE type, const QString &mainLetters = "", const QString &availableLetters = "");
 
 	TExercise();
 
 	QString buildExercise();
 
-	void addAttribute(QString key, QString value);
+    void addAttribute(const QString &key, const QString &value);
 
 	/**
 	 * @brief completed
@@ -51,13 +48,13 @@ public:
 	 * @param exRes
 	 * @return the datetime at which the exercise ended
 	 */
-	const QDateTime &completed(TResult exRes);
+    const QDateTime &completed(const TResult &exRes);
 
 	virtual void read(const QJsonObject &json) override;
 
 	virtual void write(QJsonObject &json) const override;
 
-	QString findAttribute(QString key);
+    QString getAttribute(const QString &key, const QString &def);
 
 	bool hasAttribute(const QString &key);
 
@@ -89,7 +86,7 @@ public:
 
 
 private:
-	TExercise(EXERCISE_TYPE exType, QString mainLetter, QString availableLetters);
+    TExercise(EXERCISE_TYPE exType, const QString &mainLetter, const QString &availableLetters);
 
 	QString learningLetters_;
 	QString availableLetters_;

@@ -95,7 +95,6 @@ SOURCES +=\
     src/Data/ttext.cpp \
     src/Data/tresult.cpp \
     src/Data/tlayout.cpp \
-    src/Data/tjsonserializable.cpp \
     src/tapplication.cpp \
     src/Data/texercise.cpp \
     #-------------------------

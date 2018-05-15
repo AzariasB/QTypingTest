@@ -98,10 +98,9 @@ void TWindowTest::setupTimer() {
 
 //Slots
 
-void TWindowTest::saveResult(TResult previousScore)
+void TWindowTest::saveResult(const TResult &previousScore)
 {
-    this->results_ << previousScore;
-
+    results_.append(previousScore);
 }
 
 void TWindowTest::beginExercise() {
@@ -116,9 +115,7 @@ TResult TWindowTest::exerciseResult() {
 
     //Sum the results
 	TResult res;
-    for (auto it = results_.begin(); it != results_.end(); ++it) {
-		res += *it;
-    }
+    for(const TResult &it : results_)res += it;
 
     float mnElapsed = (float) timeStart_.msecsSinceStartOfDay() / (60.f * 1000.f);
 
@@ -203,7 +200,7 @@ void TWindowTest::connectEvents() {
     connect(&edit_,SIGNAL(textEdited(QString)),this,SLOT(answerTyped(QString)));
 }
 
-void TWindowTest::answerTyped(QString nwAnswer)
+void TWindowTest::answerTyped(const QString &nwAnswer)
 {
     if(pages_.answerTyped(nwAnswer))
     {
