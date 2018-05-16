@@ -36,7 +36,7 @@ void TVirtualKeyboard::setupWidget(TLayout&layout) {
     createKeys(layout.getLayouLines());
 }
 
-void TVirtualKeyboard::createKeys(QList<QStringList> keyChars) {
+void TVirtualKeyboard::createKeys(const QList<QStringList> &keyChars) {
     QVBoxLayout *mainLay = new QVBoxLayout();
     for (int i = 0; i < keyChars.size(); i++) {
         QStringList lst = keyChars[i];
@@ -58,12 +58,12 @@ void TVirtualKeyboard::createKeys(QList<QStringList> keyChars) {
     this->setLayout(mainLay);
 }
 
-QWidget *TVirtualKeyboard::numberLine(QStringList keys) {
+QWidget *TVirtualKeyboard::numberLine(const QStringList &keys) {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
     //Create the '²' key
     lay->addWidget(createKey("²"));
-    for (auto elem : keys) {
+    for (const QString  &elem : keys) {
         lay->addWidget(createKey(elem));
     }
     //The 'backspace' key
@@ -75,7 +75,7 @@ QWidget *TVirtualKeyboard::numberLine(QStringList keys) {
     return line;
 }
 
-QWidget *TVirtualKeyboard::upperLine(QStringList keys) {
+QWidget *TVirtualKeyboard::upperLine(const QStringList &keys) {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
     //The 'tab' key
@@ -84,7 +84,7 @@ QWidget *TVirtualKeyboard::upperLine(QStringList keys) {
 	keys_->insert(Qt::Key_Tab, tab);
 	keys_->insert(Qt::Key_Backtab, tab);
 
-    for (auto elem : keys) {
+    for (const QString &elem : keys) {
 		lay->addWidget(createKey(elem));
     }
     //The upper part of the 'enter' key
@@ -94,7 +94,7 @@ QWidget *TVirtualKeyboard::upperLine(QStringList keys) {
     return line;
 }
 
-QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
+QWidget *TVirtualKeyboard::middleLine(const QStringList &keys) {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
     //The 'caps lock' key
@@ -103,12 +103,11 @@ QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
 	keys_->insert(Key_CapsLock, capsLock);
 
     int index = 0;
-    for (auto elem : keys) {
+    for (const QString &elem : keys) {
         TVirtualKey *key = createKey(elem);
         if (index == 3 || index == 6) {
             //Underline
-            QString underLine = QString("<u>") + key->getShift() + QString("</u>");
-            key->setText(underLine);
+            key->setText(QString("<u>%1</u>").arg(key->getShift()));
         }
         lay->addWidget(key);
         index++;
@@ -122,12 +121,12 @@ QWidget *TVirtualKeyboard::middleLine(QStringList keys) {
     return line;
 }
 
-QWidget *TVirtualKeyboard::bottomLine(QStringList keys) {
+QWidget *TVirtualKeyboard::bottomLine(const QStringList &keys) {
     QWidget *line = new QWidget();
     QHBoxLayout *lay = new QHBoxLayout();
     //The left 'shift' key
     lay->addWidget(leftShift_);
-    for (auto elem : keys) {
+    for (const QString  &elem : keys) {
         lay->addWidget(createKey(elem));
     }
     //The right 'shift' key
@@ -139,7 +138,7 @@ QWidget *TVirtualKeyboard::bottomLine(QStringList keys) {
     return line;
 }
 
-TVirtualKey *TVirtualKeyboard::createKey(QString attributes) {
+TVirtualKey *TVirtualKeyboard::createKey(const QString &attributes) {
     TVirtualKey *key = new TVirtualKey(attributes);
     switch (attributes.size()) {
         case 4:

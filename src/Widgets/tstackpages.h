@@ -42,7 +42,7 @@ public:
         return static_cast<TPage*> (this->currentWidget());
     }
 
-    void addPage(QString pageText, bool isFirst = false);
+    void addPage(const QString &pageText, bool isFirst = false);
 
     bool nextPage();
 
@@ -55,7 +55,7 @@ public:
      * 
      * @param wholeText the text to allocate to the pages
      */
-    void setupPages(QString wholeText);
+    void setupPages(const QString &wholeText);
     
     /**
      * Setter
@@ -71,7 +71,7 @@ signals:
     /**
      * Called whenever the current page is terminated
      */
-	void pageEnded(TResult pageResult);
+    void pageEnded(const TResult &pageResult);
 
 
     /**
@@ -93,7 +93,7 @@ public slots:
      * 
      * @param previousScore the score of the line that was finished
      */
-	void nextPage(TResult previousScore);
+    void nextPage(const TResult &previousScore);
 
     /**
      * Called whenever the user typed the first char on his keyboard
@@ -103,7 +103,7 @@ public slots:
     void beginExercise();
 
     /* Answer typed */
-    bool answerTyped(QString answer);
+    bool answerTyped(const QString &answer);
 
 
 private:

@@ -50,7 +50,7 @@ public slots:
     /**
      * Called when an exercise is finished
      */
-	void endExercise(TResult &exerciseResult, QTime timeEx);
+    void endExercise(TResult &exerciseResult, const QTime &timeEx);
 
 
     /**

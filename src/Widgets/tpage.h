@@ -32,8 +32,7 @@ class TPage : public QWidget {
     Q_OBJECT
 public:
     explicit TPage(QWidget *parent = 0);
-    TPage(QString model, QWidget *parent);
-    TPage(QString model);
+    TPage(const QString &model, QWidget *parent = 0);
 
     /**
      * Called by the parent dialog/Window whenever a key is pressed to
@@ -43,7 +42,7 @@ public:
      */
     void update(QKeyEvent* ev);
 
-    void updateLine(QString answer);
+    void updateLine(const QString &answer);
 
     void updateAsFirst() {
         this->toCopy_[currentTLabel_]->setFirst();
@@ -53,7 +52,7 @@ public:
         return lineRes_;
     }
     
-    QString text(){
+    const QString &text(){
         return globalAnswer_;
     }
 
@@ -82,7 +81,7 @@ signals:
 
 public slots:
     
-    bool typingAnswer(QString answer);
+    bool typingAnswer(const QString &answer);
     
     
     void eraseAnswer();

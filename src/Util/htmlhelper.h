@@ -26,7 +26,7 @@ namespace html {
      * @param tag the tag to surround with
      * @return the QString with all the chars surrounded by the tag
      */
-    QString addTagToChars(QString strtToTag, QString tag,QString attributes="");
+    QString addTagToChars(QString strtToTag, const QString &tag, const QString &attributes="");
 
     /**
      * Remove every tag in the QString.
@@ -36,7 +36,7 @@ namespace html {
      * @param tag the tag to remove. If empty, all tags found will be removed
      * @return the cleaned QString
      */
-    QString removeTag(QString &strToClean, QString tag = "([^>]*)");
+    QString removeTag(QString &strToClean, const QString &tag = "([^>]*)");
 
 
     /**
@@ -51,7 +51,7 @@ namespace html {
      * @param attributes some optional attributes to add to arround the string
      * @return the String with the char tagged
      */
-    QString addTags(QString &strToTag, QString tags,QString attributes = "");
+    QString addTags(QString &strToTag, const QString &tags, const QString &attributes = "");
 
 
     /**
@@ -64,7 +64,7 @@ namespace html {
      * @param relativePos the position of the searched char
      * @return the absolute position of the researched char, return -1 if the pos was not found (relativePos too big)
      */
-    int getAbsoluteCharPosition(QString string, int relativePos);
+    int getAbsoluteCharPosition(const QString &string, int relativePos);
 
 }
 

@@ -21,7 +21,7 @@ positions_(new TFingerPosition()) {
     setupWidgets();
 }
 
-TPresentation::TPresentation(TLayout&layout, QString charsToCopy, QWidget* parent) :
+TPresentation::TPresentation(TLayout&layout, const QString &charsToCopy, QWidget* parent) :
 QWidget(parent),
 keyboard_(new TVirtualKeyboard(layout)),
 positions_(new TFingerPosition()){

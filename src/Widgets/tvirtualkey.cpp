@@ -11,7 +11,7 @@
 
 #include "tvirtualkey.h"
 
-TVirtualKey::TVirtualKey(QString content, QWidget *parent) :
+TVirtualKey::TVirtualKey(const QString &content, QWidget *parent) :
 QWidget(parent) {
     constructLetters(content);
     setupKey();
@@ -26,7 +26,7 @@ QWidget(orig.parentWidget()) {
 
 }
 
-TVirtualKey::TVirtualKey(int w, QString text,TFingerPosition::FINGER associatedFinger, QWidget *parent) :
+TVirtualKey::TVirtualKey(int w, const QString &text, TFingerPosition::FINGER associatedFinger, QWidget *parent) :
 QWidget(parent) {
     setAutoFillBackground(true);
     setFixedSize(w, 50);
@@ -96,7 +96,7 @@ void TVirtualKey::setupKey() {
     this->setLayout(grid);
 }
 
-void TVirtualKey::constructLetters(QString letters) {
+void TVirtualKey::constructLetters(const QString &letters) {
     default_ = '\0';
     shifted_ = '\0';
     altgred_ = '\0';
@@ -114,7 +114,7 @@ void TVirtualKey::constructLetters(QString letters) {
     }
 }
 
-void TVirtualKey::setText(QString text) {
+void TVirtualKey::setText(const QString &text) {
     default_ = '\0';
     altgred_ = '\0';
     shifted_ = '\0';

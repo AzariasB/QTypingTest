@@ -26,7 +26,7 @@ public:
 
     TPresentation(TLayout&layout, QWidget *parent = 0);
 
-    TPresentation(TLayout&layout, QString charsToCopy, QWidget *parent = 0);
+    TPresentation(TLayout&layout, const QString &charsToCopy, QWidget *parent = 0);
 
     virtual ~TPresentation() {
 		delete keyboard_;

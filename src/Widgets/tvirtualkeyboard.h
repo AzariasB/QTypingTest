@@ -114,7 +114,7 @@ private:
      * 
      * @param keyChars the list of list of key code
      */
-    void createKeys(QList<QStringList> keyChars);
+    void createKeys(const QList<QStringList> &keyChars);
 
     /**
      * @brief setOriginalState
@@ -143,7 +143,7 @@ private:
      * @param keys the keys of the line
      * @return the widget containing all the letters of the line
      */
-    QWidget *numberLine(QStringList keys);
+    QWidget *numberLine(const QStringList &keys);
 
     /**
      * Creates the upper line of the keyboard
@@ -151,7 +151,7 @@ private:
      * @param keys the keys of the line
      * @return the widget containing all the letters of the line
      */
-    QWidget *upperLine(QStringList keys);
+    QWidget *upperLine(const QStringList &keys);
 
     /**
      * Will create the baseline of the keyboard
@@ -161,7 +161,7 @@ private:
      * @param keys the keys of the line
      * @return the widget containing all the letters of the line
      */
-    QWidget *middleLine(QStringList keys);
+    QWidget *middleLine(const QStringList &keys);
 
     /**
      * Created the bottom line of the keyboard
@@ -169,7 +169,7 @@ private:
      * @param keys the keys of the line
      * @return the widget containing all the letters of the line
      */
-    QWidget *bottomLine(QStringList keys);
+    QWidget *bottomLine(const QStringList &keys);
 
     /**
      * 
@@ -186,7 +186,7 @@ private:
      * @param attributes the attributes of the key
      * @return the created TVirtualKey
      */
-    TVirtualKey *createKey(QString attributes);
+    TVirtualKey *createKey(const QString &attributes);
 
     /* All the 'normal' keys that can change of position on the 
      * keyboard

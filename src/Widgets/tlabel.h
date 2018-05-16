@@ -26,7 +26,7 @@ public:
     TLabel(QString text, QWidget *parent = 0);
     virtual ~TLabel();
 
-    QString text() const
+    const QString &text() const
     {
         return stringToCopy_;
     }

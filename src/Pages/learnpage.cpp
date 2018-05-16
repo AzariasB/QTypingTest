@@ -120,7 +120,7 @@ void LearnPage::lauchExercise() {
     }//else ..nothing to do !
 }
 
-void LearnPage::endExercise(TResult& exerciseResult, QTime timeEx) {
+void LearnPage::endExercise(TResult& exerciseResult, const QTime &timeEx) {
     testWindow_->hide();
     QString time = QString("Made in : %1").arg(timeEx.toString("mm:ss"));
 

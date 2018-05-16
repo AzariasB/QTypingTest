@@ -38,10 +38,10 @@ public:
      * @param content the content of the key
      * @param parent the parent widget
      */
-    TVirtualKey(QString content, QWidget *parent = 0);
+    TVirtualKey(const QString &content, QWidget *parent = 0);
 
     //Create an 'empty' widget with the given width and the default height
-    TVirtualKey(int w, QString text, TFingerPosition::FINGER associatedFinger = TFingerPosition::NO_FINGER, QWidget *parent = 0);
+    TVirtualKey(int w, const QString &text, TFingerPosition::FINGER associatedFinger = TFingerPosition::NO_FINGER, QWidget *parent = 0);
 
 
     TVirtualKey(const TVirtualKey& orig);
@@ -133,7 +133,7 @@ public slots:
      * 
      * @param text the new text
      */
-    void setText(QString text);
+    void setText(const QString &text);
 
 protected:
 
@@ -145,7 +145,7 @@ protected:
 
 
 private:
-    void constructLetters(QString letters);
+    void constructLetters(const QString &letters);
     
     TFingerPosition::FINGER associateFinger_ = TFingerPosition::NO_FINGER;
 

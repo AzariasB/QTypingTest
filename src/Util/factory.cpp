@@ -103,7 +103,7 @@ QDomElement factory::getRandomText()
     }
 }
 
-QString factory::generateLearning(QString mainLetter, QString allLetters) {
+QString factory::generateLearning(const QString &mainLetter, const QString &allLetters) {
 
     QString res;
 
@@ -136,7 +136,7 @@ QString factory::generateLearning(QString mainLetter, QString allLetters) {
     return res;
 }
 
-QString factory::generatePractice(QString letters, bool realWordsOnly, int numberOfWords){
+QString factory::generatePractice(const QString &letters, bool realWordsOnly, int numberOfWords){
     QString res;
     if(!realWordsOnly)
         res += generateFromLetters(letters,numberOfWords/2);
@@ -155,7 +155,7 @@ QString factory::generatePractice(QString letters, bool realWordsOnly, int numbe
     return res;
 }
 
-QString factory::generateFromLetters(QString letters, int length) {
+QString factory::generateFromLetters(const QString &letters, int length) {
     int nextSpace = randomNextSpace();
     QString res;
     for (int i = 0; i < length; i++, nextSpace--) {
@@ -168,7 +168,7 @@ QString factory::generateFromLetters(QString letters, int length) {
     return res;
 }
 
-QStringList factory::findExistingWords(QString authorizedLetters,QString mustContain) {
+QStringList factory::findExistingWords(const QString &authorizedLetters, const QString &mustContain) {
     QStringList words = readFile(":/words.txt").split("\n");
     QStringList res;
 
@@ -187,7 +187,7 @@ QStringList factory::findExistingWords(QString authorizedLetters,QString mustCon
     return res;
 }
 
-QString factory::generateWords(QString authorizedLetters, QString mainLetters, int numberOfWords) {
+QString factory::generateWords(const QString &authorizedLetters, const QString &mainLetters, int numberOfWords) {
     QString res = "";
     QStringList words = factory::findExistingWords(authorizedLetters, mainLetters);
     if (!words.isEmpty()) {
@@ -199,11 +199,11 @@ QString factory::generateWords(QString authorizedLetters, QString mainLetters, i
     return res;
 }
 
-QString factory::selectRandomChar(QString lettersList) {
+QString factory::selectRandomChar(const QString &lettersList) {
     return QString(lettersList[rand() % lettersList.size()]);
 }
 
-QString factory::selectRandomString(QStringList strings){
+QString factory::selectRandomString(const QStringList &strings){
     return strings[rand() % strings.size()];
 }
 
@@ -223,7 +223,6 @@ QStringList factory::splitText(QString toSplit, int numberOfSplit)
 {
     numberOfSplit = numberOfSplit <= 0 ? 1 : numberOfSplit;
     int charPerPages = toSplit.size() / numberOfSplit;
-
     QStringList models;
 
     for (int i = 0; i < numberOfSplit; i++) {
@@ -238,11 +237,12 @@ QStringList factory::splitText(QString toSplit, int numberOfSplit)
 }
 
 
-QString factory::readFile(QString fileName)
+QString factory::readFile(const QString &fileName)
 {
     QFile model(fileName);
     if (model.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString res(model.readAll());
+        model.close();
         return res;
     } else {//File not found
         qWarning () << "Could not open file";
@@ -251,7 +251,7 @@ QString factory::readFile(QString fileName)
 }
 
 
-QDomDocument factory::readXMLFile(QString fileName)
+QDomDocument factory::readXMLFile(const QString &fileName)
 {
     QFile f(fileName);
     QDomDocument doc("texts");

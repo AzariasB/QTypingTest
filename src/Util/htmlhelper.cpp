@@ -32,7 +32,7 @@ QString surroundOfTags(QStringList tags, QString attributes) {
     }
 }
 
-int html::getAbsoluteCharPosition(QString string, int relativePos) {
+int html::getAbsoluteCharPosition(const QString &string, int relativePos) {
     int i = 0;
     for (int c = 0; c < string.size(); c++) {
         if (string[c] == '<') {
@@ -46,7 +46,7 @@ int html::getAbsoluteCharPosition(QString string, int relativePos) {
     return -1;
 }
 
-QString html::addTagToChars(QString strtToTag, QString tag, QString attributes) {
+QString html::addTagToChars(QString strtToTag, const QString &tag, const QString &attributes) {
     QString replaced;
     if (attributes.isEmpty()) {
         replaced = QString("<%1>\\1</%1>").arg(tag);
@@ -54,17 +54,15 @@ QString html::addTagToChars(QString strtToTag, QString tag, QString attributes) 
         replaced = QString("<%1 %2>\\1</%1>").arg(tag).arg(attributes);
     }
 
-    strtToTag.replace(QRegExp("(.)"), replaced);
-
-    return strtToTag;
+    return strtToTag.replace(QRegExp("(.)"), replaced);
 }
 
-QString html::removeTag(QString &strToClean, QString tag) {
+QString html::removeTag(QString &strToClean, const QString &tag) {
     QString reg = QString("<\\/?%1>").arg(tag);
     return strToClean.replace(QRegExp(reg), "");
 }
 
-QString html::addTags(QString &strToTag, QString tags, QString attributes) {
+QString html::addTags(QString &strToTag, const QString &tags, const QString &attributes) {
     QStringList splited = tags.split(",", QString::SkipEmptyParts);
 
     QString res = surroundOfTags(splited, attributes);
@@ -79,6 +77,5 @@ QString html::addTags(QString &strToTag, QString tags, QString attributes) {
     else
         regex = QString("(.)(?=.{%1}$)").arg(strToTag.size() - 1 - position);
 
-    strToTag = strToTag.replace(QRegExp(regex), res);
-    return strToTag;
+    return strToTag.replace(QRegExp(regex), res);
 }

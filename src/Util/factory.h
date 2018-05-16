@@ -68,7 +68,7 @@ namespace factory {
      * @param allLetters all the available letters for the exercise
      * @return a random-generated list of words
      */
-    QString generateLearning(QString mainLetter, QString allLetters);
+    QString generateLearning(const QString &mainLetter, const QString &allLetters);
 
 
     /**
@@ -84,7 +84,7 @@ namespace factory {
      * @param onlyRealWords if it must generates only words existing in a language, or if it can generate random words
      * @return the generated text
      */
-    QString generatePractice(QString letters, bool realWordsOnly = true, int numberOfWords = 40);
+    QString generatePractice(const QString &letters, bool realWordsOnly = true, int numberOfWords = 40);
     
     
     /**
@@ -94,7 +94,7 @@ namespace factory {
      * @param length length of the result string
      * @return a string with random words proposed in the given string list in parameter
      */
-    QString generateFromLetters(QString letterList, int length = 50);
+    QString generateFromLetters(const QString &letterList, int length = 50);
     
     /**
      * Generate existing words with the available letters
@@ -104,7 +104,7 @@ namespace factory {
      * @param mainLetters an optional QString. If existing, all the words must contain at least one letter of this string
      * @return a string with `numberOfWord` words separated by space.
      */
-    QString generateWords(QString authorizedLetters, QString mainLetters = "", int numberOfWords = 40);
+    QString generateWords(const QString &authorizedLetters, const QString &mainLetters = "", int numberOfWords = 40);
     
     /**
      * Will look into a file (depending on the chosen langage)
@@ -116,7 +116,7 @@ namespace factory {
      * @param mustContain a Qstring of letters that MUST be in the word
      * @return a list of word that can be created with the given letters
      */
-    QStringList findExistingWords(QString authorizedLetters, QString mustContain="");
+    QStringList findExistingWords(const QString &authorizedLetters, const QString &mustContain="");
 
     /**
      * Select one random char in the availables elements of the String
@@ -125,7 +125,7 @@ namespace factory {
      * @param string
      * @return a random-selected char (casted to a QString) in the string
      */
-    QString selectRandomChar(QString listString);
+    QString selectRandomChar(const QString &listString);
     
     /**
      * Select a random element in the list of String
@@ -134,7 +134,7 @@ namespace factory {
      * @param strings the list of strings
      * @return a element selected randomyl in the list
      */
-    QString selectRandomString(QStringList strings);
+    QString selectRandomString(const QStringList &strings);
     
     /**
      * Helper to find the closest space in a list of string to
@@ -157,7 +157,7 @@ namespace factory {
      * @param the number of string to put in the list
      * @return the text splitted
      */
-    QStringList splitText(QString toSplit,int numberOfSplit);
+    QStringList splitText(QString toSplit, int numberOfSplit);
 
 
     /**
@@ -168,23 +168,14 @@ namespace factory {
      * @param fileName
      * @return the content of the file (empty if nothing found)
      */
-    QString readFile(QString fileName);
+    QString readFile(const QString &fileName);
 
     /**
      * @brief readXMLFile parse an XML file and return the WXmlInputSource
      * @param fileName the name of the file to parse
      * @return the parsed file (if it exists) an empty object otherwise
      */
-    QDomDocument readXMLFile(QString fileName);
-
-    /**
-     * @brief getFile get the file with the given fileName, check wether the file exist
-     * or not
-     * @param fileName the name of the file to open
-     * @return the file (not opened) if it exists, nothing otherwise
-     */
-    QFile getFile(QString fileName);
-
+    QDomDocument readXMLFile(const QString &fileName);
 }
 
 

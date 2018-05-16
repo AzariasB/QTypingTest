@@ -44,7 +44,7 @@ public slots:
     void startExercise(TWindowTest *exercise);
 
     /* Save the result and the time at the end of each exercise */
-	void saveExerciseResult(TResult &res, QTime time);
+    void saveExerciseResult(TResult &res, const QTime &time);
 
     /* Reset the dialog (disconnect and set to null) */
     void resetExercise();

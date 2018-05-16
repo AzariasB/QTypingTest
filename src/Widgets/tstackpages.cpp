@@ -35,7 +35,7 @@ numberOfPages_(numberOfPages),
 toCopy_(QStringList()) {
 }
 
-void TStackPages::setupPages(QString wholeText) {
+void TStackPages::setupPages(const QString &wholeText) {
     QStringList model = factory::splitText(wholeText, numberOfPages_);
     for (int i = 0; i < model.size(); i++) {
         addPage(model[i] + " ", i == 0);
@@ -45,7 +45,7 @@ void TStackPages::setupPages(QString wholeText) {
         setCurrentIndex(0);
 }
 
-void TStackPages::nextPage(TResult previousScore)
+void TStackPages::nextPage(const TResult &previousScore)
 {
     emit pageEnded(previousScore);
     if (!nextPage()) {
@@ -79,7 +79,7 @@ void TStackPages::beginExercise() {
     //currentPage()->update(ev);
 //}
 
-bool TStackPages::answerTyped(QString answer)
+bool TStackPages::answerTyped(const QString &answer)
 {
     if(answer.size() > 0)
     {
@@ -88,7 +88,7 @@ bool TStackPages::answerTyped(QString answer)
     return false;
 }
 
-void TStackPages::addPage(QString pageText, bool isFirst) {
+void TStackPages::addPage(const QString &pageText, bool isFirst) {
     TPage *mPage = new TPage(pageText);
 	connect(mPage, SIGNAL(endedPage(TResult)), this, SLOT(nextPage(TResult)));
 

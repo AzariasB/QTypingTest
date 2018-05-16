@@ -35,7 +35,7 @@ public:
         ;
     }
 
-    void setProgression(QString text) {
+    void setProgression(const QString &text) {
         pageProgression_->setText(text);
     }
     

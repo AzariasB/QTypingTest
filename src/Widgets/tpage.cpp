@@ -14,16 +14,12 @@
 #include "tpage.h"
 #include "tapplication.h"
 
-TPage::TPage(QString model, QWidget *parent) : QWidget(parent),
+TPage::TPage(const QString &model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
 globalAnswer_(model){
-    this->setupPage();
-}
+    if(parent)
+        this->setLayout(this->tLineLayout_);
 
-TPage::TPage(QString model) : QWidget(),
-tLineLayout_(new QVBoxLayout(this)),
-globalAnswer_(model){
-    this->setLayout(this->tLineLayout_);
     this->setupPage();
 }
 
@@ -48,7 +44,7 @@ void TPage::setupPage() {
 
 }
 
-bool TPage::typingAnswer(QString answer)
+bool TPage::typingAnswer(const QString &answer)
 {
     if (!started_) {
         started_ = true;
@@ -125,7 +121,7 @@ bool TPage::isValidKey(QKeyEvent* ev)
     return !ev->text().isEmpty() && !ev->text().isNull() && ev->key() != Qt::Key_Backspace ;
 }
 
-void TPage::updateLine(QString answer)
+void TPage::updateLine(const QString &answer)
 {
     if(!answer.isEmpty()){
         typingAnswer(answer);
