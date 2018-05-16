@@ -41,7 +41,7 @@ BounceScore::BounceScore(QWidget *parent) : QWidget(parent),
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 
 	readScores();
-	std::sort(scores_.begin(), scores_.end(), PlayerScore::customSort);
+    qSort(scores_);
 
 	QLabel *titleLabel = new QLabel("Scoreboard");
 	titleLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
@@ -86,7 +86,7 @@ void BounceScore::addPlayerScore(int score, const QTime &time)
 
 	PlayerScore nwPS = PlayerScore{pseudo,  score, time};
 	scores_ << nwPS;
-	std::sort(scores_.begin(), scores_.end(), PlayerScore::customSort);
+    qSort(scores_);
 	resetScoreBoard();
 
 	writeScores();
@@ -153,17 +153,23 @@ PlayerScore &operator>>(const QJsonObject &target, PlayerScore &score)
 	return score;
 }
 
-bool operator==(const PlayerScore &score1, const PlayerScore &score2)
+bool PlayerScore::operator <(const PlayerScore &other) const
 {
-	return score1.score == score2.score && score1.time == score2.time && score1.pseudo == score2.pseudo;
+    if(score != other.score) return score < other.score;
+    if(time != other.time)time < other.time;
+    return pseudo < other.pseudo;
 }
 
-bool PlayerScore::customSort(const PlayerScore &score1, const PlayerScore &score2)
+bool PlayerScore::operator >(const PlayerScore &other) const
 {
-	if(score1.score != score2.score)return score1.score > score2.score;
-	if(score1.time.msecsSinceStartOfDay() != score2.time.msecsSinceStartOfDay()) return score1.time.msecsSinceStartOfDay() > score2.time.msecsSinceStartOfDay();
-	return score1.pseudo > score2.pseudo;
+    return !(*this < other || *this == other);
 }
+
+bool PlayerScore::operator ==(const PlayerScore &other) const
+{
+    return score == other.score && time == other.time && pseudo == other.pseudo;
+}
+
 
 QHBoxLayout *PlayerScore::toLayout()
 {

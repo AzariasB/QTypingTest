@@ -68,7 +68,7 @@ void BounceMain::initGameWidget()
 	gameWidget_->setStyleSheet("background-color : white;");
 }
 
-void BounceMain::saveGameScore(int score, QTime time)
+void BounceMain::saveGameScore(int score, const QTime &time)
 {
 	if(score > 0){
 		showLeaderboard();

@@ -26,7 +26,11 @@ struct PlayerScore{
 	int score;
 	QTime time;
 
-	static bool customSort(const PlayerScore &score1, const PlayerScore &score2);
+    bool operator<(const PlayerScore &other) const;
+
+    bool operator>(const PlayerScore &other) const;
+
+    bool operator==(const PlayerScore &other) const;
 
 	QHBoxLayout *toLayout();
 
@@ -36,8 +40,6 @@ struct PlayerScore{
 QJsonObject &operator<<(QJsonObject &target, const PlayerScore &score);
 
 PlayerScore &operator>>(const QJsonObject &target, PlayerScore &score);
-
-bool operator==(const PlayerScore &score1, const PlayerScore &score2);
 
 
 class BounceScore : public QWidget

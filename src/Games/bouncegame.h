@@ -177,7 +177,7 @@ private:
 	 * @param wallSide size of a wall
 	 * @return all the walls created (and added to the scene)
 	 */
-	QVector<LetterWall*> createWall(int numberOfWalls, QPoint start, QPoint increment, DIRECTION wallSide);
+    QVector<LetterWall*> createWall(int numberOfWalls, const QPoint &start, const QPoint &increment, DIRECTION wallSide);
 
 	/**
 	 * @brief initWalls
@@ -212,7 +212,7 @@ private:
 	 *
 	 * @return the item to add in the scene
 	 */
-	RectText *createMessageBox(QString msg);
+    RectText *createMessageBox(const QString &msg);
 
 	/**
 	 * @brief randomLetter

@@ -39,7 +39,7 @@ public slots:
 
 	void showLeaderboard();
 
-	void saveGameScore(int score, QTime time);
+    void saveGameScore(int score, const QTime &time);
 
 private:
 	void initGameWidget();

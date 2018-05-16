@@ -287,7 +287,7 @@ void BounceGame::keyReleaseEvent(QKeyEvent *event)
 	}
 }
 
-QVector<LetterWall *> BounceGame::createWall(int numberOfWalls, QPoint start, QPoint increment, DIRECTION wallSide)
+QVector<LetterWall *> BounceGame::createWall(int numberOfWalls, const QPoint &start, const QPoint &increment, DIRECTION wallSide)
 {
 	QVector<LetterWall*> res;
 	for(int i = 0; i < numberOfWalls;i++){
@@ -327,7 +327,7 @@ QChar BounceGame::randomLetter()
 	return alphabet[qrand()%alphabet.size()];
 }
 
-RectText *BounceGame::createMessageBox(QString msg)
+RectText *BounceGame::createMessageBox(const QString &msg)
 {
 	qreal topLeftX = scene()->sceneRect().width()/4.f;
 	qreal topLeftY = scene()->sceneRect().height()/3.f;
@@ -340,7 +340,7 @@ RectText *BounceGame::createMessageBox(QString msg)
 
 	QRectF messageBounds(topLeft, bottomRight);
 
-        return new RectText(messageBounds, msg, 0 , QColor(135, 211, 124), QColor()/* black border */);
+    return new RectText(messageBounds, msg, 0 , QColor(135, 211, 124), QColor()/* black border */);
 }
 
 const QPixmap &BounceGame::randomSparkle()
