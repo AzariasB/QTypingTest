@@ -16,7 +16,7 @@
 #include <QLabel>
 #include <QWidget>
 
-#include "menubutton.h"
+#include "src/Games/menubutton.h"
 
 class BounceMenu : public QWidget
 {

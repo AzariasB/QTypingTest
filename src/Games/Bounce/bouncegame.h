@@ -22,9 +22,9 @@
 
 #include "bullet.h"
 #include "letterwall.h"
-#include "recttext.h"
-#include "animatedsprite.h"
-#include "resourcemanager.h"
+#include "src/Games/recttext.h"
+#include "src/Games/animatedsprite.h"
+#include "src/Games/resourcemanager.h"
 #include "bouncemenu.h"
 #include "bouncedata.h"
 #include "countdown.h"

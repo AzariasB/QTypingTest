@@ -21,7 +21,7 @@
 #include <QPainter>
 
 #include "letterwall.h"
-#include "vector2f.h"
+#include "src/Games/vector2f.h"
 
 /**
  * @brief The Bullet class

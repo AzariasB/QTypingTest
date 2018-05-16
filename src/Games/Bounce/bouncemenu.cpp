@@ -10,7 +10,7 @@
  */
 
 #include "bouncemenu.h"
-#include "recttext.h"
+#include "src/Games/recttext.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>

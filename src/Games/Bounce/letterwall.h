@@ -15,10 +15,7 @@
 #define LETTERWALL_H
 
 #include <QGraphicsRectItem>
-#include <QDebug>
-#include <QPainter>
-
-#include "vector2f.h"
+#include "src/Games/vector2f.h" // For "direction" enum
 
 /**
  * @brief The LetterWall class

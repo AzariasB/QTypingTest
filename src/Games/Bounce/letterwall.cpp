@@ -12,6 +12,7 @@
 
 
 #include "letterwall.h"
+#include <QPainter>
 
 LetterWall::LetterWall(QGraphicsItem *parent):
 	QGraphicsRectItem(parent)

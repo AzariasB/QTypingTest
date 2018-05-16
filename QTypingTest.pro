@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT              += designer uitools core gui xml multimedia websockets
-CONFIG          += -std=c++11 debug
-QMAKE_CXXFLAGS  += -std=c++11
+QT              += designer uitools core gui xml multimedia
+CONFIG          += -std=c++14 debug
+QMAKE_CXXFLAGS  += -std=c++14
 
 PRO_PATH=$$PWD
 
@@ -31,7 +31,7 @@ CONFIG(debug, debug|release) {
         RCC_DIR = Release/.rcc
 }
 
-UI_DIR = src/ui
+UI_DIR = src/UI
 
 
 TEMPLATE = app
@@ -46,155 +46,19 @@ FORMS += src/UI/homepage.ui \
 
 SOURCES +=\
     src/main.cpp \
-    #-------------------------
-    # Pages
-    #------------------------- \
-    src/Pages/gamepage.cpp \
-    src/Pages/homepage.cpp \
-    src/Pages/learnpage.cpp \
-    src/Pages/practicepage.cpp \
-    src/Pages/thomepage.cpp \
-    src/Pages/tstatistics.cpp \
-    #-------------------------
-    # Dialogs
-    #------------------------- \
-    src/Dialogs/timprove.cpp \
-    src/Dialogs/toptiondialog.cpp \
-    src/Dialogs/tpracticebase.cpp \
-    src/Dialogs/tpracticerace.cpp \
-    src/Dialogs/tpracticetext.cpp \
-    src/Dialogs/twindowlearn.cpp \
-    src/Dialogs/twindowtest.cpp \
-    #-------------------------
-    # Widgets
-    #------------------------- \
-    src/Widgets/tfingerposition.cpp \
-    src/Widgets/tlabel.cpp \
-    src/Widgets/tpage.cpp \
-    src/Widgets/tpresentation.cpp \
-    src/Widgets/tstackpages.cpp \
-    src/Widgets/ttoolbar.cpp \
-    src/Widgets/tvirtualkey.cpp \
-    src/Widgets/tvirtualkeyboard.cpp \
-    #-------------------------
-    # Util
-    #------------------------- \
-    src/Util/htmlhelper.cpp \
-    src/Util/factory.cpp \
-    #-------------------------
-    # UI
-    #------------------------- \
-    #-------------------------
-    # Data
-    #------------------------- \
-    src/Data/tprogression.cpp \
-    src/Data/tpractical.cpp \
-    src/Data/tstats.cpp \
-    src/Data/tusermanager.cpp \
-    src/Data/tuser.cpp \
-    src/Data/ttext.cpp \
-    src/Data/tresult.cpp \
-    src/Data/tlayout.cpp \
-    src/tapplication.cpp \
-    src/Data/texercise.cpp \
-    #-------------------------
-    #   Games
-    #------------------------- \
-    src/Games/bullet.cpp \
-    src/Games/letterwall.cpp \
-    src/Games/recttext.cpp \
-    src/Games/vector2f.cpp \
-    src/Games/animatedsprite.cpp \
-    src/Games/resourcemanager.cpp \
-    src/Games/bouncegame.cpp \
-    src/Games/bouncemenu.cpp \
-    src/Games/bouncedata.cpp \
-    src/Games/bouncemain.cpp \
-    src/Games/bouncehelp.cpp \
-    src/Games/countdown.cpp \
-    src/Games/menubutton.cpp \
-    src/Games/bouncescore.cpp \
-    src/Games/Competition/competitionmain.cpp \
-    src/Games/Competition/userlist.cpp
+    src/tapplication.cpp
+
 
 HEADERS +=\
-    #-------------------------
-    # Pages
-    #------------------------- \
-    src/Pages/gamepage.h \
-    src/Pages/homepage.h \
-    src/Pages/learnpage.h \
-    src/Pages/practicepage.h \
-    src/Pages/thomepage.h \
-    src/Pages/tstatistics.h \
-    #-------------------------
-    # Dialogs
-    #------------------------- \
-    src/Dialogs/timprove.h \
-    src/Dialogs/toptiondialog.h \
-    src/Dialogs/tpracticebase.h \
-    src/Dialogs/tpracticerace.h \
-    src/Dialogs/tpracticetext.h \
-    src/Dialogs/twindowlearn.h \
-    src/Dialogs/twindowtest.h \
-    #-------------------------
-    # Widgets
-    #------------------------- \
-    src/Widgets/tfingerposition.h \
-    src/Widgets/tlabel.h \
-    src/Widgets/tpage.h \
-    src/Widgets/tpresentation.h \
-    src/Widgets/tstackpages.h \
-    src/Widgets/ttoolbar.h \
-    src/Widgets/tvirtualkey.h \
-    src/Widgets/tvirtualkeyboard.h \
-    #-------------------------
-    # Util
-    #------------------------- \
-    src/Util/htmlhelper.h \
-    src/Util/factory.h \
-    src/Util/config.h \
-    #-------------------------
-    # ui
-    #------------------------- \
-    src/UI/ui_options.h \
-    src/UI/ui_homepage.h \
-    #-------------------------
-    # Data
-    #------------------------- \
-    src/Data/tresult.h \
-    src/Data/tusermanager.h \
-    src/Data/tpractical.h \
-    src/Data/tprogression.h \
-    src/Data/tuser.h \
-    src/Data/ttext.h \
-    src/Data/tstats.h \
-    src/Data/tlayout.h \
-    src/Data/tjsonserializable.h \
-    src/tapplication.h \
-    src/Data/texercise.h \
-    #-------------------------
-    #   Games
-    #------------------------- \
-    src/Games/bullet.h \
-    src/Games/letterwall.h \
-    src/Games/recttext.h \
-    src/Games/vector2f.h \
-    src/Games/animatedsprite.h \
-    src/Games/resourcemanager.h \
-    src/Games/bouncemenu.h \
-    src/Games/bouncedata.h \
-    src/Games/bouncemain.h \
-    src/Games/bouncehelp.h \
-    src/Games/bouncegame.h \
-    src/Games/countdown.h \
-    src/Games/menubutton.h \
-    src/Games/bouncescore.h \
-    src/Games/Competition/competitionmain.h \
-    src/Games/Competition/userlist.h
+    src/tapplication.h
 
-DISTFILES += \
-    ressources/syle.qss
 
-RESOURCES += \
-    ressources.qrc
+include(src/Data/data.pro)
+include(src/Dialogs/dialogs.pro)
+include(src/Widgets/widgets.pro)
+include(src/Util/util.pro)
+include(src/Pages/pages.pro)
+include(src/Games/games.pro)
+
+
+RESOURCES += ressources.qrc
