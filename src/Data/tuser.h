@@ -13,15 +13,11 @@
 #define TUSER_H
 
 #include <QString>
-#include <QDateTime>
-#include <QDebug>
-#include <QHash>
-#include <QJsonArray>
-#include <QJsonObject>
+#include <QObject>
+class QJsonObject;
 
 #include "Data/texercise.h"
 #include "tstats.h"
-#include "Util/factory.h"
 #include "tprogression.h"
 #include "tresult.h"
 #include "tjsonserializable.h"
@@ -31,22 +27,9 @@ class TUser : public QObject, public TJsonSerializable {
 
     Q_OBJECT
 public:
-    TUser(const QString &pseudo = "", QObject *parent = 0) :
-		QObject(parent),
-		TJsonSerializable(),
-        id_(factory::nexUId()),
-		pseudo_(pseudo){
-    }
+    TUser(const QString &pseudo = "", QObject *parent = 0);
 
-    TUser(const TUser &orig) :
-	QObject(orig.parent()),
-	TJsonSerializable(),
-    id_(orig.id()),
-    pseudo_(orig.pseudo_),
-    progress_(orig.progress_),
-    statistics_(orig.statistics_),
-    practiceHistory_(orig.practiceHistory_){
-    }
+    TUser(const TUser &other);
 
     virtual ~TUser();
 

@@ -14,8 +14,6 @@
 #ifndef TPROGRESSION_H
 #define TPROGRESSION_H
 
-#include <QDebug>
-#include <QDataStream>
 #include "tjsonserializable.h"
 
 /**

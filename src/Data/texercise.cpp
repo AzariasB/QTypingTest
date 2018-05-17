@@ -16,7 +16,7 @@
 #include "Util/factory.h"
 #include "Data/tlayout.h"
 #include "tapplication.h"
-
+#include <QJsonObject>
 
 TExercise::TExercise() :
 learningLetters_(""),

@@ -16,8 +16,6 @@
 
 #include <QObject>
 #include <QList>
-#include <QDataStream>
-#include <QJsonDocument>
 #include <QFile>
 
 #include "tuser.h"
@@ -30,22 +28,9 @@ public:
 
     TUserManager(const QString &destFilePath);
 
-	void disconnectCurrentUser(){
-		currentUser_ = nullptr;
-		emit userDiconnected();
-	}
+    void disconnectCurrentUser();
 
-	bool setCurrentUser(TUser &nwUser) {
-        //Can only set an existing user
-		if(users_.contains(nwUser)){
-			currentUser_ = &nwUser;
-			emit userChanged(*currentUser_);
-			return true;
-        }else{
-			qWarning() <<  "Trying to set a non-existing user";
-			return false;
-        }
-    }
+    bool setCurrentUser(TUser &nwUser);
 
 	/**
 	 * @brief getCurrentUser
@@ -53,17 +38,11 @@ public:
 	 *
 	 * @return pointer to the current user
 	 */
-	TUser &getCurrentUser() {
-		if(currentUser_ == nullptr){
-			qWarning() << "Tried to get user when not connected";
-		}
-		return *currentUser_;
-    }
+    TUser &getCurrentUser();
 
 	bool isUserConnected(){
 		return currentUser_ != nullptr;
 	}
-
 
 
 	QFile &getSaveFile(){

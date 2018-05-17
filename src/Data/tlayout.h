@@ -32,11 +32,7 @@
 #define TLAYOUTS_H
 
 #include <QStringList>
-#include <QDebug>
 #include <QList>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QJsonArray>
 
 
 /**

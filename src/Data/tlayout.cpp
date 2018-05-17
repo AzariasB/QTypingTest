@@ -12,6 +12,9 @@
 
 #include "tlayout.h"
 
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include "Util/factory.h"
 
 

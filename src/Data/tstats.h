@@ -14,9 +14,6 @@
 #define TSTATS_H
 
 #include <QHash>
-#include <QtCore>
-#include <QJsonObject>
-
 
 #include "tjsonserializable.h"
 /**
@@ -27,7 +24,6 @@
 class TStats : public QHash<QChar,int>, public TJsonSerializable {
 public:
     TStats();
-    TStats(const TStats& orig);
     virtual ~TStats();
     
     void add(const TStats &otherStat);

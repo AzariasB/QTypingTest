@@ -1,8 +1,7 @@
 #ifndef TJSONOBJECT_H
 #define TJSONOBJECT_H
 
-#include <QJsonObject>
-
+class QJsonObject;
 
 class TJsonSerializable {
 public:

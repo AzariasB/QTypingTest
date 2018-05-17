@@ -6,6 +6,7 @@
  */
 
 #include "tprogression.h"
+#include <QJsonObject>
 
 TProgression::TProgression() :
     lastExerciseIndex_(0) {

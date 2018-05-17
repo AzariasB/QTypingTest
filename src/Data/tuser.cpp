@@ -11,8 +11,27 @@
  */
 
 #include "tuser.h"
-
 #include "tjsonserializable.h"
+#include "Util/factory.h"
+#include <QJsonObject>
+#include <QJsonArray>
+
+TUser::TUser(const QString &pseudo, QObject *parent) :
+    QObject(parent),
+    TJsonSerializable(),
+    id_(factory::nexUId()),
+    pseudo_(pseudo){
+}
+
+TUser::TUser(const TUser &other):
+    id_(other.id_),
+    pseudo_(other.pseudo_),
+    progress_(other.progress_),
+    statistics_(other.statistics_),
+    practiceHistory_(other.practiceHistory_)
+{
+
+}
 
 QDateTime TUser::addResult(const TExercise &exo) {
 	practiceHistory_ << exo;

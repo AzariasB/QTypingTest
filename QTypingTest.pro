@@ -16,21 +16,6 @@ INCLUDEPATH = $$PRO_PATH/src
 greaterThan(QT_MAJOR_VERSION, 5): QT += widgets
 
 
-#Change config depending on the build configuration
-CONFIG(debug, debug|release) {
-        TARGET = QTypingTest
-        DESTDIR = Debug
-        OBJECTS_DIR = Debug/.obj
-        MOC_DIR = Debug/.moc
-        RCC_DIR = Debug/.rcc
-} else {
-        TARGET = QTypingTest
-        DESTDIR = Release
-        OBJECTS_DIR = Release/.obj
-        MOC_DIR = Release/.moc
-        RCC_DIR = Release/.rcc
-}
-
 UI_DIR = src/UI
 
 

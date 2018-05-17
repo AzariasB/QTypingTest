@@ -13,8 +13,6 @@
 #ifndef TRESULT_H
 #define TRESULT_H
 
-#include <qdatastream.h>
-
 #include <QString>
 #include "tjsonserializable.h"
 

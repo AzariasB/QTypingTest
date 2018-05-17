@@ -12,17 +12,12 @@
  */
 
 #include "tstats.h"
+#include <QJsonObject>
 
 TStats::TStats() :
 QHash(){
 }
 
-TStats::TStats(const TStats& orig):
-QHash(){
-    for(auto it = orig.begin();it != orig.end();++it){
-        insert(it.key(),it.value());
-    }
-}
 
 void TStats::read(const QJsonObject &json)
 {
@@ -34,9 +29,9 @@ void TStats::read(const QJsonObject &json)
 
 void TStats::write(QJsonObject &json) const
 {
-	for(auto it = this->begin(); it != this->end();++it){
-		json[it.key()] = it.value();
-	}
+    for(auto it = this->begin(); it != this->end(); ++it){
+        json[it.key()] = it.value();
+    }
 }
 
 TStats::~TStats() {

@@ -12,11 +12,39 @@
  */
 
 #include "tusermanager.h"
+#include <QDebug>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 TUserManager::TUserManager(const QString &destFilePath) :
 QObject(),
 saveFile_(destFilePath){
     currentUser_ = 0;
+}
+
+void TUserManager::disconnectCurrentUser(){
+    currentUser_ = nullptr;
+    emit userDiconnected();
+}
+
+TUser &TUserManager::getCurrentUser() {
+    if(currentUser_ == nullptr){
+        qWarning() << "Tried to get user when not connected";
+    }
+    return *currentUser_;
+}
+
+bool TUserManager::setCurrentUser(TUser &nwUser) {
+    //Can only set an existing user
+    if(users_.contains(nwUser)){
+        currentUser_ = &nwUser;
+        emit userChanged(*currentUser_);
+        return true;
+    }else{
+        qWarning() <<  "Trying to set a non-existing user";
+        return false;
+    }
 }
 
 TUserManager::~TUserManager() {
@@ -47,7 +75,7 @@ QList<TUser> &TUserManager::readUsers()
 
 void TUserManager::addUser(const TUser &nwUser)
 {
-    users_.append(std::move(nwUser));
+    users_.append(nwUser);
 }
 
 bool TUserManager::removeUser(const TUser &toRemove)

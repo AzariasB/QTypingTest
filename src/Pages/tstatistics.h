@@ -7,11 +7,6 @@
 #define TSTATISTICS_H
 
 #include <QWidget>
-#include <QPainter>
-#include <QMouseEvent>
-#include <QStaticText>
-#include <QTextDocument>
-#include <stdlib.h>
 
 #include "Data/tresult.h"
 

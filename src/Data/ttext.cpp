@@ -1,3 +1,5 @@
+
+#include <QDomElement>
 #include "ttext.h"
 
 TText::TText():

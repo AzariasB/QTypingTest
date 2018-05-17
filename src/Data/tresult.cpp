@@ -13,6 +13,7 @@
 #include "tresult.h"
 
 #include "Util/htmlhelper.h"
+#include <QJsonObject>
 
 
 TResult::TResult() {

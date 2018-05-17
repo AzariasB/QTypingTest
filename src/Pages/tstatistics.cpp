@@ -5,7 +5,10 @@
 
 #include "tstatistics.h"
 
-
+#include <QPainter>
+#include <QMouseEvent>
+#include <QDebug>
+#include <qstatictext.h>
 #include "Data/tuser.h"
 #include "Data/tusermanager.h"
 #include "tapplication.h"

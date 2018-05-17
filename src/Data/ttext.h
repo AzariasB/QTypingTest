@@ -2,7 +2,7 @@
 #define TTEXT_H
 
 #include <QString>
-#include <QDomElement>
+class QDomElement;
 
 /**
  * @brief The TText class
