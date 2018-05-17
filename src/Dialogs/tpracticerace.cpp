@@ -14,6 +14,8 @@
 
 #include "Data/texercise.h"
 #include "Data/tresult.h"
+#include <QShortcut>
+#include <QStackedLayout>
 
 TPracticeRace::TPracticeRace(int timeStart,QWidget *parent) :
 TWindowTest(TExercise::generateExercise(TExercise::PRACTICING_RACE), parent) {

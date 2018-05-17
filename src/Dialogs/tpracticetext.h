@@ -14,8 +14,6 @@
 #ifndef TPRACTICETEXT_H
 #define TPRACTICETEXT_H
 
-#include <QWidget>
-
 #include "twindowtest.h"
 
 class TExercise;

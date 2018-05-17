@@ -25,6 +25,46 @@
 #include "Data/tresult.h"
 #include "Data/texercise.h"
 #include "Util/factory.h"
+#include "Data/tusermanager.h"
+#include "tapplication.h"
+
+#include <QKeyEvent>
+#include <QStackedLayout>
+#include <QDesktopWidget>
+#include <QShortcut>
+
+TWindowTest::TWindowTest(const TExercise &exercise, QWidget* parent) :
+QDialog(parent),
+pages_(TStackPages(2)),
+um_(tApp.getUserManager()),
+exercise_(exercise),
+timeStart_(QTime(0, 0)),
+mainLayout_(new QStackedLayout())
+{
+    setupWidget();
+}
+
+TWindowTest::TWindowTest(const QString &text, const TExercise &exercise, QWidget *parent) :
+QDialog(parent),
+pages_(TStackPages(text, 2)),
+um_(tApp.getUserManager()),
+exercise_(exercise),
+timeStart_(QTime()),
+mainLayout_(new QStackedLayout())
+{
+    setupWidget();
+}
+
+TWindowTest::TWindowTest(const QString &text, int numberOfPages, const TExercise &exercise,  QWidget *parent) :
+QDialog(parent),
+pages_(TStackPages(text, numberOfPages)),
+um_(tApp.getUserManager()),
+exercise_(exercise),
+timeStart_(QTime()),
+mainLayout_(new QStackedLayout())
+{
+    setupWidget();
+}
 
 void TWindowTest::setupWidget() {
     QWidget *mainWidget = new QWidget();

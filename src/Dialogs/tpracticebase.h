@@ -13,8 +13,6 @@
 #ifndef TPRACTICEBASE_H
 #define TPRACTICEBASE_H
 
-#include <QWidget>
-
 #include "twindowtest.h"
 
 class TExercise;

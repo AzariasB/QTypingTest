@@ -16,6 +16,7 @@
 #include "Widgets/tpresentation.h"
 #include "Data/texercise.h"
 #include "tapplication.h"
+#include <QStackedLayout>
 
 TWindowLearn::TWindowLearn(TExercise &ex, QWidget* parent) :
 TWindowTest(ex.buildExercise() ,ex, parent),

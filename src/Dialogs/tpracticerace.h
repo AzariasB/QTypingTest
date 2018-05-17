@@ -15,8 +15,6 @@
 
 #define RACE_TIME 60
 
-#include <QWidget>
-#include <QDebug>
 
 #include "twindowtest.h"
 

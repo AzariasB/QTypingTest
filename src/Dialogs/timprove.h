@@ -12,7 +12,6 @@
 #ifndef TIMPROVE_H
 #define TIMPROVE_H
 
-#include <QWidget>
 #include <QChar>
 
 #include "twindowtest.h"

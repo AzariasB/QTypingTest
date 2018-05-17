@@ -13,7 +13,6 @@
 #ifndef TWINDOWLEARN_H
 #define TWINDOWLEARN_H
 
-#include <QWidget>
 #include "twindowtest.h"
 
 class TExercise;

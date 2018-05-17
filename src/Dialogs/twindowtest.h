@@ -13,22 +13,12 @@
 #define TWINDOWTEST_H
 
 #include <QDialog>
-#include <QWidget>
 #include <QTime>
-#include <QShortcut>
-#include <QKeySequence>
-#include <QVBoxLayout>
-#include <QKeyEvent>
-#include <QDebug>
-#include <QStackedLayout>
-#include <QStyle>
-#include <QDesktopWidget>
 
 #include "Widgets/tstackpages.h"
 #include "Widgets/ttoolbar.h"
-#include "Data/tusermanager.h"
-#include "tapplication.h"
 
+class QStackedLayout;
 class TResult;
 class TExercise;
 
@@ -36,38 +26,11 @@ class TWindowTest : public QDialog {
 
     Q_OBJECT
 public:
-    TWindowTest(const TExercise &exercise, QWidget* parent = 0) :
-    QDialog(parent),
-	pages_(TStackPages(2)),
-	um_(tApp.getUserManager()),
-	exercise_(exercise),
-	timeStart_(QTime(0, 0)),
-	mainLayout_(new QStackedLayout())
-	{
-        setupWidget();
-    }
+    TWindowTest(const TExercise &exercise, QWidget* parent = 0);
 
-    TWindowTest(const QString &text, const TExercise &exercise, QWidget *parent = 0) :
-    QDialog(parent),
-	pages_(TStackPages(text, 2)),
-	um_(tApp.getUserManager()),
-	exercise_(exercise),
-	timeStart_(QTime()),
-	mainLayout_(new QStackedLayout())
-	{
-        setupWidget();
-    }
+    TWindowTest(const QString &text, const TExercise &exercise, QWidget *parent = 0);
 
-    TWindowTest(const QString &text, int numberOfPages, const TExercise &exercise,  QWidget *parent = 0) :
-    QDialog(parent),
-	pages_(TStackPages(text, numberOfPages)),
-	um_(tApp.getUserManager()),
-	exercise_(exercise),
-	timeStart_(QTime()),
-	mainLayout_(new QStackedLayout())
-	{
-        setupWidget();
-    }
+    TWindowTest(const QString &text, int numberOfPages, const TExercise &exercise,  QWidget *parent = 0);
 
     TToolbar *toolBar() {
         return &topToolbar_;

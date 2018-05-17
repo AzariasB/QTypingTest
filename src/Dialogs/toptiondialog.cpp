@@ -11,7 +11,6 @@
 
 #include "toptiondialog.h"
 
-#include "Data/tusermanager.h"
 #include "Data/tuser.h"
 
 TOptionDialog::TOptionDialog(const TUser &user,QWidget *parent):

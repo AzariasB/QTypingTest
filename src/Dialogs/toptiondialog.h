@@ -13,8 +13,6 @@
 #define TOPTIONDIALOG_H
 
 #include <QDialog>
-#include <QDebug>
-
 #include "UI/ui_options.h"
 
 class TUserManager;
