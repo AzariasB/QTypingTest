@@ -13,7 +13,6 @@
 
 #include <QWidget>
 #include <QLabel>
-#include <QLCDNumber>
 #include <QTimer>
 #include <QTime>
 #include <QPushButton>

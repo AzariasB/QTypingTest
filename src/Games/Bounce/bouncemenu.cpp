@@ -11,11 +11,13 @@
 
 #include "bouncemenu.h"
 #include "src/Games/recttext.h"
+#include "src/Games/menubutton.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QIcon>
+#include <QLabel>
 #include <QKeyEvent>
 
 BounceMenu::BounceMenu(QWidget *parent):

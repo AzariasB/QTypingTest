@@ -10,7 +10,14 @@
  */
 
 #include "bouncemain.h"
+#include "bouncemenu.h"
+#include "bouncegame.h"
+#include "bouncedata.h"
+#include "bouncehelp.h"
+#include "bouncescore.h"
+
 #include <QDebug>
+#include <QStackedLayout>
 #include <QFontDatabase>
 
 BounceMain::BounceMain(QWidget *parent) : QWidget(parent),

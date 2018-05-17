@@ -13,14 +13,13 @@
 #define BOUNCEMAIN_H
 
 #include <QWidget>
-#include <QStackedLayout>
-#include <QHBoxLayout>
 
-#include "bouncemenu.h"
-#include "bouncegame.h"
-#include "bouncedata.h"
-#include "bouncehelp.h"
-#include "bouncescore.h"
+class BounceMenu;
+class BounceHelp;
+class BounceData;
+class BounceGame;
+class BounceScore;
+class QStackedLayout;
 
 class BounceMain : public QWidget
 {

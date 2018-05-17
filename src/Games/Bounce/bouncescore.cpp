@@ -16,6 +16,10 @@
 #include <qdebug.h>
 #include <QPushButton>
 #include <QLabel>
+#include <QVBoxLayout>
+#include <QInputDialog>
+#include <QJsonObject>
+#include <QJsonArray>
 
 const QString BounceScore::saveFileName = "bounce.json";
 

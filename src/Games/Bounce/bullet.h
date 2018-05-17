@@ -15,13 +15,9 @@
 
 #define BULLET_RADIUS 10
 
-#include <QGraphicsItem>
 #include <QGraphicsEllipseItem>
-#include <QDebug>
-#include <QPainter>
-
-#include "letterwall.h"
 #include "src/Games/vector2f.h"
+class LetterWall;
 
 /**
  * @brief The Bullet class

@@ -11,7 +11,10 @@
  */
 
 #include "bullet.h"
-#include <qmath.h>
+#include "letterwall.h"
+#include <QtMath>
+#include <QPainter>
+
 
 Bullet::Bullet(QGraphicsItem *parent):
 	QGraphicsEllipseItem(0,0, BULLET_RADIUS, BULLET_RADIUS, parent),

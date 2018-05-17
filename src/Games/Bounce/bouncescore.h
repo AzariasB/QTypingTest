@@ -12,14 +12,12 @@
 #ifndef BOUNCESCORE_H
 #define BOUNCESCORE_H
 
-#include <QWidget>
 #include <QTime>
 #include <QFile>
-#include <QJsonValue>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QInputDialog>
-#include <QVBoxLayout>
+#include <QWidget>
+
+class QHBoxLayout;
+class QVBoxLayout;
 
 struct PlayerScore{
 	QString pseudo;

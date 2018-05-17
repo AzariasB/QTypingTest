@@ -12,11 +12,10 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <QObject>
-#include <QLabel>
 #include <QWidget>
+#include <QList>
 
-#include "src/Games/menubutton.h"
+class MenuButton;
 
 class BounceMenu : public QWidget
 {

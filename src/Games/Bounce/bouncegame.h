@@ -14,20 +14,10 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QWidget>
-#include <QDebug>
-#include <QResizeEvent>
 #include <QTimer>
-#include <QtMultimedia/QSound>
-
-#include "bullet.h"
-#include "letterwall.h"
-#include "src/Games/recttext.h"
-#include "src/Games/animatedsprite.h"
+#include <QTime>
 #include "src/Games/resourcemanager.h"
-#include "bouncemenu.h"
-#include "bouncedata.h"
-#include "countdown.h"
+#include "src/Games/vector2f.h"
 
 // Size (x*x) of a single wall
 #define WALL_SIZE 40
@@ -41,6 +31,12 @@ enum class GameSate{
 	Lost,
 	Countdown
 };
+
+class BounceData;
+class Countdown;
+class Bullet;
+class LetterWall;
+class RectText;
 
 /**
  * @brief The Bounce class
@@ -110,7 +106,7 @@ signals:
 	 * @brief gameEnded Trigerred when the 'esc' key is pressed
 	 * @param score score when key is pressed
 	 */
-	void gameEnded(int score, QTime time);
+    void gameEnded(int score, QTime time);
 
 protected:
 	void keyPressEvent(QKeyEvent *event) override;

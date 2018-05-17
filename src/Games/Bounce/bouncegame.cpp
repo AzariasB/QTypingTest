@@ -11,6 +11,14 @@
 
 #include "bouncegame.h"
 #include <QList>
+#include <QResizeEvent>
+#include <QDebug>
+#include "bouncedata.h"
+#include "countdown.h"
+#include "bullet.h"
+#include "letterwall.h"
+#include "src/Games/recttext.h"
+#include "src/Games/animatedsprite.h"
 
 const QString BounceGame::alphabet = "abcdefghijklmnopqrstuvwxyz,./?;";
 const int BounceGame::startingLives = 5;
