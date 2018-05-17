@@ -15,11 +15,6 @@
 
 
 #include <QWidget>
-#include <QLabel>
-#include <QGridLayout>
-#include <QPainter>
-#include <QPaintEvent>
-#include <QDebug>
 
 #include "tfingerposition.h"
 
@@ -137,11 +132,7 @@ public slots:
 
 protected:
 
-    void paintEvent(QPaintEvent *e) {
-        QPainter painter(this);
-        painter.drawRect(0, 0, width() - 1, height() - 1);
-        QWidget::paintEvent(e);
-    }
+    void paintEvent(QPaintEvent *e);
 
 
 private:

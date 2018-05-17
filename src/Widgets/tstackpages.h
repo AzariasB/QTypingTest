@@ -12,15 +12,10 @@
 #ifndef TSTACKPAGES_H
 #define TSTACKPAGES_H
 
-#include <QWidget>
 #include <QStackedWidget>
-#include <QStringList>
-#include <QList>
-#include <QKeyEvent>
-#include <QDebug>
 
-#include "Data/tresult.h"
-#include "Widgets/tpage.h"
+class TPage;
+class TResult;
 
 class TStackPages : public QStackedWidget {
     Q_OBJECT
@@ -38,9 +33,7 @@ public:
         return count();
     }
 
-    TPage *currentPage() const {
-        return static_cast<TPage*> (this->currentWidget());
-    }
+    TPage *currentPage() const;
 
     void addPage(const QString &pageText, bool isFirst = false);
 

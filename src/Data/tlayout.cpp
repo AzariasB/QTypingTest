@@ -15,6 +15,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QDebug>
 #include "Util/factory.h"
 
 

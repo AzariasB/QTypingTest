@@ -13,10 +13,7 @@
 #ifndef HTMLHELPER_H
 #define HTMLHELPER_H
 
-#include <QStringList>
-#include <QRegExp>
-#include <QDebug>
-
+#include <QString>
 
 namespace html {
     /**

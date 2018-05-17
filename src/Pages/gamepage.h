@@ -14,12 +14,8 @@
 #define GAMEPAGE_H
 
 #include <QWidget>
-#include <QPushButton>
-#include <QGridLayout>
-#include <QDialog>
 
-#include "Games/Bounce/bouncemain.h"
-
+class QPushButton;
 class TPresentation;
 
 class GamePage : public QWidget {

@@ -11,6 +11,9 @@
  */
 
 #include "htmlhelper.h"
+#include <QStringList>
+#include <QRegExp>
+#include <QDebug>
 
 /**
  * Little helper to create tags into tags and return a regex-ready string to add the text needed in the center

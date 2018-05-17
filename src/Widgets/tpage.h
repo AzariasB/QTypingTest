@@ -15,18 +15,9 @@
 #define TPAGE_H
 
 #include <QWidget>
-#include <QLineEdit>
-#include <QVBoxLayout>
-#include <QKeyEvent>
-#include <QApplication>
-#include <QValidator>
-#include <QList>
-
-#include "Data/tresult.h"
-#include "Util/factory.h"
-#include "Data/tusermanager.h"
-
 #include "tlabel.h"
+#include "Data/tresult.h"
+class QVBoxLayout;
 
 class TPage : public QWidget {
     Q_OBJECT

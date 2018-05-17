@@ -10,9 +10,18 @@
  * Created on 20 janvier 2016, 09:58
  */
 
-//#include <qt5/QtCore/qnamespace.h>
-
 #include "ttoolbar.h"
+
+#include <QCheckBox>
+#include <QLCDNumber>
+#include <QLabel>
+#include <QTimer>
+#include <QTime>
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QHBoxLayout>
+#include <qnamespace.h>
+#include <QDebug>
 
 TToolbar::TToolbar(QWidget *parent) :
 QWidget(parent),
@@ -51,6 +60,11 @@ void TToolbar::setupToolbar() {
 
     this->setLayout(toolbarLayout);
 
+}
+
+void TToolbar::setProgression(const QString &text)
+{
+    pageProgression_->setText(text);
 }
 
 void TToolbar::setAdditionnalText(const QString &text)

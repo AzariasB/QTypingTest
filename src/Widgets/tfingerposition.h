@@ -14,16 +14,9 @@
 #define TFINGERPOSITION_H
 
 #include <QWidget>
-#include <QPainter>
-#include <QPainterPath>
-#include <QBrush>
-#include <QList>
-#include <QVector>
-#include <QPolygon>
-#include <QDebug>
-#include <QPaintEvent>
-#include <QKeyEvent>
+#include <QPoint>
 
+class QPaintEvent;
 
 class TFingerPosition : public QWidget {
     Q_OBJECT

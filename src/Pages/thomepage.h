@@ -12,15 +12,8 @@
 #ifndef THOMEPAGE_H
 #define THOMEPAGE_H
 
-#include <QWidget>
 #include <QMainWindow>
 #include <QVector>
-#include <QPushButton>
-#include <QDebug>
-#include <QHBoxLayout>
-#include <QMap>
-#include <QDesktopWidget>
-
 
 #include "UI/ui_homepage.h"
 
@@ -33,7 +26,7 @@ class PracticePage;
 class GamePage;
 class HomePage;
 
-
+class QPushButton;
 
 class THomePage : public QMainWindow {
     Q_OBJECT

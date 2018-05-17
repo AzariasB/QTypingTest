@@ -24,6 +24,7 @@ TUser::TUser(const QString &pseudo, QObject *parent) :
 }
 
 TUser::TUser(const TUser &other):
+    QObject(other.parent()),
     id_(other.id_),
     pseudo_(other.pseudo_),
     progress_(other.progress_),

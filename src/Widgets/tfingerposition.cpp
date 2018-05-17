@@ -12,6 +12,15 @@
  */
 
 #include "tfingerposition.h"
+#include <QPainter>
+#include <QPainterPath>
+#include <QBrush>
+#include <QList>
+#include <QVector>
+#include <QPolygon>
+#include <QDebug>
+#include <QPaintEvent>
+
 
 TFingerPosition::TFingerPosition(QWidget* parent) :
 	QWidget(parent),

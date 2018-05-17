@@ -14,6 +14,16 @@
 #include "tpage.h"
 #include "tapplication.h"
 
+#include <QLineEdit>
+#include <QVBoxLayout>
+#include <QKeyEvent>
+#include <QApplication>
+#include <QValidator>
+#include <QList>
+
+#include "Util/factory.h"
+#include "Data/tusermanager.h"
+
 TPage::TPage(const QString &model, QWidget *parent) : QWidget(parent),
 tLineLayout_(new QVBoxLayout(this)),
 globalAnswer_(model){

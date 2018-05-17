@@ -14,7 +14,8 @@
 
 
 #include "tlabel.h"
-#ifdef TLABEL_H
+#include <QDebug>
+#include <QFont>
 
 TLabel::TLabel(QString text, QWidget* parent):
 QLabel(parent),
@@ -61,5 +62,3 @@ bool TLabel::previousChar() {
 
 TLabel::~TLabel() {
 }
-
-#endif

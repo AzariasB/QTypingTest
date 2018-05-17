@@ -15,15 +15,7 @@
 
 
 #include <QWidget>
-
 #include <QHash>
-#include <QRegExp>
-#include <QDebug>
-#include <QList>
-#include <QHash>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QTimer>
 
 #include "tvirtualkey.h"
 #include "Data/tlayout.h"
@@ -38,7 +30,7 @@ public:
     }
 
 
-	QHash<uint, TVirtualKey*> *getKeys() const {
+    QHash<uint, TVirtualKey*> getKeys() const {
         return keys_;
     }
 
@@ -191,7 +183,7 @@ private:
     /* All the 'normal' keys that can change of position on the 
      * keyboard
      *  */
-	QHash<uint, TVirtualKey*> *keys_;
+    QHash<uint, TVirtualKey*> keys_;
 
 	/**
 	 * @brief getKeyCode
@@ -206,7 +198,7 @@ private:
      All the 'special' keys that will always be on the same position
      * on the keyboard (spacebar, shift, enter, ...)
      */
-    QHash<int,TVirtualKey*> *modifiers_;
+    QHash<int,TVirtualKey*> modifiers_;
     
     //Separate the two shift (qt does not separate left and right shift)
     TVirtualKey *leftShift_;

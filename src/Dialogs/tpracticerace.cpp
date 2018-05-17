@@ -12,6 +12,7 @@
 
 #include "tpracticerace.h"
 
+#include "Widgets/tpage.h"
 #include "Data/texercise.h"
 #include "Data/tresult.h"
 #include <QShortcut>

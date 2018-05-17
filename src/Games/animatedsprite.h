@@ -13,8 +13,6 @@
 
 #include <QGraphicsRectItem>
 #include <QPixmap>
-#include <QPainter>
-#include <QGraphicsScene>
 #include <QTimer>
 
 class AnimatedSprite : public QGraphicsRectItem

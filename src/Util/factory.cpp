@@ -9,6 +9,9 @@
  * Created on 14 décembre 2015, 20:41
  */
 #include "factory.h"
+#include <QDebug>
+#include <algorithm>
+#include <QFile>
 
 
 /**

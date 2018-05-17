@@ -32,6 +32,7 @@
 #include <QStackedLayout>
 #include <QDesktopWidget>
 #include <QShortcut>
+#include <QApplication>
 
 TWindowTest::TWindowTest(const TExercise &exercise, QWidget* parent) :
 QDialog(parent),

@@ -14,9 +14,6 @@
 #define FACTORY_H
 
 #include <QStringList>
-#include <QDebug>
-#include <algorithm>
-#include <QFile>
 #include <QDomDocument>
 #include "Data/ttext.h"
 

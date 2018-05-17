@@ -14,13 +14,16 @@
 
 #include <QDialog>
 #include <QTime>
+#include <QTimer>
+#include <QLineEdit>
 
 #include "Widgets/tstackpages.h"
 #include "Widgets/ttoolbar.h"
+#include "Data/texercise.h"
 
 class QStackedLayout;
 class TResult;
-class TExercise;
+class TUserManager;
 
 class TWindowTest : public QDialog {
 

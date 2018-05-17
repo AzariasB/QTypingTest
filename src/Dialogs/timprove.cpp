@@ -12,6 +12,8 @@
 
 
 #include "timprove.h"
+#include "Data/tusermanager.h"
+#include "Util/factory.h"
 
 TImprove::TImprove(QWidget* parent):
 TWindowTest(TExercise::generateExercise(TExercise::IMPROVING), parent){

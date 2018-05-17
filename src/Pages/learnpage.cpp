@@ -19,6 +19,13 @@
 #include "Dialogs/twindowlearn.h"
 #include "tapplication.h"
 
+#include <QPushButton>
+#include <QMessageBox>
+#include <QTime>
+#include <QDebug>
+#include <QScrollArea>
+#include <QGridLayout>
+
 LearnPage::LearnPage(QWidget* parent) :
 QWidget(parent),
 um(tApp.getUserManager()),
@@ -46,7 +53,7 @@ void LearnPage::createPractice() {
 }
 
 void LearnPage::createButtons(QGridLayout *lay) {
-    QStringList l = practice_.getLearningCouples();
+    QStringList l = tApp.getLayout().getLearningCouples();
 
     int buttonWidth = 100;
 
@@ -104,8 +111,8 @@ void LearnPage::lauchExercise() {
             QMessageBox::critical(this, "Exercise already running", "There is alerady a running exercise");
         } else {
             currentProgression_ = lastLetterIndex;
-            QString lastLetter = practice_.getLettersAt(lastLetterIndex);
-            QString allLetters = practice_.getAllLettersTo(lastLetterIndex + 1);
+            QString lastLetter = tApp.getLayout().getLettersAt(lastLetterIndex);
+            QString allLetters = tApp.getLayout().getAllLettersTo(lastLetterIndex + 1);
             TExercise ex = TExercise::generateExercise(TExercise::LEARNING, lastLetter, allLetters);
 
 

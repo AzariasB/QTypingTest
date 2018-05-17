@@ -15,7 +15,10 @@
 
 #include "Widgets/tpresentation.h"
 #include "tapplication.h"
-
+#include "Games/Bounce/bouncemain.h"
+#include <QDialog>
+#include <QGridLayout>
+#include <QPushButton>
 
 GamePage::~GamePage(){
 }

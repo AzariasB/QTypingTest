@@ -14,17 +14,11 @@
 #define TTOOLBAR_H
 
 #include <QWidget>
-#include <QCheckBox>
-#include <QLCDNumber>
-#include <QLabel>
-#include <QTimer>
-#include <QTime>
-#include <QPushButton>
-#include <QSpacerItem>
-#include <QHBoxLayout>
-#include <qnamespace.h>
 
-#include <QDebug>
+class QPushButton;
+class QLCDNumber;
+class QLabel;
+
 
 class TToolbar : public QWidget {
     Q_OBJECT
@@ -32,12 +26,9 @@ public:
     explicit TToolbar(QWidget *parent = 0);
 
     virtual ~TToolbar() {
-        ;
     }
 
-    void setProgression(const QString &text) {
-        pageProgression_->setText(text);
-    }
+    void setProgression(const QString &text);
     
     void setLCDDisplayValue(int value){
         secondsValue_ = value;

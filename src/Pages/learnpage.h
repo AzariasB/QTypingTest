@@ -16,15 +16,7 @@
 #define BUTTON_WIDTH 100
 
 #include <QWidget>
-#include <QPushButton>
-#include <QMessageBox>
-#include <QGridLayout>
-#include <QDebug>
 #include <QVector>
-#include <QScrollArea>
-#include <QTime>
-#include "Data/tusermanager.h"
-#include "tapplication.h"
 
 class TExercise;
 class TResult;
@@ -32,6 +24,8 @@ class TUserManager;
 class TWindowLearn;
 class TUser;
 class TLayout;
+class QGridLayout;
+class QPushButton;
 
 class LearnPage : public QWidget {
     Q_OBJECT
@@ -87,9 +81,6 @@ private:
    
 	//Reference to the app's user manager
 	TUserManager &um;
-
-    //Save the tpractice instead of instanciate it over and over
-	TLayout practice_ = tApp.getLayout();
 
     //Have a unique window for the exercise that will change depending on the exercises
     TWindowLearn *testWindow_;

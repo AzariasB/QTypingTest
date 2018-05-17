@@ -13,6 +13,7 @@
 #include "tpresentation.h"
 
 #include "tapplication.h"
+#include <QVBoxLayout>
 
 TPresentation::TPresentation(TLayout&layout, QWidget* parent) :
 QWidget(parent),

@@ -25,6 +25,12 @@
 #include "tapplication.h"
 
 
+#include <QHBoxLayout>
+#include <QDesktopWidget>
+#include <QDebug>
+#include <QPushButton>
+#include <QMessageBox>
+
 THomePage::THomePage(QWidget *parent) :
 QMainWindow(parent),
   um(tApp.getUserManager())

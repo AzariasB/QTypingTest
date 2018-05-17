@@ -13,6 +13,12 @@
 
 
 #include "homepage.h"
+#include "Data/tusermanager.h"
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QInputDialog>
+#include <QMessageBox>
 
 HomePage::~HomePage(){
 }

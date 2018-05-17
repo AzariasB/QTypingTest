@@ -10,6 +10,8 @@
 
 
 #include "animatedsprite.h"
+#include <QPainter>
+#include <QGraphicsScene>
 
 AnimatedSprite::AnimatedSprite(QGraphicsItem *parent):
         QGraphicsRectItem(parent)

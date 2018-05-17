@@ -14,21 +14,11 @@
 #define HOMEPAGE_H
 
 #include <QWidget>
-#include <QList>
-#include <QFile>
-#include <QDataStream>
-#include <QDebug>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QInputDialog>
-#include <QMessageBox>
-#include <QApplication>
-#include "Data/tusermanager.h"
 #include "tapplication.h"
 
 class TUserManager;
 class TUser;
+class QVBoxLayout;
 
 class HomePage : public QWidget {
     Q_OBJECT

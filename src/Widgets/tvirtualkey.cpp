@@ -10,6 +10,12 @@
  */
 
 #include "tvirtualkey.h"
+#include <QLabel>
+#include <QGridLayout>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QDebug>
+
 
 TVirtualKey::TVirtualKey(const QString &content, QWidget *parent) :
 QWidget(parent) {
@@ -112,6 +118,12 @@ void TVirtualKey::constructLetters(const QString &letters) {
             default_ = letters[1];
             break;
     }
+}
+
+void TVirtualKey::paintEvent(QPaintEvent *e) {
+    QPainter painter(this);
+    painter.drawRect(0, 0, width() - 1, height() - 1);
+    QWidget::paintEvent(e);
 }
 
 void TVirtualKey::setText(const QString &text) {

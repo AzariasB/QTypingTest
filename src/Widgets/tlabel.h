@@ -13,10 +13,8 @@
 #ifndef TLABEL_H
 #define TLABEL_H
 
-#include <QWidget>
 #include <QLabel>
-#include <QDebug>
-#include <QFont>
+
 
 #include "Util/htmlhelper.h"
 

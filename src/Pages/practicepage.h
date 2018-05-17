@@ -15,10 +15,6 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QGridLayout>
-#include <QMessageBox>
-#include <QDebug>
-#include <QTime>
 
 
 class TWindowTest;
@@ -37,7 +33,7 @@ public:
     PracticePage(const PracticePage& orig);
 
     virtual ~PracticePage() {
-    };
+    }
 
 public slots:
     /* Start a practice against time */

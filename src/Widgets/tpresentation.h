@@ -14,7 +14,6 @@
 #define TPRESENTATION_H
 
 #include <QWidget>
-#include <QVBoxLayout>
 #include <QQueue>
 
 #include "tfingerposition.h"

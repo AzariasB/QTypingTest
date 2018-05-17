@@ -22,6 +22,11 @@
 #include "Data/tusermanager.h"
 #include "tapplication.h"
 
+#include <QGridLayout>
+#include <QTime>
+#include <QDebug>
+#include <QMessageBox>
+
 PracticePage::PracticePage(QWidget *parent) : QWidget(parent),
 practiceAgainstTime_(tr("Against time")),
 practiceDefault_(tr("Normal")),

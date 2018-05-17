@@ -12,6 +12,15 @@
 
 #include "tstackpages.h"
 
+#include <QStringList>
+#include <QList>
+#include <QKeyEvent>
+#include <QDebug>
+
+#include "Data/tresult.h"
+#include "Widgets/tpage.h"
+#include "Util/factory.h"
+
 TStackPages::TStackPages(QWidget *parent) :
 QStackedWidget(parent){
 }
@@ -20,6 +29,10 @@ TStackPages::TStackPages(const TStackPages& orig) :
 QStackedWidget(orig.parentWidget()),
 numberOfPages_(orig.numberOfPages()) {
     setupPages(orig.getText());
+}
+
+TPage *TStackPages::currentPage() const {
+    return static_cast<TPage*> (this->currentWidget());
 }
 
 TStackPages::TStackPages(const QString &text, int numberOfPages, QWidget *parent) :
